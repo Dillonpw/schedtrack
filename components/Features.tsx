@@ -5,7 +5,7 @@ const FeaturesSection = () => {
             <div className="container px-4 md:px-6">
                 <div className="flex flex-col items-center justify-center space-y-4 text-center">
                     <div className="space-y-2">
-                        <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
+                        <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl lg:text-5xl">
                             Streamline Your Schedule Management
                         </h2>
                         <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -62,7 +62,7 @@ const FeaturesSection = () => {
                         width="550"
                         height="310"
                         alt="Features"
-                        className="mx-auto aspect-video overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
+                        className="mx-auto aspect-video border-2 overflow-hidden rounded-xl object-cover object-center sm:w-full lg:order-last"
                     />
                 </div>
             </div>

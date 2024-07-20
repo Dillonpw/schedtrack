@@ -3,7 +3,10 @@ import Link from 'next/link';
 export default function Pricing() {
     return (
         <div className="gap-6 max-w-xl mx-auto py-10 px-20">
-            <div className="bg-background rounded-lg shadow-lg overflow-hidden dark:border-gray-600 dark:border">
+            <h2 className="text-4xl font-bold text-center pb-6 animate-bounce">
+                Limited time offer
+            </h2>
+            <div className="bg-background rounded-lg shadow-lg  border-2 p-10 overflow-hidden dark:border-gray-600 dark:border">
                 <div className="p-6 md:p-8">
                     <h3 className="text-4xl font-bold mb-2 text-center">
                         Subscribe
