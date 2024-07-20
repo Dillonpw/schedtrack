@@ -32,7 +32,7 @@ const HeroSection = () => {
                             </Button>
                             <Button asChild variant="secondary">
                                 <Link href="#" prefetch={false}>
-                                    Sign Up
+                                    Sign In
                                 </Link>
                             </Button>
                         </div>
