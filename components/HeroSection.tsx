@@ -19,10 +19,9 @@ const HeroSection = () => {
                                 Effortless Rotating Schedule Management
                             </h1>
                             <p className="max-w-[600px] text-muted-foreground md:text-xl md:text-left text-center">
-                                Our rotating schedule building app helps
-                                professionals create, share, and integrate
-                                custom schedules with ease. Say goodbye to
-                                manual planning.
+                                Our rotating schedule builder helps
+                                professionals track, share, and schedule with
+                                ease. Say goodbye to manual planning.
                             </p>
                         </div>
                         <div className="flex flex-col justify-center md:justify-start gap-2 min-[400px]:flex-row">
