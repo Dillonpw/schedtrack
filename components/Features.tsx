@@ -1,14 +1,13 @@
+import { ImageError } from 'next/dist/server/image-optimizer';
+import Image from 'next/image';
 const FeaturesSection = () => {
     return (
         <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
             <div className="container px-4 md:px-6">
                 <div className="flex flex-col items-center justify-center space-y-4 text-center">
                     <div className="space-y-2">
-                        <div className="inline-block rounded-lg bg-muted px-3 py-1 text-sm">
-                            Key Features for Rotating Schedules
-                        </div>
                         <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">
-                            Streamline Your Rotating Schedule Management
+                            Streamline Your Schedule Management
                         </h2>
                         <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                             Our rotating schedule building app offers a range of
@@ -59,7 +58,7 @@ const FeaturesSection = () => {
                             </li>
                         </ul>
                     </div>
-                    <img
+                    <Image
                         src="/vercel.svg"
                         width="550"
                         height="310"

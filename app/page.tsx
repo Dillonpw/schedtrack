@@ -2,6 +2,7 @@ import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
 import FeaturesSection from '@/components/Features';
 import TestimonialsSection from '@/components/Testimonials';
+import Pricing from '@/components/pricing';
 import Footer from '@/components/Footer';
 
 const Home = () => {
@@ -12,6 +13,8 @@ const Home = () => {
                 <HeroSection />
                 <FeaturesSection />
                 <TestimonialsSection />
+                <Pricing />
+                {/* <ScheduleGen /> */}
             </main>
             <Footer />
         </div>
