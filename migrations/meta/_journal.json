@@ -8,6 +8,13 @@
       "when": 1721489820049,
       "tag": "0000_lazy_firelord",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1721574437316,
+      "tag": "0001_futuristic_frog_thor",
+      "breakpoints": true
     }
   ]
 }
