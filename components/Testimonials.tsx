@@ -25,7 +25,7 @@ const TestimonialsSection = () => {
                     <Card className="bg-muted p-6 shadow-lg">
                         <div className="flex items-start gap-4">
                             <Avatar>
-                                <AvatarImage src="/placeholder-user.jpg" />
+                                <AvatarImage src="/vercel.svg" />
                                 <AvatarFallback>JD</AvatarFallback>
                             </Avatar>
                             <div>
@@ -47,7 +47,7 @@ const TestimonialsSection = () => {
                     <Card className="bg-muted p-6 shadow-lg">
                         <div className="flex items-start gap-4">
                             <Avatar>
-                                <AvatarImage src="/placeholder-user.jpg" />
+                                <AvatarImage src="/next.svg" />
                                 <AvatarFallback>JS</AvatarFallback>
                             </Avatar>
                             <div>
