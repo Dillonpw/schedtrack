@@ -1,5 +1,9 @@
-import SignIn from '@/components/Sign-in';
+import SignIn from "@/components/Sign-in";
 
 export default function Page() {
-    return <SignIn />;
+  return (
+    <main className="flex h-screen flex-col items-center justify-center">
+      <SignIn />
+    </main>
+  );
 }
