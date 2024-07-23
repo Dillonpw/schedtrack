@@ -1,4 +1,5 @@
 import Header from '@/components/Header';
+import AccountInfo from '@/components/AccountInfo';
 import HeroSection from '@/components/HeroSection';
 import FeaturesSection from '@/components/Features';
 import TestimonialsSection from '@/components/Testimonials';
@@ -11,6 +12,7 @@ const Home = () => {
         <div className="flex flex-col min-h-[100dvh]">
             <Header />
             <main className="flex-1">
+                <AccountInfo />
                 <HeroSection />
                 <FeaturesSection />
                 <TestimonialsSection />
