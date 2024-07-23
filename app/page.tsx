@@ -3,6 +3,7 @@ import HeroSection from '@/components/HeroSection';
 import FeaturesSection from '@/components/Features';
 import TestimonialsSection from '@/components/Testimonials';
 import Pricing from '@/components/pricing';
+import Faq from '@/components/Faq';
 import Footer from '@/components/Footer';
 
 const Home = () => {
@@ -13,8 +14,9 @@ const Home = () => {
                 <HeroSection />
                 <FeaturesSection />
                 <TestimonialsSection />
+                <Faq />
+
                 <Pricing />
-                {/* <ScheduleGen /> */}
             </main>
             <Footer />
         </div>

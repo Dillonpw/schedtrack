@@ -5,9 +5,7 @@ import { Calendar } from './ui/calendar';
 import React from 'react';
 
 const HeroSection = () => {
-    const initiallySelectedDates = [new Date(), (new Date(), 1)];
-
-    const [selectedDates, setSelectedDates] = React.useState<Date[]>([]);
+    const [date, setDate] = React.useState<Date | undefined>(new Date())
 
     return (
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
@@ -39,9 +37,9 @@ const HeroSection = () => {
                     </div>
                     <div className="w-fit mx-auto">
                         <Calendar
-                            mode="multiple"
-                            selected={selectedDates}
-                            onSelect={(dates) => setSelectedDates(dates || [])}
+                            mode="single"
+                            selected={date}
+                            onSelect={setDate}
                         />
                     </div>
                 </div>
