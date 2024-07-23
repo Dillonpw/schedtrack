@@ -1,9 +1,13 @@
 import Link from "next/link";
 import { CalendarIcon } from "./Icons";
 import ThemeToggle from "./ThemeToggle";
-import Nav from "./Nav";
+import { ReactNode } from "react";
 
-const Header = () => {
+interface HeaderProps {
+  children?: ReactNode;
+}
+
+const Header = ({ children }: HeaderProps) => {
   return (
     <header className="flex h-14 items-center justify-between px-4 lg:px-6">
       <Link
@@ -17,7 +21,7 @@ const Header = () => {
           Rotating Schedule Builder
         </p>
       </Link>
-      <Nav />
+      {children}
       <ThemeToggle />
     </header>
   );
