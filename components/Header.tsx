@@ -21,8 +21,10 @@ const Header = ({ children }: HeaderProps) => {
           Rotating Schedule Builder
         </p>
       </Link>
-      {children}
-      <ThemeToggle />
+      <div className="flex gap-2">
+        {children}
+        <ThemeToggle />
+      </div>
     </header>
   );
 };
