@@ -23,7 +23,7 @@ const HeroSection = () => {
             </div>
             <div className="flex flex-col justify-center gap-2 min-[400px]:flex-row md:justify-start">
               <Button variant="default" asChild>
-                <Link href="#" prefetch={false}>
+                <Link href="/signin" prefetch={false}>
                   Get Started
                 </Link>
               </Button>
