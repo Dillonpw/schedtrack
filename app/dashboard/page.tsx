@@ -1,9 +1,12 @@
 import Header from "@/components/Header";
-import SignIn from "@/components/Sign-in";
+import { auth } from "@/auth";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
+export default async function Dashboard() {
+  const session = await auth();
 
-export default function SignInPage() {
-  return (
+  if (!session?.user)
+    return (
     <main>
       <Header />
       <div className="flex h-screen flex-col items-center justify-center">
@@ -14,8 +17,15 @@ export default function SignInPage() {
           {" "}
           Back
         </Link>
-        <SignIn />
+
       </div>
+    </main>
+    );
+
+  return (
+    <main>
+      <Header />
+      <h1>Dashboard</h1>
     </main>
   );
 }
