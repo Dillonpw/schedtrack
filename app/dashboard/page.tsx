@@ -1,15 +1,16 @@
 import Header from "@/components/Header";
 import { auth } from "@/auth";
-import { Button } from "@/components/ui/button";
+import SignIn from "@/components/Sign-in";
 import Link from "next/link";
+import AccountInfo from "@/components/AccountInfo";
+import ScheduleGen from "@/components/scheduleGen";
 export default async function Dashboard() {
-  const session = await auth();
+  /* const session = await auth();
 
   if (!session?.user)
     return (
-    <main>
-      <Header />
-      <div className="flex h-screen flex-col items-center justify-center">
+      <main>
+        <Header />
         <Link
           href="/"
           className="absolute left-10 top-20 text-2xl hover:underline"
@@ -17,15 +18,17 @@ export default async function Dashboard() {
           {" "}
           Back
         </Link>
-
-      </div>
-    </main>
-    );
+        <div className="flex h-screen flex-col items-center justify-center">
+          <SignIn />
+        </div>
+      </main>
+    ); */
 
   return (
     <main>
       <Header />
-      <h1>Dashboard</h1>
+      <AccountInfo />
+      <ScheduleGen />
     </main>
   );
 }

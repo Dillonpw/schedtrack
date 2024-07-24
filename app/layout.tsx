@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Metadata } from "next";
+import Footer from "@/components/Footer";
 import GoogleAdsense from "@/components/GoogleAdsense";
 
 const fontHeading = Inter({
@@ -108,6 +109,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         className={cn("antialiased", fontHeading.variable, fontBody.variable)}
       >
         <Providers>{children}</Providers>
+        <Footer />
       </body>
     </html>
   );

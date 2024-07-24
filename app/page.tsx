@@ -20,10 +20,8 @@ const Home = () => {
         <FeaturesSection />
         <TestimonialsSection />
         <Faq />
-
         <Pricing />
       </main>
-      <Footer />
     </div>
   );
 };

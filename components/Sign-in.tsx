@@ -1,6 +1,7 @@
 import { signIn } from "@/auth";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import { redirect } from "next/dist/server/api-utils";
 
 export default function SignIn() {
   return (
@@ -10,7 +11,7 @@ export default function SignIn() {
         className="flex flex-col items-center gap-2"
         action={async (formData) => {
           "use server";
-          await signIn("resend", formData);
+          await signIn("resend", formData, { redirectTo: "/dashboard" });
         }}
       >
         <Input type="text" name="email" placeholder="Email" />
@@ -22,7 +23,7 @@ export default function SignIn() {
       <form
         action={async () => {
           "use server";
-          await signIn("google");
+          await signIn("google", { redirectTo: "/dashboard" });
         }}
       >
         <Button size="signin" type="submit">
