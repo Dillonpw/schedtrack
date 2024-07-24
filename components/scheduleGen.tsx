@@ -10,6 +10,12 @@ import {
   TableHeader,
   TableRow,
 } from "./ui/table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface ScheduleEntry {
   date: string;
@@ -96,17 +102,29 @@ const ScheduleForm: React.FC = () => {
         <TableCaption>Work Schedule</TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="text-left w-[300px] text-xl font-semibold">Day of Week</TableHead>
-            <TableHead className="text-center w-[300px] text-xl font-semibold">Date</TableHead>
-            <TableHead className="text-right w-[300px] text-xl font-semibold">Shift</TableHead>
+            <TableHead className="w-[300px] text-left text-xl font-semibold">
+              Day of Week
+            </TableHead>
+            <TableHead className="w-[300px] text-center text-xl font-semibold">
+              Date
+            </TableHead>
+            <TableHead className="w-[300px] text-right text-xl font-semibold">
+              Shift
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {schedule.map((entry, index) => (
             <TableRow key={index}>
-              <TableCell className="text-left w-[300px]">{entry.dayOfWeek}</TableCell>
-              <TableCell className="text-center w-[300px]">{entry.date}</TableCell>
-              <TableCell className="text-right w-[300px]">{entry.shift}</TableCell>
+              <TableCell className="w-[300px] text-left">
+                {entry.dayOfWeek}
+              </TableCell>
+              <TableCell className="w-[300px] text-center">
+                {entry.date}
+              </TableCell>
+              <TableCell className="w-[300px] text-right">
+                {entry.shift}
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
@@ -150,11 +168,24 @@ const ScheduleForm: React.FC = () => {
   return (
     <main>
       <form
-        id="scheduling"
-        className="flex flex-col items-center gap-2 text-start text-lg font-semibold"
+        className="flex flex-col items-center gap-2 text-lg font-semibold"
         onSubmit={handleGenerateSchedule}
       >
-        <label htmlFor="workDays">Work Days:</label>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <label htmlFor="workDays">
+                Work Days:{" "}
+                <span className="text-md rounded-full border bg-muted px-2 py-1">
+                  ?
+                </span>
+              </label>
+            </TooltipTrigger>
+            <TooltipContent>
+              Enter the number of consecutive work days in your rotation
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         <input
           className="w-40 rounded-md bg-gray-300 px-2 py-1 text-black"
           type="number"
@@ -164,7 +195,22 @@ const ScheduleForm: React.FC = () => {
           onChange={(e) => setWorkDays(parseInt(e.target.value))}
           required
         />
-        <label htmlFor="offDays">Off Days:</label>
+
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <label htmlFor="offDays">
+                Off Days:{" "}
+                <span className="text-md rounded-full border bg-muted px-2 py-1">
+                  ?
+                </span>
+              </label>
+            </TooltipTrigger>
+            <TooltipContent>
+              Enter the number of consecutive days off in your rotation
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         <input
           className="w-40 rounded-md bg-gray-300 px-2 py-1 text-black"
           type="number"
@@ -174,7 +220,21 @@ const ScheduleForm: React.FC = () => {
           onChange={(e) => setOffDays(parseInt(e.target.value))}
           required
         />
-        <label htmlFor="totalDays">Total Days:</label>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <label htmlFor="totalDays">
+                Total Days:{" "}
+                <span className="text-md rounded-full border bg-muted px-2 py-1">
+                  ?
+                </span>
+              </label>
+            </TooltipTrigger>
+            <TooltipContent>
+              Enter the number of days ahead you would like to display
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         <input
           className="w-40 rounded-md bg-gray-300 px-2 py-1 text-black"
           type="number"
@@ -184,7 +244,22 @@ const ScheduleForm: React.FC = () => {
           onChange={(e) => setTotalDays(parseInt(e.target.value))}
           required
         />
-        <label htmlFor="startDate">Start Date:</label>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger>
+              <label htmlFor="startDate">
+                Start Date:{" "}
+                <span className="text-md rounded-full border bg-muted px-2 py-1">
+                  ?
+                </span>
+              </label>
+            </TooltipTrigger>
+            <TooltipContent>
+              Select the first date of your previous or next rotation for the
+              generator to build out from
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         <input
           className="w-40 rounded-md bg-gray-300 px-2 py-1 text-black"
           type="date"
