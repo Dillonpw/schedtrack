@@ -21,7 +21,7 @@ const HeroSection = () => {
                 and schedule with ease. Say goodbye to manual planning.
               </p>
             </div>
-            <div className="flex flex-col justify-center gap-2 min-[400px]:flex-row md:justify-start">
+            <div className="flex justify-center gap-2 min-[400px]:flex-row md:flex-col md:justify-start">
               <Button variant="default" asChild>
                 <Link href="/signin" prefetch={false}>
                   Get Started

@@ -1,17 +1,22 @@
 import Link from "next/link";
 import { Badge } from "./ui/badge";
-
+import { Button } from "./ui/button";
 export default function Pricing() {
   return (
-    <div id="pricing" className="mx-auto max-w-xl gap-6 md:py-24 lg:py-32 xl:py-48">
-        <div className="flex items-center justify-center">
-      <Badge className="animate-bounce py-2 px-4 text-4xl font-bold">
-        Limited time offer
-      </Badge>
+    <div
+      id="pricing"
+      className="mx-auto max-w-xl gap-6 px-4 py-20 md:py-24 lg:py-32 xl:py-48"
+    >
+      <div className="flex items-center justify-center">
+        <Badge className="mb-2 animate-bounce px-4 py-2 text-2xl font-bold md:text-4xl">
+          Limited time offer
+        </Badge>
       </div>
       <div className="overflow-hidden rounded-lg border-2 bg-background p-10 shadow-lg dark:border dark:border-gray-600">
         <div className="p-6 md:p-8">
-          <h3 className="mb-2 text-center text-4xl font-bold">Subscribe</h3>
+          <h3 className="mb-2 text-center text-xl font-bold md:text-4xl">
+            Subscribe
+          </h3>
           <p className="mb-6 text-center text-muted-foreground">
             Perfect for individuals
           </p>
@@ -30,14 +35,12 @@ export default function Pricing() {
             </li>
           </ul>
           <div className="flex items-end justify-between">
-            <div className="text-4xl font-bold">$0/mo</div>
-            <Link
-              href="#"
-              className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-6 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-              prefetch={false}
-            >
-              Get Started
-            </Link>
+            <div className="text-2xl font-bold md:text-4xl">$0/mo</div>
+            <Button asChild variant="default">
+              <Link href="#" prefetch={false}>
+                Get Started
+              </Link>
+            </Button>
           </div>
         </div>
       </div>
