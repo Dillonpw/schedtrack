@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useEffect, FormEvent } from "react";
 import { Button } from "./ui/button";
 import {
@@ -16,6 +17,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Calendar } from "./ui/calendar";
+import { Switch } from "@/components/ui/switch";
 
 interface ScheduleEntry {
   date: string;
@@ -29,6 +32,8 @@ const ScheduleForm: React.FC = () => {
   const [totalDays, setTotalDays] = useState<number>(90);
   const [startDate, setStartDate] = useState<string>("");
   const [schedule, setSchedule] = useState<ScheduleEntry[]>([]);
+  const [selectedDates, setSelectedDates] = useState<Date[]>([]);
+  const [showCalendar, setShowCalendar] = useState<boolean>(false); // Toggle state
 
   useEffect(() => {
     prefillInputs();
@@ -62,9 +67,7 @@ const ScheduleForm: React.FC = () => {
   ): ScheduleEntry[] => {
     const schedule: ScheduleEntry[] = [];
     let currentDate = new Date(startDate);
-
     currentDate.setHours(0, 0, 0, 0);
-
     let daysScheduled = 0;
 
     while (daysScheduled < totalDays) {
@@ -82,7 +85,10 @@ const ScheduleForm: React.FC = () => {
 
   const handleGenerateSchedule = (e: FormEvent): void => {
     e.preventDefault();
-    const startDateObj = new Date(startDate + "T00:00:00");
+    const startDateObj =
+      selectedDates.length > 0
+        ? selectedDates[0]
+        : new Date(startDate + "T00:00:00");
     const rotatingSchedule = generateRotatingSchedule(
       workDays,
       offDays,
@@ -96,41 +102,40 @@ const ScheduleForm: React.FC = () => {
     setCookie("startDate", startDate, 30);
   };
 
-  const renderTableView = (schedule: ScheduleEntry[]): JSX.Element => {
-    return (
-      <Table className="text-lg">
-        <TableCaption>Work Schedule</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[300px] text-left text-xl font-semibold">
-              Day of Week
-            </TableHead>
-            <TableHead className="w-[300px] text-center text-xl font-semibold">
-              Date
-            </TableHead>
-            <TableHead className="w-[300px] text-right text-xl font-semibold">
-              Shift
-            </TableHead>
+  const renderTableView = (schedule: ScheduleEntry[]): JSX.Element => (
+    <Table className="text-lg">
+      <TableCaption>Work Schedule</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-[300px] text-left text-xl font-semibold">
+            Day of Week
+          </TableHead>
+          <TableHead className="w-[300px] text-center text-xl font-semibold">
+            Date
+          </TableHead>
+          <TableHead className="w-[300px] text-right text-xl font-semibold">
+            Shift
+          </TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {schedule.map((entry, index) => (
+          <TableRow key={index}>
+            <TableCell className="w-[300px] text-left">
+              {entry.dayOfWeek}
+            </TableCell>
+            <TableCell className="w-[300px] text-center">
+              {entry.date}
+            </TableCell>
+            <TableCell className="w-[300px] text-right">
+              {entry.shift}
+            </TableCell>
           </TableRow>
-        </TableHeader>
-        <TableBody>
-          {schedule.map((entry, index) => (
-            <TableRow key={index}>
-              <TableCell className="w-[300px] text-left">
-                {entry.dayOfWeek}
-              </TableCell>
-              <TableCell className="w-[300px] text-center">
-                {entry.date}
-              </TableCell>
-              <TableCell className="w-[300px] text-right">
-                {entry.shift}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    );
-  };
+        ))}
+      </TableBody>
+    </Table>
+  );
+
   const setCookie = (
     name: string,
     value: string,
@@ -165,109 +170,140 @@ const ScheduleForm: React.FC = () => {
     if (savedStartDate) setStartDate(savedStartDate);
   };
 
+  const handleDayClick = (day: Date) => {
+    setSelectedDates((prevDates) => {
+      const index = prevDates.findIndex(
+        (date) => date.getTime() === day.getTime(),
+      );
+      if (index > -1) {
+        return prevDates.filter((_, i) => i !== index);
+      }
+      return [...prevDates, day];
+    });
+  };
+
   return (
     <main>
+      <div className="flex flex-col items-center space-x-2">
+        <Switch checked={showCalendar} onCheckedChange={setShowCalendar} />
+
+        {showCalendar ? <span>Show Inputs</span> : <span>Show Calendar</span>}
+      </div>
       <form
-        className="flex flex-col items-center gap-2 text-lg font-semibold"
+        className="mt-4 flex flex-col items-center gap-2 text-lg font-semibold"
         onSubmit={handleGenerateSchedule}
       >
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <label htmlFor="workDays">
-                Work Days:{" "}
-                <span className="text-md rounded-full border bg-muted px-2 py-1">
-                  ?
-                </span>
-              </label>
-            </TooltipTrigger>
-            <TooltipContent>
-              Enter the number of consecutive work days in your rotation
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <input
-          className="w-40 rounded-md bg-gray-300 px-2 py-1 text-black"
-          type="number"
-          id="workDays"
-          min="1"
-          value={workDays}
-          onChange={(e) => setWorkDays(parseInt(e.target.value))}
-          required
-        />
+        {showCalendar ? (
+          <div className="m-4 flex items-center justify-center">
+            <Calendar
+              mode="multiple"
+              selected={selectedDates}
+              onDayClick={handleDayClick}
+            />
+          </div>
+        ) : (
+          <>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <label htmlFor="workDays">
+                    Work Days:{" "}
+                    <span className="text-md rounded-full border bg-muted px-2 py-1">
+                      ?
+                    </span>
+                  </label>
+                </TooltipTrigger>
+                <TooltipContent>
+                  Enter the number of consecutive work days in your rotation
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <input
+              className="w-40 rounded-md bg-gray-300 px-2 py-1 text-black"
+              type="number"
+              id="workDays"
+              min="1"
+              value={workDays}
+              onChange={(e) => setWorkDays(parseInt(e.target.value))}
+              required
+            />
 
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <label htmlFor="offDays">
-                Off Days:{" "}
-                <span className="text-md rounded-full border bg-muted px-2 py-1">
-                  ?
-                </span>
-              </label>
-            </TooltipTrigger>
-            <TooltipContent>
-              Enter the number of consecutive days off in your rotation
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <input
-          className="w-40 rounded-md bg-gray-300 px-2 py-1 text-black"
-          type="number"
-          id="offDays"
-          min="1"
-          value={offDays}
-          onChange={(e) => setOffDays(parseInt(e.target.value))}
-          required
-        />
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <label htmlFor="totalDays">
-                Total Days:{" "}
-                <span className="text-md rounded-full border bg-muted px-2 py-1">
-                  ?
-                </span>
-              </label>
-            </TooltipTrigger>
-            <TooltipContent>
-              Enter the number of days ahead you would like to display
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <input
-          className="w-40 rounded-md bg-gray-300 px-2 py-1 text-black"
-          type="number"
-          id="totalDays"
-          min="1"
-          value={totalDays}
-          onChange={(e) => setTotalDays(parseInt(e.target.value))}
-          required
-        />
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <label htmlFor="startDate">
-                Start Date:{" "}
-                <span className="text-md rounded-full border bg-muted px-2 py-1">
-                  ?
-                </span>
-              </label>
-            </TooltipTrigger>
-            <TooltipContent>
-              Select the first date of your previous or next rotation for the
-              generator to build out from
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <input
-          className="w-40 rounded-md bg-gray-300 px-2 py-1 text-black"
-          type="date"
-          id="startDate"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-          required
-        />
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <label htmlFor="offDays">
+                    Off Days:{" "}
+                    <span className="text-md rounded-full border bg-muted px-2 py-1">
+                      ?
+                    </span>
+                  </label>
+                </TooltipTrigger>
+                <TooltipContent>
+                  Enter the number of consecutive days off in your rotation
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <input
+              className="w-40 rounded-md bg-gray-300 px-2 py-1 text-black"
+              type="number"
+              id="offDays"
+              min="1"
+              value={offDays}
+              onChange={(e) => setOffDays(parseInt(e.target.value))}
+              required
+            />
+
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <label htmlFor="totalDays">
+                    Total Days:{" "}
+                    <span className="text-md rounded-full border bg-muted px-2 py-1">
+                      ?
+                    </span>
+                  </label>
+                </TooltipTrigger>
+                <TooltipContent>
+                  Enter the number of days ahead you would like to display
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <input
+              className="w-40 rounded-md bg-gray-300 px-2 py-1 text-black"
+              type="number"
+              id="totalDays"
+              min="1"
+              value={totalDays}
+              onChange={(e) => setTotalDays(parseInt(e.target.value))}
+              required
+            />
+
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger>
+                  <label htmlFor="startDate">
+                    Start Date:{" "}
+                    <span className="text-md rounded-full border bg-muted px-2 py-1">
+                      ?
+                    </span>
+                  </label>
+                </TooltipTrigger>
+                <TooltipContent>
+                  Select the first date of your previous or next rotation for
+                  the generator to build out from
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <input
+              className="w-40 rounded-md bg-gray-300 px-2 py-1 text-black"
+              type="date"
+              id="startDate"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              required
+            />
+          </>
+        )}
 
         <Button type="submit" variant="default" id="generate">
           Show Schedule
