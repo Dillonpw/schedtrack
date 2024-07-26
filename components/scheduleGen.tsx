@@ -1,11 +1,16 @@
-'use client';
+"use client";
 
 import { useState } from "react";
 import { Button } from "./ui/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { Calendar } from "./ui/calendar";
 import { generateSchedule } from "../lib/actions/generateSchedule";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 
 const ScheduleForm: React.FC = () => {
@@ -14,7 +19,9 @@ const ScheduleForm: React.FC = () => {
   const [workDays, setWorkDays] = useState<number>(4);
   const [offDays, setOffDays] = useState<number>(2);
   const [totalDays, setTotalDays] = useState<number>(90);
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(
+    new Date(),
+  );
 
   const handleGenerateSchedule = async (e: React.FormEvent) => {
     e.preventDefault();

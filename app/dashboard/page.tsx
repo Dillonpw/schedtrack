@@ -4,7 +4,6 @@ import SignIn from "@/components/Sign-in";
 import Link from "next/link";
 import AccountInfo from "@/components/AccountInfo";
 import ScheduleGen from "@/components/scheduleGen";
-import { Button } from "@/components/ui/button";
 export default async function Dashboard() {
   const session = await auth();
 

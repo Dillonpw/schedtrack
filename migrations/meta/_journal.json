@@ -22,6 +22,13 @@
       "when": 1722000095764,
       "tag": "0002_lethal_tombstone",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1722009770568,
+      "tag": "0003_legal_rage",
+      "breakpoints": true
     }
   ]
 }
