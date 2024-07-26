@@ -23,7 +23,8 @@ const HeroSection = () => {
             </div>
             <div className="flex flex-row items-center justify-center gap-2 md:justify-start">
               <Button variant="default" asChild>
-                <Link href="/signin" prefetch={false}>
+
+                <Link href="/dashboard" prefetch={false}>
                   Get Started
                 </Link>
               </Button>
