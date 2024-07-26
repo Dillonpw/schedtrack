@@ -2,12 +2,7 @@
 
 import { useState } from "react";
 import { Button } from "./ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Calendar } from "./ui/calendar";
 import { generateSchedule } from "../lib/actions/generateSchedule";
 import { useRouter } from 'next/navigation';
@@ -25,17 +20,13 @@ const ScheduleForm: React.FC = () => {
     e.preventDefault();
     if (!selectedDate || !session) return;
     try {
-      const scheduleId = await generateSchedule({
+      await generateSchedule({
         workDays,
         offDays,
         totalDays,
         startDate: selectedDate,
       });
-      if (scheduleId) {
-        router.push(`/schedule/${scheduleId}`);
-      } else {
-        console.error("Failed to generate schedule: No schedule ID returned");
-      }
+      router.push(`/schedule`);
     } catch (error) {
       console.error("Failed to generate schedule:", error);
       // Handle error (e.g., show an error message to the user)

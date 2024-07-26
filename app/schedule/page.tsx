@@ -1,6 +1,6 @@
 import { db } from "@/db/index";
-import { scheduleEntries } from "@/db/schema";
-import { eq, and } from "drizzle-orm";
+import { users } from "@/db/schema";
+import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { auth } from "@/auth";
 import {
@@ -18,29 +18,22 @@ interface ScheduleEntry {
   shift: string;
 }
 
-export default async function SchedulePage({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function SchedulePage() {
   const session = await auth();
   if (!session || !session.user?.id) {
     notFound();
   }
 
-  const scheduleData = await db
+  const [user] = await db
     .select()
-    .from(scheduleEntries)
-    .where(
-      and(
-        eq(scheduleEntries.id, parseInt(params.id)),
-        eq(scheduleEntries.userId, session.user.id),
-      ),
-    );
+    .from(users)
+    .where(eq(users.id, session.user.id));
 
-  if (!scheduleData.length) {
+  if (!user || !user.schedule) {
     notFound();
   }
+
+  const scheduleData: ScheduleEntry[] = user.schedule as ScheduleEntry[];
 
   return (
     <main>

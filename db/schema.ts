@@ -7,6 +7,7 @@ import {
   integer,
   serial,
   date,
+  json,
   varchar
 } from "drizzle-orm/pg-core"
 import postgres from "postgres"
@@ -19,14 +20,15 @@ const pool = postgres(connectionString, { max: 1 })
 export const db = drizzle(pool)
  
 export const users = pgTable("user", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
+  id: text("id").primaryKey(),
   name: text("name"),
   email: text("email").notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
-})
+  schedule: json("schedule").default('[]'),
+  lastScheduleUpdate: timestamp("lastScheduleUpdate", { mode: "date" }),
+});
+
  
 export const accounts = pgTable(
   "account",

@@ -1,16 +1,19 @@
-'use server'
-
-import { db } from '@/db/index';
-import { scheduleEntries } from '@/db/schema';
-import { eq } from 'drizzle-orm';
-import { auth } from '@/auth';
-
+import { db } from "@/db/index";
+import { users } from "@/db/schema";
+import { eq } from "drizzle-orm";
+import { auth } from "@/auth";
 
 interface GenerateScheduleParams {
   workDays: number;
   offDays: number;
   totalDays: number;
   startDate: Date;
+}
+
+interface ScheduleEntry {
+  date: string;
+  dayOfWeek: string;
+  shift: string;
 }
 
 export async function generateSchedule({
@@ -27,14 +30,14 @@ export async function generateSchedule({
   const userId = session.user.id
   const schedule = generateRotatingSchedule(workDays, offDays, totalDays, startDate);
   
-  // Delete existing schedule for the user
-  await db.delete(scheduleEntries).where(eq(scheduleEntries.userId, userId));
+  await db.update(users)
+    .set({ 
+      schedule: schedule as any, // Cast to any to avoid type issues
+      lastScheduleUpdate: new Date()
+    })
+    .where(eq(users.id, userId));
   
-  // Insert new schedule
-  const newSchedule = schedule.map(entry => ({ ...entry, userId }));
-  const [result] = await db.insert(scheduleEntries).values(newSchedule).returning({ id: scheduleEntries.id });
-  
-  return result.id;
+  return userId;
 }
 
 function generateRotatingSchedule(
@@ -42,7 +45,7 @@ function generateRotatingSchedule(
   offDays: number,
   totalDays: number,
   startDate: Date,
-) {
+): ScheduleEntry[] {
   const schedule = [];
   let currentDate = new Date(startDate);
   currentDate.setHours(0, 0, 0, 0);
