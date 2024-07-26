@@ -11,7 +11,7 @@ const LoggedIn = async () => {
   if (!session?.user) return null;
 
   return (
-    <div className="justify-bewteen flex w-full items-center gap-2 bg-none px-6 py-2 duration-300">
+    <div className="justify-bewteen flex items-center gap-2 bg-none px-6 py-2">
       <Link href="/schedule">Schedule</Link>
       <div className="flex items-center gap-2">
         {session.user.image && (
@@ -25,8 +25,8 @@ const LoggedIn = async () => {
         <p className="select-none text-sm font-semibold md:text-lg">
           {session.user.email}
         </p>
+        <SignOut />
       </div>
-      <SignOut />
     </div>
   );
 };
