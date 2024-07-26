@@ -23,15 +23,13 @@ export default async function SchedulePage() {
     return null;
   }
 
-  // Fetch the user's schedule entry
-  const scheduleEntriesData = await db
+  // Fetch the user's schedule entries
+  const scheduleEntriesData: ScheduleEntry[] = await db
     .select()
     .from(scheduleEntries)
     .where(eq(scheduleEntries.userId, session.user.id));
 
-  const scheduleEntry = scheduleEntriesData.length > 0 ? scheduleEntriesData[0] : null;
-
-  if (!scheduleEntry) {
+  if (!scheduleEntriesData || scheduleEntriesData.length === 0) {
     return (
       <main>
         <h1 className="pb-5 text-center text-3xl font-bold">
@@ -43,8 +41,6 @@ export default async function SchedulePage() {
       </main>
     );
   }
-
-  const scheduleData: ScheduleEntry[] = [scheduleEntry];
 
   const renderTableView = (schedule: ScheduleEntry[]): JSX.Element => (
     <Table className="text-lg">
@@ -86,8 +82,8 @@ export default async function SchedulePage() {
         Generated Schedule
       </h1>
       <div className="mt-4">
-        {scheduleData.length > 0 ? (
-          renderTableView(scheduleData)
+        {scheduleEntriesData.length > 0 ? (
+          renderTableView(scheduleEntriesData)
         ) : (
           <p className="text-center text-lg">No schedule available</p>
         )}
