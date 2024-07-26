@@ -97,12 +97,13 @@ export const authenticators = pgTable(
   })
 )
 
-export const scheduleEntries = pgTable('schedule_entries', {
-  id: serial('id').primaryKey(),
+export const scheduleEntries = pgTable("schedule_entries", {
+  id: serial("id").primaryKey(),
   userId: text("userId")
     .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  date: date('date').notNull(),
-  dayOfWeek: varchar('day_of_week', { length: 10 }).notNull(),
-  shift: varchar('shift', { length: 4 }).notNull(),
+    .references(() => users.id, { onDelete: "cascade" })
+    .unique(), 
+  date: date("date").notNull(),
+  dayOfWeek: varchar("day_of_week", { length: 10 }).notNull(),
+  shift: varchar("shift", { length: 4 }).notNull(),
 });

@@ -1,7 +1,6 @@
 import { db } from "@/db/index";
-import { users } from "@/db/schema";
+import { users, scheduleEntries } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { notFound } from "next/navigation";
 import { auth } from "@/auth";
 import {
   Table,
@@ -18,28 +17,34 @@ interface ScheduleEntry {
   shift: string;
 }
 
-interface User {
-  id: string;
-  schedule?: ScheduleEntry[];
-}
-
 export default async function SchedulePage() {
   const session = await auth();
   if (!session || !session.user?.id) {
     return null;
   }
 
-  const [user] = await db
+  // Fetch the user's schedule entry
+  const scheduleEntriesData = await db
     .select()
-    .from(users)
-    .where(eq(users.id, session.user.id));
+    .from(scheduleEntries)
+    .where(eq(scheduleEntries.userId, session.user.id));
 
-  if (!user || !user.schedule) {
-    return null;
+  const scheduleEntry = scheduleEntriesData.length > 0 ? scheduleEntriesData[0] : null;
+
+  if (!scheduleEntry) {
+    return (
+      <main>
+        <h1 className="pb-5 text-center text-3xl font-bold">
+          Generated Schedule
+        </h1>
+        <div className="mt-4">
+          <p className="text-center text-lg">No schedule available</p>
+        </div>
+      </main>
+    );
   }
 
-
-  const scheduleData: ScheduleEntry[] = user.schedule as ScheduleEntry[];
+  const scheduleData: ScheduleEntry[] = [scheduleEntry];
 
   const renderTableView = (schedule: ScheduleEntry[]): JSX.Element => (
     <Table className="text-lg">
