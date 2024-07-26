@@ -21,7 +21,8 @@ const ScheduleForm: React.FC = () => {
   const [totalDays, setTotalDays] = useState<number>(90);
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
 
-  const handleGenerateSchedule = async () => {
+  const handleGenerateSchedule = async (e: React.FormEvent) => {
+    e.preventDefault();
     if (!selectedDate || !session) return;
     try {
       const scheduleId = await generateSchedule({
@@ -30,7 +31,11 @@ const ScheduleForm: React.FC = () => {
         totalDays,
         startDate: selectedDate,
       });
-      router.push(`/schedule/${scheduleId}`);
+      if (scheduleId) {
+        router.push(`/schedule/${scheduleId}`);
+      } else {
+        console.error("Failed to generate schedule: No schedule ID returned");
+      }
     } catch (error) {
       console.error("Failed to generate schedule:", error);
       // Handle error (e.g., show an error message to the user)
