@@ -13,7 +13,7 @@ const ThemeToggle = () => {
 
   if (resolvedTheme === "dark") {
     return (
-      <div className="cursor-pointer hover:bg-muted p-2 rounded-lg ">
+      <div className="cursor-pointer rounded-lg p-2 hover:bg-muted">
         <SunIcon onClick={() => setTheme("light")} />{" "}
       </div>
     );
@@ -21,7 +21,7 @@ const ThemeToggle = () => {
 
   if (resolvedTheme === "light") {
     return (
-      <div className="cursor-pointer hover:bg-muted p-2 rounded-lg">
+      <div className="cursor-pointer rounded-lg p-2 hover:bg-muted">
         <MoonIcon onClick={() => setTheme("dark")} />
       </div>
     );

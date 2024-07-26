@@ -1,9 +1,9 @@
+
 import { signIn } from "@/auth";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { redirect } from "next/dist/server/api-utils";
 
-export default function SignIn() {
+export default async function SignIn() {
   return (
     <div className="mt-[-10rem] flex flex-col items-center gap-2 rounded-xl border-2 bg-muted p-10">
       <h1 className="pb-5 text-3xl font-bold">Sign in</h1>

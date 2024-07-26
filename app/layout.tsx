@@ -5,6 +5,7 @@ import { Providers } from "./providers";
 import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import GoogleAdsense from "@/components/GoogleAdsense";
+import { SessionProvider } from "next-auth/react";
 
 const fontHeading = Inter({
   subsets: ["latin"],
@@ -108,7 +109,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <body
         className={cn("antialiased", fontHeading.variable, fontBody.variable)}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <SessionProvider>{children}</SessionProvider>
+        </Providers>
         <Footer />
       </body>
     </html>
