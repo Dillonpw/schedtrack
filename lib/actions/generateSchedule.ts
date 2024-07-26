@@ -24,21 +24,27 @@ export async function generateSchedule({
   totalDays,
   startDate,
 }: GenerateScheduleParams) {
-  const session = await auth()
+  const session = await auth();
   if (!session || !session.user?.id) {
-    throw new Error("Not authenticated")
+    throw new Error("Not authenticated");
   }
 
-  const userId = session.user.id
-  const schedule = generateRotatingSchedule(workDays, offDays, totalDays, startDate);
-  
-  await db.update(users)
-    .set({ 
+  const userId = session.user.id;
+  const schedule = generateRotatingSchedule(
+    workDays,
+    offDays,
+    totalDays,
+    startDate,
+  );
+
+  await db
+    .update(users)
+    .set({
       schedule: schedule as any, // Cast to any to avoid type issues
-      lastScheduleUpdate: new Date()
+      lastScheduleUpdate: new Date(),
     })
     .where(eq(users.id, userId));
-  
+
   return userId;
 }
 

@@ -40,6 +40,10 @@ export default async function SchedulePage() {
     return notFound();
   }
 
+  // Log the user and schedule data for debugging
+  console.log("User:", user);
+  console.log("Schedule:", user.schedule);
+
   // Ensure the schedule data matches the expected type
   const scheduleData: ScheduleEntry[] = user.schedule as ScheduleEntry[];
 
