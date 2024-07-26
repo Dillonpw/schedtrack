@@ -24,30 +24,23 @@ interface User {
 }
 
 export default async function SchedulePage() {
-  // Authenticate the user
   const session = await auth();
   if (!session || !session.user?.id) {
-    return notFound();
+    return null;
   }
 
-  // Retrieve the user and their schedule from the database
   const [user] = await db
     .select()
     .from(users)
     .where(eq(users.id, session.user.id));
 
   if (!user || !user.schedule) {
-    return notFound();
+    return null;
   }
 
-  // Log the user and schedule data for debugging
-  console.log("User:", user);
-  console.log("Schedule:", user.schedule);
 
-  // Ensure the schedule data matches the expected type
   const scheduleData: ScheduleEntry[] = user.schedule as ScheduleEntry[];
 
-  // Function to render the schedule table
   const renderTableView = (schedule: ScheduleEntry[]): JSX.Element => (
     <Table className="text-lg">
       <TableCaption className="mb-5">End of List</TableCaption>
