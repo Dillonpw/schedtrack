@@ -1,5 +1,6 @@
 import { db } from "@/db/index";
-import { users, scheduleEntries } from "@/db/schema";
+import  Header from "@/components/Header";
+import {  scheduleEntries } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
 import {
@@ -32,6 +33,7 @@ export default async function SchedulePage() {
   if (!scheduleEntriesData || scheduleEntriesData.length === 0) {
     return (
       <main>
+        <Header />
         <h1 className="pb-5 text-center text-3xl font-bold">
           Generated Schedule
         </h1>
@@ -46,7 +48,7 @@ export default async function SchedulePage() {
     <Table className="text-lg">
       <TableCaption className="mb-5">End of List</TableCaption>
       <TableHeader>
-        <TableRow>
+        <TableRow className="flex">
           <TableHeader className="w-[300px] text-left text-xl font-semibold">
             Day of Week
           </TableHeader>
