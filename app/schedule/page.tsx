@@ -48,13 +48,13 @@ export default async function SchedulePage() {
       <TableCaption className="mb-5">End of List</TableCaption>
       <TableHeader>
         <TableRow className="flex w-full justify-between">
-          <TableHeader className="w-[300px] text-left text-xl font-semibold">
+          <TableHeader className="text-left text-xl font-semibold">
             Day of Week
           </TableHeader>
-          <TableHeader className="w-[300px] text-center text-xl font-semibold">
+          <TableHeader className="text-center text-xl font-semibold">
             Date
           </TableHeader>
-          <TableHeader className="w-[300px] text-right text-xl font-semibold">
+          <TableHeader className="text-right text-xl font-semibold">
             Shift
           </TableHeader>
         </TableRow>
@@ -62,15 +62,9 @@ export default async function SchedulePage() {
       <TableBody>
         {schedule.map((entry, index) => (
           <TableRow key={index} className="flex w-full justify-between">
-            <TableCell className="w-[300px] text-left">
-              {entry.dayOfWeek}
-            </TableCell>
-            <TableCell className="w-[300px] text-center">
-              {entry.date}
-            </TableCell>
-            <TableCell className="w-[300px] text-right">
-              {entry.shift}
-            </TableCell>
+            <TableCell className="text-left">{entry.dayOfWeek}</TableCell>
+            <TableCell className="text-center">{entry.date}</TableCell>
+            <TableCell className="text-right">{entry.shift}</TableCell>
           </TableRow>
         ))}
       </TableBody>
