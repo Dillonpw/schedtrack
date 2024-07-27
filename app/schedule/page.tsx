@@ -61,14 +61,14 @@ export default async function SchedulePage() {
       </TableHeader>
       <TableBody>
         {schedule.map((entry, index) => (
-          <TableRow key={index}>
+          <TableRow key={index} className="flex w-full justify-between">
             <TableCell className="w-[300px] text-left">
               {entry.dayOfWeek}
             </TableCell>
             <TableCell className="w-[300px] text-center">
               {entry.date}
             </TableCell>
-            <TableCell className="text-rigth w-[300px]">
+            <TableCell className="w-[300px] text-right">
               {entry.shift}
             </TableCell>
           </TableRow>
