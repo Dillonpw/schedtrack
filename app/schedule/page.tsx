@@ -1,6 +1,6 @@
 import { db } from "@/db/index";
-import  Header from "@/components/Header";
-import {  scheduleEntries } from "@/db/schema";
+import Header from "@/components/Header";
+import { scheduleEntries } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
 import {
@@ -24,7 +24,6 @@ export default async function SchedulePage() {
     return null;
   }
 
-  // Fetch the user's schedule entries
   const scheduleEntriesData: ScheduleEntry[] = await db
     .select()
     .from(scheduleEntries)
@@ -45,10 +44,10 @@ export default async function SchedulePage() {
   }
 
   const renderTableView = (schedule: ScheduleEntry[]): JSX.Element => (
-    <Table className="text-lg">
+    <Table>
       <TableCaption className="mb-5">End of List</TableCaption>
       <TableHeader>
-        <TableRow className="flex">
+        <TableRow className="flex w-full justify-between">
           <TableHeader className="w-[300px] text-left text-xl font-semibold">
             Day of Week
           </TableHeader>
@@ -69,7 +68,7 @@ export default async function SchedulePage() {
             <TableCell className="w-[300px] text-center">
               {entry.date}
             </TableCell>
-            <TableCell className="w-[300px] text-right">
+            <TableCell className="text-rigth w-[300px]">
               {entry.shift}
             </TableCell>
           </TableRow>
