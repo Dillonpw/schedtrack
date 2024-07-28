@@ -4,6 +4,7 @@ import Link from "next/link";
 import { SignOut } from "./Sign-out";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Skeleton } from "./ui/skeleton";
+import { Button } from "./ui/button";
 
 const LoggedIn = async () => {
   const session = await auth();
@@ -11,8 +12,10 @@ const LoggedIn = async () => {
   if (!session?.user) return null;
 
   return (
-    <div className="justify-evenly flex items-center gap-2 bg-none px-4 py-2">
-      <Link href="/schedule">Schedule</Link>
+    <div className="flex items-center justify-evenly gap-2 bg-none px-4 py-2">
+      <Button asChild variant="link">
+        <Link href="/schedule">Schedule</Link>
+      </Button>
       <div className="flex items-center gap-2">
         {session.user.image && (
           <Avatar>
@@ -25,8 +28,8 @@ const LoggedIn = async () => {
         <p className="select-none text-sm font-semibold md:text-lg">
           {session.user.email}
         </p>
-        <SignOut />
       </div>
+      <SignOut />
     </div>
   );
 };
