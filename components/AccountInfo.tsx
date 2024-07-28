@@ -28,8 +28,8 @@ const LoggedIn = async () => {
         <p className="select-none text-sm font-semibold md:text-lg">
           {session.user.email}
         </p>
+        <SignOut />
       </div>
-      <SignOut />
     </div>
   );
 };
