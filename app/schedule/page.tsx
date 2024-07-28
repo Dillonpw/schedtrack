@@ -48,13 +48,13 @@ export default async function SchedulePage() {
       <TableCaption className="mb-5">End of List</TableCaption>
       <TableHeader>
         <TableRow className="flex w-full justify-between px-4">
-          <TableHeader className="text-left text-xl font-semibold">
+          <TableHeader className="w-[33%] text-left text-xl font-semibold">
             Day of Week
           </TableHeader>
-          <TableHeader className="text-center text-xl font-semibold">
+          <TableHeader className="w-[33%] text-center text-xl font-semibold">
             Date
           </TableHeader>
-          <TableHeader className="text-right text-xl font-semibold">
+          <TableHeader className="w-[33%] text-right text-xl font-semibold">
             Shift
           </TableHeader>
         </TableRow>
