@@ -4,7 +4,7 @@ import { Calendar } from "./ui/calendar";
 import React from "react";
 import HeroBtn from "./Herobtn";
 
-const HeroSection = () => {
+const HeroSection = ({ children }: { children: React.ReactNode }) => {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
 
   return (
@@ -21,7 +21,7 @@ const HeroSection = () => {
                 and schedule with ease. Say goodbye to manual planning.
               </p>
             </div>
-            <HeroBtn />
+            {children}
           </div>
           <div className="mx-auto w-fit">
             <Calendar mode="single" selected={date} onSelect={setDate} />

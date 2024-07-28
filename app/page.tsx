@@ -6,7 +6,7 @@ import FeaturesSection from "@/components/Features";
 import TestimonialsSection from "@/components/Testimonials";
 import Pricing from "@/components/pricing";
 import Faq from "@/components/Faq";
-import Footer from "@/components/Footer";
+import HeroBtn from "@/components/Herobtn";
 
 const Home = () => {
   return (
@@ -16,7 +16,7 @@ const Home = () => {
       </Header>
       <main className="flex-1">
         <AccountInfo />
-        <HeroSection />
+        <HeroSection> <HeroBtn /></HeroSection>
         <FeaturesSection />
         <TestimonialsSection />
         <Faq />
