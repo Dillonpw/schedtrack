@@ -131,6 +131,7 @@ const ScheduleForm: React.FC = () => {
           type="number"
           id="totalDays"
           min="1"
+          max="61"
           value={totalDays}
           onChange={(e) => setTotalDays(parseInt(e.target.value))}
           required
