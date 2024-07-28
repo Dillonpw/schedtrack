@@ -16,7 +16,10 @@ const Home = () => {
       </Header>
       <main className="flex-1">
         <AccountInfo />
-        <HeroSection> <HeroBtn /></HeroSection>
+        <HeroSection>
+          {" "}
+          <HeroBtn />
+        </HeroSection>
         <FeaturesSection />
         <TestimonialsSection />
         <Faq />

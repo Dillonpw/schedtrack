@@ -74,7 +74,7 @@ export default async function ScheduleData() {
   );
 
   return (
-    <section className='mx-10'>
+    <section className="mx-10">
       <h1 className="pb-5 text-center text-3xl font-bold">
         Generated Schedule
       </h1>
