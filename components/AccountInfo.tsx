@@ -12,7 +12,7 @@ const LoggedIn = async () => {
   if (!session?.user) return null;
 
   return (
-    <div className="flex items-center justify-evenly gap-2 bg-none px-4 py-2">
+    <div className="flex items-center justify-between gap-2 bg-none px-4 py-2">
       <Button asChild variant="link">
         <Link href="/schedule" className="text-sm md:text-lg">
           Schedule

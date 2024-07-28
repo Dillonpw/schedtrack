@@ -12,6 +12,11 @@ export default async function HeroBtn() {
             Get Started
           </Link>
         </Button>
+        <Button asChild variant="secondary">
+          <Link href="/signin" prefetch={false}>
+            Sign In
+          </Link>
+        </Button>
       </div>
     );
   }
@@ -20,11 +25,6 @@ export default async function HeroBtn() {
       <Button variant="default" asChild>
         <Link href="/dashboard" prefetch={false}>
           Get Started
-        </Link>
-      </Button>
-      <Button asChild variant="secondary">
-        <Link href="/signin" prefetch={false}>
-          Sign In
         </Link>
       </Button>
     </div>
