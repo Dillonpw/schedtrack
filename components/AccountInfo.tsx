@@ -11,7 +11,7 @@ const LoggedIn = async () => {
   if (!session?.user) return null;
 
   return (
-    <div className="justify-bewteen flex min-w-[100vw] items-center gap-2 bg-none px-6 py-2">
+    <div className="justify-evenly flex min-w-[100vw] items-center gap-2 bg-none px-4 py-2">
       <Link href="/schedule">Schedule</Link>
       <div className="flex items-center gap-2">
         {session.user.image && (
