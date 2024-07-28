@@ -6,6 +6,7 @@ import { Metadata } from "next";
 import Footer from "@/components/Footer";
 import GoogleAdsense from "@/components/GoogleAdsense";
 import { SessionProvider } from "next-auth/react";
+import { Analytics } from "@vercel/analytics/react";
 
 const fontHeading = Inter({
   subsets: ["latin"],
@@ -113,6 +114,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <SessionProvider>{children}</SessionProvider>
         </Providers>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
