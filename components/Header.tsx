@@ -13,7 +13,7 @@ const Header = ({ children }: HeaderProps) => {
       <Link
         href="/"
         className="flex items-center justify-center"
-        prefetch={false}
+        prefetch={true}
       >
         <CalendarIcon className="h-6 w-6" />
         <span className="sr-only">Rotating Schedule Builder</span>
