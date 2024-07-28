@@ -1,5 +1,6 @@
 import { db } from "@/db/index";
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 import { scheduleEntries } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
@@ -75,6 +76,7 @@ export default async function SchedulePage() {
 
   return (
     <main>
+      <Header />
       <h1 className="pb-5 text-center text-3xl font-bold">
         Generated Schedule
       </h1>
@@ -85,6 +87,7 @@ export default async function SchedulePage() {
           <p className="text-center text-lg">No schedule available</p>
         )}
       </div>
+      <Footer />
     </main>
   );
 }
