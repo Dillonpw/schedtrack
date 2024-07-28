@@ -1,8 +1,8 @@
 "use client";
-import Link from "next/link";
-import { Button } from "./ui/button";
+
 import { Calendar } from "./ui/calendar";
 import React from "react";
+import HeroBtn from "./Herobtn";
 
 const HeroSection = () => {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
@@ -21,19 +21,7 @@ const HeroSection = () => {
                 and schedule with ease. Say goodbye to manual planning.
               </p>
             </div>
-            <div className="flex flex-row items-center justify-center gap-2 md:justify-start">
-              <Button variant="default" asChild>
-
-                <Link href="/dashboard" prefetch={false}>
-                  Get Started
-                </Link>
-              </Button>
-              <Button asChild variant="secondary">
-                <Link href="/signin" prefetch={false}>
-                  Sign In
-                </Link>
-              </Button>
-            </div>
+            <HeroBtn />
           </div>
           <div className="mx-auto w-fit">
             <Calendar mode="single" selected={date} onSelect={setDate} />

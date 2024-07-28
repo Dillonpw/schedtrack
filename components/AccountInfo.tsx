@@ -14,7 +14,9 @@ const LoggedIn = async () => {
   return (
     <div className="flex items-center justify-evenly gap-2 bg-none px-4 py-2">
       <Button asChild variant="link">
-        <Link href="/schedule">Schedule</Link>
+        <Link href="/schedule" className="text-sm md:text-lg">
+          Schedule
+        </Link>
       </Button>
       <div className="flex items-center gap-2">
         {session.user.image && (
