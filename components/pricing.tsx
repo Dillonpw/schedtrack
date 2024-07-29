@@ -10,7 +10,7 @@ export default function Pricing() {
     >
       <div className="flex items-center justify-center">
         <Badge className="mb-4 animate-bounce px-6 py-3 text-2xl font-bold md:text-4xl lg:text-5xl">
-          Limited Time
+          Limited Time Pricing
         </Badge>
       </div>
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
@@ -47,7 +47,7 @@ export default function Pricing() {
                 $0/mo
               </div>
               <Button asChild variant="default">
-                <Link href="#" prefetch={false}>
+                <Link href="/signin" prefetch={false}>
                   Get Started
                 </Link>
               </Button>
@@ -88,7 +88,7 @@ export default function Pricing() {
               </div>
               <Button asChild variant="default">
                 <Link href="#" prefetch={false}>
-                  Get Started
+                  Sign up
                 </Link>
               </Button>
             </div>
