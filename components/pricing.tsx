@@ -1,37 +1,30 @@
 import Link from "next/link";
-import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 
 export default function Pricing() {
   return (
-    <div
+    <section
       id="pricing"
-      className="mx-auto max-w-6xl gap-6 px-4 py-20 md:py-24 lg:py-32 xl:py-48"
+      className="flex flex-col items-center justify-center mx-auto max-w-6xl gap-6 px-4 py-20 md:py-24 lg:py-32 xl:py-48"
     >
-      <div className="flex items-center justify-center">
-        <Badge className="mb-4 animate-bounce px-6 py-3 text-2xl font-bold md:text-4xl lg:text-5xl">
-          Limited Time Pricing
-        </Badge>
-      </div>
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-12">
-        <div className="overflow-hidden rounded-lg border-2 bg-background p-10 shadow-lg dark:border dark:border-gray-600">
-          <div className="p-6 md:p-8">
+      <div className="flex justify-center w-full">
+        <div className="rounded-lg border-2 bg-background p-10 shadow-lg dark:border dark:border-gray-600 max-w-[50%]">
             <h3 className="mb-4 text-center text-xl font-bold md:text-4xl lg:text-5xl">
               Free Account
             </h3>
             <p className="mb-8 text-center text-muted-foreground">
-              Sample the product
+              Start Scheduling
             </p>
             <ul className="mb-8 space-y-4">
               <li className="flex items-center gap-2">
                 <CheckIcon className="h-6 w-6 text-primary" />
                 <span>
-                  Limited access to our schedule generating technology
+                 Full to our schedule generating technology
                 </span>
               </li>
               <li className="flex items-center gap-2">
                 <CheckIcon className="h-6 w-6 text-primary" />
-                <span>Access to List-view model</span>
+                <span>Access to List-view model and upcoming calendar view</span>
               </li>
               <li className="flex items-center gap-2">
                 <CheckIcon className="h-6 w-6 text-primary" />
@@ -39,12 +32,12 @@ export default function Pricing() {
               </li>
               <li className="flex items-center gap-2">
                 <CheckIcon className="h-6 w-6 text-primary" />
-                <span>Schedule 2 months into the future</span>
+                <span>Schedule 6 months into the future</span>
               </li>
             </ul>
             <div className="flex items-end justify-between">
               <div className="text-2xl font-bold md:text-4xl lg:text-5xl">
-                $0/mo
+                FREE
               </div>
               <Button asChild variant="default">
                 <Link href="/signin" prefetch={false}>
@@ -54,48 +47,7 @@ export default function Pricing() {
             </div>
           </div>
         </div>
-        <div className="overflow-hidden rounded-lg border-2 bg-background p-10 shadow-lg dark:border dark:border-gray-600">
-          <div className="p-6 md:p-8">
-            <h3 className="mb-4 text-center text-xl font-bold md:text-4xl lg:text-5xl">
-              Subscribe
-            </h3>
-            <p className="mb-8 text-center text-muted-foreground">
-              Perfect for individuals
-            </p>
-            <ul className="mb-8 space-y-4">
-              <li className="flex items-center gap-2">
-                <CheckIcon className="h-6 w-6 text-primary" />
-                <span>Full access to our schedule generating technology</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckIcon className="h-6 w-6 text-primary" />
-                <span>
-                  Access to List-view model and upcoming calendar model
-                </span>
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckIcon className="h-6 w-6 text-primary" />
-                <span>Unlimited schedule adjustments</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <CheckIcon className="h-6 w-6 text-primary" />
-                <span>Schedule 12 months into the future</span>
-              </li>
-            </ul>
-            <div className="flex items-end justify-between">
-              <div className="text-2xl font-bold md:text-4xl lg:text-5xl">
-                $3/mo
-              </div>
-              <Button asChild variant="default">
-                <Link href="#" prefetch={false}>
-                  Sign up
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    </section>
   );
 }
 

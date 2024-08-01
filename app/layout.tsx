@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import GoogleAdsense from "@/components/GoogleAdsense";
 import { SessionProvider } from "next-auth/react";
 import { Analytics } from "@vercel/analytics/react";
+import Link from "next/link";
 
 const fontHeading = Inter({
   subsets: ["latin"],
@@ -113,6 +114,12 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <Providers>
           <SessionProvider>{children}</SessionProvider>
         </Providers>
+        <Link
+          className="m-4 flex justify-center text-lg hover:underline"
+          href="https://buy.stripe.com/7sIaFa7EQeJzbW8aEG"
+        >
+          Help Us Keep the Lights On
+        </Link>
         <Footer />
         <Analytics />
       </body>
