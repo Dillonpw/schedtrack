@@ -25,7 +25,7 @@ const TestimonialsSection = () => {
           <Card className="bg-muted p-6 shadow-lg">
             <div className="flex items-start gap-4">
               <Avatar>
-                <AvatarImage src="/john-doe.webp" />
+                <AvatarImage src="/john-doe.webp" alt="John Doe Avatar" />
                 <AvatarFallback>JD</AvatarFallback>
               </Avatar>
               <div>
@@ -43,7 +43,7 @@ const TestimonialsSection = () => {
           <Card className="bg-muted p-6 shadow-lg">
             <div className="flex items-start gap-4">
               <Avatar>
-                <AvatarImage src="/jane-doe.webp" />
+                <AvatarImage src="/jane-doe.webp " alt="Jane Doe Avatar" />
                 <AvatarFallback>JS</AvatarFallback>
               </Avatar>
               <div>
