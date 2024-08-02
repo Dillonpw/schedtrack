@@ -15,10 +15,10 @@ const Header = ({ children }: HeaderProps) => {
         className="flex items-center justify-center"
         prefetch={true}
       >
-        <CalendarIcon className="h-6 w-6" />
+        <CalendarIcon className="h-6 w-6 text-red-600" />
         <span className="sr-only">Rotating Schedule Builder</span>
         <p className="ml-2 hidden text-xl font-semibold md:inline">
-          Rotating Schedule Builder
+          Sched Track
         </p>
       </Link>
       <div className="flex gap-2">

@@ -32,7 +32,13 @@ export default function Pricing() {
               </li>
               <li className="flex items-center gap-2">
                 <CheckIcon className="h-6 w-6 text-primary" />
-                <span>Schedule 6 months into the future</span>
+                <span>Schedule up to 12 months into the future</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <CheckIcon className="h-6 w-6 text-primary" />
+                <span>
+                 Your most recent schedule will alwasy be saved in our database and reviewable
+                </span>
               </li>
             </ul>
             <div className="flex items-end justify-between">

@@ -9,9 +9,8 @@ const FeaturesSection = () => {
               Leave Manual Scheduling Behind
             </h2>
             <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              We offer a range of powerful features to help professionals with
-              rotating schedules manage their time more efficientlyand without
-              the headaches.
+              We offer a custom schedule generator to help you with manage your
+              time more efficiently and without the headaches.
             </p>
           </div>
         </div>
@@ -33,20 +32,12 @@ const FeaturesSection = () => {
                     Sharing and Collaboration
                   </h3>
                   <p className="text-muted-foreground">
-                    Easily shareable schedules so you can collaborate in
-                    real-time to ensure everyone is on the same page.
+                    Easy to screenshot and share your schedule with others, more
+                    sharing options comng soon
                   </p>
                 </div>
               </li>
-              <li>
-                <div className="grid gap-1">
-                  <h3 className="text-xl font-bold">Calendar Integration</h3>
-                  <p className="text-muted-foreground">
-                    Seamlessly integrate your rotating schedules with popular
-                    calendar apps like Google Calendar, Outlook, and more.
-                  </p>
-                </div>
-              </li>
+
             </ul>
           </div>
           <Image

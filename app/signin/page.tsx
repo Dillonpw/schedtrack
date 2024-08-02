@@ -4,9 +4,9 @@ import Link from "next/link";
 
 export default function SignInPage() {
   return (
-    <main>
+    <main className="">
       <Header />
-      <div className="flex h-screen flex-col items-center justify-center">
+      <div className="flex mt-[-12rem] h-screen flex-col items-center justify-center">
         <Link
           href="/"
           className="absolute left-10 top-20 text-2xl hover:underline"

@@ -109,7 +109,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <html lang="en" suppressHydrationWarning>
       <GoogleAdsense />
       <body
-        className={cn("antialiased", fontHeading.variable, fontBody.variable)}
+        className={cn("antialiased font-semibold", fontHeading.variable, fontBody.variable)}
       >
         <Providers>
           <SessionProvider>{children}</SessionProvider>
@@ -118,7 +118,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           className="m-4 flex justify-center text-lg hover:underline"
           href="https://buy.stripe.com/7sIaFa7EQeJzbW8aEG"
         >
-          Help Us Keep the Lights On
+          Help Us Keep the Lights On{' '}💡
         </Link>
         <Footer />
         <Analytics />
