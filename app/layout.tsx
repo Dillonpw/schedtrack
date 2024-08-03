@@ -3,7 +3,6 @@ import { cn } from "@/lib/utils";
 import "./globals.css";
 import { Providers } from "./providers";
 import Footer from "@/components/Footer";
-import GoogleAdsense from "@/components/GoogleAdsense";
 import { SessionProvider } from "next-auth/react";
 import { Analytics } from "@vercel/analytics/react";
 import Link from "next/link";
@@ -132,7 +131,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-      <GoogleAdsense />
+        <meta name="google-adsense-account" content={process.env.NEXT_PUBLIC_GOOGLE_ADS_ACCOUNT} />
       </head>
       <body
         className={cn(
