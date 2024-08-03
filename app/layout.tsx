@@ -131,7 +131,9 @@ export const metadata: Metadata = {
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
       <GoogleAdsense />
+      </head>
       <body
         className={cn(
           "font-semibold antialiased",
