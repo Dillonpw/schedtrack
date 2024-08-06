@@ -62,11 +62,11 @@ export default async function ScheduleData() {
       <TableBody>
         {schedule.map((entry, index) => (
           <TableRow key={index} className="flex w-full justify-between">
-            <TableCell className="w-[33%] text-left">
+            <TableCell className="w-[33%] text-left text-md font-bold">
               {entry.dayOfWeek}
             </TableCell>
-            <TableCell className="w-[33%] text-center">{entry.date}</TableCell>
-            <TableCell className="w-[33%] text-right">{entry.shift}</TableCell>
+            <TableCell className="w-[33%] text-center text-md font-bold">{entry.date}</TableCell>
+            <TableCell className="w-[33%] text-right text-md font-bold">{entry.shift}</TableCell>
           </TableRow>
         ))}
       </TableBody>

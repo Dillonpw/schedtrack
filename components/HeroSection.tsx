@@ -2,7 +2,6 @@
 
 import { Calendar } from "./ui/calendar";
 import React from "react";
-import HeroBtn from "./Herobtn";
 
 const HeroSection = ({ children }: { children: React.ReactNode }) => {
   const [date, setDate] = React.useState<Date | undefined>(new Date());

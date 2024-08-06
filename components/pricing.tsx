@@ -1,8 +1,13 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { auth } from "@/auth";
 
-export default function Pricing() {
-  return (
+export default async function Pricing() {
+  const session = await auth();
+  if (session) {
+    return null;
+  }
+    return (
     <section
       id="pricing"
       className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-6 px-4 py-20 md:py-24 lg:py-32 xl:py-48"
