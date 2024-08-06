@@ -27,9 +27,11 @@ const LoggedIn = async () => {
             </AvatarFallback>
           </Avatar>
         )}
-        <p className="select-none text-sm font-semibold md:text-lg">
-          {session.user.email}
-        </p>
+        {session.user.email && (
+          <p className="select-none text-sm font-semibold md:text-lg">
+            {session.user.email}
+          </p>
+        )}
         <SignOut />
       </div>
     </div>
