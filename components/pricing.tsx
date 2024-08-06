@@ -17,10 +17,10 @@ export default function Pricing() {
           </p>
           <ul className="mb-8 space-y-3">
             <li className="flex items-center gap-2">
-              <span>Full to our custom schedule generating technology</span>
+              <span>Full access to our custom schedule generating technology</span>
             </li>
             <li className="flex items-center gap-2">
-              <span>Access to List-view model and upcoming calendar view</span>
+              <span>Access to List-view model and Calendar-view coming soon</span>
             </li>
             <li className="flex items-center gap-2">
               <span>Unlimited schedule adjustments and redos available </span>
