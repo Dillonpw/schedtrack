@@ -23,9 +23,9 @@ const fontBody = Inter({
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Rotating Schedule Builder | Efficient Workforce Management Tool",
+  title: "Sched Track",
   description:
-    "Rotating Schedule Builder is your ultimate tool for efficient shift scheduling, staff planning, and work-life balance optimization. Perfect for first responders, nurses, and other 24/7 operations.",
+    "Sched Track is your ultimate tool for efficient shift scheduling, staff planning, and work-life balance optimization. Perfect for first responders, nurses, and other 24/7 operations.",
   applicationName: "Rotating Schedule Builder",
   keywords: [
     "Sched Track",
