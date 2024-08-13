@@ -10,7 +10,7 @@
     "migrate": "drizzle-kit migrate",
     "generate": "drizzle-kit generate",
     "test": "npx playwright test",
-    "watch": "npx playwright test --ui"
+    "ui": "npx playwright test --ui"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.4.1",
