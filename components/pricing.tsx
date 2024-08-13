@@ -7,9 +7,10 @@ export default async function Pricing() {
   if (session) {
     return null;
   }
-    return (
+  return (
     <section
       id="pricing"
+      data-testid="pricing"
       className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-6 px-4 py-20 md:py-24 lg:py-32 xl:py-48"
     >
       <div className="flex w-full justify-center">
@@ -22,10 +23,14 @@ export default async function Pricing() {
           </p>
           <ul className="mb-8 space-y-3">
             <li className="flex items-center gap-2">
-              <span>Full access to our custom schedule generating technology</span>
+              <span>
+                Full access to our custom schedule generating technology
+              </span>
             </li>
             <li className="flex items-center gap-2">
-              <span>Access to List-view model and Calendar-view coming soon</span>
+              <span>
+                Access to List-view model and Calendar-view coming soon
+              </span>
             </li>
             <li className="flex items-center gap-2">
               <span>Unlimited schedule adjustments and redos available </span>
