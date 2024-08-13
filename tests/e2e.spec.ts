@@ -41,12 +41,12 @@ test.describe("Home Page", () => {
     await expect(page).toHaveURL("https://buy.stripe.com/7sIaFa7EQeJzbW8aEG");
   });
 
+  //sign in with email testing
   test("sign in and account creation", async ({ page }) => {
     await page.getByRole("link", { name: "Sign In" }).click();
     await expect(page).toHaveURL("http:/localhost:3000/signin");
     await page.getByPlaceholder("Email").click();
-    await page.getByPlaceholder("Email").fill("dillonwtest@gmail.com");
+    await page.getByPlaceholder("Email").fill("dillonpwalsh10@gmail.com");
     await page.getByRole("button", { name: "Sign in with Email" }).click();
-    //still building
   });
 });
