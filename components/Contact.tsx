@@ -12,7 +12,7 @@ export default function ContactForm() {
     setResult("Sending....");
     const formData = new FormData(event.target);
 
-    formData.append("access_key", `${process.env.WEB3_FORMS_KEY}` );
+    formData.append("access_key", `${process.env.WEB3_FORMS_KEY}`);
 
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
@@ -31,8 +31,8 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="flex flex-col min-h-[85vh] items-center justify-center">
-      <h1 className="text-3xl font-bold mb-10">Contact Us</h1>
+    <section className="flex min-h-[85vh] flex-col items-center justify-center">
+      <h1 className="mb-10 text-3xl font-bold">Contact Us</h1>
       <form onSubmit={onSubmit} className="flex flex-col gap-2">
         <Label htmlFor="">Your Name:</Label>
         <Input type="text" name="name" required />
@@ -43,7 +43,7 @@ export default function ContactForm() {
 
         <Button type="submit">Submit Form</Button>
       </form>
-      <span>{result}</span>
+      <span data-testid="result">{result}</span>
     </section>
   );
 }

@@ -4,11 +4,13 @@ export default function Nav() {
   return (
     <>
       <nav className="flex items-center gap-4 sm:gap-6">
-      <Link
+        <Link
           href="/dashboard"
           className="text-lg font-medium underline-offset-4 hover:underline"
           prefetch={false}
-        > Dashboard
+        >
+          {" "}
+          Dashboard
         </Link>
         <Link
           href="#features"
@@ -25,7 +27,7 @@ export default function Nav() {
           Pricing
         </Link>
         <Link
-          href="#contact"
+          href="/contact"
           className="text-lg font-medium underline-offset-4 hover:underline"
           prefetch={false}
         >

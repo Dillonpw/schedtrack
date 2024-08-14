@@ -41,7 +41,7 @@ test.describe("Home Page", () => {
     await expect(page).toHaveURL("https://buy.stripe.com/7sIaFa7EQeJzbW8aEG");
   });
 
-  //sign in with email testing
+  //sign in with email testing waiting for domain approval from resend
   test("sign in and account creation", async ({ page }) => {
     await page.getByRole("link", { name: "Sign In" }).click();
     await expect(page).toHaveURL("http:/localhost:3000/signin");
@@ -49,4 +49,32 @@ test.describe("Home Page", () => {
     await page.getByPlaceholder("Email").fill("dillonpwalsh10@gmail.com");
     await page.getByRole("button", { name: "Sign in with Email" }).click();
   });
+
+  test("sign in with Google", async ({ page }) => {
+    await page.getByRole("link", { name: "Sign In" }).click();
+    await expect(page).toHaveURL("http:/localhost:3000/signin");
+    await page.getByRole("button", { name: "Sign in with Google" }).click();
+    //expect redirect url then click to allow etc.
+  });
+
+  //after sign in verify account info is visible
+
+
+  //populate data in db with test account and then view results on schedule page
+
+  test("contact page allows for message send", async ({ page }) =>{
+    const result = page.locator(`[data-testid="contact"]`);
+
+    await page.getByRole("link", { name: "Contact" }).click();
+    await expect(page).toHaveURL("http:/localhost:3000/contact");
+    await page.getByPlaceholder("Name").click();
+    await page.getByPlaceholder("Name").fill("test");
+    await page.getByPlaceholder("Email").click();
+    await page.getByPlaceholder("Email").fill("dillonwtest0@gmail.com");
+    await page.getByPlaceholder("Message").click();
+    await page.getByPlaceholder("Message").fill("test message");
+    await page.getByRole("button", { name: "Send Message" }).click();
+    await expect(result).toBeVisible();
+    await expect(result).toHaveText("Form Submitted Successfully");
+  })
 });
