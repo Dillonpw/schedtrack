@@ -53,7 +53,7 @@ const ScheduleForm: React.FC = () => {
   }
 
   return (
-    <main>
+    <main className="mb-40">
       <h1 className="pb-5 text-center text-3xl font-bold">
         Schedule Generator
       </h1>

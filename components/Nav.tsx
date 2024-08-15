@@ -27,6 +27,7 @@ export default function Nav() {
           Pricing
         </Link>
         <Link
+        data-testid="contactLink"
           href="/contact"
           className="text-lg font-medium underline-offset-4 hover:underline"
           prefetch={false}

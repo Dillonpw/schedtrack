@@ -51,30 +51,40 @@ test.describe("Home Page", () => {
   });
 
   test("sign in with Google", async ({ page }) => {
+    const email = process.env.TEST_EMAIL as string;
+    const pw = process.env.TEST_PW as string;
+    const signOutBtn = page.locator(`[data-testid="sign-out"]`);
+
     await page.getByRole("link", { name: "Sign In" }).click();
-    await expect(page).toHaveURL("http:/localhost:3000/signin");
     await page.getByRole("button", { name: "Sign in with Google" }).click();
-    //expect redirect url then click to allow etc.
+    await page.getByLabel("Email or phone").click();
+    await page.getByLabel("Email or phone").fill("dillonwtest@gmail.com");
+    await page.getByRole("button", { name: "Next" }).click();
+    await page.getByLabel("Enter your password").fill("Fs-302121");
+    await page.getByRole("button", { name: "Next" }).click();
+    await page.getByRole("button", { name: "Continue" }).click();
+    await expect(page).toHaveURL("http:/localhost:3000/dashboard");
+    await expect(signOutBtn).toBeVisible();
   });
 
   //after sign in verify account info is visible
 
-
   //populate data in db with test account and then view results on schedule page
 
-  test("contact page allows for message send", async ({ page }) =>{
+  test("contact page allows for message send", async ({ page }) => {
+    const contactLink = page.locator('[data-testid="contactLink"]');
     const result = page.locator(`[data-testid="contact"]`);
 
-    await page.getByRole("link", { name: "Contact" }).click();
+    await contactLink.click();
     await expect(page).toHaveURL("http:/localhost:3000/contact");
-    await page.getByPlaceholder("Name").click();
-    await page.getByPlaceholder("Name").fill("test");
-    await page.getByPlaceholder("Email").click();
-    await page.getByPlaceholder("Email").fill("dillonwtest0@gmail.com");
+    await page.getByPlaceholder("Anonymous").click();
+    await page.getByPlaceholder("Anonymous").fill("test");
+    await page.getByPlaceholder("5gqoQ@example.com").click();
+    await page.getByPlaceholder("5gqoQ@example.com").fill("dillonwtest0@gmail.com");
     await page.getByPlaceholder("Message").click();
     await page.getByPlaceholder("Message").fill("test message");
-    await page.getByRole("button", { name: "Send Message" }).click();
+    await page.getByRole("button", { name: "Submit Form" }).click();
     await expect(result).toBeVisible();
     await expect(result).toHaveText("Form Submitted Successfully");
-  })
+  });
 });

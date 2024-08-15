@@ -151,6 +151,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           Help Us Keep the Lights On 💡
         </Link>
         <Footer />
+
         <Analytics />
       </body>
     </html>
