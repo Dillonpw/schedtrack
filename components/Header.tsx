@@ -9,7 +9,7 @@ interface HeaderProps {
 
 const Header = ({ children }: HeaderProps) => {
   return (
-    <header className="flex h-14 items-center justify-between px-4 lg:px-6">
+    <header className="flex h-14 items-center justify-between px-4 lg:px-6 border-b border-2">
       <Link
         href="/"
         className="flex items-center justify-center"
