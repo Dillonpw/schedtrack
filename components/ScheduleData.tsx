@@ -1,5 +1,4 @@
 import { db } from "@/db/index";
-import Header from "@/components/Header";
 import { scheduleEntries } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { auth } from "@/auth";

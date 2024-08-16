@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/db/index";
-import { users } from "@/db/schema";
+import { scheduleEntries, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
 
@@ -37,13 +37,25 @@ export async function generateSchedule({
     startDate,
   );
 
-  await db
-    .update(users)
-    .set({
-      schedule: schedule as any, // Cast to any to avoid type issues
-      lastScheduleUpdate: new Date(),
-    })
-    .where(eq(users.id, userId));
+  await db.transaction(async (tx) => {
+    // Delete existing schedule entries for the user
+    await tx.delete(scheduleEntries).where(eq(scheduleEntries.userId, userId));
+
+    // Insert new schedule entries
+    await tx.insert(scheduleEntries).values(
+      schedule.map((entry) => ({
+        userId,
+        date: entry.date, // Date is already formatted as string
+        dayOfWeek: entry.dayOfWeek,
+        shift: entry.shift,
+      }))
+    );
+
+    // Update the user's last schedule update timestamp
+    await tx.update(users)
+      .set({ lastScheduleUpdate: new Date() })
+      .where(eq(users.id, userId));
+  });
 
   return userId;
 }

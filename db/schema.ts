@@ -100,8 +100,7 @@ export const scheduleEntries = pgTable("schedule_entries", {
   id: serial("id").primaryKey(),
   userId: text("userId")
     .notNull()
-    .references(() => users.id, { onDelete: "cascade" })
-    .unique(),
+    .references(() => users.id, { onDelete: "cascade" }),
   date: date("date").notNull(),
   dayOfWeek: varchar("day_of_week", { length: 10 }).notNull(),
   shift: varchar("shift", { length: 4 }).notNull(),

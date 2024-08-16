@@ -36,6 +36,13 @@
       "when": 1722025860347,
       "tag": "0004_silly_black_cat",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1723819252557,
+      "tag": "0005_lowly_black_tom",
+      "breakpoints": true
     }
   ]
 }
