@@ -1,6 +1,5 @@
 import {
   faGithub,
-  faLinkedinIn,
   faXTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
