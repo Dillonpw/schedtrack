@@ -32,7 +32,6 @@ export default async function ScheduleData() {
   if (!scheduleEntriesData || scheduleEntriesData.length === 0) {
     return (
       <main>
-        <Header />
         <h1 className="pb-5 text-center text-3xl font-bold">
           Generated Schedule
         </h1>
