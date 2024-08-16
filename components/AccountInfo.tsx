@@ -13,11 +13,18 @@ const LoggedIn = async () => {
 
   return (
     <div className="flex items-center justify-between gap-2 bg-none px-4 py-2">
-      <Button asChild variant="link">
-        <Link href="/schedule" className="text-sm md:text-lg">
-          Schedule
-        </Link>
-      </Button>
+      <div>
+        <Button asChild variant="link">
+          <Link href="/schedule" className="text-sm md:text-lg">
+            Schedule
+          </Link>
+        </Button>
+        <Button asChild variant="link">
+          <Link href="/dashboard" className="text-sm md:text-lg">
+            Dashboard
+          </Link>
+        </Button>
+      </div>
       <div className="flex items-center gap-2">
         {session.user.image && (
           <Avatar>
