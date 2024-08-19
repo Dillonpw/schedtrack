@@ -44,15 +44,15 @@ test.describe("Home Page", () => {
   //sign in with email testing waiting for domain approval from resend 
   // Working text commented to stop spam
 
-  // test("sign in and account creation", async ({ page }) => {
-  //   const email = process.env.TEST_EMAIL as string;
-  //   const password = process.env.TEST_PASSWORD as string;
-  //   await page.getByRole("link", { name: "Sign In" }).click();
-  //   await expect(page).toHaveURL("http:/localhost:3000/signin");
-  //   await page.getByPlaceholder("Email").click();
-  //   await page.getByPlaceholder("Email").fill(email);
-  //   await page.getByRole("button", { name: "Sign in with Email" }).click();
-  // });
+  test.skip("sign in and account creation", async ({ page }) => {
+    const email = process.env.TEST_EMAIL as string;
+    const password = process.env.TEST_PASSWORD as string;
+    await page.getByRole("link", { name: "Sign In" }).click();
+    await expect(page).toHaveURL("http:/localhost:3000/signin");
+    await page.getByPlaceholder("Email").click();
+    await page.getByPlaceholder("Email").fill(email);
+    await page.getByRole("button", { name: "Sign in with Email" }).click();
+  });
 
 
   //after sign in verify account info is visible
