@@ -11,7 +11,7 @@ export default function SignInPage() {
       <div className="flex mt-[-12rem] h-screen flex-col items-center justify-center">
         <Link
           href="/"
-          className="absolute left-10 top-20 text-2xl hover:underline"
+          className="absolute left-10 top-40 text-2xl hover:underline"
         >
           {" "}
           Back
