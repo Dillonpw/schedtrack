@@ -13,14 +13,14 @@ export default function Nav() {
           Dashboard
         </Link>
         <Link
-          href="#features"
+          href="/#features"
           className="text-lg font-medium underline-offset-4 hover:underline"
           prefetch={false}
         >
           Features
         </Link>
         <Link
-          href="#pricing"
+          href="/#pricing"
           className="text-lg font-medium underline-offset-4 hover:underline"
           prefetch={false}
         >
