@@ -8,7 +8,7 @@ export default function SignInPage() {
     <main className="">
       <Header />
       <AccountInfo />
-      <div className="flex mt-[-12rem] h-screen flex-col items-center justify-center">
+      <div className="mt-[-12rem] flex h-screen flex-col items-center justify-center">
         <Link
           href="/"
           className="absolute left-10 top-40 text-2xl hover:underline"

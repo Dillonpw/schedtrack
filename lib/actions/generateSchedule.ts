@@ -1,10 +1,11 @@
-"use server";
+'use server';
 
 import { db } from "@/db/index";
 import { scheduleEntries, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
 
+// Types
 interface GenerateScheduleParams {
   workDays: number;
   offDays: number;
@@ -15,43 +16,37 @@ interface GenerateScheduleParams {
 interface ScheduleEntry {
   date: string;
   dayOfWeek: string;
-  shift: string;
+  shift: 'Work' | 'Off';
 }
 
+// Constants
+const DAYS_OF_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as const;
+
+// Main function
 export async function generateSchedule({
   workDays,
   offDays,
   totalDays,
   startDate,
-}: GenerateScheduleParams) {
+}: GenerateScheduleParams): Promise<string> {
   const session = await auth();
-  if (!session || !session.user?.id) {
+  if (!session?.user?.id) {
     throw new Error("Not authenticated");
   }
 
   const userId = session.user.id;
-  const schedule = generateRotatingSchedule(
-    workDays,
-    offDays,
-    totalDays,
-    startDate,
-  );
+  const schedule = createRotatingSchedule(workDays, offDays, totalDays, startDate);
 
   await db.transaction(async (tx) => {
-    // Delete existing schedule entries for the user
     await tx.delete(scheduleEntries).where(eq(scheduleEntries.userId, userId));
 
-    // Insert new schedule entries
     await tx.insert(scheduleEntries).values(
-      schedule.map((entry) => ({
+      schedule.map(entry => ({
         userId,
-        date: entry.date, // Date is already formatted as string
-        dayOfWeek: entry.dayOfWeek,
-        shift: entry.shift,
+        ...entry
       }))
     );
 
-    // Update the user's last schedule update timestamp
     await tx.update(users)
       .set({ lastScheduleUpdate: new Date() })
       .where(eq(users.id, userId));
@@ -60,46 +55,34 @@ export async function generateSchedule({
   return userId;
 }
 
-function generateRotatingSchedule(
+// Helper functions
+function createRotatingSchedule(
   workDays: number,
   offDays: number,
   totalDays: number,
-  startDate: Date,
+  startDate: Date
 ): ScheduleEntry[] {
-  const schedule = [];
+  const schedule: ScheduleEntry[] = [];
+  const cycleLength = workDays + offDays;
   let currentDate = new Date(startDate);
   currentDate.setHours(0, 0, 0, 0);
-  let daysScheduled = 0;
 
-  while (daysScheduled < totalDays) {
-    const formattedDate = formatDate(currentDate);
-    const dayOfWeek = getDayOfWeek(currentDate.getDay());
-    const shift =
-      daysScheduled % (workDays + offDays) < workDays ? "Work" : "Off";
-
-    schedule.push({ date: formattedDate, dayOfWeek, shift });
-    daysScheduled++;
+  for (let day = 0; day < totalDays; day++) {
+    schedule.push({
+      date: formatDate(currentDate),
+      dayOfWeek: DAYS_OF_WEEK[currentDate.getDay()],
+      shift: day % cycleLength < workDays ? 'Work' : 'Off'
+    });
     currentDate.setDate(currentDate.getDate() + 1);
   }
+
   return schedule;
 }
 
 function formatDate(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${month}-${day}-${year}`;
-}
-
-function getDayOfWeek(dayIndex: number): string {
-  const days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  return days[dayIndex];
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).replace(/\//g, '-');
 }
