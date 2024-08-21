@@ -1,173 +1,202 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "./ui/button";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Calendar } from "./ui/calendar";
-import { generateSchedule } from "../lib/actions/generateSchedule";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { Calendar } from "@/components/ui/calendar";
+import { generateSchedule } from "@/lib/actions/generateSchedule";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
 
-const ScheduleForm: React.FC = () => {
+type FormData = {
+  workDays: number;
+  offDays: number;
+  totalDays: number;
+  startDate: Date | undefined;
+};
+
+const useScheduleForm = (initialData: FormData) => {
+  const [formData, setFormData] = useState<FormData>(initialData);
+  const { workDays, offDays, totalDays, startDate } = formData;
+
+  const updateField = (
+    field: keyof FormData,
+    value: number | Date | undefined,
+  ) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  return { formData, updateField, workDays, offDays, totalDays, startDate };
+};
+
+const FormField = ({
+  label,
+  id,
+  value,
+  onChange,
+  min,
+  max,
+  tooltip,
+}: {
+  label: string;
+  id: string;
+  value: number;
+  onChange: (value: number) => void;
+  min: number;
+  max?: number;
+  tooltip: string;
+}) => (
+  <div className="w-full">
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <label htmlFor={id} className="mb-2 block text-sm font-medium">
+            {label}{" "}
+            <span className="rounded-full border bg-muted px-1 text-xs">?</span>
+          </label>
+        </TooltipTrigger>
+        <TooltipContent>{tooltip}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+    <Input
+      type="number"
+      id={id}
+      value={value}
+      onChange={(e) => onChange(parseInt(e.target.value))}
+      min={min}
+      max={max}
+      required
+      className="w-full"
+    />
+  </div>
+);
+
+export default function Component() {
   const router = useRouter();
   const { data: session, status } = useSession();
-  const [workDays, setWorkDays] = useState<number>(4);
-  const [offDays, setOffDays] = useState<number>(2);
-  const [totalDays, setTotalDays] = useState<number>(90);
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(
-    new Date(),
-  );
+  const { toast } = useToast();
+  const { formData, updateField, workDays, offDays, totalDays, startDate } =
+    useScheduleForm({
+      workDays: 4,
+      offDays: 2,
+      totalDays: 90,
+      startDate: new Date(),
+    });
 
   const handleGenerateSchedule = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedDate || !session) return;
+    if (!startDate || !session) {
+      toast({
+        title: "Error",
+        description: "Please select a start date and ensure you're logged in.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       await generateSchedule({
         workDays,
         offDays,
         totalDays,
-        startDate: selectedDate,
+        startDate,
       });
       router.push(`/schedule`);
     } catch (error) {
       console.error("Failed to generate schedule:", error);
-      // Handle error (e.g., show an error message to the user)
+      toast({
+        title: "Error",
+        description: "Failed to generate schedule. Please try again.",
+        variant: "destructive",
+      });
     }
   };
 
-  const handleDayClick = (day: Date) => {
-    setSelectedDate(day);
-  };
-
   if (status === "loading") {
-    return <div>Loading...</div>;
+    return (
+      <div className="flex h-screen items-center justify-center">
+        Loading...
+      </div>
+    );
   }
 
   if (status === "unauthenticated") {
-    return <div>Please sign in to generate a schedule.</div>;
+    return (
+      <div className="flex h-screen items-center justify-center">
+        Please sign in to generate a schedule.
+      </div>
+    );
   }
 
   return (
-    <main className="mb-40">
-      <h1 className="pb-5 text-center text-3xl font-bold">
-        Schedule Generator
-      </h1>
-      <form
-        className="mt-4 flex flex-col items-center gap-2 text-lg font-semibold"
-        onSubmit={handleGenerateSchedule}
-      >
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <label htmlFor="workDays">
-                Work Days:{" "}
-                <span className="text-md rounded-full border bg-muted px-2 py-1">
-                  ?
-                </span>
-              </label>
-            </TooltipTrigger>
-            <TooltipContent>
-              Enter the number of consecutive work days in your rotation
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <input
-          className="w-40 rounded-md bg-gray-300 px-2 py-1 text-black"
-          type="number"
-          id="workDays"
-          min="1"
-          value={workDays}
-          onChange={(e) => setWorkDays(parseInt(e.target.value))}
-          required
-        />
-
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <label htmlFor="offDays">
-                Off Days:{" "}
-                <span className="text-md rounded-full border bg-muted px-2 py-1">
-                  ?
-                </span>
-              </label>
-            </TooltipTrigger>
-            <TooltipContent>
-              Enter the number of consecutive days off in your rotation
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <input
-          className="w-40 rounded-md bg-gray-300 px-2 py-1 text-black"
-          type="number"
-          id="offDays"
-          min="1"
-          value={offDays}
-          onChange={(e) => setOffDays(parseInt(e.target.value))}
-          required
-        />
-
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <label htmlFor="totalDays">
-                Total Days:{" "}
-                <span className="text-md rounded-full border bg-muted px-2 py-1">
-                  ?
-                </span>
-              </label>
-            </TooltipTrigger>
-            <TooltipContent>
-              Enter the number of days ahead you would like to display
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <input
-          className="w-40 rounded-md bg-gray-300 px-2 py-1 text-black"
-          type="number"
-          id="totalDays"
-          min="1"
-          max="183"
-          value={totalDays}
-          onChange={(e) => setTotalDays(parseInt(e.target.value))}
-          required
-        />
-
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <label>
-                Start Date:{" "}
-                <span className="text-md rounded-full border bg-muted px-2 py-1">
-                  ?
-                </span>
-              </label>
-            </TooltipTrigger>
-            <TooltipContent>
-              Select the first day of your next or last rotation
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <Calendar
-          mode="single"
-          selected={selectedDate}
-          onDayClick={handleDayClick}
-        />
-
-        <Button
-          onClick={handleGenerateSchedule}
-          variant="default"
-          id="generate"
+    <main className="flex min-h-screen flex-col items-center justify-center px-4 py-8">
+      <div>
+        <h1 className="mb-8 text-center text-3xl font-bold">
+          Schedule Generator
+        </h1>
+        <form
+          onSubmit={handleGenerateSchedule}
+          className="flex flex-col items-center justify-center space-y-6 text-center"
         >
-          Generate Schedule
-        </Button>
-      </form>
+          <FormField
+            label="Work Days"
+            id="workDays"
+            value={workDays}
+            onChange={(value) => updateField("workDays", value)}
+            min={1}
+            tooltip="Enter the number of consecutive work days in your rotation"
+          />
+          <FormField
+            label="Off Days"
+            id="offDays"
+            value={offDays}
+            onChange={(value) => updateField("offDays", value)}
+            min={1}
+            tooltip="Enter the number of consecutive days off in your rotation"
+          />
+          <FormField
+            label="Total Days"
+            id="totalDays"
+            value={totalDays}
+            onChange={(value) => updateField("totalDays", value)}
+            min={1}
+            max={183}
+            tooltip="Enter the number of days ahead you would like to display"
+          />
+          <div className="w-full">
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <label className="mb-2 block text-sm font-medium">
+                    Start Date{" "}
+                    <span className="rounded-full border bg-muted px-1 text-xs">
+                      ?
+                    </span>
+                  </label>
+                </TooltipTrigger>
+                <TooltipContent>
+                  Select the first day of your next or last rotation
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+            <Calendar
+              mode="single"
+              selected={startDate}
+              onSelect={(date) => updateField("startDate", date)}
+            />
+          </div>
+          <Button type="submit" className="w-full">
+            Generate Schedule
+          </Button>
+        </form>
+      </div>
     </main>
   );
-};
-
-export default ScheduleForm;
+}
