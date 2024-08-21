@@ -140,7 +140,7 @@ export const metadata: Metadata = {
       "Streamline your shift scheduling, staff planning, and work-life balance with Sched Track - the ultimate workforce management tool for first responders, nurses, and 24/7 operations.",
     images: [
       {
-        url: "https://schedtrack.com/schedule-dt.webp",
+        url: "https://www.schedtrack.com/schedule-dt.webp",
         width: 1200,
         height: 630,
         alt: "Sched Track | Rotating Schedule Builder",
