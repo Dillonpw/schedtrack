@@ -9,7 +9,12 @@ export function SignOut() {
         await signOut();
       }}
     >
-      <Button variant="destructive" type="submit" size='sm' data-testid="sign-out">
+      <Button
+        variant="destructive"
+        type="submit"
+        size="sm"
+        data-testid="sign-out"
+      >
         Sign Out
       </Button>
     </form>

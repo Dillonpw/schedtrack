@@ -1,7 +1,4 @@
-import {
-  faGithub,
-  faXTwitter,
-} from "@fortawesome/free-brands-svg-icons";
+import { faGithub, faXTwitter } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   Tooltip,
@@ -13,9 +10,9 @@ export default function ContactForm() {
   return (
     <div
       id="links"
-      className="fade-in-2 h-screen mb-[-10rem] flex flex-col items-center justify-center space-x-8 space-y-8 dark:text-gray-200"
+      className="fade-in-2 mb-[-10rem] flex h-screen flex-col items-center justify-center space-x-8 space-y-8 dark:text-gray-200"
     >
-      <p>Connect with the Developer at Dillonpwalsh10@gmail.com</p>
+      <p>Connect with the developer at Dillonpwalsh10@gmail.com</p>
       <div className="flex space-x-8">
         <TooltipProvider>
           <Tooltip>
