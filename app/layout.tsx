@@ -25,7 +25,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Sched Track",
   description:
-    "Sched Track is your ultimate tool for efficient shift scheduling, staff planning, and work-life balance optimization. Perfect for first responders, nurses, and other 24/7 operations.",
+    "Streamline your shift scheduling, staff planning, and work-life balance with Sched Track - the ultimate workforce management tool for first responders, nurses, and 24/7 operations.",
   applicationName: "Rotating Schedule Builder",
   keywords: [
     "Sched Track",
@@ -91,14 +91,27 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "/favicon.webp",
-    shortcut: "/favicon.webp",
-    apple: "/favicon.webp",
-    other: {
-      rel: "apple-touch-icon",
-      url: "/favicon.webp",
-    },
+    icon: "/favicon-32x32.webp",
+    shortcut: "/favicon-32x32.webp",
+    apple: "/favicon-192x192.webp",
+    other: [
+      {
+        rel: "apple-touch-icon",
+        url: "/favicon-192x192.webp",
+      },
+      {
+        rel: "icon",
+        sizes: "192x192",
+        url: "/favicon-192x192.webp",
+      },
+      {
+        rel: "icon",
+        sizes: "512x512",
+        url: "/favicon-512x512.webp",
+      },
+    ],
   },
+
   formatDetection: {
     telephone: false,
     address: false,
@@ -108,31 +121,40 @@ export const metadata: Metadata = {
     title: "Sched Track | Rotating Schedule Builder",
     description:
       "Efficient shift scheduling and workforce management tool. Ideal for first responders, nurses, and 24/7 operations.",
-    url: "https://yourwebsite.com",
+    url: "https://www.schedtrack.com",
     images: [
       {
         url: "/schedule-dt.webp",
         width: 1200,
         height: 630,
-        alt: "Rotating Schedule Builder",
+        alt: "Sched Track | Rotating Schedule Builder",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    site: "@your_twitter_handle",
-    title: "Rotating Schedule Builder",
+    site: "@dillonpw_",
+    title:
+      "Sched Track | Efficient Shift Scheduling and Workforce Management Tool",
     description:
-      "Efficient shift scheduling and workforce management tool. Ideal for first responders, nurses, and 24/7 operations.",
+      "Streamline your shift scheduling, staff planning, and work-life balance with Sched Track - the ultimate workforce management tool for first responders, nurses, and 24/7 operations.",
+    images: [
+      {
+        url: "https://schedtrack.com/schedule-dt.webp",
+        width: 1200,
+        height: 630,
+        alt: "Sched Track | Rotating Schedule Builder",
+      },
+    ],
   },
-  metadataBase: new URL("https://schedtrack.com"),
+  metadataBase: new URL("https://www.schedtrack.com"),
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-      <GoogleAdsense />
+        <GoogleAdsense />
       </head>
       <body
         className={cn(
