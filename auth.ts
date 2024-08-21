@@ -2,6 +2,8 @@ import NextAuth from "next-auth";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import Resend from "next-auth/providers/resend";
 import Google from "next-auth/providers/google";
+import Github from "next-auth/providers/github";
+
 import { db } from "./db";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -12,5 +14,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       from: "Sched Track <no-reply@schedtrack.com>",
     }),
     Google,
+    Github,
   ],
+  
 });

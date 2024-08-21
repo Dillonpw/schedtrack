@@ -72,6 +72,21 @@ export default function Component() {
           Sign in with Google
         </Button>
       </form>
+      <form
+        action={async () => {
+          "use server";
+          await signIn("github", { redirectTo: "/dashboard" });
+        }}
+      >
+        <Button
+          className="flex w-full items-center justify-center"
+          size="signin"
+          type="submit"
+        >
+          <ChromeIcon className="mr-2 h-5 w-5" />
+          Sign in with Github
+        </Button>
+      </form>
       <div className="text-center">
         <Button asChild variant="link">
           <Link href="/">Home</Link>
