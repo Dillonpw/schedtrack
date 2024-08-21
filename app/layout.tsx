@@ -25,8 +25,9 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Sched Track",
   description:
-    "Streamline your shift scheduling, staff planning, and work-life balance with Sched Track - the ultimate workforce management tool for first responders, nurses, and 24/7 operations.",
-  applicationName: "Rotating Schedule Builder",
+    "Sched Track - the ultimate tool for rotating schedule building, efficient shift scheduling, and workforce management, optimized for first responders, nurses, and 24/7 operations.",
+
+  applicationName: "Sched Track",
   keywords: [
     "Sched Track",
     "Rotating Schedule Builder",
