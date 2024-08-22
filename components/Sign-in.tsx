@@ -49,7 +49,7 @@ function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
 
 export default function Component() {
   return (
-    <div className="w-full max-w-sm rounded-lg bg-primary-foreground p-6 shadow-md">
+    <div className="w-full max-w-sm rounded-lg border-2 bg-primary-foreground p-6 shadow-md">
       <h2 className="mb-6 text-center text-2xl font-bold">Sign in</h2>
       <form
         className="space-y-4"

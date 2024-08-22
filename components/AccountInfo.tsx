@@ -5,7 +5,6 @@ import { SignOut } from "./Sign-out";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Skeleton } from "./ui/skeleton";
 import { Button } from "./ui/button";
-
 const LoggedIn = async () => {
   const session = await auth();
 
@@ -13,7 +12,11 @@ const LoggedIn = async () => {
     return (
       <div className="m-2 flex justify-end">
         <Button asChild variant="link">
-          <Link className="text-xl font-semibold" href="/signin" prefetch={false}>
+          <Link
+            className="text-xl font-semibold"
+            href="/signin"
+            prefetch={false}
+          >
             Sign In
           </Link>
         </Button>
