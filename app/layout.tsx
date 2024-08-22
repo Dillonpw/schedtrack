@@ -168,10 +168,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <SessionProvider>{children}</SessionProvider>
         </Providers>
         <Link
-          className="m-4 flex justify-center text-lg hover:underline"
+          className="m-4 mt-20 flex justify-center text-lg hover:underline"
           href="https://buy.stripe.com/7sIaFa7EQeJzbW8aEG"
         >
-          Help Us Keep the Lights On 💡
+          Help Us Keep The Lights On 💡
         </Link>
         <Footer />
 

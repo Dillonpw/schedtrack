@@ -8,21 +8,14 @@ const Footer = () => {
       </p>
       <nav className="flex gap-4 sm:ml-auto sm:gap-6">
         <Link
-          href="#"
+          href="/privacy"
           className="text-xs underline-offset-4 hover:underline"
           prefetch={false}
         >
           Privacy Policy
         </Link>
         <Link
-          href="#"
-          className="text-xs underline-offset-4 hover:underline"
-          prefetch={false}
-        >
-          Terms of Service
-        </Link>
-        <Link
-          href="#"
+          href="/contact"
           className="text-xs underline-offset-4 hover:underline"
           prefetch={false}
         >

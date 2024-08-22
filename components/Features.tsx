@@ -24,7 +24,7 @@ const FeaturesSection = () => {
               <li>
                 <div className="grid gap-1">
                   <h3 className="text-xl font-bold">Custom Rotations</h3>
-                  <p className="text-muted-foreground">
+                  <p className="text-muted-foreground text-lg">
                     Create personalized rotating schedules that fit your unique
                     shift patterns.
                   </p>
@@ -35,7 +35,7 @@ const FeaturesSection = () => {
                   <h3 className="text-xl font-bold">
                     Sharing and Collaboration
                   </h3>
-                  <p className="text-muted-foreground">
+                  <p className="text-muted-foreground text-lg">
                     Easy to screenshot and share your schedule with others, more
                     sharing options comng soon
                   </p>

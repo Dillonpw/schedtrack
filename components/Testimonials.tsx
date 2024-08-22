@@ -12,8 +12,8 @@ const TestimonialsSection = () => {
               What Our Users Say
             </h2>
             <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Hear from our satisfied customers about how our rotating schedule
-              building app has transformed their workflow.
+              Hear from our satisfied users about how our rotating schedule
+              builder has simplified their day to day.
             </p>
           </div>
         </div>
@@ -25,15 +25,16 @@ const TestimonialsSection = () => {
                 <AvatarFallback>JD</AvatarFallback>
               </Avatar>
               <div>
-                <h4 className="text-lg font-bold">John Doe</h4>
-                <p className="text-muted-foreground">Shift Manager</p>
+                <h4 className="text-lg font-bold">Anonymous</h4>
+                <p className="text-muted-foreground">911 Dispatcher</p>
               </div>
             </div>
             <Separator className="my-4" />
             <p className="text-muted-foreground">
-              "This rotating schedule building app has been a game-changer for
-              our team. It's so easy to create and share custom rotating
-              schedules. Highly recommend!"
+              "Sched Track has been a game-changer for me. It's so easy to
+              create and view my work schedule, before finding Sched Track I
+              would have to sit down and count the days to try to figure out my
+              days off now it's just there anytime I need it. Highly recommend!"
             </p>
           </Card>
           <Card className="bg-muted p-6 shadow-lg">
@@ -50,9 +51,9 @@ const TestimonialsSection = () => {
             <Separator className="my-4" />
             <p className="text-muted-foreground">
               "I've been using this rotating schedule app for months and it's
-              been a lifesaver. The ability to create and manage rotating
-              schedules for my team has made planning our lives so much easier.
-              Highly recommended!"
+              been a lifesaver. I've gotten my whole team involved. The ability
+              to create and manage rotating schedules has made planning our
+              lives so much easier."
             </p>
           </Card>
         </div>

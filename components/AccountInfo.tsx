@@ -9,7 +9,16 @@ import { Button } from "./ui/button";
 const LoggedIn = async () => {
   const session = await auth();
 
-  if (!session?.user) return null;
+  if (!session?.user)
+    return (
+      <div className="m-2 flex justify-end">
+        <Button asChild variant="link">
+          <Link className="text-xl font-semibold" href="/signin" prefetch={false}>
+            Sign In
+          </Link>
+        </Button>
+      </div>
+    );
 
   return (
     <div className="flex items-center justify-between gap-2 bg-none px-4 py-2">

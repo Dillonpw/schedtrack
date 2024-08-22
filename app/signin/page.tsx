@@ -9,13 +9,6 @@ export default function SignInPage() {
       <Header />
       <AccountInfo />
       <div className="mt-[-12rem] flex h-screen flex-col items-center justify-center">
-        <Link
-          href="/"
-          className="absolute left-10 top-40 text-2xl hover:underline"
-        >
-          {" "}
-          Back
-        </Link>
         <SignIn />
       </div>
     </main>
