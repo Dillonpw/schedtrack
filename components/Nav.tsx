@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Nav() {
   return (
     <>
-      <nav className="flex items-center gap-4 sm:gap-6">
+      <nav className="flex items-center gap-2 sm:gap-6">
         <Link
           href="/dashboard"
           className="text-lg font-medium underline-offset-4 hover:underline"
