@@ -67,24 +67,6 @@ export default function Faq() {
             useful features based on user feedback.
           </AccordionContent>
         </AccordionItem>
-        <AccordionItem value="item-7">
-          <AccordionTrigger className="flex w-full justify-center text-xl">
-            Can I share my schedule with others?
-          </AccordionTrigger>
-          <AccordionContent className="px-5 text-lg md:px-20 md:text-center">
-            Yes, Sched Track allows you to share your schedule with colleagues
-            or friends with just a few clicks.
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value="item-8">
-          <AccordionTrigger className="flex w-full justify-center text-xl">
-            What if I need help using Sched Track?
-          </AccordionTrigger>
-          <AccordionContent className="px-5 text-lg md:px-20 md:text-center">
-            We offer comprehensive support through our Help Center and
-            responsive customer service team.
-          </AccordionContent>
-        </AccordionItem>
       </Accordion>
     </div>
   );
