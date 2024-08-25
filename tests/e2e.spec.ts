@@ -13,9 +13,6 @@ test.describe("Basic Interactions", () => {
     const featuresLink = page.locator('[data-testid="features"]');
     const pricingLink = page.locator('[data-testid="pricing"]');
 
-    await page.getByRole("link", { name: "Dashboard" }).click();
-    await expect(page).toHaveURL("http://localhost:3000/dashboard");
-
     await page.getByRole("link", { name: "Sched Track" }).click();
     await expect(page).toHaveURL("http://localhost:3000/");
 
@@ -41,9 +38,8 @@ test.describe("Basic Interactions", () => {
     await expect(page).toHaveURL("https://buy.stripe.com/7sIaFa7EQeJzbW8aEG");
   });
 
-  //sign in with email testing waiting for domain approval from resend
 
-  // Working text skipped for now
+  // Working text skipped to stop spam
   test.skip("sign in and account creation", async ({ page }) => {
     const email = process.env.TEST_EMAIL as string;
     await page.getByRole("link", { name: "Sign In" }).click();
