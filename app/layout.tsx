@@ -135,8 +135,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     site: "@dillonpw_",
-    title:
-      "Sched Track | Efficient Shift Scheduling and Workforce Management Tool",
+    title: "Sched Track | Scheduling your rotation just became a breeze",
     description:
       "Streamline your shift scheduling, staff planning, and work-life balance with Sched Track - the ultimate workforce management tool for first responders, nurses, and 24/7 operations.",
     images: [
