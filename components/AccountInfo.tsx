@@ -2,8 +2,6 @@ import { auth } from "@/auth";
 import React from "react";
 import Link from "next/link";
 import { SignOut } from "./Sign-out";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Skeleton } from "./ui/skeleton";
 import { Button } from "./ui/button";
 
 const LoggedIn = async () => {
@@ -28,30 +26,22 @@ const LoggedIn = async () => {
   const username = email.split("@")[0];
 
   return (
-    <div className="flex items-center justify-between gap-2 bg-none px-4 py-2">
+    <div className="flex items-center justify-between gap-2 bg-none px-2 pb-2">
       <div>
         <Button asChild variant="link">
-          <Link href="/schedule" className="text-sm md:text-lg">
+          <Link href="/schedule" className="text-xs md:text-lg">
             Schedule
           </Link>
         </Button>
         <Button asChild variant="link">
-          <Link href="/dashboard" className="text-sm md:text-lg">
+          <Link href="/dashboard" className="text-xs md:text-lg">
             Dashboard
           </Link>
         </Button>
       </div>
       <div className="flex items-center gap-2">
-        {session.user.image && (
-          <Avatar>
-            <AvatarImage src={session.user.image as string} />
-            <AvatarFallback>
-              <Skeleton className="h-12 w-12 rounded-full" />
-            </AvatarFallback>
-          </Avatar>
-        )}
         {session.user.email && (
-          <p className="select-none text-sm font-semibold md:text-lg">
+          <p className="select-none text-xs font-semibold md:text-lg">
             {username}
           </p>
         )}
