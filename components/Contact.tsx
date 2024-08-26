@@ -10,10 +10,10 @@ export default function ContactForm() {
   return (
     <div
       id="links"
-      className="fade-in-2 mb-[-3rem] mt-[-12rem] flex h-screen flex-col items-center justify-center space-x-8 space-y-4 dark:text-gray-200"
+      className="fade-in-2 mb-[-3rem] mt-[-12rem] flex h-screen flex-col items-center justify-center space-y-4 dark:text-gray-200"
     >
-      <p className="text-2xl">
-        Connect with the developer at Dillonpwalsh10@gmail.com
+      <p className="text-xl mx-auto md:text-2xl text-center">
+        Connect with the developer at schedtrackhelp@gmail.com
       </p>
       <div className="flex space-x-8">
         <TooltipProvider>
