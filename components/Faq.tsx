@@ -54,8 +54,8 @@ export default function Faq() {
             Can I use Sched Track on any device?
           </AccordionTrigger>
           <AccordionContent className="px-5 text-lg md:px-20 md:text-center">
-            Yes, Sched Track is designed to work seamlessly on desktop,
-            mobile devices and everything in between.
+            Yes, Sched Track is designed to work seamlessly on desktop, mobile
+            devices and everything in between.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-6">

@@ -5,6 +5,7 @@ import { SignOut } from "./Sign-out";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Skeleton } from "./ui/skeleton";
 import { Button } from "./ui/button";
+
 const LoggedIn = async () => {
   const session = await auth();
 
@@ -22,6 +23,9 @@ const LoggedIn = async () => {
         </Button>
       </div>
     );
+
+  const email: any = session.user.email;
+  const username = email.split("@")[0];
 
   return (
     <div className="flex items-center justify-between gap-2 bg-none px-4 py-2">
@@ -48,7 +52,7 @@ const LoggedIn = async () => {
         )}
         {session.user.email && (
           <p className="select-none text-sm font-semibold md:text-lg">
-            {session.user.email}
+            {username}
           </p>
         )}
         <SignOut />
