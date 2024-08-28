@@ -18,7 +18,7 @@ const TestimonialsSection = () => {
           </div>
         </div>
         <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 lg:grid-cols-2 lg:gap-12">
-          <Card className="bg-muted p-6 shadow-lg">
+          <Card className="h-[95%] bg-muted p-6 shadow-lg">
             <div className="flex items-start gap-4">
               <Avatar>
                 <AvatarImage src="/john-doe.webp" alt="John Doe Avatar" />
@@ -37,7 +37,7 @@ const TestimonialsSection = () => {
               days off now it's just there anytime I need it. Highly recommend!"
             </p>
           </Card>
-          <Card className="bg-muted p-6 shadow-lg">
+          <Card className="h-[95%] bg-muted p-6 shadow-lg">
             <div className="flex items-start gap-4">
               <Avatar>
                 <AvatarImage src="/jane-doe.webp " alt="Jane Doe Avatar" />

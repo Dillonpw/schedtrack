@@ -26,7 +26,7 @@ const LoggedIn = async () => {
   const username = email.split("@")[0];
 
   return (
-    <div className="flex items-center justify-between gap-2 bg-none px-2 pb-2">
+    <div className="flex items-center justify-between gap-2 bg-none border-b-2 px-2 pb-2">
       <div>
         <Button asChild variant="link">
           <Link href="/schedule" className="text-xs md:text-lg">

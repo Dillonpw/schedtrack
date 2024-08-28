@@ -16,5 +16,4 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     Google,
     Github,
   ],
-  
 });
