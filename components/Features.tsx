@@ -11,11 +11,8 @@ export default function Component() {
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
-              Leave Manual Scheduling Behind
-            </h2>
-            <p className="max-w-[700px] text-muted-foreground md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed">
               Manage your time more efficiently and without the headache
-            </p>
+            </h2>
           </div>
         </div>
         <div className="mx-auto grid max-w-4xl items-center gap-6 py-8 lg:grid-cols-2 lg:gap-10">

@@ -21,8 +21,10 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
                   First Responders
                 </span>{" "}
                 as well as a multidude of other professionals schedule next
-                month, 6 months, or a year from now with ease.
-                <br /> Say goodbye to manual planning.
+                month, 6 months, or a year from now with ease. <br />
+                <span className="font-semibold text-red-600">
+                  Say goodbye to manual planning.
+                </span>
               </p>
             </div>
             {children}
