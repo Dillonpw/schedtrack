@@ -1,7 +1,9 @@
+import React from "react";
 import { db } from "@/db/index";
 import { scheduleEntries } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
+import { ScheduleEntry } from "@/types";
 import {
   Table,
   TableCaption,
@@ -10,12 +12,7 @@ import {
   TableBody,
   TableCell,
 } from "@/components/ui/table";
-
-interface ScheduleEntry {
-  date: string;
-  dayOfWeek: string;
-  shift: string;
-}
+import DownloadButton from "@/components/DownloadBtn";
 
 export default async function ScheduleData() {
   const session = await auth();
@@ -28,65 +25,61 @@ export default async function ScheduleData() {
     .from(scheduleEntries)
     .where(eq(scheduleEntries.userId, session.user.id));
 
-  if (!scheduleEntriesData || scheduleEntriesData.length === 0) {
-    return (
-      <main>
-        <h1 className="pb-5 text-center text-3xl font-bold">
-          Generated Schedule
-        </h1>
-        <div className="mt-4">
-          <p className="text-center text-lg">No schedule available</p>
-        </div>
-      </main>
-    );
-  }
-
-  const renderTableView = (schedule: ScheduleEntry[]): JSX.Element => (
-    <Table>
-      <TableCaption className="mb-5">End of List</TableCaption>
-      <TableHeader>
-        <TableRow className="flex w-full justify-between px-4">
-          <TableHeader className="w-[33%] text-left text-xl font-semibold">
-            Day of Week
-          </TableHeader>
-          <TableHeader className="w-[33%] text-center text-xl font-semibold">
-            Date
-          </TableHeader>
-          <TableHeader className="w-[33%] text-right text-xl font-semibold">
-            Shift
-          </TableHeader>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {schedule.map((entry, index) => (
-          <TableRow key={index} className="flex w-full justify-between">
-            <TableCell className="text-md w-[33%] text-left font-bold">
-              {entry.dayOfWeek}
-            </TableCell>
-            <TableCell className="text-md w-[33%] text-center font-bold">
-              {entry.date}
-            </TableCell>
-            <TableCell className="text-md w-[33%] text-right font-bold">
-              {entry.shift}
-            </TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-    </Table>
-  );
-
   return (
     <section className="m-10">
-      <h1 className="pb-10 text-center text-3xl font-bold">
-        Generated Schedule
-      </h1>
+      <h1 className="text-center text-3xl font-bold">Schedule</h1>
       <div className="mt-4">
-        {scheduleEntriesData.length > 0 ? (
-          renderTableView(scheduleEntriesData)
-        ) : (
-          <p className="text-center text-lg">No schedule available</p>
-        )}
+        <ScheduleTable scheduleEntriesData={scheduleEntriesData} />
       </div>
     </section>
+  );
+}
+
+function ScheduleTable({
+  scheduleEntriesData,
+}: {
+  scheduleEntriesData: ScheduleEntry[];
+}) {
+  if (scheduleEntriesData.length === 0) {
+    return <p className="text-center text-lg">No schedule available</p>;
+  }
+
+  return (
+    <>
+      <div className="text-center">
+        <DownloadButton scheduleEntriesData={scheduleEntriesData} />
+      </div>
+      <Table>
+        <TableCaption className="mb-5">End of List</TableCaption>
+        <TableHeader>
+          <TableRow className="flex w-full justify-between px-4">
+            <TableCell className="w-[33%] text-left text-xl font-semibold">
+              Day of Week
+            </TableCell>
+            <TableCell className="w-[33%] text-center text-xl font-semibold">
+              Date
+            </TableCell>
+            <TableCell className="w-[33%] text-right text-xl font-semibold">
+              Shift
+            </TableCell>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {scheduleEntriesData.map((entry, index) => (
+            <TableRow key={index} className="flex w-full justify-between">
+              <TableCell className="text-md w-[33%] text-left font-bold">
+                {entry.dayOfWeek}
+              </TableCell>
+              <TableCell className="text-md w-[33%] text-center font-bold">
+                {entry.date}
+              </TableCell>
+              <TableCell className="text-md w-[33%] text-right font-bold">
+                {entry.shift}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </>
   );
 }

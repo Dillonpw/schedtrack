@@ -14,8 +14,7 @@ export default function Component() {
               Leave Manual Scheduling Behind
             </h2>
             <p className="max-w-[700px] text-muted-foreground md:text-lg/relaxed lg:text-base/relaxed xl:text-lg/relaxed">
-              We offer a custom schedule generator to help you manage your
-              time more efficiently and without the headaches.
+              Manage your time more efficiently and without the headache
             </p>
           </div>
         </div>
@@ -37,8 +36,8 @@ export default function Component() {
                     Sharing and Collaboration
                   </h3>
                   <p className="text-muted-foreground">
-                    Easy to screenshot and share your schedule with others, more
-                    sharing options coming soon.
+                    Download and import to your calendar of choice like Google
+                    Calendar with ease
                   </p>
                 </div>
               </li>
@@ -54,5 +53,5 @@ export default function Component() {
         </div>
       </div>
     </section>
-  )
+  );
 }

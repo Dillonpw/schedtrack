@@ -14,13 +14,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { generateSchedule } from "@/lib/actions/generateSchedule";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-
-type FormData = {
-  workDays: number;
-  offDays: number;
-  totalDays: number;
-  startDate: Date | undefined;
-};
+import { FormData } from "@/types";
 
 const useScheduleForm = (initialData: FormData) => {
   const [formData, setFormData] = useState<FormData>(initialData);
