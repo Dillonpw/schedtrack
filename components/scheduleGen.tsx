@@ -1,34 +1,34 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
-import { Button } from "@/components/ui/button";
+import React, { useState } from "react"
+import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
+import { Button } from "@/components/ui/button"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Calendar } from "@/components/ui/calendar";
-import { generateSchedule } from "@/lib/actions/generateSchedule";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
-import { FormData } from "@/types";
+} from "@/components/ui/tooltip"
+import { Calendar } from "@/components/ui/calendar"
+import { generateSchedule } from "@/lib/actions/generateSchedule"
+import { Input } from "@/components/ui/input"
+import { useToast } from "@/components/ui/use-toast"
+import { FormData } from "@/types"
 
 const useScheduleForm = (initialData: FormData) => {
-  const [formData, setFormData] = useState<FormData>(initialData);
-  const { workDays, offDays, totalDays, startDate } = formData;
+  const [formData, setFormData] = useState<FormData>(initialData)
+  const { workDays, offDays, totalDays, startDate } = formData
 
   const updateField = (
     field: keyof FormData,
     value: number | Date | undefined,
   ) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
+    setFormData((prev) => ({ ...prev, [field]: value }))
+  }
 
-  return { formData, updateField, workDays, offDays, totalDays, startDate };
-};
+  return { formData, updateField, workDays, offDays, totalDays, startDate }
+}
 
 const FormField = ({
   label,
@@ -39,13 +39,13 @@ const FormField = ({
   max,
   tooltip,
 }: {
-  label: string;
-  id: string;
-  value: number;
-  onChange: (value: number) => void;
-  min: number;
-  max?: number;
-  tooltip: string;
+  label: string
+  id: string
+  value: number
+  onChange: (value: number) => void
+  min: number
+  max?: number
+  tooltip: string
 }) => (
   <div className="w-full">
     <TooltipProvider>
@@ -70,29 +70,29 @@ const FormField = ({
       className="w-full"
     />
   </div>
-);
+)
 
-export default function Component() {
-  const router = useRouter();
-  const { data: session, status } = useSession();
-  const { toast } = useToast();
+export default function GenerateSchedule() {
+  const router = useRouter()
+  const { data: session, status } = useSession()
+  const { toast } = useToast()
   const { formData, updateField, workDays, offDays, totalDays, startDate } =
     useScheduleForm({
       workDays: 4,
       offDays: 2,
       totalDays: 90,
       startDate: new Date(),
-    });
+    })
 
   const handleGenerateSchedule = async (e: React.FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
     if (!startDate || !session) {
       toast({
         title: "Error",
         description: "Please select a start date and ensure you're logged in.",
         variant: "destructive",
-      });
-      return;
+      })
+      return
     }
 
     try {
@@ -101,24 +101,24 @@ export default function Component() {
         offDays,
         totalDays,
         startDate,
-      });
-      router.push(`/schedule`);
+      })
+      router.push('/schedule')
     } catch (error) {
-      console.error("Failed to generate schedule:", error);
+      console.error("Failed to generate schedule:", error)
       toast({
         title: "Error",
         description: "Failed to generate schedule. Please try again.",
         variant: "destructive",
-      });
+      })
     }
-  };
+  }
 
   if (status === "loading") {
     return (
       <div className="flex h-screen items-center justify-center">
         Loading...
       </div>
-    );
+    )
   }
 
   if (status === "unauthenticated") {
@@ -126,18 +126,18 @@ export default function Component() {
       <div className="flex h-screen items-center justify-center">
         Please sign in to generate a schedule.
       </div>
-    );
+    )
   }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center px-4 py-8">
-      <div>
+      <div className="w-full max-w-md">
         <h1 className="mb-8 text-center text-3xl font-bold">
-          Schedule Generator
+          Generate Schedule
         </h1>
         <form
           onSubmit={handleGenerateSchedule}
-          className="flex flex-col items-center justify-center space-y-6 text-center"
+          className="space-y-6"
         >
           <FormField
             label="Work Days"
@@ -183,7 +183,8 @@ export default function Component() {
             <Calendar
               mode="single"
               selected={startDate}
-              onSelect={(date) => updateField("startDate", date)}
+              onSelect={(date) => updateField("startDate", date as Date)}
+              className="rounded-md border"
             />
           </div>
           <Button type="submit" className="w-full">
@@ -192,5 +193,5 @@ export default function Component() {
         </form>
       </div>
     </main>
-  );
+  )
 }
