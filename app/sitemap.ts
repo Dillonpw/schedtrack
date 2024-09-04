@@ -1,8 +1,8 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from "next";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.schedtrack.com'
-  
+  const baseUrl = "https://www.schedtrack.com";
+
   return [
     {
       url: baseUrl,
@@ -13,8 +13,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
-        url: `${baseUrl}/signin`,
-        lastModified: new Date(),
-      },
-  ]
+      url: `${baseUrl}/signin`,
+      lastModified: new Date(),
+    },
+  ];
 }
