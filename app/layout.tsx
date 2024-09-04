@@ -92,23 +92,23 @@ export const metadata: Metadata = {
     follow: true,
   },
   icons: {
-    icon: "/favicon-32x32.webp",
-    shortcut: "/favicon-32x32.webp",
-    apple: "/favicon-192x192.webp",
+    icon: "/favicon.webp",
+    shortcut: "/favicon.webp",
+    apple: "/favicon.webp",
     other: [
       {
         rel: "apple-touch-icon",
-        url: "/favicon-192x192.webp",
+        url: "/favicon.webp",
       },
       {
         rel: "icon",
         sizes: "192x192",
-        url: "/favicon-192x192.webp",
+        url: "/favicon.webp",
       },
       {
         rel: "icon",
         sizes: "512x512",
-        url: "/favicon-512x512.webp",
+        url: "/favicon.webp",
       },
     ],
   },
