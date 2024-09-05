@@ -1,8 +1,8 @@
 // ClientScheduleView.tsx
-"use client"
+"use client";
 
-import React, { useState } from "react"
-import { ScheduleEntry } from "@/types"
+import React, { useState } from "react";
+import { ScheduleEntry } from "@/types";
 import {
   Table,
   TableCaption,
@@ -10,31 +10,31 @@ import {
   TableRow,
   TableBody,
   TableCell,
-} from "@/components/ui/table"
-import DownloadButton from "@/components/DownloadBtn"
-import { Switch } from "@/components/ui/switch"
-import { Label } from "@/components/ui/label"
-import { Calendar, momentLocalizer } from 'react-big-calendar'
-import moment from 'moment'
-import 'react-big-calendar/lib/css/react-big-calendar.css'
+} from "@/components/ui/table";
+import DownloadButton from "@/components/DownloadBtn";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import moment from "moment";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 
 // Setup the localizer for React Big Calendar
-const localizer = momentLocalizer(moment)
+const localizer = momentLocalizer(moment);
 
 export default function ClientScheduleView({
   scheduleEntriesData,
 }: {
-  scheduleEntriesData: ScheduleEntry[]
+  scheduleEntriesData: ScheduleEntry[];
 }) {
-  const [isCalendarView, setIsCalendarView] = useState(false)
+  const [isCalendarView, setIsCalendarView] = useState(false);
 
   if (scheduleEntriesData.length === 0) {
-    return <p className="text-center text-lg">No schedule available</p>
+    return <p className="text-center text-lg">No schedule available</p>;
   }
 
   return (
     <>
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4 flex items-center justify-between">
         <DownloadButton scheduleEntriesData={scheduleEntriesData} />
         <div className="flex items-center space-x-2">
           <Label htmlFor="view-toggle">Calendar View</Label>
@@ -51,13 +51,13 @@ export default function ClientScheduleView({
         <ListView scheduleEntriesData={scheduleEntriesData} />
       )}
     </>
-  )
+  );
 }
 
 function ListView({
   scheduleEntriesData,
 }: {
-  scheduleEntriesData: ScheduleEntry[]
+  scheduleEntriesData: ScheduleEntry[];
 }) {
   return (
     <Table>
@@ -91,16 +91,16 @@ function ListView({
         ))}
       </TableBody>
     </Table>
-  )
+  );
 }
 
 function CalendarView({
   scheduleEntriesData,
 }: {
-  scheduleEntriesData: ScheduleEntry[]
+  scheduleEntriesData: ScheduleEntry[];
 }) {
   // Convert schedule entries to events for React Big Calendar
-  const events = scheduleEntriesData.map(entry => {
+  const events = scheduleEntriesData.map((entry) => {
     const date = new Date(entry.date);
     // Ensure the date is not adjusted for timezone
     date.setUTCHours(0, 0, 0, 0);
@@ -113,16 +113,16 @@ function CalendarView({
   });
 
   return (
-    <div style={{ height: '800px' }}>
+    <div style={{ height: "800px" }}>
       <Calendar
         localizer={localizer}
         events={events}
         startAccessor="start"
         endAccessor="end"
-        style={{ height: '100%' }}
-        views={['month']}
-        defaultView='month'
+        style={{ height: "100%" }}
+        views={["month"]}
+        defaultView="month"
       />
     </div>
-  )
+  );
 }

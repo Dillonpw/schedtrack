@@ -1,4 +1,4 @@
-'use server';
+"use server";
 
 import { db } from "@/db/index";
 import { scheduleEntries, users } from "@/db/schema";
@@ -16,11 +16,19 @@ interface GenerateScheduleParams {
 interface ScheduleEntry {
   date: string;
   dayOfWeek: string;
-  shift: 'Work' | 'Off';
+  shift: "Work" | "Off";
 }
 
 // Constants
-const DAYS_OF_WEEK = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'] as const;
+const DAYS_OF_WEEK = [
+  "Sunday",
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+] as const;
 
 // Main function
 export async function generateSchedule({
@@ -35,19 +43,25 @@ export async function generateSchedule({
   }
 
   const userId = session.user.id;
-  const schedule = createRotatingSchedule(workDays, offDays, totalDays, startDate);
+  const schedule = createRotatingSchedule(
+    workDays,
+    offDays,
+    totalDays,
+    startDate,
+  );
 
   await db.transaction(async (tx) => {
     await tx.delete(scheduleEntries).where(eq(scheduleEntries.userId, userId));
 
     await tx.insert(scheduleEntries).values(
-      schedule.map(entry => ({
+      schedule.map((entry) => ({
         userId,
-        ...entry
-      }))
+        ...entry,
+      })),
     );
 
-    await tx.update(users)
+    await tx
+      .update(users)
       .set({ lastScheduleUpdate: new Date() })
       .where(eq(users.id, userId));
   });
@@ -60,7 +74,7 @@ function createRotatingSchedule(
   workDays: number,
   offDays: number,
   totalDays: number,
-  startDate: Date
+  startDate: Date,
 ): ScheduleEntry[] {
   const schedule: ScheduleEntry[] = [];
   const cycleLength = workDays + offDays;
@@ -71,7 +85,7 @@ function createRotatingSchedule(
     schedule.push({
       date: formatDate(currentDate),
       dayOfWeek: DAYS_OF_WEEK[currentDate.getDay()],
-      shift: day % cycleLength < workDays ? 'Work' : 'Off'
+      shift: day % cycleLength < workDays ? "Work" : "Off",
     });
     currentDate.setDate(currentDate.getDate() + 1);
   }
@@ -80,9 +94,11 @@ function createRotatingSchedule(
 }
 
 function formatDate(date: Date): string {
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit'
-  }).replace(/\//g, '-');
+  return date
+    .toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+    .replace(/\//g, "-");
 }
