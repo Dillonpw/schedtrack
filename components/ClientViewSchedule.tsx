@@ -1,4 +1,3 @@
-// ClientScheduleView.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -30,7 +29,7 @@ export default function ClientScheduleView({
 
   return (
     <>
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-10 flex items-center justify-between">
         <DownloadButton scheduleEntriesData={scheduleEntriesData} />
         <div className="flex items-center space-x-2">
           <Label htmlFor="view-toggle">Calendar View</Label>
@@ -146,10 +145,10 @@ function CalendarView({
   };
 
   const getColorClass = (scheduleEntry: ScheduleEntry | undefined) => {
-    if (!scheduleEntry) return "bg-gray-100"; // No data
+    if (!scheduleEntry) return "bg-gray-100"; 
     return scheduleEntry.shift === "Work"
       ? "bg-green-100 text-green-800"
-      : "bg-gray-100"; // Work day or Off day
+      : "bg-gray-100"; 
   };
 
   return (
