@@ -1,7 +1,7 @@
 // ClientScheduleView.tsx
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ScheduleEntry } from "@/types";
 import {
   Table,
@@ -14,12 +14,8 @@ import {
 import DownloadButton from "@/components/DownloadBtn";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-
-// Setup the localizer for React Big Calendar
-const localizer = momentLocalizer(moment);
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function ClientScheduleView({
   scheduleEntriesData,
@@ -94,35 +90,131 @@ function ListView({
   );
 }
 
+const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
 function CalendarView({
   scheduleEntriesData,
 }: {
   scheduleEntriesData: ScheduleEntry[];
 }) {
-  // Convert schedule entries to events for React Big Calendar
-  const events = scheduleEntriesData.map((entry) => {
-    const date = new Date(entry.date);
-    // Ensure the date is not adjusted for timezone
-    date.setUTCHours(0, 0, 0, 0);
-    return {
-      title: entry.shift,
-      start: date,
-      end: date,
-      allDay: true,
-    };
-  });
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [processedEntries, setProcessedEntries] = useState<
+    Map<string, ScheduleEntry>
+  >(new Map());
+
+  useEffect(() => {
+    const entriesMap = new Map<string, ScheduleEntry>();
+    scheduleEntriesData.forEach((entry) => {
+      entriesMap.set(entry.date, entry);
+    });
+    setProcessedEntries(entriesMap);
+  }, [scheduleEntriesData]);
+
+  const daysInMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() + 1,
+    0,
+  ).getDate();
+  const firstDayOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    1,
+  ).getDay();
+
+  const prevMonth = () => {
+    setCurrentDate(
+      new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1),
+    );
+  };
+
+  const nextMonth = () => {
+    setCurrentDate(
+      new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1),
+    );
+  };
+
+  const getScheduleForDate = (date: Date) => {
+    const dateString = formatDate(date);
+    return processedEntries.get(dateString);
+  };
+
+  const formatDate = (date: Date): string => {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const getColorClass = (scheduleEntry: ScheduleEntry | undefined) => {
+    if (!scheduleEntry) return "bg-gray-100"; // No data
+    return scheduleEntry.shift === "Work"
+      ? "bg-green-100 text-green-800"
+      : "bg-gray-100"; // Work day or Off day
+  };
 
   return (
-    <div style={{ height: "800px" }}>
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: "100%" }}
-        views={["month"]}
-        defaultView="month"
-      />
+    <div className="mx-auto w-full max-w-4xl">
+      <div className="mb-4 flex items-center justify-between">
+        <h2 className="text-2xl font-bold">
+          {currentDate.toLocaleString("default", {
+            month: "long",
+            year: "numeric",
+          })}
+        </h2>
+        <div>
+          <Button
+            onClick={prevMonth}
+            variant="outline"
+            size="icon"
+            className="mr-2"
+          >
+            <ChevronLeftIcon className="h-4 w-4" />
+            <span className="sr-only">Previous Month</span>
+          </Button>
+          <Button onClick={nextMonth} variant="outline" size="icon">
+            <ChevronRightIcon className="h-4 w-4" />
+            <span className="sr-only">Next Month</span>
+          </Button>
+        </div>
+      </div>
+      <div className="grid grid-cols-7 gap-2">
+        {DAYS.map((day) => (
+          <div key={day} className="p-2 text-center font-bold">
+            {day}
+          </div>
+        ))}
+        {Array.from({ length: firstDayOfMonth }).map((_, index) => (
+          <div key={`empty-${index}`} className="p-2"></div>
+        ))}
+        {Array.from({ length: daysInMonth }).map((_, index) => {
+          const date = new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth(),
+            index + 1,
+          );
+          const scheduleEntry = getScheduleForDate(date);
+          const colorClass = getColorClass(scheduleEntry);
+          return (
+            <div key={index} className={`rounded-md border p-2 ${colorClass}`}>
+              <div className="font-semibold">{index + 1}</div>
+              {scheduleEntry && (
+                <div className="mt-1 text-xs">{scheduleEntry.shift}</div>
+              )}
+              {!scheduleEntry && <div className="mt-1 text-xs">No Data</div>}
+            </div>
+          );
+        })}
+      </div>
+      <div className="mt-4 flex justify-center space-x-4">
+        <div className="flex items-center">
+          <div className="mr-2 h-4 w-4 rounded border border-green-800 bg-green-100"></div>
+          <span>Work Day</span>
+        </div>
+        <div className="flex items-center">
+          <div className="mr-2 h-4 w-4 rounded border border-gray-300 bg-gray-100"></div>
+          <span>Off Day / No Data</span>
+        </div>
+      </div>
     </div>
   );
 }
