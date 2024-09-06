@@ -107,3 +107,12 @@ export const scheduleEntries = pgTable("schedule_entries", {
   dayOfWeek: varchar("day_of_week", { length: 10 }).notNull(),
   shift: varchar("shift", { length: 4 }).notNull(),
 });
+
+export const feedbacks = pgTable("feedbacks", {
+  id: serial("id").primaryKey(),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  text: text("text").notNull(),
+  date: timestamp("date", { mode: "date" }).notNull(),
+});
