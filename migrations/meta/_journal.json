@@ -50,6 +50,13 @@
       "when": 1723998248905,
       "tag": "0006_silent_blonde_phantom",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1725737529666,
+      "tag": "0007_majestic_aqueduct",
+      "breakpoints": true
     }
   ]
 }
