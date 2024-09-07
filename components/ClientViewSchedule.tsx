@@ -21,7 +21,7 @@ export default function ClientScheduleView({
 }: {
   scheduleEntriesData: ScheduleEntry[];
 }) {
-  const [isCalendarView, setIsCalendarView] = useState(false);
+  const [isCalendarView, setIsCalendarView] = useState(true);
 
   if (scheduleEntriesData.length === 0) {
     return <p className="text-center text-lg">No schedule available</p>;
@@ -32,7 +32,13 @@ export default function ClientScheduleView({
       <div className="mb-10 flex items-center justify-between">
         <DownloadButton scheduleEntriesData={scheduleEntriesData} />
         <div className="flex items-center space-x-2">
-          <Label htmlFor="view-toggle">Calendar View</Label>
+          <Label
+            htmlFor="view-toggle"
+            className="text-black dark:text-gray-100"
+          >
+            {isCalendarView ? "List View" : "Calendar View"}
+          </Label>
+
           <Switch
             id="view-toggle"
             checked={isCalendarView}
@@ -145,10 +151,11 @@ function CalendarView({
   };
 
   const getColorClass = (scheduleEntry: ScheduleEntry | undefined) => {
-    if (!scheduleEntry) return "bg-gray-100"; 
+    if (!scheduleEntry)
+      return "bg-gray-100 dark:bg-gray-700 text-black dark:text-gray-300";
     return scheduleEntry.shift === "Work"
-      ? "bg-green-100 text-green-800"
-      : "bg-gray-100"; 
+      ? "bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200"
+      : "bg-gray-100 dark:bg-gray-700 text-black dark:text-gray-300";
   };
 
   return (
@@ -176,7 +183,7 @@ function CalendarView({
           </Button>
         </div>
       </div>
-      <div className="grid grid-cols-7 gap-2">
+      <div className="grid grid-cols-7 gap-1">
         {DAYS.map((day) => (
           <div key={day} className="p-2 text-center font-bold">
             {day}
@@ -194,23 +201,25 @@ function CalendarView({
           const scheduleEntry = getScheduleForDate(date);
           const colorClass = getColorClass(scheduleEntry);
           return (
-            <div key={index} className={`rounded-md border p-2 ${colorClass}`}>
+            <div key={index} className={`rounded-md border p-1 ${colorClass}`}>
               <div className="font-semibold">{index + 1}</div>
               {scheduleEntry && (
-                <div className="mt-1 text-xs">{scheduleEntry.shift}</div>
+                <div className="mt-1 h-8 text-xs">{scheduleEntry.shift}</div>
               )}
-              {!scheduleEntry && <div className="mt-1 text-xs">No Data</div>}
+              {!scheduleEntry && (
+                <div className="mt-1 h-8 text-xs">No Data</div>
+              )}
             </div>
           );
         })}
       </div>
       <div className="mt-4 flex justify-center space-x-4">
         <div className="flex items-center">
-          <div className="mr-2 h-4 w-4 rounded border border-green-800 bg-green-100"></div>
+          <div className="mr-2 h-4 w-4 rounded border border-green-800 bg-green-100 dark:bg-green-800"></div>
           <span>Work Day</span>
         </div>
         <div className="flex items-center">
-          <div className="mr-2 h-4 w-4 rounded border border-gray-300 bg-gray-100"></div>
+          <div className="mr-2 h-4 w-4 rounded border border-gray-300 bg-gray-100 dark:bg-gray-700"></div>
           <span>Off Day / No Data</span>
         </div>
       </div>
