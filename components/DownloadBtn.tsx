@@ -1,7 +1,12 @@
 "use client";
 import { Button } from "./ui/button";
 import { ScheduleEntry } from "@/types";
-
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 interface DownloadVCSButtonProps {
   scheduleEntriesData: ScheduleEntry[];
 }
@@ -21,9 +26,16 @@ const DownloadVCSButton: React.FC<DownloadVCSButtonProps> = ({
   };
 
   return (
-    <Button variant="default" onClick={downloadVCS}>
-      Download
-    </Button>
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger>
+          <Button variant="default" onClick={downloadVCS}>
+            Download
+          </Button>
+        </TooltipTrigger>
+        <TooltipContent>Download data to import to calendar</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
   );
 };
 
