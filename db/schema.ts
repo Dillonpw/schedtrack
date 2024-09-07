@@ -110,9 +110,7 @@ export const scheduleEntries = pgTable("schedule_entries", {
 
 export const feedbacks = pgTable("feedbacks", {
   id: serial("id").primaryKey(),
-  userId: text("userId")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
+  userId: text("userId").notNull(),
   text: text("text").notNull(),
   date: timestamp("date", { mode: "date" }).notNull(),
 });

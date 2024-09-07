@@ -10,7 +10,6 @@ export interface ScheduleEntry {
   shift: string;
 }
 
-// types.ts
 export type FormData = {
     workDays: number;
     offDays: number;
@@ -18,3 +17,7 @@ export type FormData = {
     startDate: Date | undefined;
   };
   
+export type feedbackData = {
+    text: string;
+    date: Date;
+}
