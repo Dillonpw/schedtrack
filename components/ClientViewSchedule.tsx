@@ -21,7 +21,7 @@ export default function ClientScheduleView({
 }: {
   scheduleEntriesData: ScheduleEntry[];
 }) {
-  const [isCalendarView, setIsCalendarView] = useState(false);
+  const [isCalendarView, setIsCalendarView] = useState(true);
 
   if (scheduleEntriesData.length === 0) {
     return <p className="text-center text-lg">No schedule available</p>;
@@ -32,7 +32,12 @@ export default function ClientScheduleView({
       <div className="mb-10 flex items-center justify-between">
         <DownloadButton scheduleEntriesData={scheduleEntriesData} />
         <div className="flex items-center space-x-2">
-          <Label htmlFor="view-toggle">Calendar View</Label>
+          {isCalendarView ? (
+            <Label htmlFor="view-toggle">List View </Label>
+          ) : (
+            <Label htmlFor="view-toggle">Calendar View </Label>
+          )}
+
           <Switch
             id="view-toggle"
             checked={isCalendarView}
@@ -145,10 +150,10 @@ function CalendarView({
   };
 
   const getColorClass = (scheduleEntry: ScheduleEntry | undefined) => {
-    if (!scheduleEntry) return "bg-gray-100"; 
+    if (!scheduleEntry) return "bg-gray-100";
     return scheduleEntry.shift === "Work"
       ? "bg-green-100 text-green-800"
-      : "bg-gray-100"; 
+      : "bg-gray-100";
   };
 
   return (
