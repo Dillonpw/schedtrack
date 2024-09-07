@@ -26,7 +26,9 @@ export default function Feedback() {
     } else if (result.success) {
       toast.success(result.success)
       formRef.current?.reset()
+      alert("Feedback Submitted!")
     }
+
   }
 
   return (
@@ -35,7 +37,7 @@ export default function Feedback() {
       <Textarea
         name="feedback"
         placeholder="Enter your feedback here."
-        className="mx-4 h-[20rem] w-full md:w-[50%]"
+        className="mx-4 h-[20rem] w-full sm:w-[50%]"
       />
       <SubmitButton />
     </form>
