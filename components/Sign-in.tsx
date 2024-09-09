@@ -51,33 +51,6 @@ export default function Component() {
   return (
     <div className="w-full max-w-sm rounded-lg border-2 bg-primary-foreground p-6 shadow-md">
       <h2 className="mb-6 text-center text-2xl font-bold">Sign in</h2>
-      <form
-        className="space-y-4"
-        action={async (formData) => {
-          "use server";
-          await signIn("resend", formData, { redirectTo: "/dashboard" });
-        }}
-      >
-        <div>
-          <label htmlFor="email" className="sr-only">
-            Email
-          </label>
-          <Input
-            id="email"
-            type="email"
-            name="email"
-            placeholder="Email"
-            className="w-full"
-            required
-          />
-        </div>
-        <Button className="w-full" size="signin" type="submit">
-          Sign in with Email
-        </Button>
-      </form>
-      <div className="my-4 flex items-center justify-center">
-        <span className="text-sm text-gray-600">or continue with</span>
-      </div>
       <div className="space-y-4">
         <form
           action={async () => {
@@ -109,12 +82,40 @@ export default function Component() {
             Sign in with Github
           </Button>
         </form>
-        <div className="text-center">
+      </div>
+      <div className="my-4 flex items-center justify-center">
+        <span className="text-sm text-gray-600">or continue with</span>
+      </div>
+      <form
+        className="space-y-4"
+        action={async (formData) => {
+          "use server";
+          await signIn("resend", formData, { redirectTo: "/dashboard" });
+        }}
+      >
+        <div>
+          <label htmlFor="email" className="sr-only">
+            Email
+          </label>
+          <Input
+            id="email"
+            type="email"
+            name="email"
+            placeholder="Email"
+            className="w-full"
+            required
+          />
+        </div>
+        <Button className="w-full" size="signin" type="submit">
+          Sign in with Email
+        </Button>
+      </form>
+
+        <div className="text-center mt-4">
           <Button asChild variant="link">
             <Link href="/">Back to Home</Link>
           </Button>
         </div>
       </div>
-    </div>
   );
 }
