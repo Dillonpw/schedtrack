@@ -55,7 +55,7 @@ export default function Component() {
         className="space-y-4"
         action={async (formData) => {
           "use server";
-          await signIn("resend", formData);
+          await signIn("resend", formData, { redirectTo: "/dashboard" });
         }}
       >
         <div>
@@ -68,6 +68,7 @@ export default function Component() {
             name="email"
             placeholder="Email"
             className="w-full"
+            required
           />
         </div>
         <Button className="w-full" size="signin" type="submit">
