@@ -11,17 +11,35 @@ interface DownloadVCSButtonProps {
   scheduleEntriesData: ScheduleEntry[];
 }
 
+/**
+ * @description
+ * DownloadVCSButton component takes an array of ScheduleEntry objects and allows the user to download the entries as a VCS file.
+ * @param {ScheduleEntry[]} scheduleEntriesData - An array of ScheduleEntry objects
+ * @returns React component
+ */
 const DownloadVCSButton: React.FC<DownloadVCSButtonProps> = ({
   scheduleEntriesData,
 }) => {
+  /**
+   * Function to create a blob from the VCS data and download it
+   */
   const downloadVCS = () => {
+    /**
+     * Generate the VCS content from the scheduleEntriesData
+     */
     const vcsContent = generateVCS(scheduleEntriesData);
+    /**
+     * Create a blob from the VCS content and download it
+     */
     const blob = new Blob([vcsContent], { type: "text/x-vcalendar" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
     a.download = "schedule.vcs";
     a.click();
+    /**
+     * Revoke the blob URL after download
+     */
     URL.revokeObjectURL(url);
   };
 

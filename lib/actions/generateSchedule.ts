@@ -30,19 +30,30 @@ const DAYS_OF_WEEK = [
   "Saturday",
 ] as const;
 
-// Main function
+/**
+ * The main function that generates a rotating schedule and saves it to the database.
+ *
+ * @param workDays The number of work days in the cycle.
+ * @param offDays The number of off days in the cycle.
+ * @param totalDays The total number of days in the schedule.
+ * @param startDate The start date of the schedule.
+ * @returns The user ID of the user who generated the schedule.
+ */
 export async function generateSchedule({
   workDays,
   offDays,
   totalDays,
   startDate,
 }: GenerateScheduleParams): Promise<string> {
+  // Get the user ID from the authentication session.
   const session = await auth();
   if (!session?.user?.id) {
     throw new Error("Not authenticated");
   }
 
   const userId = session.user.id;
+
+  // Create the schedule.
   const schedule = createRotatingSchedule(
     workDays,
     offDays,
@@ -50,9 +61,12 @@ export async function generateSchedule({
     startDate,
   );
 
+  // Save the schedule to the database.
   await db.transaction(async (tx) => {
+    // Delete the old schedule entries.
     await tx.delete(scheduleEntries).where(eq(scheduleEntries.userId, userId));
 
+    // Insert the new schedule entries.
     await tx.insert(scheduleEntries).values(
       schedule.map((entry) => ({
         userId,
@@ -60,16 +74,27 @@ export async function generateSchedule({
       })),
     );
 
+    // Update the user's last schedule update time.
     await tx
       .update(users)
       .set({ lastScheduleUpdate: new Date() })
       .where(eq(users.id, userId));
   });
 
+  // Return the user ID.
   return userId;
 }
 
-// Helper functions
+/**
+ * Creates a rotating schedule based on the given parameters.
+ *
+ * @param workDays The number of work days in the cycle.
+ * @param offDays The number of off days in the cycle.
+ * @param totalDays The total number of days in the schedule.
+ * @param startDate The start date of the schedule.
+ * @returns An array of `ScheduleEntry` objects, each representing a day in the
+ * schedule.
+ */
 function createRotatingSchedule(
   workDays: number,
   offDays: number,
@@ -81,18 +106,32 @@ function createRotatingSchedule(
   let currentDate = new Date(startDate);
   currentDate.setHours(0, 0, 0, 0);
 
+  // Iterate over the total number of days in the schedule and create a ScheduleEntry
+  // for each day.
   for (let day = 0; day < totalDays; day++) {
     schedule.push({
+      // The date of the ScheduleEntry is the current date, formatted as a string.
       date: formatDate(currentDate),
+      // The day of week of the ScheduleEntry is the day of week of the current date.
       dayOfWeek: DAYS_OF_WEEK[currentDate.getDay()],
+      // The shift of the ScheduleEntry is determined by the day of the cycle.
+      // If the day is before the number of work days, the shift is "Work", otherwise
+      // it is "Off".
       shift: day % cycleLength < workDays ? "Work" : "Off",
     });
+    // Move on to the next day.
     currentDate.setDate(currentDate.getDate() + 1);
   }
 
   return schedule;
 }
 
+/**
+ * Formats a date as a string in the format 'YYYY-MM-DD'.
+ *
+ * @param {Date} date - The date to format.
+ * @returns {string} The date formatted as a string in the format 'YYYY-MM-DD'.
+ */
 function formatDate(date: Date): string {
   return date
     .toLocaleDateString("en-US", {
@@ -100,5 +139,5 @@ function formatDate(date: Date): string {
       month: "2-digit",
       day: "2-digit",
     })
-    .replace(/\//g, "-");
+    .replace(/\//g, "-"); // Replace the slash with a dash.
 }
