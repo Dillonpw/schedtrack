@@ -1,10 +1,10 @@
 import { auth } from "@/auth";
-import React from "react";
+import React, { ReactNode } from "react";
 import Link from "next/link";
 import { SignOut } from "./Sign-out";
 import { Button } from "./ui/button";
 
-const LoggedIn = async () => {
+const LoggedIn = async ({ children }: { children: ReactNode }) => {
   const session = await auth();
 
   if (!session?.user)

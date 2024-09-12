@@ -154,7 +154,6 @@ export default function GenerateSchedule() {
       });
       router.push("/schedule");
     } catch (error) {
-      console.error("Failed to generate schedule:", error);
       toast({
         title: "Error",
         description: "Failed to generate schedule. Please try again.",
