@@ -73,4 +73,7 @@ test.describe("Basic Interactions, designed to show success", () => {
     await expect(page).toHaveURL("http:/localhost:3000/contact");
     await expect(links).toBeVisible();
   });
+
+  //TODO
+  //add credetial log in to allow for deeper testing on the api
 });
