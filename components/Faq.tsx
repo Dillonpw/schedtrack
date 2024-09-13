@@ -8,7 +8,7 @@ import {
 
 export default function Faq() {
   return (
-    <div className="flex w-full flex-col gap-6 bg-muted py-12 md:py-24 lg:py-20 xl:py-48">
+    <div data-testid="faq" className="flex w-full flex-col gap-6 bg-muted py-12 md:py-24 lg:py-20 xl:py-48">
       <h2 className="mb-10 text-center text-2xl font-bold md:text-4xl">
         Frequently Asked Questions
       </h2>
