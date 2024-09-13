@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 test.describe("Basic Interactions, designed to show success", () => {
   test.beforeEach(
-    async ({ page }) => await page.goto("http://localhost:3000/"),
+    async ({ page }) => await page.goto("https://www.schedtrack.com/"),
   );
 
   test("Correct title", async ({ page }) => {
@@ -14,14 +14,14 @@ test.describe("Basic Interactions, designed to show success", () => {
     const pricingLink = page.locator('[data-testid="pricing"]');
 
     await page.getByRole("link", { name: "Sched Track" }).click();
-    await expect(page).toHaveURL("http://localhost:3000/");
+    await expect(page).toHaveURL("https://www.schedtrack.com/");
 
     await page.getByRole("link", { name: "Features" }).click();
-    await expect(page).toHaveURL("http://localhost:3000/#features");
+    await expect(page).toHaveURL("https://www.schedtrack.com/#features");
     await expect(featuresLink).toBeVisible();
 
     await page.getByRole("link", { name: "Pricing" }).click();
-    await expect(page).toHaveURL("http://localhost:3000/#pricing");
+    await expect(page).toHaveURL("https://www.schedtrack.com/#pricing");
     await expect(pricingLink).toBeVisible();
   });
 
@@ -42,7 +42,7 @@ test.describe("Basic Interactions, designed to show success", () => {
   test.skip("sign in and account creation", async ({ page }) => {
     const email = process.env.TEST_EMAIL as string;
     await page.getByRole("link", { name: "Sign In" }).click();
-    await expect(page).toHaveURL("http:/localhost:3000/signin");
+    await expect(page).toHaveURL("https://www.schedtrack.com/signin");
     await page.getByPlaceholder("Email").click();
     await page.getByPlaceholder("Email").fill(email);
     await page.getByRole("button", { name: "Sign in with Email" }).click();
@@ -70,7 +70,7 @@ test.describe("Basic Interactions, designed to show success", () => {
     const contactLink = page.locator('[data-testid="contactLink"]');
     const links = await page.locator(`[id="links"]`);
     await contactLink.click();
-    await expect(page).toHaveURL("http:/localhost:3000/contact");
+    await expect(page).toHaveURL("https://www.schedtrack.com/contact");
     await expect(links).toBeVisible();
   });
 
