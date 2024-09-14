@@ -10,19 +10,16 @@ test.describe("Basic Interactions, designed to show success", () => {
   });
 
   test("Nav menu links", async ({ page }) => {
-    const featuresLink = page.locator('[data-testid="features"]');
-    const pricingLink = page.locator('[data-testid="pricing"]');
-
     await page.getByRole("link", { name: "Sched Track" }).click();
     await expect(page).toHaveURL("https://www.schedtrack.com/");
 
     await page.getByRole("link", { name: "Features" }).click();
     await expect(page).toHaveURL("https://www.schedtrack.com/#features");
-    await expect(featuresLink).toBeVisible();
+    await expect(page.getByTestId("features")).toBeVisible();
 
     await page.getByRole("link", { name: "Pricing" }).click();
     await expect(page).toHaveURL("https://www.schedtrack.com/#pricing");
-    await expect(pricingLink).toBeVisible();
+    await expect(page.getByTestId("pricing")).toBeVisible();
   });
 
   //stripe donation test
@@ -150,11 +147,25 @@ test.describe("Basic Interactions, designed to show success", () => {
   });
 
   test("contact page allows for message send", async ({ page }) => {
-    const contactLink = page.locator('[data-testid="contactLink"]');
     const links = await page.locator(`[id="links"]`);
-    await contactLink.click();
+    await page.getByTestId("contactLink").click();
     await expect(page).toHaveURL("https://www.schedtrack.com/contact");
     await expect(links).toBeVisible();
+  });
+
+  test("contact page has feedback component", async ({ page }) => {
+    await page.goto("https://www.schedtrack.com/contact");
+    await expect(
+      page.getByPlaceholder("Enter your feedback here."),
+    ).toBeVisible();
+    await expect(page.getByRole("button", { name: "Submit" })).toBeVisible();
+  });
+
+  test("privacy policy page", async ({ page }) => {
+    await page.goto("https://www.schedtrack.com/privacy");
+    await expect(
+      page.getByText("Your privacy is important to us."),
+    ).toBeVisible();
   });
 
   //TODO
