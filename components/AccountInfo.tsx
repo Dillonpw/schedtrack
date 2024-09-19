@@ -11,7 +11,7 @@ const LoggedIn = async () => {
 
   if (!session?.user)
     return (
-      <div className="m-2 flex justify-end">
+      <div className="mx-2 flex justify-end">
         <Button asChild variant="link">
           <Link
             className="text-xl font-semibold"
