@@ -242,7 +242,7 @@ export default function GenerateSchedule() {
               /**
                * Additional CSS classes for the calendar.
                */
-              className="rounded-md"
+              className="rounded-md items-center justify-center"
             />
           </div>
           <Button type="submit" className="w-full">
