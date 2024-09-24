@@ -28,11 +28,6 @@ export default async function Pricing() {
               </span>
             </li>
             <li className="flex items-center gap-2">
-              <span>
-                Access to List-view model and Calendar-view coming soon
-              </span>
-            </li>
-            <li className="flex items-center gap-2">
               <span>Unlimited schedule adjustments and redos available </span>
             </li>
             <li className="flex items-center gap-2">
