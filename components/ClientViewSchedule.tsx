@@ -16,12 +16,6 @@ import { Label } from "@/components/ui/label";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-/**
- * The main component for the client-side schedule view.
- *
- * @param {{ scheduleEntriesData: ScheduleEntry[] }} props
- * @returns {JSX.Element}
- */
 export default function ClientScheduleView({
   scheduleEntriesData,
 }: {
@@ -29,16 +23,10 @@ export default function ClientScheduleView({
 }): JSX.Element {
   const [isCalendarView, setIsCalendarView] = useState(true);
 
-  /**
-   * If the schedule is empty, render a message.
-   */
   if (scheduleEntriesData.length === 0) {
     return <p className="text-center text-lg">No schedule available</p>;
   }
 
-  /**
-   * Render the main view with the buttons and the calendar/list view.
-   */
   return (
     <>
       <div className="mb-10 flex items-center justify-between">
@@ -67,16 +55,6 @@ export default function ClientScheduleView({
   );
 }
 
-/**
- * The `ListView` component is responsible for rendering the list view of the
- * schedule entries.
- *
- * @param {{ scheduleEntriesData: ScheduleEntry[] }} props - The schedule entries
- * data as an array of `ScheduleEntry` objects.
- *
- * @returns {JSX.Element} The JSX element representing the list view of the
- * schedule entries.
- */
 function ListView({
   scheduleEntriesData,
 }: {
@@ -122,15 +100,6 @@ function ListView({
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-/**
- * A component that displays the schedule in a calendar format.
- *
- * @param {{ scheduleEntriesData: ScheduleEntry[] }} props - The schedule entries
- * data as an array of `ScheduleEntry` objects.
- *
- * @returns {JSX.Element} The JSX element representing the calendar view of the
- * schedule.
- */
 function CalendarView({
   scheduleEntriesData,
 }: {
@@ -160,42 +129,23 @@ function CalendarView({
     1,
   ).getDay();
 
-  /**
-   * Move to the previous month.
-   */
   const prevMonth = () => {
     setCurrentDate(
       new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1),
     );
   };
 
-  /**
-   * Move to the next month.
-   */
   const nextMonth = () => {
     setCurrentDate(
       new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1),
     );
   };
 
-  /**
-   * Get the schedule entry for the given date.
-   *
-   * @param {Date} date - The date to get the schedule entry for.
-   * @returns {ScheduleEntry | undefined} The schedule entry for the given date,
-   * or undefined if there is no data for that date.
-   */
   const getScheduleForDate = (date: Date) => {
     const dateString = formatDate(date);
     return processedEntries.get(dateString);
   };
 
-  /**
-   * Format a date as a string in the format 'YYYY-MM-DD'.
-   *
-   * @param {Date} date - The date to format.
-   * @returns {string} The date formatted as a string in the format 'YYYY-MM-DD'.
-   */
   const formatDate = (date: Date): string => {
     const year = date.getFullYear();
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -203,13 +153,6 @@ function CalendarView({
     return `${year}-${month}-${day}`;
   };
 
-  /**
-   * Get the color class for a given schedule entry.
-   *
-   * @param {ScheduleEntry | undefined} scheduleEntry - The schedule entry to get
-   * the color class for.
-   * @returns {string} The color class for the given schedule entry.
-   */
   const getColorClass = (scheduleEntry: ScheduleEntry | undefined) => {
     if (!scheduleEntry)
       return "bg-gray-100 dark:bg-gray-700 text-black dark:text-gray-300";

@@ -11,12 +11,7 @@ interface DownloadVCSButtonProps {
   scheduleEntriesData: ScheduleEntry[];
 }
 
-/**
- * @description
- * DownloadVCSButton component takes an array of ScheduleEntry objects and allows the user to download the entries as a VCS file.
- * @param {ScheduleEntry[]} scheduleEntriesData - An array of ScheduleEntry objects
- * @returns React component
- */
+
 const DownloadVCSButton: React.FC<DownloadVCSButtonProps> = ({
   scheduleEntriesData,
 }) => {

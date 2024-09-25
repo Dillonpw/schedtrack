@@ -30,15 +30,7 @@ const DAYS_OF_WEEK = [
   "Saturday",
 ] as const;
 
-/**
- * The main function that generates a rotating schedule and saves it to the database.
- *
- * @param workDays The number of work days in the cycle.
- * @param offDays The number of off days in the cycle.
- * @param totalDays The total number of days in the schedule.
- * @param startDate The start date of the schedule.
- * @returns The user ID of the user who generated the schedule.
- */
+
 export async function generateSchedule({
   workDays,
   offDays,
@@ -85,16 +77,7 @@ export async function generateSchedule({
   return userId;
 }
 
-/**
- * Creates a rotating schedule based on the given parameters.
- *
- * @param workDays The number of work days in the cycle.
- * @param offDays The number of off days in the cycle.
- * @param totalDays The total number of days in the schedule.
- * @param startDate The start date of the schedule.
- * @returns An array of `ScheduleEntry` objects, each representing a day in the
- * schedule.
- */
+
 function createRotatingSchedule(
   workDays: number,
   offDays: number,
