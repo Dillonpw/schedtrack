@@ -9,7 +9,7 @@ test.describe("Basic Interactions, designed to show success", () => {
     await expect(page).toHaveTitle("Sched Track");
   });
 
-  test.only("Nav menu links", async ({ page }) => {
+  test("Nav menu links", async ({ page }) => {
     await page.getByTestId('favicon-link').click();
     await expect(page).toHaveURL("https://www.schedtrack.com/");
 
