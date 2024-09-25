@@ -12,7 +12,7 @@ export default function Component() {
       >
         <path
           d="M-100 58C-100 58 218.416 36.3297 693.5 36.3297C1168.58 36.3297 1487 58 1487 58V-3.8147e-06H-100V58Z"
-          fill="#fff"
+          className="fill-white dark:fill-zinc-950"
         ></path>
       </svg>
       <section
@@ -74,7 +74,7 @@ export default function Component() {
         <path
           transform="rotate(180) translate(-1440, -60)"
           d="M-100 58C-100 58 218.416 36.3297 693.5 36.3297C1168.58 36.3297 1487 58 1487 58V-3.8147e-06H-100V58Z"
-          fill="#fff"
+          className="fill-white dark:fill-zinc-950"
         ></path>
       </svg>
     </>
