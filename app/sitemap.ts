@@ -16,5 +16,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/signin`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/dashboard`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/schedule`,
+      lastModified: new Date(),
+    },
   ];
 }
