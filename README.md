@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Sched Track
 
-## Getting Started
+Sched Track is a scheduling web application designed to help users create work schedules based on flexible input parameters such as work days, off days, total days, and a start date. The app generates a new schedule based on the user’s inputs and provides a download feature for exporting schedules in CSV format.
 
-First, run the development server:
+## Table of Contents
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Usage](#usage)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Schedule Generator:** Users can generate custom schedules by inputting their desired work days, off days, total days, and a start date.
+- **CSV Download:** Users can download their schedules in CSV format for easy integration into other software or personal use.
+- **Responsive UI:** Designed to work on all devicees.
+- **FAQ Section with Accordion:** Users can view frequently asked questions with a collapsible accordion feature for easy navigation.
+- **Feedback**: Authenticated users can leave feedback of any kind to help make a better product.
+- **User Authentication:** Users can sign up and log in to save and access their schedules (integrated with Auth.js).
+- **Real-Time Updates:** The schedule is updated immediately after submission for, and stored until a new schedule is made.
 
-## Learn More
+## Technologies Used
 
-To learn more about Next.js, take a look at the following resources:
+- **Next.js**
+- **React**
+- **TypeScript**
+- **Auth.js**
+- **Tailwind CSS**
+-  **Shadcn/UI**
+- **CSV Export**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Usage
 
-## Deploy on Vercel
+1. **Login/Signup:**
+   - Click on the "Sign In" button to log in or create an account. Once authenticated, you can genertae and save your schedules.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. **Generate a Schedule:**
+   - Navigate to the schedule generation form.
+   - Input your desired number of workdays, off days, total days, and a start date.
+   - Click "Generate Schedule" to see the output in calendar format or in a list depending on your preference.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+3. **Download CSV:**
+   - After generating a schedule, click the "Download CSV" button to export the schedule in `.csv` format to export into your more broadly scoped calendar.
+
+
