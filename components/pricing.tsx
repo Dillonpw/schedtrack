@@ -11,10 +11,10 @@ export default async function Pricing() {
     <section
       id="pricing"
       data-testid="pricing"
-      className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-6 px-4 py-20 md:py-24 lg:py-32 xl:py-48"
+      className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-6 bg-background px-4 py-20 md:py-24 lg:py-32 xl:py-48"
     >
       <div className="flex max-w-[70%] flex-col justify-center gap-4 md:max-w-full md:flex-row">
-        <div className="rounded-lg border-2 bg-background p-4 text-sm shadow-lg dark:border dark:border-gray-600 md:p-10">
+        <div className="rounded-lg border-2 p-4 text-sm shadow-lg dark:border dark:border-gray-600 md:p-10">
           <h3 className="mb-4 text-center text-xl font-bold md:text-4xl lg:text-5xl">
             Free Account
           </h3>
@@ -48,7 +48,7 @@ export default async function Pricing() {
             </Button>
           </div>
         </div>
-       {/* <div className="rounded-lg border-2 bg-background p-4 text-sm shadow-lg dark:border dark:border-gray-600 md:p-10">
+        {/* <div className="rounded-lg border-2 bg-background p-4 text-sm shadow-lg dark:border dark:border-gray-600 md:p-10">
           <h3 className="mb-4 text-center text-xl font-bold md:text-4xl lg:text-5xl">
             Free Account
           </h3>

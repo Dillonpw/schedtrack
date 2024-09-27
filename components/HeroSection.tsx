@@ -7,12 +7,12 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
+    <section className="w-full bg-background py-12 md:py-24 lg:py-32 xl:py-32">
       <div className="container px-4 md:px-16">
         <div className="flex flex-col items-center justify-center sm:flex-row">
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-2">
-              <h1 className="mx-auto text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-left lg:text-6xl">
+              <h1 className="mx-auto text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-left lg:text-4xl">
                 Effortless Rotating Schedule Management
               </h1>
               <p className="max-w-[600px] text-center text-muted-foreground md:text-left md:text-xl">
