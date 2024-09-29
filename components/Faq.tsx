@@ -44,21 +44,7 @@ export default function Faq() {
       answer:
         "Absolutely. We take the security and privacy of your data very seriously. All data transmitted to and from our servers is encrypted using industry-standard SSL/TLS protocols. Your schedule information is stored securely in our databases, which are regularly backed up and protected against unauthorized access. We never share your personal information or schedule data with third parties. Additionally, we offer features like two-factor authentication for added account security. Our privacy policy clearly outlines how we handle your data, and we're always transparent about our security practices.",
     },
-    {
-      question: "Can I integrate Sched Track with other calendar applications?",
-      answer:
-        "Yes, Sched Track offers integration capabilities with popular calendar applications. You can export your Sched Track schedule to Google Calendar, Apple Calendar, Microsoft Outlook, and other calendar apps that support the iCal format. This integration allows you to view your work schedule alongside your personal appointments in your preferred calendar application. We also provide options for automatic syncing, so any changes you make in Sched Track can be automatically reflected in your linked calendars. This feature ensures that all your scheduling information is consistently up-to-date across all platforms you use.",
-    },
-    {
-      question: "What kind of support does Sched Track offer?",
-      answer:
-        "We pride ourselves on providing excellent support to our users. Our support options include a comprehensive FAQ section, detailed user guides, and video tutorials to help you get the most out of Sched Track. For more specific issues, we offer email support with quick response times. Premium users also have access to priority support and live chat options. Our support team is knowledgeable about the unique scheduling needs of various professions and is always ready to assist with any questions or concerns. We also maintain an active user community forum where you can share tips and tricks with other Sched Track users.",
-    },
-    {
-      question: "Can Sched Track handle complex rotating schedules?",
-      answer:
-        "Definitely! Sched Track is specifically designed to handle even the most complex rotating schedules. Whether you're working a standard 5-2 rotation, a complex 24/48 firefighter schedule, or a custom pattern like 2-2-3, Sched Track can accommodate your needs. Our system allows for the creation of custom rotation patterns, including varying shift lengths, different start times, and irregular rotations. You can also account for overtime, on-call periods, and special events within your schedule. The flexibility of Sched Track makes it suitable for a wide range of professions with non-standard scheduling needs, from healthcare and emergency services to manufacturing and hospitality.",
-    },
+
   ];
 
   return (
