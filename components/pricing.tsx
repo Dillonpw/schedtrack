@@ -48,7 +48,7 @@ export default async function Pricing() {
             </Button>
           </div>
         </div>
-        <div className="max-w-[50%] rounded-lg border-2 border-red-600 bg-muted p-4 text-sm shadow-lg md:p-10">
+        {/* <div className="max-w-[50%] rounded-lg border-2 border-red-600 bg-muted p-4 text-sm shadow-lg md:p-10">
           <h3 className="mb-4 text-center text-xl font-bold md:text-4xl lg:text-4xl">
             Premium Account
           </h3>
@@ -62,6 +62,9 @@ export default async function Pricing() {
             <li className="flex items-center gap-2">
               <span>Scheduling up to 18 months into the future</span>
             </li>
+            <li className="flex items-center gap-2">
+              <span>Download and export your schedule to your calendar app of choice</span>
+            </li>
           </ul>
           <div className="flex items-center justify-between gap-2">
             <div className="font-bold md:text-2xl lg:text-3xl">
@@ -73,7 +76,7 @@ export default async function Pricing() {
               </Link>
             </Button>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );
