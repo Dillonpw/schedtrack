@@ -14,7 +14,7 @@ export default async function Pricing() {
       className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-6 bg-background px-4 py-20 md:py-24 lg:py-32 xl:py-48"
     >
       <div className="flex flex-col justify-center gap-4 md:max-w-full md:flex-row">
-        <div className="max-w-[50%] rounded-lg border-2 p-4 text-sm shadow-lg dark:border dark:border-gray-600 md:p-10">
+        <div className="rounded-lg border-2 p-4 text-sm shadow-lg dark:border dark:border-gray-600 md:p-10">
           <h3 className="mb-4 text-center text-xl font-bold md:text-4xl lg:text-4xl">
             Free Account
           </h3>

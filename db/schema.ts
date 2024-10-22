@@ -108,6 +108,18 @@ export const scheduleEntries = pgTable("schedule_entries", {
   shift: varchar("shift", { length: 4 }).notNull(),
 });
 
+export const scheduleAdjustments = pgTable("schedule_adjustments", {
+  id: serial("id").primaryKey(),
+  scheduleEntryId: integer("scheduleEntryId")
+    .notNull()
+    .references(() => scheduleEntries.id, { onDelete: "cascade" }), 
+  type: text("type").notNull(), 
+  description: text("description"), 
+  startTime: timestamp("startTime", { mode: "date" }), 
+  endTime: timestamp("endTime", { mode: "date" }), 
+});
+
+
 export const feedbacks = pgTable("feedbacks", {
   id: serial("id").primaryKey(),
   userId: text("userId").notNull(),
