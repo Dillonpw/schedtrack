@@ -115,8 +115,6 @@ export const scheduleAdjustments = pgTable("schedule_adjustments", {
     .references(() => scheduleEntries.id, { onDelete: "cascade" }), 
   type: text("type").notNull(), 
   description: text("description"), 
-  startTime: timestamp("startTime", { mode: "date" }), 
-  endTime: timestamp("endTime", { mode: "date" }), 
 });
 
 
