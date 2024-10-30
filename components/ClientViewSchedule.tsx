@@ -3,8 +3,6 @@
 import React, { useState, useEffect } from "react";
 import { ScheduleEntry } from "@/types";
 import DownloadButton from "@/components/DownloadBtn";
-import { Switch } from "@/components/ui/switch";
-import { Label } from "@/components/ui/label";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -13,8 +11,6 @@ export default function ClientScheduleView({
 }: {
   scheduleEntriesData: ScheduleEntry[];
 }): JSX.Element {
-
-
   if (scheduleEntriesData.length === 0) {
     return <p className="text-center text-lg">No schedule available</p>;
   }
@@ -24,11 +20,10 @@ export default function ClientScheduleView({
       <div className="mb-10 flex items-center justify-between">
         <DownloadButton scheduleEntriesData={scheduleEntriesData} />
       </div>
-        <CalendarView scheduleEntriesData={scheduleEntriesData} />
+      <CalendarView scheduleEntriesData={scheduleEntriesData} />
     </>
   );
 }
-
 
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
