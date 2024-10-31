@@ -5,6 +5,7 @@ import { ScheduleEntry } from "@/types";
 import DownloadButton from "@/components/DownloadBtn";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function ClientScheduleView({
   scheduleEntriesData,
@@ -36,6 +37,7 @@ function CalendarView({
   const [processedEntries, setProcessedEntries] = useState<
     Map<string, ScheduleEntry>
   >(new Map());
+  const [direction, setDirection] = useState(0);
 
   useEffect(() => {
     const entriesMap = new Map<string, ScheduleEntry>();
@@ -57,12 +59,14 @@ function CalendarView({
   ).getDay();
 
   const prevMonth = () => {
+    setDirection(-1);
     setCurrentDate(
       new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1),
     );
   };
 
   const nextMonth = () => {
+    setDirection(1);
     setCurrentDate(
       new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1),
     );
@@ -86,6 +90,21 @@ function CalendarView({
     return scheduleEntry.shift === "Work"
       ? "bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200"
       : "bg-gray-100 dark:bg-gray-700 text-black dark:text-gray-300";
+  };
+
+  const variants = {
+    enter: (direction: number) => ({
+      x: direction > 0 ? "100%" : "-100%",
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+    },
+    exit: (direction: number) => ({
+      x: direction < 0 ? "100%" : "-100%",
+      opacity: 0,
+    }),
   };
 
   return (
@@ -113,35 +132,58 @@ function CalendarView({
           </Button>
         </div>
       </div>
-      <div className="grid grid-cols-7 gap-1">
-        {DAYS.map((day) => (
-          <div key={day} className="p-2 text-center font-bold">
-            {day}
-          </div>
-        ))}
-        {Array.from({ length: firstDayOfMonth }).map((_, index) => (
-          <div key={`empty-${index}`} className="p-2"></div>
-        ))}
-        {Array.from({ length: daysInMonth }).map((_, index) => {
-          const date = new Date(
-            currentDate.getFullYear(),
-            currentDate.getMonth(),
-            index + 1,
-          );
-          const scheduleEntry = getScheduleForDate(date);
-          const colorClass = getColorClass(scheduleEntry);
-          return (
-            <div key={index} className={`rounded-md border p-1 ${colorClass}`}>
-              <div className="font-semibold">{index + 1}</div>
-              {scheduleEntry && (
-                <div className="mt-1 h-8 text-xs">{scheduleEntry.shift}</div>
-              )}
-              {!scheduleEntry && (
-                <div className="mt-1 h-8 text-xs">No Data</div>
-              )}
+      <div style={{ position: "relative", height: "auto", minHeight: "500px" }}>
+        <AnimatePresence initial={false} custom={direction} mode="wait">
+          <motion.div
+            key={currentDate.toISOString()}
+            custom={direction}
+            variants={variants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{
+              x: { type: "spring", stiffness: 300, damping: 30 },
+              opacity: { duration: 0.2 },
+            }}
+            style={{ position: "absolute", width: "100%" }}
+          >
+            <div className="grid grid-cols-7 gap-1">
+              {DAYS.map((day) => (
+                <div key={day} className="p-2 text-center font-bold">
+                  {day}
+                </div>
+              ))}
+              {Array.from({ length: firstDayOfMonth }).map((_, index) => (
+                <div key={`empty-${index}`} className="p-2"></div>
+              ))}
+              {Array.from({ length: daysInMonth }).map((_, index) => {
+                const date = new Date(
+                  currentDate.getFullYear(),
+                  currentDate.getMonth(),
+                  index + 1,
+                );
+                const scheduleEntry = getScheduleForDate(date);
+                const colorClass = getColorClass(scheduleEntry);
+                return (
+                  <div
+                    key={index}
+                    className={`rounded-md border p-1 ${colorClass}`}
+                  >
+                    <div className="font-semibold">{index + 1}</div>
+                    {scheduleEntry && (
+                      <div className="mt-1 h-8 text-xs">
+                        {scheduleEntry.shift}
+                      </div>
+                    )}
+                    {!scheduleEntry && (
+                      <div className="mt-1 h-8 text-xs">No Data</div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
-          );
-        })}
+          </motion.div>
+        </AnimatePresence>
       </div>
       <div className="mt-4 flex justify-center space-x-4">
         <div className="flex items-center">

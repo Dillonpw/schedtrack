@@ -2,6 +2,7 @@
 
 import { Calendar } from "./ui/calendar";
 import React from "react";
+import { motion } from "framer-motion";
 
 const HeroSection = ({ children }: { children: React.ReactNode }) => {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
@@ -29,9 +30,13 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
             </div>
             {children}
           </div>
-          <div className="mx-auto w-fit">
+          <motion.div
+            drag={true}
+            dragConstraints={{ left: -50, right: 50, top: -50, bottom: 50 }}
+            className="mx-auto w-fit"
+          >
             <Calendar mode="single" selected={date} onSelect={setDate} />
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

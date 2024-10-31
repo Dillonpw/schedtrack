@@ -17,7 +17,7 @@ const Header = ({ children }: HeaderProps) => {
           Sched Track
         </p>
       </Link>
-      <div className="flex gap-2">
+      <div className="flex items-center gap-2">
         {children}
         <ThemeToggle />
       </div>
