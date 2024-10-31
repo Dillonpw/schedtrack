@@ -21,9 +21,6 @@ export default async function Nav() {
         <Link data-testid="contactLink" href="/contact" className="text-lg font-medium underline-offset-4 hover:underline" prefetch={true}>
           Contact
         </Link>
-        <Link data-testid="contactLink" href="/terms" className="text-lg font-medium underline-offset-4 hover:underline" prefetch={true}>
-          Terms
-        </Link>
         <Link data-testid="contactLink" href="/privacy" className="text-lg font-medium underline-offset-4 hover:underline" prefetch={true}>
           Privacy
         </Link>
@@ -68,12 +65,6 @@ export default async function Nav() {
               </DropdownMenuItem>
             </div>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
-              <Link href="/terms" className="flex items-center" data-testid="termsLink">
-                <FileText className="mr-2 h-4 w-4" />
-                <span>Terms</span>
-              </Link>
-            </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link href="/privacy" className="flex items-center" data-testid="privacyLink">
                 <Shield className="mr-2 h-4 w-4" />
