@@ -36,8 +36,8 @@ const LoggedIn = async () => {
           </Link>
         </Button>
         <Button asChild variant="link">
-          <Link href="/dashboard" className="text-xs md:text-lg">
-            Dashboard
+          <Link href="/generate" className="text-xs md:text-lg">
+            Generate
           </Link>
         </Button>
       </div>

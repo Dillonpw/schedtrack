@@ -1,30 +1,19 @@
-"use client";
+"use client"
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
-import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Calendar } from "@/components/ui/calendar";
-import { generateSchedule } from "@/lib/actions/generateSchedule";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
-import { FormData, ShiftSegment } from "@/types";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { PlusCircle, MinusCircle, HelpCircle } from "lucide-react";
+import React, { useState } from "react"
+import { useRouter } from "next/navigation"
+import { useSession } from "next-auth/react"
+import { Button } from "@/components/ui/button"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { Calendar } from "@/components/ui/calendar"
+import { generateSchedule } from "@/lib/actions/generateSchedule"
+import { Input } from "@/components/ui/input"
+import { useToast } from "@/components/ui/use-toast"
+import { FormData, ShiftSegment } from "@/types"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { PlusCircle, MinusCircle, HelpCircle } from "lucide-react"
 
 const useScheduleForm = (
   initialData: FormData,
@@ -90,22 +79,14 @@ const useScheduleForm = (
   };
 };
 
-const FormField = ({
-  label,
-  id,
-  value,
-  onChange,
-  min,
-  max,
-  tooltip,
-}: {
-  label: string;
-  id: string;
-  value: number;
-  onChange: (value: number) => void;
-  min: number;
-  max?: number;
-  tooltip: string;
+const FormField = ({ label, id, value, onChange, min, max, tooltip }: {
+  label: string
+  id: string
+  value: number
+  onChange: (value: number) => void
+  min: number
+  max?: number
+  tooltip: string
 }) => (
   <div className="space-y-2">
     <TooltipProvider>
@@ -128,12 +109,12 @@ const FormField = ({
       required
     />
   </div>
-);
+)
 
 export default function GenerateSchedule() {
-  const router = useRouter();
-  const { data: session, status } = useSession();
-  const { toast } = useToast();
+  const router = useRouter()
+  const { data: session, status } = useSession()
+  const { toast } = useToast()
   const {
     formData,
     addSegment,
@@ -150,7 +131,7 @@ export default function GenerateSchedule() {
     ],
     totalDays: 90,
     startDate: new Date(),
-  });
+  })
 
   const handleGenerateSchedule = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -180,28 +161,18 @@ export default function GenerateSchedule() {
   };
 
   if (status === "loading") {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        Loading...
-      </div>
-    );
+    return <div className="flex h-screen items-center justify-center">Loading...</div>
   }
 
   if (status === "unauthenticated") {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        Please sign in to generate a schedule.
-      </div>
-    );
+    return <div className="flex h-screen items-center justify-center">Please sign in to generate a schedule.</div>
   }
 
   return (
     <main className="container mx-auto py-10">
-      <Card className="mx-auto max-w-2xl">
+      <Card className="mx-auto w-full max-w-2xl">
         <CardHeader>
-          <CardTitle className="text-center text-3xl font-bold">
-            Generate Schedule
-          </CardTitle>
+          <CardTitle className="text-3xl font-bold text-center">Generate Schedule</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleGenerateSchedule} className="space-y-6">
@@ -209,20 +180,12 @@ export default function GenerateSchedule() {
               {segments.map((segment, index) => (
                 <Card key={index}>
                   <CardContent className="pt-6">
-                    <div className="flex items-center gap-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
                       <div className="flex-1 space-y-2">
-                        <Label htmlFor={`segment-type-${index}`}>
-                          Shift Type
-                        </Label>
+                        <Label htmlFor={`segment-type-${index}`}>Shift Type</Label>
                         <Select
                           value={segment.shiftType}
-                          onValueChange={(value) =>
-                            updateSegment(
-                              index,
-                              "shiftType",
-                              value as "Work" | "Off",
-                            )
-                          }
+                          onValueChange={(value) => updateSegment(index, "shiftType", value as "Work" | "Off")}
                         >
                           <SelectTrigger id={`segment-type-${index}`}>
                             <SelectValue placeholder="Select shift type" />
@@ -233,14 +196,12 @@ export default function GenerateSchedule() {
                           </SelectContent>
                         </Select>
                       </div>
-                      <div className="flex-1">
+                      <div className="flex-1 w-full sm:w-auto">
                         <FormField
                           label="Days"
                           id={`segment-days-${index}`}
                           value={segment.days}
-                          onChange={(value) =>
-                            updateSegment(index, "days", value)
-                          }
+                          onChange={(value) => updateSegment(index, "days", value)}
                           min={1}
                           tooltip="Enter the number of days for this segment"
                         />
@@ -250,7 +211,7 @@ export default function GenerateSchedule() {
                         variant="ghost"
                         size="icon"
                         onClick={() => removeSegment(index)}
-                        className="text-destructive"
+                        className="text-destructive mt-2 sm:mt-0"
                       >
                         <MinusCircle className="h-5 w-5" />
                       </Button>
@@ -259,12 +220,7 @@ export default function GenerateSchedule() {
                 </Card>
               ))}
             </div>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={addSegment}
-              className="w-full"
-            >
+            <Button type="button" variant="outline" onClick={addSegment} className="w-full">
               <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
             </Button>
             <div className="flex flex-col items-center gap-4">
@@ -274,21 +230,18 @@ export default function GenerateSchedule() {
                 value={totalDays}
                 onChange={(value) => updateField("totalDays", value)}
                 min={1}
-                max={365}
+                max={183}
                 tooltip="Enter the number of days ahead you would like to display"
               />
-              <div className="flex flex-col items-center space-y-2">
+              <div className="space-y-2 flex flex-col items-center">
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Label className="flex items-center gap-1">
-                        Start Date{" "}
-                        <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                        Start Date <HelpCircle className="h-4 w-4 text-muted-foreground" />
                       </Label>
                     </TooltipTrigger>
-                    <TooltipContent>
-                      Select the first day of your next or last rotation
-                    </TooltipContent>
+                    <TooltipContent>Select the first day of your next or last rotation</TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
                 <Calendar
@@ -299,12 +252,10 @@ export default function GenerateSchedule() {
                 />
               </div>
             </div>
-            <Button type="submit" className="w-full">
-              Generate Schedule
-            </Button>
+            <Button type="submit" className="w-full">Generate Schedule</Button>
           </form>
         </CardContent>
       </Card>
     </main>
-  );
+  )
 }
