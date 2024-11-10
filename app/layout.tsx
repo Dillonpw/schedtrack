@@ -144,7 +144,8 @@ export const metadata: Metadata = {
     email: false,
   },
   openGraph: {
-    title: "Sched Track | Rotating Schedule Builder for First Responders & Healthcare",
+    title:
+      "Sched Track | Rotating Schedule Builder for First Responders & Healthcare",
     description:
       "Streamline shift scheduling for first responders, nurses, and 24/7 operations. Efficient workforce management, optimized rotations, and improved work-life balance.",
     url: "https://www.schedtrack.com",
@@ -184,12 +185,6 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://www.schedtrack.com"),
   viewport: "width=device-width, initial-scale=1",
-  alternates: {
-    languages: {
-      'en-US': 'https://www.schedtrack.com/en-US',
-      'es-ES': 'https://www.schedtrack.com/es-ES',
-    },
-  },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -210,7 +205,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <SessionProvider>{children}</SessionProvider>
         </Providers>
         <Link
-          className="p-4 pt-10 flex justify-center text-lg bg-background hover:underline"
+          className="flex justify-center bg-background p-4 pt-10 text-lg hover:underline"
           href="https://buy.stripe.com/7sIaFa7EQeJzbW8aEG"
         >
           Help Us Keep The Lights On 💡

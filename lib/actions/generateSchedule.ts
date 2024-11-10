@@ -4,11 +4,11 @@ import { db } from "@/db/index";
 import { scheduleEntries, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
+import { ShiftSegment } from "@/types";
 
 // Types
 interface GenerateScheduleParams {
-  workDays: number;
-  offDays: number;
+  segments: ShiftSegment[];
   totalDays: number;
   startDate: Date;
 }
@@ -30,10 +30,8 @@ const DAYS_OF_WEEK = [
   "Saturday",
 ] as const;
 
-
 export async function generateSchedule({
-  workDays,
-  offDays,
+  segments,
   totalDays,
   startDate,
 }: GenerateScheduleParams): Promise<string> {
@@ -46,12 +44,7 @@ export async function generateSchedule({
   const userId = session.user.id;
 
   // Create the schedule.
-  const schedule = createRotatingSchedule(
-    workDays,
-    offDays,
-    totalDays,
-    startDate,
-  );
+  const schedule = createRotatingSchedule(segments, totalDays, startDate);
 
   // Save the schedule to the database.
   await db.transaction(async (tx) => {
@@ -77,33 +70,45 @@ export async function generateSchedule({
   return userId;
 }
 
-
 function createRotatingSchedule(
-  workDays: number,
-  offDays: number,
+  segments: ShiftSegment[],
   totalDays: number,
   startDate: Date,
 ): ScheduleEntry[] {
   const schedule: ScheduleEntry[] = [];
-  const cycleLength = workDays + offDays;
+  const cycleLength = segments.reduce((sum, segment) => sum + segment.days, 0);
   let currentDate = new Date(startDate);
   currentDate.setHours(0, 0, 0, 0);
 
-  // Iterate over the total number of days in the schedule and create a ScheduleEntry
-  // for each day.
+  let cycleDay = 0;
+
   for (let day = 0; day < totalDays; day++) {
+    let dayInCycle = cycleDay % cycleLength;
+    let accumulatedDays = 0;
+    let currentSegment: ShiftSegment | null = null;
+
+    for (const segment of segments) {
+      accumulatedDays += segment.days;
+      if (dayInCycle < accumulatedDays) {
+        currentSegment = segment;
+        break;
+      }
+    }
+
+    if (!currentSegment) {
+      // Fallback in case no segment is found
+      currentSegment = segments[segments.length - 1];
+    }
+
     schedule.push({
-      // The date of the ScheduleEntry is the current date, formatted as a string.
       date: formatDate(currentDate),
-      // The day of week of the ScheduleEntry is the day of week of the current date.
       dayOfWeek: DAYS_OF_WEEK[currentDate.getDay()],
-      // The shift of the ScheduleEntry is determined by the day of the cycle.
-      // If the day is before the number of work days, the shift is "Work", otherwise
-      // it is "Off".
-      shift: day % cycleLength < workDays ? "Work" : "Off",
+      shift: currentSegment.shiftType,
     });
-    // Move on to the next day.
+
+    // Move to the next day
     currentDate.setDate(currentDate.getDate() + 1);
+    cycleDay++;
   }
 
   return schedule;
@@ -116,11 +121,8 @@ function createRotatingSchedule(
  * @returns {string} The date formatted as a string in the format 'YYYY-MM-DD'.
  */
 function formatDate(date: Date): string {
-  return date
-    .toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    })
-    .replace(/\//g, "-"); // Replace the slash with a dash.
+  const year = date.getFullYear();
+  const month = `${date.getMonth() + 1}`.padStart(2, "0");
+  const dayOfMonth = `${date.getDate()}`.padStart(2, "0");
+  return `${year}-${month}-${dayOfMonth}`;
 }

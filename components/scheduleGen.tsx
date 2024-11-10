@@ -14,63 +14,82 @@ import { Calendar } from "@/components/ui/calendar";
 import { generateSchedule } from "@/lib/actions/generateSchedule";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { FormData } from "@/types";
+import { FormData, ShiftSegment } from "@/types";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { PlusCircle, MinusCircle, HelpCircle } from "lucide-react";
 
-/**
- * React hook to manage the state of the schedule generation form.
- *
- * @param {FormData} initialData The initial form data.
- * @returns An object with the following properties:
- * - formData: The current form data.
- * - updateField: A function to update a single field in the form data.
- * - workDays: The current number of work days.
- * - offDays: The current number of off days.
- * - totalDays: The current total number of days.
- * - startDate: The current start date.
- */
 const useScheduleForm = (
   initialData: FormData,
 ): {
   formData: FormData;
+  addSegment: () => void;
+  updateSegment: (index: number, field: keyof ShiftSegment, value: any) => void;
+  removeSegment: (index: number) => void;
   updateField: (
     field: keyof FormData,
-    value: number | Date | undefined,
+    value: number | Date | ShiftSegment[] | undefined,
   ) => void;
-  workDays: number;
-  offDays: number;
+  segments: ShiftSegment[];
   totalDays: number;
   startDate: Date | undefined;
 } => {
   const [formData, setFormData] = useState<FormData>(initialData);
-  const { workDays, offDays, totalDays, startDate } = formData;
+  const { segments, totalDays, startDate } = formData;
 
-  /**
-   * A function to update a single field in the form data.
-   *
-   * @param {keyof FormData} field The field to update.
-   * @param {number | Date | undefined} value The new value of the field.
-   */
+  const addSegment = () => {
+    setFormData((prev) => ({
+      ...prev,
+      segments: [...prev.segments, { shiftType: "Work", days: 1 }],
+    }));
+  };
+
+  const updateSegment = (
+    index: number,
+    field: keyof ShiftSegment,
+    value: any,
+  ) => {
+    setFormData((prev) => {
+      const newSegments = [...prev.segments];
+      newSegments[index] = { ...newSegments[index], [field]: value };
+      return { ...prev, segments: newSegments };
+    });
+  };
+
+  const removeSegment = (index: number) => {
+    setFormData((prev) => {
+      const newSegments = [...prev.segments];
+      newSegments.splice(index, 1);
+      return { ...prev, segments: newSegments };
+    });
+  };
+
   const updateField = (
     field: keyof FormData,
-    value: number | Date | undefined,
+    value: number | Date | ShiftSegment[] | undefined,
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  return { formData, updateField, workDays, offDays, totalDays, startDate };
+  return {
+    formData,
+    addSegment,
+    updateSegment,
+    removeSegment,
+    updateField,
+    segments,
+    totalDays,
+    startDate,
+  };
 };
 
-/**
- * A reusable form field component.
- *
- * @param {string} label The label for the field.
- * @param {string} id The ID of the field.
- * @param {number} value The current value of the field.
- * @param {(value: number) => void} onChange The function to call when the field is changed.
- * @param {number} min The minimum allowed value for the field.
- * @param {number | undefined} max The maximum allowed value for the field.
- * @param {string} tooltip The tooltip text to display when the user hovers over the label.
- */
 const FormField = ({
   label,
   id,
@@ -88,14 +107,13 @@ const FormField = ({
   max?: number;
   tooltip: string;
 }) => (
-  <div className="w-full">
+  <div className="space-y-2">
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <label htmlFor={id} className="mb-2 block text-sm font-medium">
-            {label}{" "}
-            <span className="rounded-full border bg-muted px-1 text-xs">?</span>
-          </label>
+          <Label htmlFor={id} className="flex items-center gap-1">
+            {label} <HelpCircle className="h-4 w-4 text-muted-foreground" />
+          </Label>
         </TooltipTrigger>
         <TooltipContent>{tooltip}</TooltipContent>
       </Tooltip>
@@ -108,32 +126,32 @@ const FormField = ({
       min={min}
       max={max}
       required
-      className="w-full"
     />
   </div>
 );
 
-/**
- * Component to generate a rotating schedule.
- */
 export default function GenerateSchedule() {
   const router = useRouter();
   const { data: session, status } = useSession();
   const { toast } = useToast();
-  const { formData, updateField, workDays, offDays, totalDays, startDate } =
-    useScheduleForm({
-      /**
-       * Defaults for the form fields.
-       */
-      workDays: 4,
-      offDays: 2,
-      totalDays: 90,
-      startDate: new Date(),
-    });
+  const {
+    formData,
+    addSegment,
+    updateSegment,
+    removeSegment,
+    updateField,
+    segments,
+    totalDays,
+    startDate,
+  } = useScheduleForm({
+    segments: [
+      { shiftType: "Work", days: 4 },
+      { shiftType: "Off", days: 2 },
+    ],
+    totalDays: 90,
+    startDate: new Date(),
+  });
 
-  /**
-   * Handles form submission by generating a schedule with the provided form data.
-   */
   const handleGenerateSchedule = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!startDate || !session) {
@@ -147,8 +165,7 @@ export default function GenerateSchedule() {
 
     try {
       await generateSchedule({
-        workDays,
-        offDays,
+        segments,
         totalDays,
         startDate,
       });
@@ -179,77 +196,115 @@ export default function GenerateSchedule() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center px-4 py-8">
-      <div className="w-full max-w-md">
-        <h1 className="mb-8 text-center text-3xl font-bold">
-          Generate Schedule
-        </h1>
-        <form onSubmit={handleGenerateSchedule} className="space-y-6">
-          <FormField
-            label="Work Days"
-            id="workDays"
-            value={workDays}
-            onChange={(value) => updateField("workDays", value)}
-            min={1}
-            tooltip="Enter the number of consecutive work days in your rotation"
-          />
-          <FormField
-            label="Off Days"
-            id="offDays"
-            value={offDays}
-            onChange={(value) => updateField("offDays", value)}
-            min={1}
-            tooltip="Enter the number of consecutive days off in your rotation"
-          />
-          <FormField
-            label="Total Days"
-            id="totalDays"
-            value={totalDays}
-            onChange={(value) => updateField("totalDays", value)}
-            min={1}
-            max={183}
-            tooltip="Enter the number of days ahead you would like to display"
-          />
-          <div className="w-full">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <label className="mb-2 block text-sm font-medium">
-                    Start Date{" "}
-                    <span className="rounded-full border bg-muted px-1 text-xs">
-                      ?
-                    </span>
-                  </label>
-                </TooltipTrigger>
-                <TooltipContent>
-                  Select the first day of your next or last rotation
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <Calendar
-              /**
-               * Mode for the calendar (single, multiple, or range).
-               */
-              mode="single"
-              /**
-               * Currently selected date.
-               */
-              selected={startDate}
-              /**
-               * Function to call when a date is selected.
-               */
-              onSelect={(date) => updateField("startDate", date as Date)}
-              /**
-               * Additional CSS classes for the calendar.
-               */
-              className="rounded-md items-center justify-center"
-            />
-          </div>
-          <Button type="submit" className="w-full">
+    <main className="container mx-auto py-10">
+      <Card className="mx-auto max-w-2xl">
+        <CardHeader>
+          <CardTitle className="text-center text-3xl font-bold">
             Generate Schedule
-          </Button>
-        </form>
-      </div>
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleGenerateSchedule} className="space-y-6">
+            <div className="space-y-4">
+              {segments.map((segment, index) => (
+                <Card key={index}>
+                  <CardContent className="pt-6">
+                    <div className="flex items-center gap-4">
+                      <div className="flex-1 space-y-2">
+                        <Label htmlFor={`segment-type-${index}`}>
+                          Shift Type
+                        </Label>
+                        <Select
+                          value={segment.shiftType}
+                          onValueChange={(value) =>
+                            updateSegment(
+                              index,
+                              "shiftType",
+                              value as "Work" | "Off",
+                            )
+                          }
+                        >
+                          <SelectTrigger id={`segment-type-${index}`}>
+                            <SelectValue placeholder="Select shift type" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="Work">Work</SelectItem>
+                            <SelectItem value="Off">Off</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      <div className="flex-1">
+                        <FormField
+                          label="Days"
+                          id={`segment-days-${index}`}
+                          value={segment.days}
+                          onChange={(value) =>
+                            updateSegment(index, "days", value)
+                          }
+                          min={1}
+                          tooltip="Enter the number of days for this segment"
+                        />
+                      </div>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => removeSegment(index)}
+                        className="text-destructive"
+                      >
+                        <MinusCircle className="h-5 w-5" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <Button
+              type="button"
+              variant="outline"
+              onClick={addSegment}
+              className="w-full"
+            >
+              <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
+            </Button>
+            <div className="flex flex-col items-center gap-4">
+              <FormField
+                label="Total Days"
+                id="totalDays"
+                value={totalDays}
+                onChange={(value) => updateField("totalDays", value)}
+                min={1}
+                max={365}
+                tooltip="Enter the number of days ahead you would like to display"
+              />
+              <div className="flex flex-col items-center space-y-2">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Label className="flex items-center gap-1">
+                        Start Date{" "}
+                        <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                      </Label>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      Select the first day of your next or last rotation
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+                <Calendar
+                  mode="single"
+                  selected={startDate}
+                  onSelect={(date) => updateField("startDate", date as Date)}
+                  className="rounded-md"
+                />
+              </div>
+            </div>
+            <Button type="submit" className="w-full">
+              Generate Schedule
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
     </main>
   );
 }

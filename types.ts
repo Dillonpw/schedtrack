@@ -10,14 +10,18 @@ export interface ScheduleEntry {
   shift: string;
 }
 
-export type FormData = {
-    workDays: number;
-    offDays: number;
-    totalDays: number;
-    startDate: Date | undefined;
-  };
-  
-export type feedbackData = {
-    text: string;
-    date: Date;
+export interface ShiftSegment {
+  shiftType: "Work" | "Off";
+  days: number;
 }
+
+export interface FormData {
+  segments: ShiftSegment[];
+  totalDays: number;
+  startDate: Date | undefined;
+}
+
+export type feedbackData = {
+  text: string;
+  date: Date;
+};
