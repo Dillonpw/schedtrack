@@ -7,42 +7,35 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
-interface DownloadVCSButtonProps {
+import { saveAs } from "file-saver"; 
+
+interface DownloadICSButtonProps {
   scheduleEntriesData: ScheduleEntry[];
 }
 
-
-const DownloadVCSButton: React.FC<DownloadVCSButtonProps> = ({
+const DownloadICSButton: React.FC<DownloadICSButtonProps> = ({
   scheduleEntriesData,
 }) => {
   /**
-   * Function to create a blob from the VCS data and download it
+   * Function to create a blob from the ICS data and download it
    */
-  const downloadVCS = () => {
+  const downloadICS = () => {
     /**
-     * Generate the VCS content from the scheduleEntriesData
+     * Generate the ICS content from the scheduleEntriesData
      */
-    const vcsContent = generateVCS(scheduleEntriesData);
+    const icsContent = generateICS(scheduleEntriesData);
     /**
-     * Create a blob from the VCS content and download it
+     * Create a blob from the ICS content and download it
      */
-    const blob = new Blob([vcsContent], { type: "text/x-vcalendar" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "schedule.vcs";
-    a.click();
-    /**
-     * Revoke the blob URL after download
-     */
-    URL.revokeObjectURL(url);
+    const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+    saveAs(blob, "schedule.ics");
   };
 
   return (
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger>
-          <Button variant="default" onClick={downloadVCS}>
+          <Button variant="default" onClick={downloadICS}>
             Download
           </Button>
         </TooltipTrigger>
@@ -52,25 +45,54 @@ const DownloadVCSButton: React.FC<DownloadVCSButtonProps> = ({
   );
 };
 
-export default DownloadVCSButton;
+export default DownloadICSButton;
 
-function generateVCS(scheduleEntriesData: ScheduleEntry[]): string {
-  let vcs = `BEGIN:VCALENDAR\nVERSION:1.0\nPRODID:-//YourApp//Schedule//EN\n`;
+/**
+ * Function to generate ICS content from schedule entries
+ */
+function generateICS(scheduleEntriesData: ScheduleEntry[]): string {
+  let ics = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//YourApp//Schedule//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+`;
 
-  scheduleEntriesData.forEach((entry) => {
+  scheduleEntriesData.forEach((entry, index) => {
     const eventDate = new Date(entry.date);
-    const formattedDate = eventDate
-      .toISOString()
-      .split("T")[0]
-      .replace(/-/g, "");
+    const startDate = formatDateICS(eventDate);
+    const endDate = formatDateICS(
+      new Date(eventDate.getTime() + 24 * 60 * 60 * 1000)
+    ); // Add one day for full-day events
 
-    vcs += `BEGIN:VEVENT\n`;
-    vcs += `UID:${entry.date}-${entry.dayOfWeek}-${entry.shift}@yourapp.com\n`;
-    vcs += `DTSTART:${formattedDate}\n`;
-    vcs += `SUMMARY:${entry.shift}\n`;
-    vcs += `END:VEVENT\n`;
+    ics += `BEGIN:VEVENT
+UID:${entry.date}-${entry.dayOfWeek}-${entry.shift}-${index}@yourapp.com
+DTSTAMP:${formatDateICS(new Date())}
+DTSTART;VALUE=DATE:${startDate}
+DTEND;VALUE=DATE:${endDate}
+SUMMARY:${entry.shift}
+END:VEVENT
+`;
   });
 
-  vcs += `END:VCALENDAR`;
-  return vcs;
+  ics += `END:VCALENDAR`;
+  return ics;
+}
+
+/**
+ * Function to format dates in ICS format (YYYYMMDD)
+ */
+function formatDateICS(date: Date): string {
+  const year = date.getFullYear();
+  const month = padZero(date.getMonth() + 1); // Months are zero-based
+  const day = padZero(date.getDate());
+
+  return `${year}${month}${day}`;
+}
+
+/**
+ * Helper function to pad single digit numbers with leading zero
+ */
+function padZero(num: number): string {
+  return num < 10 ? `0${num}` : `${num}`;
 }

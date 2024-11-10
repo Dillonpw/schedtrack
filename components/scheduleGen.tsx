@@ -126,10 +126,10 @@ export default function GenerateSchedule() {
     startDate,
   } = useScheduleForm({
     segments: [
-      { shiftType: "Work", days: 4 },
-      { shiftType: "Off", days: 2 },
+      { shiftType: "Work", days: 0 },
+      { shiftType: "Off", days: 0 },
     ],
-    totalDays: 90,
+    totalDays: 0,
     startDate: new Date(),
   })
 
@@ -230,7 +230,7 @@ export default function GenerateSchedule() {
                 value={totalDays}
                 onChange={(value) => updateField("totalDays", value)}
                 min={1}
-                max={183}
+                max={600}
                 tooltip="Enter the number of days ahead you would like to display"
               />
               <div className="space-y-2 flex flex-col items-center">
