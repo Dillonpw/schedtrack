@@ -21,7 +21,7 @@ export default async function Nav() {
         <Link data-testid="contactLink" href="/contact" className="text-lg font-medium underline-offset-4 hover:underline" prefetch={true}>
           Contact
         </Link>
-        <Link data-testid="contactLink" href="/privacy" className="text-lg font-medium underline-offset-4 hover:underline" prefetch={true}>
+        <Link data-testid="privacyLink" href="/privacy" className="text-lg font-medium underline-offset-4 hover:underline" prefetch={true}>
           Privacy
         </Link>
       </div>
