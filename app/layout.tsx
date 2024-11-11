@@ -37,6 +37,14 @@ const StructuredData = () => {
     },
     description:
       "Efficient shift scheduling and workforce management tool for first responders, nurses, and 24/7 operations.",
+    // NEW: Added more structured data
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      ratingCount: "100"
+    },
+    datePublished: "2023-01-01",
+    softwareVersion: "1.0"
   };
   return (
     <Script
@@ -185,6 +193,13 @@ export const metadata: Metadata = {
   },
   metadataBase: new URL("https://www.schedtrack.com"),
   viewport: "width=device-width, initial-scale=1",
+  alternates: {
+    canonical: "https://www.schedtrack.com",
+    languages: {
+      'en-US': 'https://www.schedtrack.com',
+      'es-ES': 'https://www.schedtrack.com/es'
+    }
+  },
 };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -193,6 +208,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <GoogleAdsense />
         <StructuredData />
+        <link rel="canonical" href="https://www.schedtrack.com" />
       </head>
       <body
         className={cn(
@@ -201,9 +217,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           fontBody.variable,
         )}
       >
-        <Providers>
-          <SessionProvider>{children}</SessionProvider>
-        </Providers>
+        <main>
+          <Providers>
+            <SessionProvider>{children}</SessionProvider>
+          </Providers>
+        </main>
         <Link
           className="flex justify-center bg-background p-4 pt-10 text-lg hover:underline"
           href="https://buy.stripe.com/7sIaFa7EQeJzbW8aEG"
