@@ -1,12 +1,10 @@
 import Link from "next/link";
-import { auth } from "@/auth";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuLabel } from "@/components/ui/dropdown-menu"
 import { Button } from "./ui/button";
-import { Home, Zap, DollarSign, Mail, FileText, Shield, Menu } from 'lucide-react'
+import { Home, Zap, DollarSign, Mail, Shield, Menu } from 'lucide-react'
 
 
 export default async function Nav() {
-  const session = await auth();
 
   return (
     <nav className="flex items-center justify-between px-4 py-2">
