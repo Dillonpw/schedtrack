@@ -82,13 +82,15 @@ END:VEVENT
 /**
  * Function to format dates in ICS format (YYYYMMDD)
  */
+
 function formatDateICS(date: Date): string {
-  const year = date.getFullYear();
-  const month = padZero(date.getMonth() + 1); // Months are zero-based
-  const day = padZero(date.getDate());
+  const year = date.getUTCFullYear();
+  const month = padZero(date.getUTCMonth() + 1); // Months are zero-based
+  const day = padZero(date.getUTCDate());
 
   return `${year}${month}${day}`;
 }
+
 
 /**
  * Helper function to pad single digit numbers with leading zero
