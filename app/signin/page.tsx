@@ -7,7 +7,7 @@ export default function SignInPage() {
   return (
     <>
       <Head>
-        <title>Sign In - Sched Track</title>
+        <title>Sign In</title>
         <meta
           name="description"
           content="Access your account to manage and track your schedules with Sched Track."

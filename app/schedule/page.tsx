@@ -12,7 +12,7 @@ export default async function Dashboard() {
     return (
       <>
         <Head>
-          <title>Your Schedule - Sched Track</title>
+          <title>Your Schedule</title>
           <meta
             name="description"
             content="View your generated schedule and keep track of your tasks efficiently."

@@ -4,7 +4,7 @@ export default function Privacy() {
   return (
     <>
     <Head>
-    <title>Privacy Policy - Sched Track</title>
+    <title>Privacy Policy</title>
     <meta name="description" content="Learn about Sched Track's privacy practices and how we handle your data." />
   </Head>
     <main>

@@ -12,7 +12,7 @@ export default async function Dashboard() {
     return (
       <>
         <Head>
-          <title>Create a Schedule - Sched Track</title>
+          <title>Create a Schedule</title>
           <meta
             name="description"
             content="Easily create a personalized schedule with our intuitive schedule generator."
