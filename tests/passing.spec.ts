@@ -7,7 +7,7 @@ test.describe("Basic Interactions, designed to show success", () => {
 
   test("Correct title", async ({ page }) => {
     await expect(page).toHaveTitle(
-      "Sched Track | Rotating Schedule Builder for First Responders & Healthcare",
+      "Rotating Schedule Builder for First Responders & Healthcare",
     );
   });
 
@@ -156,7 +156,6 @@ test.describe("Basic Interactions, designed to show success", () => {
     await expect(page).toHaveURL("https://www.schedtrack.com/dashboard");
     await expect(page.getByTestId("sign-out")).toBeVisible();
   });
-
 
   test("privacy policy page", async ({ page }) => {
     await page.goto("https://www.schedtrack.com/privacy");
