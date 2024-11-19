@@ -1,31 +1,46 @@
 import Link from "next/link";
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuLabel } from "@/components/ui/dropdown-menu"
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuLabel,
+} from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
-import { Home, Zap, DollarSign, Mail, Shield, Menu } from 'lucide-react'
-
+import { Home, Zap, DollarSign, Shield, Menu } from "lucide-react";
 
 export default async function Nav() {
-
   return (
     <nav className="flex items-center justify-between px-4 py-2">
       {/* Desktop navigation */}
-      <div className="hidden sm:flex items-center gap-2 sm:gap-6">
-        <Link href="/#features" className="text-lg font-medium underline-offset-4 hover:underline" prefetch={false}>
+      <div className="hidden items-center gap-2 sm:flex sm:gap-6">
+        <Link
+          href="/#features"
+          className="text-lg font-medium underline-offset-4 hover:underline"
+          prefetch={false}
+        >
           Features
         </Link>
-        <Link href="/#pricing" className="text-lg font-medium underline-offset-4 hover:underline" prefetch={false}>
+        <Link
+          href="/#pricing"
+          className="text-lg font-medium underline-offset-4 hover:underline"
+          prefetch={false}
+        >
           Pricing
         </Link>
-        <Link data-testid="contactLink" href="/contact" className="text-lg font-medium underline-offset-4 hover:underline" prefetch={true}>
-          Contact
-        </Link>
-        <Link data-testid="privacyLink" href="/privacy" className="text-lg font-medium underline-offset-4 hover:underline" prefetch={true}>
+        <Link
+          data-testid="privacyLink"
+          href="/privacy"
+          className="text-lg font-medium underline-offset-4 hover:underline"
+          prefetch={true}
+        >
           Privacy
         </Link>
       </div>
 
       {/* Mobile Dropdown */}
-      <div className="flex sm:hidden justify-end">
+      <div className="flex justify-end sm:hidden">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="icon">
@@ -50,12 +65,6 @@ export default async function Nav() {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem asChild>
-                <Link href="/contact" className="flex items-center" data-testid="contactLink">
-                  <Mail className="mr-2 h-4 w-4" />
-                  <span>Contact</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
                 <Link href="/" className="flex items-center">
                   <Home className="mr-2 h-4 w-4" />
                   <span>Home</span>
@@ -64,7 +73,11 @@ export default async function Nav() {
             </div>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href="/privacy" className="flex items-center" data-testid="privacyLink">
+              <Link
+                href="/privacy"
+                className="flex items-center"
+                data-testid="privacyLink"
+              >
                 <Shield className="mr-2 h-4 w-4" />
                 <span>Privacy</span>
               </Link>

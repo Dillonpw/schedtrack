@@ -157,20 +157,6 @@ test.describe("Basic Interactions, designed to show success", () => {
     await expect(page.getByTestId("sign-out")).toBeVisible();
   });
 
-  test("contact page allows for message send", async ({ page }) => {
-    const links = await page.locator(`[id="links"]`);
-    await page.getByTestId("contactLink").click();
-    await expect(page).toHaveURL("https://www.schedtrack.com/contact");
-    await expect(links).toBeVisible();
-  });
-
-  test("contact page has feedback component", async ({ page }) => {
-    await page.goto("https://www.schedtrack.com/contact");
-    await expect(
-      page.getByPlaceholder("Enter your feedback here."),
-    ).toBeVisible();
-    await expect(page.getByRole("button", { name: "Submit" })).toBeVisible();
-  });
 
   test("privacy policy page", async ({ page }) => {
     await page.goto("https://www.schedtrack.com/privacy");
