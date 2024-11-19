@@ -1,15 +1,27 @@
 import Header from "@/components/Header";
 import AccountInfo from "@/components/AccountInfo";
 import SignIn from "@/components/Sign-in";
+import Head from "next/head";
 
 export default function SignInPage() {
   return (
-    <main>
-      <Header />
-      <AccountInfo />
-      <div className="mt-[-12rem] flex h-screen flex-col items-center justify-center">
-        <SignIn />
-      </div>
-    </main>
+    <>
+      <Head>
+        <title>Sign In - Sched Track</title>
+        <meta
+          name="description"
+          content="Access your account to manage and track your schedules with Sched Track."
+        />
+        <meta name="robots" content="noindex, nofollow" />{" "}
+        {/* Prevent indexing of login pages */}
+      </Head>
+      <main>
+        <Header />
+        <AccountInfo />
+        <div className="mt-[-12rem] flex h-screen flex-col items-center justify-center">
+          <SignIn />
+        </div>
+      </main>
+    </>
   );
 }

@@ -4,8 +4,6 @@ import Link from "next/link";
 import { SignOut } from "./Sign-out";
 import { Button } from "./ui/button";
 
-//TODO
-// add { children }: { children: ReactNode } and wrap pages inside
 const LoggedIn = async () => {
   const session = await auth();
 

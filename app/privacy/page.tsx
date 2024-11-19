@@ -1,6 +1,12 @@
 import Header from "../../components/Header";
+import Head from "next/head";
 export default function Privacy() {
   return (
+    <>
+    <Head>
+    <title>Privacy Policy - Sched Track</title>
+    <meta name="description" content="Learn about Sched Track's privacy practices and how we handle your data." />
+  </Head>
     <main>
       <Header />
       <h1 className="mt-10 text-center text-3xl font-bold text-red-600/80">
@@ -46,5 +52,6 @@ export default function Privacy() {
         </p>
       </div>
     </main>
+    </>
   );
 }

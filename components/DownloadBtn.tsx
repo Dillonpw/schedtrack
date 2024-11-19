@@ -7,7 +7,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
-import { saveAs } from "file-saver"; 
+import { saveAs } from "file-saver";
 
 interface DownloadICSButtonProps {
   scheduleEntriesData: ScheduleEntry[];
@@ -27,7 +27,9 @@ const DownloadICSButton: React.FC<DownloadICSButtonProps> = ({
     /**
      * Create a blob from the ICS content and download it
      */
-    const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
+    const blob = new Blob([icsContent], {
+      type: "text/calendar;charset=utf-8",
+    });
     saveAs(blob, "schedule.ics");
   };
 
@@ -62,7 +64,7 @@ METHOD:PUBLISH
     const eventDate = new Date(entry.date);
     const startDate = formatDateICS(eventDate);
     const endDate = formatDateICS(
-      new Date(eventDate.getTime() + 24 * 60 * 60 * 1000)
+      new Date(eventDate.getTime() + 24 * 60 * 60 * 1000),
     ); // Add one day for full-day events
 
     ics += `BEGIN:VEVENT
@@ -90,7 +92,6 @@ function formatDateICS(date: Date): string {
 
   return `${year}${month}${day}`;
 }
-
 
 /**
  * Helper function to pad single digit numbers with leading zero
