@@ -66,7 +66,6 @@ export async function generateSchedule({
       .where(eq(users.id, userId));
   });
 
-  // Return the user ID.
   return userId;
 }
 
@@ -114,12 +113,6 @@ function createRotatingSchedule(
   return schedule;
 }
 
-/**
- * Formats a date as a string in the format 'YYYY-MM-DD'.
- *
- * @param {Date} date - The date to format.
- * @returns {string} The date formatted as a string in the format 'YYYY-MM-DD'.
- */
 function formatDate(date: Date): string {
   const year = date.getFullYear();
   const month = `${date.getMonth() + 1}`.padStart(2, "0");

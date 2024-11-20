@@ -20,8 +20,3 @@ export interface FormData {
   totalDays: number;
   startDate: Date | undefined;
 }
-
-export type feedbackData = {
-  text: string;
-  date: Date;
-};
