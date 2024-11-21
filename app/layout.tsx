@@ -57,7 +57,7 @@ const StructuredData = () => {
 
 export const metadata: Metadata = {
   title:
-    "Rotating Schedule Builder for First Responders & Healthcare",
+    "Rotating Schedule Builder for First Responders",
   description:
     "Streamline shift scheduling for first responders, nurses, and 24/7 operations. Sched Track offers efficient workforce management, optimized rotations, and improved work-life balance.",
   applicationName: "Sched Track",

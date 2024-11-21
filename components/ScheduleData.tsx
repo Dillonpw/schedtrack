@@ -1,4 +1,3 @@
-// ScheduleData.tsx
 import React from "react";
 import { db } from "@/db/index";
 import { scheduleEntries } from "@/db/schema";
@@ -7,11 +6,7 @@ import { auth } from "@/auth";
 import { ScheduleEntry } from "@/types";
 import ClientScheduleView from "./ClientViewSchedule";
 
-/**
- * Page that displays the user's schedule.
- *
- * @returns A react component that displays the user's schedule.
- */
+
 export default async function ScheduleData() {
   const session = await auth();
   if (!session || !session.user?.id) {
