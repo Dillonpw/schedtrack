@@ -7,7 +7,7 @@ test.describe("Basic Interactions, designed to show success", () => {
 
   test("Correct title", async ({ page }) => {
     await expect(page).toHaveTitle(
-      "Rotating Schedule Builder for First Responders & Healthcare",
+      "Rotating Schedule Builder for First Responders",
     );
   });
 
