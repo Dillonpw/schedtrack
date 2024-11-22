@@ -16,7 +16,7 @@ export default function Component() {
     {
       title: "Mobile Accessibility",
       description:
-        "Access your schedule anytime, anywhere with our mobile-responsive design. Perfect for checking your shifts on the go or making quick adjustments from your smartphone or tablet.",
+        "Access your schedule anytime, anywhere with desktop and mobile friendly application. Perfect for checking your shifts on the go or making quick adjustments from your smartphone or tablet.",
     },
   ];
 
@@ -42,7 +42,7 @@ export default function Component() {
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <div className="space-y-2">
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl lg:text-5xl">
                 Manage Your Time More Efficiently and Without the Headache
               </h2>
               <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
