@@ -12,7 +12,7 @@ export interface ScheduleEntry {
 
 export interface ShiftSegment {
   shiftType: "Work" | "Off";
-  days: number;
+  days?: number;
 }
 
 export interface FormData {
