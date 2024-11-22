@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import React, { useState } from "react"
-import { useRouter } from "next/navigation"
-import { useSession } from "next-auth/react"
-import { Button } from "@/components/ui/button"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { Calendar } from "@/components/ui/calendar"
-import { generateSchedule } from "@/lib/actions/generateSchedule"
-import { Input } from "@/components/ui/input"
-import { useToast } from "@/components/ui/use-toast"
-import { FormData, ShiftSegment } from "@/types"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { PlusCircle, MinusCircle, HelpCircle } from "lucide-react"
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Calendar } from "@/components/ui/calendar";
+import { generateSchedule } from "@/lib/actions/generateSchedule";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/components/ui/use-toast";
+import { FormData, ShiftSegment } from "@/types";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { PlusCircle, MinusCircle, HelpCircle } from "lucide-react";
 
 const useScheduleForm = (
   initialData: FormData,
@@ -31,7 +31,12 @@ const useScheduleForm = (
   startDate: Date | undefined;
 } => {
   const [formData, setFormData] = useState<FormData>(initialData);
-  const { segments, totalDays, startDate } = formData;
+  const { segments, startDate } = formData;
+
+  useEffect(() => {
+    const total = segments.reduce((sum, segment) => sum + segment.days, 0);
+    setFormData((prev) => ({ ...prev, totalDays: total }));
+  }, [segments]);
 
   const addSegment = () => {
     setFormData((prev) => ({
@@ -74,19 +79,19 @@ const useScheduleForm = (
     removeSegment,
     updateField,
     segments,
-    totalDays,
+    totalDays: formData.totalDays,
     startDate,
   };
 };
 
 const FormField = ({ label, id, value, onChange, min, max, tooltip }: {
-  label: string
-  id: string
-  value: number
-  onChange: (value: number) => void
-  min: number
-  max?: number
-  tooltip: string
+  label: string;
+  id: string;
+  value: number;
+  onChange: (value: number) => void;
+  min: number;
+  max?: number;
+  tooltip: string;
 }) => (
   <div className="space-y-2">
     <TooltipProvider>
@@ -109,12 +114,12 @@ const FormField = ({ label, id, value, onChange, min, max, tooltip }: {
       required
     />
   </div>
-)
+);
 
 export default function GenerateSchedule() {
-  const router = useRouter()
-  const { data: session, status } = useSession()
-  const { toast } = useToast()
+  const router = useRouter();
+  const { data: session, status } = useSession();
+  const { toast } = useToast();
   const {
     formData,
     addSegment,
@@ -131,7 +136,7 @@ export default function GenerateSchedule() {
     ],
     totalDays: 0,
     startDate: new Date(),
-  })
+  });
 
   const handleGenerateSchedule = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -161,11 +166,11 @@ export default function GenerateSchedule() {
   };
 
   if (status === "loading") {
-    return <div className="flex h-screen items-center justify-center">Loading...</div>
+    return <div className="flex h-screen items-center justify-center">Loading...</div>;
   }
 
   if (status === "unauthenticated") {
-    return <div className="flex h-screen items-center justify-center">Please sign in to generate a schedule.</div>
+    return <div className="flex h-screen items-center justify-center">Please sign in to generate a schedule.</div>;
   }
 
   return (
@@ -257,5 +262,5 @@ export default function GenerateSchedule() {
         </CardContent>
       </Card>
     </main>
-  )
+  );
 }
