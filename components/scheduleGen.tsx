@@ -138,7 +138,7 @@ const FormField = ({
       min={min}
       max={max}
       placeholder="Enter days"
-      className="bg-gray-100"
+      className="bg-gray-100 text-black"
       required
     />
   </div>
@@ -210,8 +210,8 @@ export default function GenerateSchedule() {
   }
 
   return (
-    <main className="container bg-background mx-auto py-10">
-      <Card className="mx-auto w-full max-w-2xl">
+    <main className="container mx-auto py-10">
+      <Card className="mx-auto w-full max-w-2xl bg-background">
         <CardHeader>
           <CardTitle className="text-center text-3xl font-bold">
             Generate Schedule
@@ -223,12 +223,12 @@ export default function GenerateSchedule() {
               {segments.map((segment, index) => (
                 <Card key={index}>
                   <CardContent className="pt-6">
-                    <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center">
-                      <div className="flex-1 space-y-2">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-[1fr,1fr,auto] sm:items-end">
+                      <div className="space-y-2">
                         <Label htmlFor={`segment-type-${index}`}>
                           Shift Type
                         </Label>
-                        <Select
+                        <Select 
                           value={segment.shiftType}
                           onValueChange={(value) =>
                             updateSegment(
@@ -247,24 +247,22 @@ export default function GenerateSchedule() {
                           </SelectContent>
                         </Select>
                       </div>
-                      <div className="w-full flex-1 sm:w-auto">
-                        <FormField
-                          label="Days"
-                          id={`segment-days-${index}`}
-                          value={segment.days}
-                          onChange={(value) =>
-                            updateSegment(index, "days", value)
-                          }
-                          min={1}
-                          tooltip="Enter the number of days for this segment"
-                        />
-                      </div>
+                      <FormField
+                        label="Days"
+                        id={`segment-days-${index}`}
+                        value={segment.days}
+                        onChange={(value) =>
+                          updateSegment(index, "days", value)
+                        }
+                        min={1}
+                        tooltip="Enter the number of days for this segment"
+                      />
                       <Button
                         type="button"
                         variant="ghost"
                         size="icon"
                         onClick={() => removeSegment(index)}
-                        className="mt-2 text-destructive sm:mt-0"
+                        className="h-10 w-10 shrink-0 text-destructive"
                       >
                         <MinusCircle className="h-5 w-5" />
                       </Button>
@@ -277,7 +275,7 @@ export default function GenerateSchedule() {
               type="button"
               variant="outline"
               onClick={addSegment}
-              className="w-full bg-gray-100"
+              className="w-full bg-gray-100 text-black"
             >
               <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
             </Button>
@@ -313,7 +311,7 @@ export default function GenerateSchedule() {
                 />
               </div>
             </div>
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full bg-gray-100 text-black">
               Generate Schedule
             </Button>
           </form>

@@ -119,14 +119,13 @@ function CalendarView({
         <div>
           <Button
             onClick={prevMonth}
-            variant="outline"
             size="icon"
             className="mr-2"
           >
             <ChevronLeftIcon className="h-4 w-4" />
             <span className="sr-only">Previous Month</span>
           </Button>
-          <Button onClick={nextMonth} variant="outline" size="icon">
+          <Button onClick={nextMonth} size="icon">
             <ChevronRightIcon className="h-4 w-4" />
             <span className="sr-only">Next Month</span>
           </Button>
