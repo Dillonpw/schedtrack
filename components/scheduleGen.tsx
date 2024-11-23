@@ -56,7 +56,7 @@ const useScheduleForm = (
   const addSegment = () => {
     setFormData((prev) => ({
       ...prev,
-      segments: [...prev.segments, { shiftType: "Work", days: undefined }],
+      segments: [...prev.segments, { shiftType: "Work", days: 0 }],
     }));
   };
 
@@ -158,8 +158,8 @@ export default function GenerateSchedule() {
     startDate,
   } = useScheduleForm({
     segments: [
-      { shiftType: "Work", days: undefined },
-      { shiftType: "Off", days: undefined },
+      { shiftType: "Work", days: 0 },
+      { shiftType: "Off", days: 0 },
     ],
     totalDays: 0,
     startDate: new Date(),
