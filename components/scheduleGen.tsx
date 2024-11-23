@@ -138,6 +138,7 @@ const FormField = ({
       min={min}
       max={max}
       placeholder="Enter days"
+      className="bg-gray-100"
       required
     />
   </div>
@@ -209,7 +210,7 @@ export default function GenerateSchedule() {
   }
 
   return (
-    <main className="container mx-auto py-10">
+    <main className="container bg-background mx-auto py-10">
       <Card className="mx-auto w-full max-w-2xl">
         <CardHeader>
           <CardTitle className="text-center text-3xl font-bold">
@@ -276,7 +277,7 @@ export default function GenerateSchedule() {
               type="button"
               variant="outline"
               onClick={addSegment}
-              className="w-full"
+              className="w-full bg-gray-100"
             >
               <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
             </Button>

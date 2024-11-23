@@ -18,20 +18,11 @@ export default async function Dashboard() {
             content="Easily create a personalized schedule with our intuitive schedule generator."
           />
         </Head>
-        <main className="">
+        <main className=" bg-gray-100">
           <Header />
-          <div className="mt-[-12rem]">
-            <Link
-              href="/"
-              className="absolute left-10 top-20 text-2xl hover:underline"
-            >
-              {" "}
-              Back
-            </Link>
             <div className="flex h-screen flex-col items-center justify-center">
               <SignIn />
             </div>
-          </div>
         </main>
       </>
     );
@@ -39,7 +30,7 @@ export default async function Dashboard() {
   return (
     <>
       <Head>
-        <title>Create a Schedule - Sched Track</title>
+        <title>Create a Schedule</title>
         <meta
           name="description"
           content="Easily create a personalized schedule with our intuitive schedule generator."

@@ -202,14 +202,14 @@ export const metadata: Metadata = {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth " suppressHydrationWarning>
       <head>
         <StructuredData />
         <link rel="canonical" href="https://www.schedtrack.com" />
       </head>
       <body
         className={cn(
-          "font-semibold antialiased",
+          "font-semibold antialiased bg-gray-100 dark:bg-muted",
           fontHeading.variable,
           fontBody.variable,
         )}
