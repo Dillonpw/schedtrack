@@ -49,7 +49,7 @@ function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
 
 export default function Component() {
   return (
-    <div className="w-full max-w-sm rounded-lg border-2 bg-primary-foreground p-6 shadow-md">
+    <div className="w-full max-w-sm rounded-lg border-2 bg-background p-6 shadow-md">
       <h2 className="mb-6 text-center text-2xl font-bold">Sign in</h2>
       <div className="space-y-4">
         <form
@@ -84,7 +84,7 @@ export default function Component() {
         </form>
       </div>
       <div className="my-4 flex items-center justify-center">
-        <span className="text-sm text-gray-600">or continue with</span>
+        <span className="text-sm">or continue with</span>
       </div>
       <form
         className="space-y-4"
@@ -102,7 +102,7 @@ export default function Component() {
             type="email"
             name="email"
             placeholder="Email"
-            className="w-full"
+            className="w-full bg-white text-black"
             required
           />
         </div>
@@ -111,11 +111,11 @@ export default function Component() {
         </Button>
       </form>
 
-        <div className="text-center mt-4">
-          <Button asChild variant="link">
-            <Link href="/">Back to Home</Link>
-          </Button>
-        </div>
+      <div className="mt-4 text-center">
+        <Button asChild variant="link">
+          <Link href="/">Back to Home</Link>
+        </Button>
       </div>
+    </div>
   );
 }

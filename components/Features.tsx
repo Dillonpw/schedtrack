@@ -27,17 +27,17 @@ export default function Component() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         width="100%"
-        className="bg-muted"
+        className="bg-background"
       >
         <path
           d="M-100 58C-100 58 218.416 36.3297 693.5 36.3297C1168.58 36.3297 1487 58 1487 58V-3.8147e-06H-100V58Z"
-          className="fill-background"
+          className="fill-muted"
         ></path>
       </svg>
       <section
         id="features"
         data-testid="features"
-        className="w-full bg-muted py-12 md:py-16 lg:py-20"
+        className="w-full bg-background py-12 md:py-16 lg:py-20"
       >
         <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -45,7 +45,7 @@ export default function Component() {
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl lg:text-5xl">
                 Manage Your Time More Efficiently and Without the Headache
               </h2>
-              <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              <p className="mx-auto max-w-[700px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 Our rotating schedule builder comes packed with features
                 designed to simplify your life and streamline your workflow.
               </p>
@@ -57,13 +57,11 @@ export default function Component() {
                 {features.slice(0, 3).map((feature, index) => (
                   <li key={index}>
                     <div className="grid gap-1">
-                      <h3 className="flex items-center text-lg font-bold">
+                      <h3 className="flex items-center text-lg font-bold dark:text-red-500">
                         <CheckCircle className="mr-2 h-5 w-5 text-primary" />
                         {feature.title}
                       </h3>
-                      <p className="text-muted-foreground">
-                        {feature.description}
-                      </p>
+                      <p>{feature.description}</p>
                     </div>
                   </li>
                 ))}
@@ -104,12 +102,12 @@ export default function Component() {
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
         width="100%"
-        className="bg-muted"
+        className="bg-background"
       >
         <path
           transform="rotate(180) translate(-1440, -60)"
           d="M-100 58C-100 58 218.416 36.3297 693.5 36.3297C1168.58 36.3297 1487 58 1487 58V-3.8147e-06H-100V58Z"
-          className="fill-background"
+          className="fill-muted"
         ></path>
       </svg>
     </>

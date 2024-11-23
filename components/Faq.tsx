@@ -44,7 +44,6 @@ export default function Faq() {
       answer:
         "Absolutely. We take the security and privacy of your data very seriously. All data transmitted to and from our servers is encrypted using industry-standard SSL/TLS protocols. Your schedule information is stored securely in our databases, which are regularly backed up and protected against unauthorized access. We never share your personal information or schedule data with third parties. Additionally, we offer features like two-factor authentication for added account security. Our privacy policy clearly outlines how we handle your data, and we're always transparent about our security practices.",
     },
-
   ];
 
   return (
@@ -54,16 +53,16 @@ export default function Faq() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         width="100%"
-        className="bg-muted"
+        className="bg-background"
       >
         <path
           d="M-100 58C-100 58 218.416 36.3297 693.5 36.3297C1168.58 36.3297 1487 58 1487 58V-3.8147e-06H-100V58Z"
-          className="fill-background"
+          className="fill-muted"
         ></path>
       </svg>
       <section
         data-testid="faq"
-        className="flex w-full flex-col gap-6 bg-muted py-12 md:py-24 lg:py-20 xl:py-48"
+        className="flex w-full flex-col gap-6 bg-background py-12 md:py-24 lg:py-20 xl:py-48"
       >
         <div className="container px-4 md:px-6">
           <h2 className="mb-10 text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
@@ -82,7 +81,7 @@ export default function Faq() {
                 <AccordionTrigger className="text-left text-lg font-semibold md:text-xl">
                   {item.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-base text-muted-foreground md:text-lg">
+                <AccordionContent className="text-base md:text-lg">
                   {item.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -96,12 +95,12 @@ export default function Faq() {
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
         width="100%"
-        className="bg-muted"
+        className="bg-background"
       >
         <path
           transform="rotate(180) translate(-1440, -60)"
           d="M-100 58C-100 58 218.416 36.3297 693.5 36.3297C1168.58 36.3297 1487 58 1487 58V-3.8147e-06H-100V58Z"
-          className="fill-background"
+          className="fill-muted"
         ></path>
       </svg>
     </>

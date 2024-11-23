@@ -9,7 +9,7 @@ const LoggedIn = async () => {
 
   if (!session?.user)
     return (
-      <div className="mx-2 flex justify-end bg-background">
+      <div className="flex justify-end bg-muted px-2">
         <Button asChild variant="link">
           <Link
             className="text-xl font-semibold"
@@ -26,7 +26,7 @@ const LoggedIn = async () => {
   const username = email.split("@")[0];
 
   return (
-    <div className="flex items-center justify-between gap-2 border-b-2 bg-background bg-none px-2 pb-2">
+    <div className="flex items-center justify-between gap-2 border-b-2 bg-muted bg-none px-2 pb-2">
       <div>
         <Button asChild variant="link">
           <Link href="/schedule" className="text-xs md:text-lg">

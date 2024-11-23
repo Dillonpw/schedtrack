@@ -6,12 +6,10 @@ const testimonials = [
   {
     name: "Anonymous",
     role: "911 Dispatcher",
-    avatar: "/john-doe.webp",
     fallback: "JD",
     content:
       "Sched Track has been a game-changer for me. It's so easy to create and view my work schedule, before finding Sched Track I would have to sit down and count the days to try to figure out my days off now it's just there anytime I need it. Highly recommend!",
   },
-
   {
     name: "Mike Johnson",
     role: "Fire Captain",
@@ -29,7 +27,6 @@ const testimonials = [
   {
     name: "Jane Smith",
     role: "Nursing Supervisor",
-    avatar: "/jane-doe.webp",
     fallback: "JS",
     content:
       "I've been using this rotating schedule app for months and it's been a lifesaver. I've gotten my whole team involved. The ability to create and manage rotating schedules has made planning our lives so much easier.",
@@ -52,14 +49,14 @@ const testimonials = [
 
 export default function TestimonialsSection() {
   return (
-    <section className="w-full bg-background py-12 md:py-24 lg:py-32">
+    <section className="w-full bg-muted py-12 md:py-24 lg:py-32">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
           <div className="space-y-2">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-4xl md:text-5xl">
               What Our Users Say
             </h2>
-            <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+            <p className="max-w-[900px] text-blue-700 dark:text-red-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               Hear from our satisfied users about how our rotating schedule
               builder has simplified their day to day.
             </p>
@@ -67,26 +64,32 @@ export default function TestimonialsSection() {
         </div>
         <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((testimonial, index) => (
-            <Card key={index} className="h-full bg-muted p-6 shadow-lg">
-              <div className="flex items-start gap-4">
-                <Avatar>
-                  <AvatarImage
-                    src={testimonial.avatar}
-                    alt={`${testimonial.name} Avatar`}
-                  />
-                  <AvatarFallback>{testimonial.fallback}</AvatarFallback>
-                </Avatar>
-                <div>
-                  <h4 className="text-lg font-bold">{testimonial.name}</h4>
-                  <p className="text-sm text-muted-foreground">
-                    {testimonial.role}
-                  </p>
+            <Card
+              key={index}
+              className="group h-full overflow-hidden bg-card transition-all duration-300 hover:shadow-lg dark:bg-gray-600"
+            >
+              <div className="p-6">
+                <div className="flex items-start gap-4">
+                  <Avatar className="h-12 w-12 border-2 border-primary">
+                    <AvatarImage alt={`${testimonial.name} Avatar`} />
+                    <AvatarFallback className="bg-primary text-primary-foreground">
+                      {testimonial.fallback}
+                    </AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <h3 className="text-lg font-bold text-card-foreground">
+                      {testimonial.name}
+                    </h3>
+                    <p className="text-sm font-semibold text-blue-700 dark:text-red-500">
+                      {testimonial.role}
+                    </p>
+                  </div>
                 </div>
+                <Separator className="my-4 bg-primary/20" />
+                <p className="text-sm text-card-foreground/90 transition-all duration-300 group-hover:text-card-foreground">
+                  "{testimonial.content}"
+                </p>
               </div>
-              <Separator className="my-4" />
-              <p className="text-sm text-muted-foreground">
-                "{testimonial.content}"
-              </p>
             </Card>
           ))}
         </div>

@@ -287,7 +287,7 @@ export default function GenerateSchedule() {
                 value={totalDays}
                 onChange={(value) => updateField("totalDays", value)}
                 min={1}
-                max={600}
+                max={630}
                 tooltip="Enter the number of days ahead you would like to display"
               />
               <div className="flex flex-col items-center space-y-2">

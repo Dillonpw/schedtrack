@@ -6,7 +6,6 @@ import { auth } from "@/auth";
 import { ScheduleEntry } from "@/types";
 import ClientScheduleView from "./ClientViewSchedule";
 
-
 export default async function ScheduleData() {
   const session = await auth();
   if (!session || !session.user?.id) {

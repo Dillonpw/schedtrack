@@ -40,10 +40,10 @@ const StructuredData = () => {
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.8",
-      ratingCount: "100"
+      ratingCount: "100",
     },
     datePublished: "2023-01-01",
-    softwareVersion: "1.0"
+    softwareVersion: "1.0",
   };
   return (
     <Script
@@ -55,8 +55,7 @@ const StructuredData = () => {
 };
 
 export const metadata: Metadata = {
-  title:
-    "Rotating Schedule Builder for First Responders",
+  title: "Rotating Schedule Builder for First Responders",
   description:
     "Streamline shift scheduling for first responders, nurses, and 24/7 operations. Sched Track offers efficient workforce management, optimized rotations, and improved work-life balance.",
   applicationName: "Sched Track",
@@ -195,9 +194,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.schedtrack.com",
     languages: {
-      'en-US': 'https://www.schedtrack.com',
-      'es-ES': 'https://www.schedtrack.com/es'
-    }
+      "en-US": "https://www.schedtrack.com",
+      "es-ES": "https://www.schedtrack.com/es",
+    },
   },
 };
 
@@ -221,7 +220,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </Providers>
         </main>
         <Link
-          className="flex justify-center bg-background p-4 pt-10 text-lg hover:underline"
+          className="flex justify-center bg-muted p-4 pt-10 text-lg hover:underline"
           href="https://buy.stripe.com/7sIaFa7EQeJzbW8aEG"
         >
           Help Us Keep The Lights On 💡

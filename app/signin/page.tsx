@@ -15,7 +15,7 @@ export default function SignInPage() {
         <meta name="robots" content="noindex, nofollow" />{" "}
         {/* Prevent indexing of login pages */}
       </Head>
-      <main>
+      <main className="bg-muted">
         <Header />
         <AccountInfo />
         <div className="mt-[-12rem] flex h-screen flex-col items-center justify-center">

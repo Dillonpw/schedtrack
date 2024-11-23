@@ -1,5 +1,13 @@
+import { Check } from "lucide-react";
 import Link from "next/link";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { auth } from "@/auth";
 
 export default async function Pricing() {
@@ -11,73 +19,43 @@ export default async function Pricing() {
     <section
       id="pricing"
       data-testid="pricing"
-      className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-6 bg-background px-4 py-20 md:py-24 lg:py-32 xl:py-48"
+      className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-6 bg-muted px-4 py-20 md:py-24 lg:py-32 xl:py-48"
     >
-      <div className="flex flex-col justify-center gap-4 md:max-w-full md:flex-row">
-        <div className="rounded-lg border-2 p-4 text-sm shadow-lg dark:border dark:border-gray-600 md:p-10">
-          <h3 className="mb-4 text-center text-xl font-bold md:text-4xl lg:text-4xl">
+      <Card className="w-full max-w-md overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg dark:bg-gray-600">
+        <CardHeader className="p-6 text-center dark:bg-background dark:text-gray-100">
+          <CardTitle className="text-2xl font-bold md:text-3xl lg:text-4xl">
             Free Account
-          </h3>
-          <p className="mb-8 text-center text-muted-foreground">
-            Start Scheduling
-          </p>
-          <ul className="mb-8 space-y-3">
-            <li className="flex items-center gap-2">
-              <span>
-                Full access to our custom schedule generating technology
-              </span>
-            </li>
-            <li className="flex items-center gap-2">
-              <span>Unlimited schedule adjustments and redos</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <span>Schedule up to 6 months into the future</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <span>
-                Your most recent schedule will always be a few clicks away
-              </span>
-            </li>
+          </CardTitle>
+          <p className="mt-2 text-sm dark:text-gray-100">Start Scheduling</p>
+        </CardHeader>
+        <CardContent className="p-6">
+          <ul className="mb-6 space-y-4 text-sm">
+            {[
+              "Full access to our custom schedule generating technology",
+              "Unlimited schedule adjustments and redos",
+              "Schedule up to 2 years into the future",
+              "Your most recent schedule will always be a few clicks away",
+            ].map((feature, index) => (
+              <li key={index} className="flex items-start gap-2">
+                <Check className="mt-1 h-5 w-5 flex-shrink-0 text-primary" />
+                <span>{feature}</span>
+              </li>
+            ))}
           </ul>
-          <div className="flex items-center justify-between gap-2">
-            <div className="font-bold md:text-2xl lg:text-3xl">FREE</div>
-            <Button asChild variant="default">
-              <Link href="/signin" prefetch={false}>
-                Get Started
-              </Link>
-            </Button>
-          </div>
-        </div>
-        {/* <div className="max-w-[50%] rounded-lg border-2 border-red-600 bg-muted p-4 text-sm shadow-lg md:p-10">
-          <h3 className="mb-4 text-center text-xl font-bold md:text-4xl lg:text-4xl">
-            Premium Account
-          </h3>
-          <p className="mb-8 text-center text-muted-foreground">
-            Level Up Your Shift Management
-          </p>
-          <ul className="mb-8 space-y-3">
-            <li className="flex items-center gap-2">
-              <span>Every feature of the free plan included</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <span>Scheduling up to 18 months into the future</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <span>Download and export your schedule to your calendar app of choice</span>
-            </li>
-          </ul>
-          <div className="flex items-center justify-between gap-2">
-            <div className="font-bold md:text-2xl lg:text-3xl">
-              $3/month USD
-            </div>
-            <Button asChild variant="default">
-              <Link href="/signin" prefetch={false}>
-                Get Started
-              </Link>
-            </Button>
-          </div>
-        </div> */}
-      </div>
+        </CardContent>
+        <CardFooter className="flex items-center justify-between gap-4 border-t p-6">
+          <div className="text-2xl font-bold md:text-3xl lg:text-4xl">FREE</div>
+          <Button
+            asChild
+            size="lg"
+            className="transition-transform hover:scale-105"
+          >
+            <Link href="/signin" prefetch={false}>
+              Get Started
+            </Link>
+          </Button>
+        </CardFooter>
+      </Card>
     </section>
   );
 }
