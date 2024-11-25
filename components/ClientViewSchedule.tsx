@@ -86,10 +86,10 @@ function CalendarView({
 
   const getColorClass = (scheduleEntry: ScheduleEntry | undefined) => {
     if (!scheduleEntry)
-      return "bg-gray-100 dark:bg-gray-700 text-black dark:text-gray-300";
+      return "bg-gray-300 dark:bg-gray-700 text-black dark:text-gray-300";
     return scheduleEntry.shift === "Work"
-      ? "bg-green-100 dark:bg-green-800 text-green-800 dark:text-green-200"
-      : "bg-gray-100 dark:bg-gray-700 text-black dark:text-gray-300";
+      ? "bg-blue-700 dark:bg-red-500 text-gray-100 dark:text-gray-100"
+      : "bg-gray-300 dark:bg-gray-700 text-black dark:text-gray-300";
   };
 
   const variants = {
@@ -186,11 +186,11 @@ function CalendarView({
       </div>
       <div className="mt-4 flex justify-center space-x-4">
         <div className="flex items-center">
-          <div className="mr-2 h-4 w-4 rounded border border-green-800 bg-green-100 dark:bg-green-800"></div>
+          <div className="mr-2 h-4 w-4 rounded border border-green-800 bg-blue-700 dark:bg-red-500"></div>
           <span>Work Day</span>
         </div>
         <div className="flex items-center">
-          <div className="mr-2 h-4 w-4 rounded border border-gray-300 bg-gray-100 dark:bg-gray-700"></div>
+          <div className="mr-2 h-4 w-4 rounded border border-gray-300 bg-gray-200 dark:bg-gray-700"></div>
           <span>Off Day / No Data</span>
         </div>
       </div>

@@ -138,7 +138,7 @@ const FormField = ({
       min={min}
       max={max}
       placeholder="Enter days"
-      className="bg-gray-100 text-black"
+      className="bg-gray-300 text-black"
       required
     />
   </div>
@@ -211,7 +211,7 @@ export default function GenerateSchedule() {
 
   return (
     <main className="container mx-auto py-10">
-      <Card className="mx-auto w-full max-w-2xl bg-background">
+      <Card className="mx-auto w-full max-w-2xl border-none">
         <CardHeader>
           <CardTitle className="text-center text-3xl font-bold">
             Generate Schedule
@@ -222,13 +222,13 @@ export default function GenerateSchedule() {
             <div className="space-y-4">
               {segments.map((segment, index) => (
                 <Card key={index}>
-                  <CardContent className="pt-6">
+                  <CardContent className="rounded-lg pt-6 dark:bg-gray-800">
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-[1fr,1fr,auto] sm:items-end">
                       <div className="space-y-2">
                         <Label htmlFor={`segment-type-${index}`}>
                           Shift Type
                         </Label>
-                        <Select 
+                        <Select
                           value={segment.shiftType}
                           onValueChange={(value) =>
                             updateSegment(
@@ -271,15 +271,14 @@ export default function GenerateSchedule() {
                 </Card>
               ))}
             </div>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={addSegment}
-              className="w-full bg-gray-100 text-black"
-            >
-              <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
-            </Button>
             <div className="flex flex-col items-center gap-4">
+              <Button
+                type="button"
+                onClick={addSegment}
+                className="bg-blue-700 text-primary-foreground hover:bg-blue-700/80 dark:bg-red-500 dark:hover:bg-red-500/80"
+              >
+                <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
+              </Button>
               <FormField
                 label="Total Days"
                 id="totalDays"
@@ -310,10 +309,13 @@ export default function GenerateSchedule() {
                   className="rounded-md"
                 />
               </div>
+              <Button
+                type="submit"
+                className="bg-blue-700 text-primary-foreground hover:bg-blue-700/80 dark:bg-red-500 dark:hover:bg-red-500/80"
+              >
+                Generate Schedule
+              </Button>
             </div>
-            <Button type="submit" className="w-full bg-gray-100 text-black">
-              Generate Schedule
-            </Button>
           </form>
         </CardContent>
       </Card>
