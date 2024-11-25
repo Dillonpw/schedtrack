@@ -209,7 +209,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body
         className={cn(
-          "font-semibold antialiased bg-gray-100 dark:bg-muted",
+          "font-semibold antialiased bg-border text-base",
           fontHeading.variable,
           fontBody.variable,
         )}
