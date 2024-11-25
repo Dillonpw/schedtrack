@@ -1,7 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import 'react-big-calendar/lib/css/react-big-calendar.css';
+@import "react-big-calendar/lib/css/react-big-calendar.css";
 
 @layer base {
   :root {
@@ -66,6 +66,5 @@
   }
   body {
     @apply bg-background text-foreground dark:bg-zinc-950 dark:text-gray-100;
-
   }
 }
