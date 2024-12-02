@@ -211,7 +211,7 @@ export default function GenerateSchedule() {
 
   return (
     <main className="container mx-auto py-10">
-      <Card className="mx-auto w-full max-w-2xl border-none">
+      <Card className="mx-auto w-full bg-border max-w-2xl border-none">
         <CardHeader>
           <CardTitle className="text-center text-3xl font-bold">
             Generate Schedule
@@ -222,7 +222,7 @@ export default function GenerateSchedule() {
             <div className="space-y-4">
               {segments.map((segment, index) => (
                 <Card key={index}>
-                  <CardContent className="rounded-lg pt-6 dark:bg-gray-800">
+                  <CardContent className="rounded-lg pt-6">
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-[1fr,1fr,auto] sm:items-end">
                       <div className="space-y-2">
                         <Label htmlFor={`segment-type-${index}`}>
