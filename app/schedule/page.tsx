@@ -21,13 +21,6 @@ export default async function Dashboard() {
         </Head>
         <main>
           <Header />
-          <Link
-            href="/"
-            className="absolute left-10 top-20 text-2xl hover:underline"
-          >
-            {" "}
-            Back
-          </Link>
           <div className="flex h-screen flex-col items-center justify-center">
             <SignIn />
           </div>
