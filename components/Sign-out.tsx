@@ -10,7 +10,7 @@ export function SignOut() {
       }}
     >
       <Button
-        className="text-black"
+        className="text-black dark:text-gray-100"
         variant="destructive"
         type="submit"
         size="sm"

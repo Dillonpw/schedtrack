@@ -31,9 +31,8 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
             {children}
           </div>
           <motion.div
-            drag={true}
-            dragConstraints={{ left: -50, right: 50, top: -50, bottom: 50 }}
-            className="mx-auto w-fit"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
           >
             <Calendar mode="single" selected={date} onSelect={setDate} />
           </motion.div>

@@ -27,7 +27,7 @@ const LoggedIn = async () => {
 
   return (
     <>
-      <div className="flex items-center justify-between gap-2 border-b-2 bg-border bg-none px-2 pb-2">
+      <div className="flex items-center justify-between gap-2 border-b-2 bg-border px-2 pb-2 dark:bg-muted">
         <div>
           <Button asChild variant="link">
             <Link href="/schedule" className="text-xs md:text-lg">

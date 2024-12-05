@@ -5,7 +5,7 @@ import { HeaderProps } from "@/types";
 
 const Header = ({ children }: HeaderProps) => {
   return (
-    <header className="flex h-14 items-center justify-between bg-border p-2 lg:px-6">
+    <header className="flex h-14 items-center justify-between bg-border p-2 dark:bg-muted lg:px-6">
       <Link
         data-testid="favicon-link"
         href="/"
