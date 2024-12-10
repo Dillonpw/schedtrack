@@ -60,11 +60,14 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 `;
 
-  scheduleEntriesData.forEach((entry, index) => {
+  // Filter only work days
+  const workDays = scheduleEntriesData.filter(entry => entry.shift !== "OFF");
+
+  workDays.forEach((entry, index) => {
     const eventDate = new Date(entry.date);
     const startDate = formatDateICS(eventDate);
     const endDate = formatDateICS(
-      new Date(eventDate.getTime() + 24 * 60 * 60 * 1000),
+      new Date(eventDate.getTime() + 24 * 60 * 60 * 1000)
     ); // Add one day for full-day events
 
     ics += `BEGIN:VEVENT
