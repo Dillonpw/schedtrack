@@ -61,7 +61,15 @@ METHOD:PUBLISH
 `;
 
   // Filter only work days
-  const workDays = scheduleEntriesData.filter(entry => entry.shift !== "OFF");
+  const workDays = scheduleEntriesData.filter((entry) => {
+    const isWorkDay = entry.shift && entry.shift.toLowerCase() === "work";
+    if (!isWorkDay) {
+      console.log(`Excluding entry:`, entry); // Debugging: Log excluded entries
+    }
+    return isWorkDay;
+  });
+
+  console.log("Filtered Work Days:", workDays); // Debugging: Log filtered data
 
   workDays.forEach((entry, index) => {
     const eventDate = new Date(entry.date);
@@ -87,7 +95,6 @@ END:VEVENT
 /**
  * Function to format dates in ICS format (YYYYMMDD)
  */
-
 function formatDateICS(date: Date): string {
   const year = date.getUTCFullYear();
   const month = padZero(date.getUTCMonth() + 1); // Months are zero-based
