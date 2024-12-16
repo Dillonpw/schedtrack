@@ -1,48 +1,38 @@
+import { Metadata } from 'next';
 import Header from "@/components/Header";
 import { auth } from "@/auth";
 import SignIn from "@/components/Sign-in";
-import Link from "next/link";
 import AccountInfo from "@/components/AccountInfo";
 import ScheduleData from "@/components/ScheduleData";
-import Head from "next/head";
+
+export const metadata: Metadata = {
+  title: {
+    default: 'Your Schedule - Sched Track',
+    template: '%s | Sched Track'
+  },
+  description: "View your generated schedule and keep track of your tasks efficiently.",
+  robots: "index, follow"
+};
+
 export default async function Dashboard() {
   const session = await auth();
-
-  if (!session?.user)
+  
+  if (!session?.user) {
     return (
-      <>
-        <Head>
-          <title>Your Schedule</title>
-          <meta
-            name="description"
-            content="View your generated schedule and keep track of your tasks efficiently."
-          />
-          <meta name="robots" content="index, follow" />
-        </Head>
-        <main>
-          <Header />
-          <div className="flex h-screen flex-col items-center justify-center">
-            <SignIn />
-          </div>
-        </main>
-      </>
-    );
-
-  return (
-    <>
-      <Head>
-        <title>Your Schedule - Sched Track</title>
-        <meta
-          name="description"
-          content="View your generated schedule and keep track of your tasks efficiently."
-        />
-        <meta name="robots" content="index, follow" />
-      </Head>
       <main>
         <Header />
-        <AccountInfo />
-        <ScheduleData />
+        <div className="flex h-screen flex-col items-center justify-center">
+          <SignIn />
+        </div>
       </main>
-    </>
+    );
+  }
+  
+  return (
+    <main>
+      <Header />
+      <AccountInfo />
+      <ScheduleData />
+    </main>
   );
 }
