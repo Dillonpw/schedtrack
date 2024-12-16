@@ -40,13 +40,10 @@ function CalendarView({
   const [direction, setDirection] = useState(0);
 
   useEffect(() => {
-    const entriesMap = new Map<string, ScheduleEntry>();
-    scheduleEntriesData.forEach((entry) => {
-      entriesMap.set(entry.date, entry);
-    });
-    setProcessedEntries(entriesMap);
+    setProcessedEntries(
+      new Map(scheduleEntriesData.map((entry) => [entry.date, entry])),
+    );
   }, [scheduleEntriesData]);
-
   const daysInMonth = new Date(
     currentDate.getFullYear(),
     currentDate.getMonth() + 1,
@@ -58,39 +55,19 @@ function CalendarView({
     1,
   ).getDay();
 
-  const prevMonth = () => {
-    setDirection(-1);
+  const changeMonth = (offset: number) => {
+    setDirection(offset);
     setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1),
+      new Date(currentDate.getFullYear(), currentDate.getMonth() + offset, 1),
     );
   };
+  const getScheduleForDate = (date: Date) =>
+    processedEntries.get(date.toISOString().split("T")[0]);
 
-  const nextMonth = () => {
-    setDirection(1);
-    setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1),
-    );
-  };
-
-  const getScheduleForDate = (date: Date) => {
-    const dateString = formatDate(date);
-    return processedEntries.get(dateString);
-  };
-
-  const formatDate = (date: Date): string => {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date.getDate().toString().padStart(2, "0");
-    return `${year}-${month}-${day}`;
-  };
-
-  const getColorClass = (scheduleEntry: ScheduleEntry | undefined) => {
-    if (!scheduleEntry)
-      return "bg-gray-300 dark:bg-gray-700 text-black dark:text-gray-300";
-    return scheduleEntry.shift === "Work"
+  const getColorClass = (scheduleEntry?: ScheduleEntry) =>
+    scheduleEntry?.shift === "Work"
       ? "bg-blue-700 dark:bg-red-500 text-gray-100 dark:text-gray-100"
       : "bg-gray-300 dark:bg-gray-700 text-black dark:text-gray-300";
-  };
 
   const variants = {
     enter: (direction: number) => ({
@@ -117,15 +94,11 @@ function CalendarView({
           })}
         </h2>
         <div>
-          <Button
-            onClick={prevMonth}
-            size="icon"
-            className="mr-2"
-          >
+          <Button onClick={() => changeMonth(-1)} size="icon" className="mr-2">
             <ChevronLeftIcon className="h-4 w-4" />
             <span className="sr-only">Previous Month</span>
           </Button>
-          <Button onClick={nextMonth} size="icon">
+          <Button onClick={() => changeMonth(1)} size="icon">
             <ChevronRightIcon className="h-4 w-4" />
             <span className="sr-only">Next Month</span>
           </Button>
@@ -152,8 +125,8 @@ function CalendarView({
                   {day}
                 </div>
               ))}
-              {Array.from({ length: firstDayOfMonth }).map((_, index) => (
-                <div key={`empty-${index}`} className="p-2"></div>
+              {[...Array(firstDayOfMonth)].map((_, index) => (
+                <div key={index} className="p-2"></div>
               ))}
               {Array.from({ length: daysInMonth }).map((_, index) => {
                 const date = new Date(
@@ -163,19 +136,17 @@ function CalendarView({
                 );
                 const scheduleEntry = getScheduleForDate(date);
                 const colorClass = getColorClass(scheduleEntry);
+
                 return (
                   <div
                     key={index}
-                    className={`rounded-md border p-1 ${colorClass}`}
+                    className={`flex h-20 w-full flex-col items-start rounded-md border p-2 ${colorClass}`}
                   >
                     <div className="font-semibold">{index + 1}</div>
-                    {scheduleEntry && (
-                      <div className="mt-1 h-8 text-xs">
-                        {scheduleEntry.shift}
-                      </div>
-                    )}
-                    {!scheduleEntry && (
-                      <div className="mt-1 h-8 text-xs">No Data</div>
+                    {scheduleEntry ? (
+                      <div className="mt-1 text-xs">{scheduleEntry.shift}</div>
+                    ) : (
+                      <div className="mt-1 text-xs">No Data</div>
                     )}
                   </div>
                 );
