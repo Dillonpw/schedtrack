@@ -21,7 +21,6 @@ const fontBody = Inter({
 });
 
 import { Metadata } from "next";
-import GoogleAdSense from "@/components/GoogleAdsense";
 
 const StructuredData = () => {
   const structuredData = {
@@ -206,6 +205,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
         <StructuredData />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4500026491096816"
+          crossOrigin="anonymous"
+        ></script>
         <link rel="canonical" href="https://www.schedtrack.com" />
       </head>
       <body
@@ -228,7 +232,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         </Link>
         <Footer />
         <Analytics />
-        <GoogleAdSense />
       </body>
     </html>
   );
