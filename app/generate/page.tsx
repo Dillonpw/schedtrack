@@ -3,20 +3,23 @@ import { auth } from "@/auth";
 import SignIn from "@/components/Sign-in";
 import AccountInfo from "@/components/AccountInfo";
 import ScheduleGen from "@/components/scheduleGen";
-import Head from "next/head";
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: {
+    default: 'Generate - Sched Track',
+    template: '%s | Sched Track'
+  },
+  description: "Generate your schedule and keep track of your life efficiently.",
+  robots: "index, follow"
+};
+
 export default async function Dashboard() {
   const session = await auth();
 
   if (!session?.user)
     return (
       <>
-        <Head>
-          <title>Create a Schedule</title>
-          <meta
-            name="description"
-            content="Easily create a personalized schedule with our intuitive schedule generator."
-          />
-        </Head>
         <main>
           <Header />
             <div className="flex h-screen flex-col items-center justify-center">
@@ -28,13 +31,6 @@ export default async function Dashboard() {
 
   return (
     <>
-      <Head>
-        <title>Create a Schedule</title>
-        <meta
-          name="description"
-          content="Easily create a personalized schedule with our intuitive schedule generator."
-        />
-      </Head>
       <main>
         <Header />
         <AccountInfo />

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     default: 'Your Schedule - Sched Track',
     template: '%s | Sched Track'
   },
-  description: "View your generated schedule and keep track of your tasks efficiently.",
+  description: "View your generated schedule and keep track of your life efficiently.",
   robots: "index, follow"
 };
 

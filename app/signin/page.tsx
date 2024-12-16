@@ -1,20 +1,22 @@
 import Header from "@/components/Header";
 import AccountInfo from "@/components/AccountInfo";
 import SignIn from "@/components/Sign-in";
-import Head from "next/head";
+import { Metadata } from 'next';
+
+
+export const metadata: Metadata = {
+  title: {
+    default: 'Your Schedule - Sched Track',
+    template: '%s | Sched Track'
+  },
+  description: "Sign in.",
+  robots: "noindex, nofollow"
+};
 
 export default function SignInPage() {
   return (
     <>
-      <Head>
-        <title>Sign In</title>
-        <meta
-          name="description"
-          content="Access your account to manage and track your schedules with Sched Track."
-        />
-        <meta name="robots" content="noindex, nofollow" />{" "}
-        {/* Prevent indexing of login pages */}
-      </Head>
+
       <main className="bg-muted">
         <Header />
         <AccountInfo />
