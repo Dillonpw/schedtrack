@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
@@ -48,6 +51,22 @@ const testimonials = [
 ];
 
 export default function TestimonialsSection() {
+  // Define Framer Motion animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const itemVariants = (index: number) => ({
+    hidden: { opacity: 0, x: index % 2 === 0 ? -50 : 50 }, // Left for even, right for odd
+    visible: { opacity: 1, x: 0, transition: { duration: 0.6 } },
+  });
+
   return (
     <section className="w-full bg-muted py-12 md:py-24 lg:py-32">
       <div className="container px-4 md:px-6">
@@ -62,37 +81,43 @@ export default function TestimonialsSection() {
             </p>
           </div>
         </div>
-        <div className="mx-auto grid max-w-5xl items-center gap-6 py-12 md:grid-cols-2 lg:grid-cols-3">
+
+        <motion.div
+          className="mx-auto grid max-w-5xl items-center gap-6 py-12 md:grid-cols-2 lg:grid-cols-3"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
           {testimonials.map((testimonial, index) => (
-            <Card
-              key={index}
-              className="group h-full overflow-hidden bg-card transition-all duration-300 hover:shadow-lg dark:bg-gray-600"
-            >
-              <div className="p-6">
-                <div className="flex items-start gap-4">
-                  <Avatar className="h-12 w-12 border-2 border-primary">
-                    <AvatarImage alt={`${testimonial.name} Avatar`} />
-                    <AvatarFallback className="bg-primary text-primary-foreground">
-                      {testimonial.fallback}
-                    </AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <h3 className="text-lg font-bold text-card-foreground">
-                      {testimonial.name}
-                    </h3>
-                    <p className="text-sm font-semibold text-blue-700 dark:text-red-500">
-                      {testimonial.role}
-                    </p>
+            <motion.div key={index} variants={itemVariants(index)}>
+              <Card className="group h-full min-h-[300px] overflow-hidden border bg-card transition-all duration-300 hover:shadow-lg dark:bg-gray-600">
+                <div className="p-6">
+                  <div className="flex items-start gap-4">
+                    <Avatar className="h-12 w-12 border-2 border-primary">
+                      <AvatarImage alt={`${testimonial.name} Avatar`} />
+                      <AvatarFallback className="bg-primary text-primary-foreground">
+                        {testimonial.fallback}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <h3 className="text-lg font-bold text-card-foreground">
+                        {testimonial.name}
+                      </h3>
+                      <p className="text-sm font-semibold text-blue-700 dark:text-red-500">
+                        {testimonial.role}
+                      </p>
+                    </div>
                   </div>
+                  <Separator className="my-4 bg-primary/20" />
+                  <p className="text-sm text-card-foreground/90 transition-all duration-300 group-hover:text-card-foreground">
+                    "{testimonial.content}"
+                  </p>
                 </div>
-                <Separator className="my-4 bg-primary/20" />
-                <p className="text-sm text-card-foreground/90 transition-all duration-300 group-hover:text-card-foreground">
-                  "{testimonial.content}"
-                </p>
-              </div>
-            </Card>
+              </Card>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

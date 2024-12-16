@@ -11,7 +11,11 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
     <section className="w-full bg-muted py-12 md:py-24 lg:py-32 xl:py-32">
       <div className="container px-4 md:px-16">
         <div className="flex flex-col items-center justify-center sm:flex-row">
-          <div className="flex flex-col justify-center space-y-4">
+          <motion.div
+            initial={{ opacity: 0, x: -200 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="flex flex-col justify-center space-y-4"
+          >
             <div className="space-y-2">
               <h1 className="mx-auto text-center text-4xl font-bold tracking-tighter sm:text-4xl md:text-left lg:text-5xl">
                 Effortless Schedule Management
@@ -29,7 +33,7 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
               </p>
             </div>
             {children}
-          </div>
+          </motion.div>
           <motion.div
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}

@@ -7,6 +7,7 @@ import { SessionProvider } from "next-auth/react";
 import { Analytics } from "@vercel/analytics/react";
 import Link from "next/link";
 import Script from "next/script";
+import { motion } from "framer-motion";
 
 const fontHeading = Inter({
   subsets: ["latin"],
@@ -21,38 +22,7 @@ const fontBody = Inter({
 });
 
 import { Metadata } from "next";
-
-const StructuredData = () => {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    name: "Sched Track",
-    applicationCategory: "BusinessApplication",
-    operatingSystem: "Web",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "USD",
-    },
-    description:
-      "Efficient shift scheduling and workforce management tool for first responders, nurses, and 24/7 operations.",
-    // NEW: Added more structured data
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "4.8",
-      ratingCount: "100",
-    },
-    datePublished: "2023-01-01",
-    softwareVersion: "1.0",
-  };
-  return (
-    <Script
-      id="structured-data"
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-    />
-  );
-};
+import Donation from "@/components/Donation";
 
 export const metadata: Metadata = {
   title: "Rotating Schedule Builder for First Responders",
@@ -143,7 +113,6 @@ export const metadata: Metadata = {
       },
     ],
   },
-
   formatDetection: {
     telephone: false,
     address: false,
@@ -190,7 +159,12 @@ export const metadata: Metadata = {
     ],
   },
   metadataBase: new URL("https://www.schedtrack.com"),
-  viewport: "width=device-width, initial-scale=1",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
   alternates: {
     canonical: "https://www.schedtrack.com",
     languages: {
@@ -200,18 +174,52 @@ export const metadata: Metadata = {
   },
 };
 
+// Structured Data as a separate function
+export function generateJsonLd() {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "Sched Track",
+    applicationCategory: "BusinessApplication",
+    operatingSystem: "Web",
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+    },
+    description:
+      "Efficient shift scheduling and workforce management tool for first responders, nurses, and 24/7 operations.",
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "4.8",
+      ratingCount: "100",
+    },
+    datePublished: "2023-01-01",
+    softwareVersion: "1.0",
+  };
+
+  return [
+    {
+      "@type": "application/ld+json",
+      innerHTML: JSON.stringify(structuredData),
+    },
+  ];
+}
+
+// Google Ads script generation
+export function generateScripts() {
+  return [
+    {
+      src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4500026491096816",
+      async: true,
+      crossOrigin: "anonymous",
+    },
+  ];
+}
+
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <head>
-        <StructuredData />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4500026491096816"
-          crossOrigin="anonymous"
-        ></script>
-        <link rel="canonical" href="https://www.schedtrack.com" />
-      </head>
       <body
         className={cn(
           "bg-border text-base font-semibold antialiased",
@@ -224,14 +232,43 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <SessionProvider>{children}</SessionProvider>
           </Providers>
         </main>
-        <Link
-          className="flex justify-center bg-none p-4 pt-10 text-lg hover:underline"
-          href="https://buy.stripe.com/7sIaFa7EQeJzbW8aEG"
-        >
-          Help Us Keep The Lights On 💡
-        </Link>
+        <Donation />
+
         <Footer />
         <Analytics />
+        <Script
+          id="structured-data"
+          type="application/ld+json"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              name: "Sched Track",
+              applicationCategory: "BusinessApplication",
+              operatingSystem: "Web",
+              offers: {
+                "@type": "Offer",
+                price: "0",
+                priceCurrency: "USD",
+              },
+              description:
+                "Efficient shift scheduling and workforce management tool for first responders, nurses, and 24/7 operations.",
+              aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: "4.8",
+                ratingCount: "100",
+              },
+              datePublished: "2023-01-01",
+              softwareVersion: "1.0",
+            }),
+          }}
+        />
+        <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4500026491096816"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
       </body>
     </html>
   );

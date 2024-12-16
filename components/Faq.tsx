@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import {
   Accordion,
   AccordionContent,
@@ -65,26 +66,37 @@ export default function Faq() {
         className="flex w-full flex-col gap-6 bg-background py-12 md:py-24 lg:py-20 xl:py-48"
       >
         <div className="container px-4 md:px-6">
-          <h2 className="mb-10 text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
+          <motion.h2
+            className="mb-10 text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.4 }}
+          >
             Frequently Asked Questions
-          </h2>
+          </motion.h2>
           <Accordion
             type="single"
             collapsible
             className="mx-auto w-full max-w-3xl"
           >
             {faqItems.map((item, index) => (
-              <AccordionItem
+              <motion.div
                 key={`item-${index + 1}`}
-                value={`item-${index + 1}`}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.1 }}
               >
-                <AccordionTrigger className="text-left text-lg font-semibold md:text-xl">
-                  {item.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-base md:text-lg">
-                  {item.answer}
-                </AccordionContent>
-              </AccordionItem>
+                <AccordionItem value={`item-${index + 1}`}>
+                  <AccordionTrigger className="text-left text-lg font-semibold md:text-xl">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-base md:text-lg">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              </motion.div>
             ))}
           </Accordion>
         </div>
