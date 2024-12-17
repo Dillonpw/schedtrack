@@ -14,13 +14,13 @@ export const metadata: Metadata = {
 export default function Privacy() {
   return (
     <>
-      <main>
+      <main className="bg-muted">
         <Header />
         <h1 className="mt-10 text-center text-3xl font-bold text-red-600/80">
           Privacy Policy
         </h1>
         <div className="mx-auto max-w-[70%]">
-          <p className="mx-10 mt-10 text-xl">
+          <p className="mx-4 mt-10 text-sm lg:mx-10 lg:text-xl">
             Your privacy is important to us. It is Sched Track's policy to
             respect your privacy regarding any information we may collect from
             you across our website, and other sites we own and operate. We only

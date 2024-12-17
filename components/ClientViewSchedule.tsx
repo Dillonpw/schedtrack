@@ -85,7 +85,7 @@ function CalendarView({
   };
 
   return (
-    <div className="mx-auto w-full max-w-4xl">
+    <div className="mx-auto w-full max-w-4xl px-2 dark:bg-muted">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-2xl font-bold">
           {currentDate.toLocaleString("default", {

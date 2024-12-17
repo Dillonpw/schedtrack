@@ -21,10 +21,9 @@ export default async function ScheduleData() {
 
   // Render the schedule page
   return (
-    <section className="m-10">
+    <section>
       <h1 className="text-center text-3xl font-bold">Schedule</h1>
       <div className="mt-4">
-        {/* Render the client-side schedule view with the user's schedule entries */}
         <ClientScheduleView scheduleEntriesData={scheduleEntriesData} />
       </div>
     </section>

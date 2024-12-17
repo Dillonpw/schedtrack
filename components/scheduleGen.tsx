@@ -210,8 +210,8 @@ export default function GenerateSchedule() {
   }
 
   return (
-    <main className="container mx-auto py-10">
-      <Card className="mx-auto w-full bg-border max-w-2xl border-none">
+    <main className="container mx-auto pt-10 dark:bg-muted">
+      <Card className="mx-auto w-full max-w-2xl border-none bg-border dark:bg-muted">
         <CardHeader>
           <CardTitle className="text-center text-3xl font-bold">
             Generate Schedule

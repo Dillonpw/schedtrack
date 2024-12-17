@@ -37,7 +37,7 @@ const DownloadICSButton: React.FC<DownloadICSButtonProps> = ({
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger>
-          <Button variant="default" onClick={downloadICS}>
+          <Button variant="default" className="ml-2" onClick={downloadICS}>
             Download
           </Button>
         </TooltipTrigger>
@@ -75,7 +75,7 @@ METHOD:PUBLISH
     const eventDate = new Date(entry.date);
     const startDate = formatDateICS(eventDate);
     const endDate = formatDateICS(
-      new Date(eventDate.getTime() + 24 * 60 * 60 * 1000)
+      new Date(eventDate.getTime() + 24 * 60 * 60 * 1000),
     ); // Add one day for full-day events
 
     ics += `BEGIN:VEVENT
