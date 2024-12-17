@@ -11,16 +11,20 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
     <section className="w-full bg-muted py-12 md:py-24 lg:py-32 xl:py-32">
       <div className="container px-4 md:px-16">
         <div className="flex flex-col items-center justify-center sm:flex-row">
-          <motion.div
-            initial={{ opacity: 0, x: -200 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="flex flex-col justify-center space-y-4"
-          >
+          <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-2">
-              <h1 className="mx-auto text-center text-4xl font-bold tracking-tighter sm:text-4xl md:text-left lg:text-5xl">
+              <motion.h1
+                initial={{ opacity: 0, x: -200 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="mx-auto text-center text-4xl font-bold tracking-tighter sm:text-4xl md:text-left lg:text-5xl"
+              >
                 Effortless Schedule Management
-              </h1>
-              <p className="max-w-[600px] text-center text-foreground md:text-left md:text-xl">
+              </motion.h1>
+              <motion.p
+              initial={{  opacity: 0, x: -200 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="max-w-[600px] text-center text-foreground md:text-left md:text-xl">
                 Our rotating schedule builder helps{" "}
                 <span className="font-semibold text-blue-700 dark:text-red-500">
                   First Responders
@@ -30,10 +34,15 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
                 <span className="font-semibold text-blue-700 dark:text-red-500">
                   Say goodbye to manual planning.
                 </span>
-              </p>
+              </motion.p>
             </div>
-            {children}
-          </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: -200 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.4 }}
+            >
+              {children}
+            </motion.div>          </div>
           <motion.div
             initial={{ opacity: 0, y: -50 }}
             animate={{ opacity: 1, y: 0 }}

@@ -17,7 +17,7 @@ export default function Donation() {
       }}
     >
       <Link
-        className="flex justify-center bg-none p-4 pt-10 text-lg hover:underline"
+        className="flex justify-center bg-muted p-4 pt-10 text-lg hover:underline"
         href="https://buy.stripe.com/7sIaFa7EQeJzbW8aEG"
       >
         Help Us Keep The Lights On 💡
