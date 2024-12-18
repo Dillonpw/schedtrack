@@ -5,9 +5,9 @@ import { Providers } from "./providers";
 import Footer from "@/components/footer-section";
 import { SessionProvider } from "next-auth/react";
 import { Analytics } from "@vercel/analytics/react";
-import Link from "next/link";
 import Script from "next/script";
-import { motion } from "framer-motion";
+import { Metadata, Viewport } from "next";
+import Donation from "@/components/donation-link";
 
 const fontHeading = Inter({
   subsets: ["latin"],
@@ -20,9 +20,6 @@ const fontBody = Inter({
   display: "swap",
   variable: "--font-body",
 });
-
-import { Metadata } from "next";
-import Donation from "@/components/donation-link";
 
 export const metadata: Metadata = {
   title: "Rotating Schedule Builder for First Responders",
@@ -159,12 +156,6 @@ export const metadata: Metadata = {
     ],
   },
   metadataBase: new URL("https://www.schedtrack.com"),
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
   alternates: {
     canonical: "https://www.schedtrack.com",
     languages: {
@@ -205,6 +196,13 @@ export function generateJsonLd() {
     },
   ];
 }
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
 
 // Google Ads script generation
 export function generateScripts() {

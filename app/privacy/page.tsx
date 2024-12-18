@@ -1,6 +1,6 @@
 import Header from "../../components/header-section";
 
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
   title: {
@@ -11,10 +11,17 @@ export const metadata: Metadata = {
     "View your generated schedule and keep track of your life efficiently.",
   robots: "index, follow",
 };
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+};
 export default function Privacy() {
   return (
     <>
-      <main className="bg-muted">
+      <main className="dark:bg-muted">
         <Header />
         <h1 className="mt-10 text-center text-3xl font-bold text-red-600/80">
           Privacy Policy

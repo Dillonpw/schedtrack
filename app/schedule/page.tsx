@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 import Header from "@/components/header-section";
 import { auth } from "@/auth";
 import SignIn from "@/components/sign-in";
@@ -13,6 +13,13 @@ export const metadata: Metadata = {
   description:
     "View your generated schedule and keep track of your life efficiently.",
   robots: "index, follow",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default async function Dashboard() {

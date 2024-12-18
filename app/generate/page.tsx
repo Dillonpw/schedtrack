@@ -3,7 +3,7 @@ import { auth } from "@/auth";
 import SignIn from "@/components/sign-in";
 import AccountInfo from "@/components/account-info";
 import ScheduleGen from "@/components/schedule-generate";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
   title: {
@@ -13,6 +13,13 @@ export const metadata: Metadata = {
   description:
     "Generate your schedule and keep track of your life efficiently.",
   robots: "index, follow",
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default async function Dashboard() {
@@ -40,3 +47,4 @@ export default async function Dashboard() {
     </>
   );
 }
+
