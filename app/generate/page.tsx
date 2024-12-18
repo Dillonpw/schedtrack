@@ -1,6 +1,6 @@
 import Header from "@/components/header-section";
 import { auth } from "@/auth";
-import SignIn from "@/components/sign-in";
+import SignIn from "@/components/temporary-name";
 import AccountInfo from "@/components/account-info";
 import ScheduleGen from "@/components/schedule-generate";
 import { Metadata, Viewport } from "next";
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  width: 'device-width',
+  width: "device-width",
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
@@ -47,4 +47,3 @@ export default async function Dashboard() {
     </>
   );
 }
-
