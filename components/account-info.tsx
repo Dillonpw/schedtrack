@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import Link from "next/link";
-import { SignOut } from "./sign-out";
+import { SignOut } from "./namingBug";
 import { Button } from "./ui/button";
 
 const LoggedIn = async () => {
