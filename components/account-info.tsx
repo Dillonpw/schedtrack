@@ -1,5 +1,4 @@
 import { auth } from "@/auth";
-//import React, { ReactNode } from "react";
 import Link from "next/link";
 import { SignOut } from "./sign-out";
 import { Button } from "./ui/button";

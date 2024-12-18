@@ -17,7 +17,6 @@ const Home = () => {
       <main className="flex-1">
         <AccountInfo />
         <HeroSection>
-          {" "}
           <HeroBtn />
         </HeroSection>
         <FeaturesSection />
