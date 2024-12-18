@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { ScheduleEntry } from "@/types";
-import DownloadButton from "@/components/DownloadBtn";
+import DownloadButton from "@/components/download-data";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";

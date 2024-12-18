@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import ThemeToggle from "./ThemeToggle";
+import ThemeToggle from "./toggle-theme";
 import { HeaderProps } from "@/types";
 import { motion } from "framer-motion";
 

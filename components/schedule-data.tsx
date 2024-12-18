@@ -4,7 +4,7 @@ import { scheduleEntries } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
 import { ScheduleEntry } from "@/types";
-import ClientScheduleView from "./ClientViewSchedule";
+import ClientScheduleView from "./schedule-view";
 
 export default async function ScheduleData() {
   const session = await auth();

@@ -1,12 +1,12 @@
-import Header from "@/components/Header";
-import Nav from "@/components/Nav";
-import AccountInfo from "@/components/AccountInfo";
-import HeroSection from "@/components/HeroSection";
-import FeaturesSection from "@/components/Features";
-import TestimonialsSection from "@/components/Testimonials";
-import Pricing from "@/components/pricing";
-import Faq from "@/components/Faq";
-import HeroBtn from "@/components/Herobtn";
+import Header from "@/components/header-section";
+import Nav from "@/components/nav-section";
+import AccountInfo from "@/components/account-info";
+import HeroSection from "@/components/hero-section";
+import FeaturesSection from "@/components/features-section";
+import TestimonialsSection from "@/components/testimonial-section";
+import Pricing from "@/components/pricing-section";
+import Faq from "@/components/faq-section";
+import HeroBtn from "@/components/hero-buttons";
 
 const Home = () => {
   return (

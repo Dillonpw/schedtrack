@@ -1,9 +1,9 @@
 import { Metadata } from "next";
-import Header from "@/components/Header";
+import Header from "@/components/header-section";
 import { auth } from "@/auth";
-import SignIn from "@/components/Sign-in";
-import AccountInfo from "@/components/AccountInfo";
-import ScheduleData from "@/components/ScheduleData";
+import SignIn from "@/components/sign-in";
+import AccountInfo from "@/components/account-info";
+import ScheduleData from "@/components/schedule-data";
 
 export const metadata: Metadata = {
   title: {

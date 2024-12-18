@@ -1,17 +1,18 @@
-import Header from "@/components/Header";
+import Header from "@/components/header-section";
 import { auth } from "@/auth";
-import SignIn from "@/components/Sign-in";
-import AccountInfo from "@/components/AccountInfo";
-import ScheduleGen from "@/components/scheduleGen";
-import { Metadata } from 'next';
+import SignIn from "@/components/sign-in";
+import AccountInfo from "@/components/account-info";
+import ScheduleGen from "@/components/schedule-generate";
+import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    default: 'Generate - Sched Track',
-    template: '%s | Sched Track'
+    default: "Generate - Sched Track",
+    template: "%s | Sched Track",
   },
-  description: "Generate your schedule and keep track of your life efficiently.",
-  robots: "index, follow"
+  description:
+    "Generate your schedule and keep track of your life efficiently.",
+  robots: "index, follow",
 };
 
 export default async function Dashboard() {
@@ -22,9 +23,9 @@ export default async function Dashboard() {
       <>
         <main>
           <Header />
-            <div className="flex h-screen flex-col items-center justify-center">
-              <SignIn />
-            </div>
+          <div className="flex h-screen flex-col items-center justify-center">
+            <SignIn />
+          </div>
         </main>
       </>
     );

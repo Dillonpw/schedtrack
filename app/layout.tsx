@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 import { Providers } from "./providers";
-import Footer from "@/components/Footer";
+import Footer from "@/components/footer-section";
 import { SessionProvider } from "next-auth/react";
 import { Analytics } from "@vercel/analytics/react";
 import Link from "next/link";
@@ -22,7 +22,7 @@ const fontBody = Inter({
 });
 
 import { Metadata } from "next";
-import Donation from "@/components/Donation";
+import Donation from "@/components/donation-link";
 
 export const metadata: Metadata = {
   title: "Rotating Schedule Builder for First Responders",
