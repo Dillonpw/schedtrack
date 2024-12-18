@@ -1,6 +1,6 @@
 import Header from "@/components/header-section";
 import { auth } from "@/auth";
-import SignIn from "@/components/temporary-name";
+import SignIn from "@/components/sign-in";
 import AccountInfo from "@/components/account-info";
 import ScheduleGen from "@/components/schedule-generate";
 import { Metadata, Viewport } from "next";

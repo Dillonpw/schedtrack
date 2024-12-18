@@ -1,6 +1,6 @@
 import Header from "@/components/header-section";
 import AccountInfo from "@/components/account-info";
-import SignIn from "@/components/temporary-name";
+import SignIn from "@/components/sign-in";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
