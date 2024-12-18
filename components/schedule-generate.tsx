@@ -149,7 +149,6 @@ export default function GenerateSchedule() {
   const { data: session, status } = useSession();
   const { toast } = useToast();
   const {
-    formData,
     addSegment,
     updateSegment,
     removeSegment,
@@ -210,8 +209,8 @@ export default function GenerateSchedule() {
   }
 
   return (
-    <main className="container mx-auto pt-10 dark:bg-muted">
-      <Card className="mx-auto w-full max-w-2xl border-none bg-border dark:bg-muted">
+    <main className="mx-auto pt-10 dark:bg-muted">
+      <Card className="mx-auto w-full max-w-xs border-none bg-border dark:bg-muted">
         <CardHeader>
           <CardTitle className="text-center text-3xl font-bold">
             Generate Schedule
@@ -223,7 +222,7 @@ export default function GenerateSchedule() {
               {segments.map((segment, index) => (
                 <Card key={index}>
                   <CardContent className="rounded-lg pt-6">
-                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-[1fr,1fr,auto] sm:items-end">
+                    <div className="flex flex-col items-center gap-2">
                       <div className="space-y-2">
                         <Label htmlFor={`segment-type-${index}`}>
                           Shift Type
