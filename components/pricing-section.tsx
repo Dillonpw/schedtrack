@@ -16,9 +16,8 @@ export default async function Pricing() {
     <section
       id="pricing"
       data-testid="pricing"
-      className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-6 bg-muted px-4 py-20 md:py-24 lg:py-32 xl:py-48"
-    >
-      <Card className="w-full max-w-md overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg dark:bg-gray-600">
+      className="flex max-w-6xl flex-col items-center justify-center gap-6 bg-muted py-20 md:py-24 lg:py-32 xl:py-48 w-full"    >
+      <Card className="max-w-md overflow-hidden hover:shadow-lg dark:bg-gray-600">
         <CardHeader className="p-6 text-center dark:bg-background dark:text-gray-100">
           <CardTitle className="text-2xl font-bold md:text-3xl lg:text-4xl">
             Free Account
@@ -59,8 +58,7 @@ export default async function Pricing() {
     <section
       id="pricing"
       data-testid="pricing"
-      className="mx-auto flex max-w-6xl flex-col items-center justify-center gap-6 bg-muted px-4 py-20 md:py-24 lg:py-32 xl:py-48"
-    >
+      className="flex flex-col items-center justify-center gap-6 bg-border dark:bg-muted py-20 md:py-24 lg:py-32 xl:py-48 w-full"    >
       <Card className="w-full max-w-md overflow-hidden transition-all duration-300 ease-in-out hover:shadow-lg dark:bg-gray-600">
         <CardHeader className="p-6 text-center dark:bg-background dark:text-gray-100">
           <CardTitle className="text-2xl font-bold md:text-3xl lg:text-4xl">

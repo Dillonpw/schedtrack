@@ -10,11 +10,11 @@ import HeroBtn from "@/components/hero-buttons";
 
 const Home = () => {
   return (
-    <div className="flex min-h-[100dvh] flex-col">
+    <div className="flex min-h-[100vh] flex-col w-full">
       <Header>
         <Nav />
       </Header>
-      <main className="flex-1">
+      <main >
         <AccountInfo />
         <HeroSection>
           <HeroBtn />
