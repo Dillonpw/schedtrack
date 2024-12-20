@@ -12,11 +12,11 @@ export interface ScheduleEntry {
 
 export interface ShiftSegment {
   shiftType: "Work" | "Off";
-  days: number;
+  days: number | undefined;
 }
 
 export interface FormData {
   segments: ShiftSegment[];
-  totalDays: number;
+  totalDays: number | undefined;
   startDate: Date | undefined;
 }

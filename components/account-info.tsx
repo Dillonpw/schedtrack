@@ -3,12 +3,13 @@ import Link from "next/link";
 import { SignOut } from "./sign-out";
 import { Button } from "./ui/button";
 
+//TODO add useTransition for page redirects when going to generate and schedule
 const LoggedIn = async () => {
   const session = await auth();
 
   if (!session?.user)
     return (
-      <div className="flex justify-end bg-muted px-2">
+      <div className="flex justify-end bg-muted px-2 xl:px-40">
         <Button asChild variant="link">
           <Link
             className="text-xl font-semibold"
@@ -26,7 +27,7 @@ const LoggedIn = async () => {
 
   return (
     <>
-      <div className="flex items-center justify-between gap-2 border-b-2 bg-border px-2 pb-2 dark:bg-muted">
+      <div className="flex items-center justify-between gap-2 border-b-2 bg-border px-2 pb-2 dark:bg-muted xl:px-40">
         <div>
           <Button asChild variant="link">
             <Link href="/schedule" className="text-xs md:text-lg">

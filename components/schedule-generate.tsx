@@ -38,13 +38,12 @@ const useScheduleForm = (
     value: number | Date | ShiftSegment[] | undefined,
   ) => void;
   segments: ShiftSegment[];
-  totalDays: number;
+  totalDays: number | undefined;
   startDate: Date | undefined;
 } => {
   const [formData, setFormData] = useState<FormData>(initialData);
   const { segments, startDate } = formData;
 
-  // Recalculate totalDays whenever segments change
   useEffect(() => {
     const total = segments.reduce(
       (sum, segment) => sum + (segment.days || 0),
@@ -56,7 +55,7 @@ const useScheduleForm = (
   const addSegment = () => {
     setFormData((prev) => ({
       ...prev,
-      segments: [...prev.segments, { shiftType: "Work", days: 0 }],
+      segments: [...prev.segments, { shiftType: "Work", days: undefined }],
     }));
   };
 
@@ -130,7 +129,7 @@ const FormField = ({
     <Input
       type="number"
       id={id}
-      value={value !== undefined ? value : ""}
+      value={value !== undefined && value !== 0 ? value : ""}
       onChange={(e) => {
         const val = e.target.value;
         onChange(val ? parseInt(val, 10) : undefined);
@@ -138,7 +137,7 @@ const FormField = ({
       min={min}
       max={max}
       placeholder="Enter days"
-      className="bg-gray-300 text-black"
+      className="bg-gray-200 text-black"
       required
     />
   </div>
@@ -158,10 +157,10 @@ export default function GenerateSchedule() {
     startDate,
   } = useScheduleForm({
     segments: [
-      { shiftType: "Work", days: 0 },
-      { shiftType: "Off", days: 0 },
+      { shiftType: "Work", days: undefined },
+      { shiftType: "Off", days: undefined },
     ],
-    totalDays: 0,
+    totalDays: undefined,
     startDate: new Date(),
   });
 
@@ -179,7 +178,7 @@ export default function GenerateSchedule() {
     try {
       await generateSchedule({
         segments,
-        totalDays,
+        totalDays: totalDays || 0, // Handle undefined totalDays
         startDate,
       });
       router.push("/schedule");
@@ -209,8 +208,8 @@ export default function GenerateSchedule() {
   }
 
   return (
-    <main className="mx-auto pt-10 dark:bg-muted">
-      <Card className="mx-auto w-full max-w-xs border-none bg-border dark:bg-muted">
+    <main className="mx-auto max-w-7xl px-4 pt-10 dark:bg-muted sm:px-6 lg:px-8">
+      <Card className="mx-auto w-full max-w-4xl border-none bg-border dark:bg-muted">
         <CardHeader>
           <CardTitle className="text-center text-3xl font-bold">
             Generate Schedule
@@ -218,102 +217,120 @@ export default function GenerateSchedule() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleGenerateSchedule} className="space-y-6">
-            <div className="space-y-4">
-              {segments.map((segment, index) => (
-                <Card key={index}>
-                  <CardContent className="rounded-lg pt-6">
-                    <div className="flex flex-col items-center gap-2">
-                      <div className="space-y-2">
-                        <Label htmlFor={`segment-type-${index}`}>
-                          Shift Type
-                        </Label>
-                        <Select
-                          value={segment.shiftType}
-                          onValueChange={(value) =>
-                            updateSegment(
-                              index,
-                              "shiftType",
-                              value as "Work" | "Off",
-                            )
+            <div className="flex flex-col gap-6 md:flex-row">
+              <div className="flex-1 space-y-4">
+                {segments.map((segment, index) => (
+                  <Card key={index}>
+                    <CardContent className="rounded-lg pt-6 dark:bg-background">
+                      <div className="flex flex-col items-center gap-2">
+                        <div className="space-y-2">
+                          <Label htmlFor={`segment-type-${index}`}>
+                            Shift Type
+                          </Label>
+                          <Select
+                            value={segment.shiftType}
+                            onValueChange={(value) =>
+                              updateSegment(
+                                index,
+                                "shiftType",
+                                value as "Work" | "Off",
+                              )
+                            }
+                          >
+                            <SelectTrigger id={`segment-type-${index}`}>
+                              <SelectValue placeholder="Select shift type" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="Work">Work</SelectItem>
+                              <SelectItem value="Off">Off</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <FormField
+                          label="Days"
+                          id={`segment-days-${index}`}
+                          value={segment.days}
+                          onChange={(value) =>
+                            updateSegment(index, "days", value)
                           }
+                          min={1}
+                          tooltip="Enter the number of days for this segment"
+                        />
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="icon"
+                          onClick={() => removeSegment(index)}
+                          className="h-10 w-10 shrink-0 text-destructive"
                         >
-                          <SelectTrigger id={`segment-type-${index}`}>
-                            <SelectValue placeholder="Select shift type" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="Work">Work</SelectItem>
-                            <SelectItem value="Off">Off</SelectItem>
-                          </SelectContent>
-                        </Select>
+                          <MinusCircle className="h-5 w-5" />
+                        </Button>
                       </div>
+                    </CardContent>
+                  </Card>
+                ))}
+                <div className="flex justify-center md:justify-start">
+                  <Button
+                    type="button"
+                    onClick={addSegment}
+                    className="w-full border-2 border-gray-300 bg-accent text-foreground hover:bg-accent/80 hover:text-accent-foreground dark:bg-background md:w-auto"
+                  >
+                    <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
+                  </Button>
+                </div>
+              </div>
+              <div className="flex-1 space-y-4">
+                <Card>
+                  <CardContent className="rounded-lg pt-6 dark:bg-background">
+                    <div className="flex flex-col items-center gap-2">
                       <FormField
-                        label="Days"
-                        id={`segment-days-${index}`}
-                        value={segment.days}
-                        onChange={(value) =>
-                          updateSegment(index, "days", value)
-                        }
+                        label="Total Days"
+                        id="totalDays"
+                        value={totalDays}
+                        onChange={(value) => updateField("totalDays", value)}
                         min={1}
-                        tooltip="Enter the number of days for this segment"
+                        max={630}
+                        tooltip="Enter the number of days ahead you would like to display"
                       />
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="icon"
-                        onClick={() => removeSegment(index)}
-                        className="h-10 w-10 shrink-0 text-destructive"
-                      >
-                        <MinusCircle className="h-5 w-5" />
-                      </Button>
                     </div>
                   </CardContent>
                 </Card>
-              ))}
-            </div>
-            <div className="flex flex-col items-center gap-4">
-              <Button
-                type="button"
-                onClick={addSegment}
-                className="bg-blue-700 text-primary-foreground hover:bg-blue-700/80 dark:bg-red-500 dark:hover:bg-red-500/80"
-              >
-                <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
-              </Button>
-              <FormField
-                label="Total Days"
-                id="totalDays"
-                value={totalDays}
-                onChange={(value) => updateField("totalDays", value)}
-                min={1}
-                max={630}
-                tooltip="Enter the number of days ahead you would like to display"
-              />
-              <div className="flex flex-col items-center space-y-2">
-                <TooltipProvider>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                      <Label className="flex items-center gap-1">
-                        Start Date{" "}
-                        <HelpCircle className="h-4 w-4 text-muted-foreground" />
-                      </Label>
-                    </TooltipTrigger>
-                    <TooltipContent>
-                      Select the first day of your next or last rotation
-                    </TooltipContent>
-                  </Tooltip>
-                </TooltipProvider>
-                <Calendar
-                  mode="single"
-                  selected={startDate}
-                  onSelect={(date) => updateField("startDate", date as Date)}
-                  className="rounded-md"
-                />
+                <Card>
+                  <CardContent className="rounded-lg pt-6 dark:bg-background">
+                    <div className="flex flex-col items-center space-y-2">
+                      <TooltipProvider>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Label className="flex items-center gap-1">
+                              Start Date{" "}
+                              <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                            </Label>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            Select the first day of your next or last rotation
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                      <Calendar
+                        mode="single"
+                        selected={startDate}
+                        onSelect={(date) =>
+                          updateField("startDate", date as Date)
+                        }
+                        className="rounded-md"
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+                <div className="flex justify-center">
+                  <Button
+                    type="submit"
+                    className="w-full bg-blue-700 text-primary-foreground hover:bg-blue-700/80 dark:bg-red-500 dark:hover:bg-red-500/80 md:w-auto"
+                  >
+                    Generate Schedule
+                  </Button>
+                </div>
               </div>
-              <Button
-                type="submit"
-                className="bg-blue-700 text-primary-foreground hover:bg-blue-700/80 dark:bg-red-500 dark:hover:bg-red-500/80"
-              >
-                Generate Schedule
-              </Button>
             </div>
           </form>
         </CardContent>
