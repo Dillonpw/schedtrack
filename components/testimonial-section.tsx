@@ -63,15 +63,20 @@ export default function TestimonialsSection() {
   };
 
   const itemVariants = (index: number) => ({
-    hidden: { opacity: 0, x: index % 2 === 0 ? -50 : 50 }, // Left for even, right for odd
-    visible: { opacity: 1, x: 0, transition: { duration: 0.6 } },
+    hidden: { opacity: 0, x: index % 2 === 0 ? -50 : 50 },
+    visible: { opacity: 1, x: 0 },
   });
 
   return (
     <section className="w-full bg-muted py-12 md:py-24 lg:py-32">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center space-y-4 text-center">
-          <div className="space-y-2">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="space-y-2"
+          >
             <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-4xl md:text-5xl">
               What Our Users Say
             </h2>
@@ -79,7 +84,7 @@ export default function TestimonialsSection() {
               Hear from our satisfied users about how our rotating schedule
               builder has simplified their day to day.
             </p>
-          </div>
+          </motion.div>
         </div>
 
         <motion.div

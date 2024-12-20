@@ -75,7 +75,17 @@ function createRotatingSchedule(
   startDate: Date,
 ): ScheduleEntry[] {
   const schedule: ScheduleEntry[] = [];
-  const cycleLength = segments.reduce((sum, segment) => sum + segment.days, 0);
+  const cycleLength = segments.reduce(
+    (sum, segment) => sum + (segment.days ?? 0),
+    0,
+  );
+
+  if (cycleLength === 0) {
+    throw new Error(
+      "Invalid segments: Each segment must have a valid number of days.",
+    );
+  }
+
   let currentDate = new Date(startDate);
   currentDate.setHours(0, 0, 0, 0);
 
@@ -87,7 +97,8 @@ function createRotatingSchedule(
     let currentSegment: ShiftSegment | null = null;
 
     for (const segment of segments) {
-      accumulatedDays += segment.days;
+      const segmentDays = segment.days ?? 0;
+      accumulatedDays += segmentDays;
       if (dayInCycle < accumulatedDays) {
         currentSegment = segment;
         break;
