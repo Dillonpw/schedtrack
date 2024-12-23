@@ -1,5 +1,4 @@
 "use client";
-import Image from "next/image";
 import { CheckCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -87,12 +86,14 @@ export default function Component() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
             >
-              <Image
-                src="/manual-schedule.webp"
-                width={1100}
-                height={620}
-                alt="Features showcase"
-                className="mx-auto aspect-video overflow-hidden rounded-xl border-2 object-cover object-center shadow-lg"
+              <video
+                src="/schedtrack-sample.mov"
+                className="mx-auto aspect-video w-full max-w-[95%] rounded-xl object-cover object-center shadow-lg sm:max-w-lg md:max-w-2xl"
+                muted
+                playsInline
+                autoPlay
+                loop
+                preload="metadata"
               />
             </motion.div>
           </div>
