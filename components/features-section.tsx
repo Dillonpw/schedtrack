@@ -87,7 +87,7 @@ export default function Component() {
               viewport={{ once: true }}
             >
               <video
-                src="/schedtrack-sample.mov"
+                src="https://utfs.io/f/2x9MeROBnW8izghZmAdbdqj6eSUgmlVLipk0w4HItRXDYyGJ"
                 className="mx-auto aspect-video w-full max-w-[95%] rounded-xl object-cover object-center shadow-lg sm:max-w-lg md:max-w-2xl"
                 muted
                 playsInline

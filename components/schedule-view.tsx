@@ -98,7 +98,7 @@ function CalendarView({
             <ChevronLeftIcon className="h-4 w-4" />
             <span className="sr-only">Previous Month</span>
           </Button>
-          <Button onClick={() => changeMonth(1)} size="icon">
+          <Button onClick={() => changeMonth(1)} size="icon" className="ml-2">
             <ChevronRightIcon className="h-4 w-4" />
             <span className="sr-only">Next Month</span>
           </Button>

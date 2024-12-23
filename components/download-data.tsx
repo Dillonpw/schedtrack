@@ -41,7 +41,9 @@ const DownloadICSButton: React.FC<DownloadICSButtonProps> = ({
             Download
           </Button>
         </TooltipTrigger>
-        <TooltipContent>Download data to import to calendar</TooltipContent>
+        <TooltipContent>
+          Download your schedule and import to your calendar
+        </TooltipContent>
       </Tooltip>
     </TooltipProvider>
   );
