@@ -16,17 +16,8 @@ interface DownloadICSButtonProps {
 const DownloadICSButton: React.FC<DownloadICSButtonProps> = ({
   scheduleEntriesData,
 }) => {
-  /**
-   * Function to create a blob from the ICS data and download it
-   */
   const downloadICS = () => {
-    /**
-     * Generate the ICS content from the scheduleEntriesData
-     */
     const icsContent = generateICS(scheduleEntriesData);
-    /**
-     * Create a blob from the ICS content and download it
-     */
     const blob = new Blob([icsContent], {
       type: "text/calendar;charset=utf-8",
     });
@@ -51,9 +42,6 @@ const DownloadICSButton: React.FC<DownloadICSButtonProps> = ({
 
 export default DownloadICSButton;
 
-/**
- * Function to generate ICS content from schedule entries
- */
 function generateICS(scheduleEntriesData: ScheduleEntry[]): string {
   let ics = `BEGIN:VCALENDAR
 VERSION:2.0
@@ -62,23 +50,14 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 `;
 
-  // Filter only work days
-  const workDays = scheduleEntriesData.filter((entry) => {
-    const isWorkDay = entry.shift && entry.shift.toLowerCase() === "work";
-    if (!isWorkDay) {
-      console.log(`Excluding entry:`, entry); // Debugging: Log excluded entries
-    }
-    return isWorkDay;
-  });
-
-  console.log("Filtered Work Days:", workDays); // Debugging: Log filtered data
+  const workDays = scheduleEntriesData.filter((entry) => entry.shift.toLowerCase() === "work");
 
   workDays.forEach((entry, index) => {
     const eventDate = new Date(entry.date);
     const startDate = formatDateICS(eventDate);
     const endDate = formatDateICS(
-      new Date(eventDate.getTime() + 24 * 60 * 60 * 1000),
-    ); // Add one day for full-day events
+      new Date(eventDate.getTime() + 24 * 60 * 60 * 1000)
+    );
 
     ics += `BEGIN:VEVENT
 UID:${entry.date}-${entry.dayOfWeek}-${entry.shift}-${index}@yourapp.com
@@ -86,6 +65,7 @@ DTSTAMP:${formatDateICS(new Date())}
 DTSTART;VALUE=DATE:${startDate}
 DTEND;VALUE=DATE:${endDate}
 SUMMARY:${entry.shift}
+DESCRIPTION:${entry.title || 'No additional information'}
 END:VEVENT
 `;
   });
@@ -94,20 +74,15 @@ END:VEVENT
   return ics;
 }
 
-/**
- * Function to format dates in ICS format (YYYYMMDD)
- */
 function formatDateICS(date: Date): string {
   const year = date.getUTCFullYear();
-  const month = padZero(date.getUTCMonth() + 1); // Months are zero-based
+  const month = padZero(date.getUTCMonth() + 1);
   const day = padZero(date.getUTCDate());
 
   return `${year}${month}${day}`;
 }
 
-/**
- * Helper function to pad single digit numbers with leading zero
- */
 function padZero(num: number): string {
   return num < 10 ? `0${num}` : `${num}`;
 }
+
