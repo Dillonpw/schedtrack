@@ -8,8 +8,8 @@ export default async function HeroBtn() {
     return (
       <div className="flex flex-row items-center justify-center gap-2 md:justify-start">
         <Button variant="default" asChild>
-          <Link href="/dashboard" prefetch={false}>
-            Get Started
+          <Link href="/generate" prefetch={false}>
+            Get Started For Free
           </Link>
         </Button>
         <Button
@@ -25,7 +25,7 @@ export default async function HeroBtn() {
   return (
     <div className="flex flex-row items-center justify-center gap-2 md:justify-start">
       <Button variant="default" asChild>
-        <Link href="/dashboard" prefetch={false}>
+        <Link href="/generate" prefetch={false}>
           Get Started
         </Link>
       </Button>
