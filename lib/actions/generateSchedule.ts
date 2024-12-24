@@ -17,6 +17,7 @@ interface ScheduleEntry {
   date: string;
   dayOfWeek: string;
   shift: "Work" | "Off";
+  title: string | null;
 }
 
 // Constants
@@ -114,6 +115,7 @@ function createRotatingSchedule(
       date: formatDate(currentDate),
       dayOfWeek: DAYS_OF_WEEK[currentDate.getDay()],
       shift: currentSegment.shiftType,
+      title: currentSegment.title,
     });
 
     // Move to the next day

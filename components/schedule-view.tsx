@@ -44,6 +44,7 @@ function CalendarView({
       new Map(scheduleEntriesData.map((entry) => [entry.date, entry])),
     );
   }, [scheduleEntriesData]);
+
   const daysInMonth = new Date(
     currentDate.getFullYear(),
     currentDate.getMonth() + 1,
@@ -61,6 +62,7 @@ function CalendarView({
       new Date(currentDate.getFullYear(), currentDate.getMonth() + offset, 1),
     );
   };
+
   const getScheduleForDate = (date: Date) =>
     processedEntries.get(date.toISOString().split("T")[0]);
 
@@ -144,7 +146,17 @@ function CalendarView({
                   >
                     <div className="font-semibold">{index + 1}</div>
                     {scheduleEntry ? (
-                      <div className="mt-1 text-xs">{scheduleEntry.shift}</div>
+                      <>
+                        <div className="mt-1 text-xs">
+                          {scheduleEntry.shift}
+                        </div>
+                        {scheduleEntry.shift === "Work" &&
+                          scheduleEntry.title && (
+                            <div className="mt-1 text-xs font-medium">
+                              {scheduleEntry.title}
+                            </div>
+                          )}
+                      </>
                     ) : (
                       <div className="mt-1 text-xs">No Data</div>
                     )}

@@ -55,7 +55,10 @@ const useScheduleForm = (
   const addSegment = () => {
     setFormData((prev) => ({
       ...prev,
-      segments: [...prev.segments, { shiftType: "Work", days: undefined }],
+      segments: [
+        ...prev.segments,
+        { shiftType: "Work", days: undefined, title: "" },
+      ],
     }));
   };
 
@@ -157,8 +160,8 @@ export default function GenerateSchedule() {
     startDate,
   } = useScheduleForm({
     segments: [
-      { shiftType: "Work", days: undefined },
-      { shiftType: "Off", days: undefined },
+      { shiftType: "Work", days: undefined, title: "" },
+      { shiftType: "Off", days: undefined, title: null },
     ],
     totalDays: undefined,
     startDate: new Date(),
@@ -256,6 +259,23 @@ export default function GenerateSchedule() {
                           min={1}
                           tooltip="Enter the number of days for this segment"
                         />
+                        {segment.shiftType === "Work" && (
+                          <div className="space-y-2">
+                            <Label htmlFor={`segment-title-${index}`}>
+                              Shift Title
+                            </Label>
+                            <Input
+                              type="text"
+                              id={`segment-title-${index}`}
+                              value={segment.title || ""}
+                              onChange={(e) =>
+                                updateSegment(index, "title", e.target.value)
+                              }
+                              placeholder="Enter shift title"
+                              className="bg-gray-200 text-black"
+                            />
+                          </div>
+                        )}
                         <Button
                           type="button"
                           variant="ghost"
