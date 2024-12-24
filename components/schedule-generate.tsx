@@ -262,7 +262,7 @@ export default function GenerateSchedule() {
                         {segment.shiftType === "Work" && (
                           <div className="space-y-2">
                             <Label htmlFor={`segment-title-${index}`}>
-                              Shift Title
+                              Time
                             </Label>
                             <Input
                               type="text"
@@ -271,7 +271,7 @@ export default function GenerateSchedule() {
                               onChange={(e) =>
                                 updateSegment(index, "title", e.target.value)
                               }
-                              placeholder="Enter shift title"
+                              placeholder="Enter work hours"
                               className="bg-gray-200 text-black"
                             />
                           </div>
