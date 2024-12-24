@@ -63,7 +63,7 @@ export default function Faq() {
       </svg>
       <section
         data-testid="faq"
-        className="flex w-full flex-col gap-6 bg-background py-12 md:py-24 lg:py-20 xl:py-48"
+        className="flex w-full flex-col gap-6 bg-background py-40 md:pb-60 md:pt-40"
       >
         <div className="container px-4 md:px-6">
           <motion.h2
@@ -101,6 +101,20 @@ export default function Faq() {
           </Accordion>
         </div>
       </section>
+      <svg
+        viewBox="0 0 1440 58"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.1"
+        width="100%"
+        className="bg-background"
+      >
+        <path
+          transform="rotate(180) translate(-1440, -60)"
+          d="M-100 58C-100 58 218.416 36.3297 693.5 36.3297C1168.58 36.3297 1487 58 1487 58V-3.8147e-06H-100V58Z"
+          className="fill-muted"
+        ></path>
+      </svg>
     </>
   );
 }

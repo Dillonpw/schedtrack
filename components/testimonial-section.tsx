@@ -62,25 +62,25 @@ export default function TestimonialsSection() {
     },
   };
 
-  const itemVariants = (index: number) => ({
-    hidden: { opacity: 0, x: index % 2 === 0 ? -50 : 50 },
-    visible: { opacity: 1, x: 0 },
+  const itemVariants = () => ({
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0 },
   });
 
   return (
-    <section className="w-full bg-muted py-12 md:py-24 lg:py-32">
-      <div className="container px-4 md:px-6">
-        <div className="flex flex-col items-center justify-center space-y-4 text-center">
+    <section className="w-full bg-muted py-40 md:px-6 md:pb-60 md:pt-40">
+      <div className="container mx-auto max-w-7xl px-2 md:px-4">
+        <div className="mb-12 flex flex-col items-center justify-center space-y-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="space-y-2"
           >
-            <h2 className="text-3xl font-bold tracking-tighter text-primary sm:text-4xl md:text-5xl">
+            <h2 className="text-2xl font-bold tracking-tighter text-primary sm:text-3xl md:text-4xl">
               What Our Users Say
             </h2>
-            <p className="max-w-[900px] text-blue-700 dark:text-red-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+            <p className="max-w-[600px] text-sm text-blue-700 dark:text-red-500 md:text-base">
               Hear from our satisfied users about how our rotating schedule
               builder has simplified their day to day.
             </p>
@@ -88,34 +88,34 @@ export default function TestimonialsSection() {
         </div>
 
         <motion.div
-          className="mx-auto grid max-w-5xl items-center gap-6 py-12 md:grid-cols-2 lg:grid-cols-3"
+          className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
           {testimonials.map((testimonial, index) => (
-            <motion.div key={index} variants={itemVariants(index)}>
-              <Card className="group h-full min-h-[300px] overflow-hidden border bg-card transition-all duration-300 hover:shadow-lg dark:bg-gray-600">
-                <div className="p-6">
+            <motion.div key={index} variants={itemVariants()}>
+              <Card className="group h-full overflow-hidden border bg-card transition-all duration-300 hover:shadow-lg dark:bg-gray-600">
+                <div className="p-4 md:p-6">
                   <div className="flex items-start gap-4">
-                    <Avatar className="h-12 w-12 border-2 border-primary">
+                    <Avatar className="h-10 w-10 border-2 border-primary">
                       <AvatarImage alt={`${testimonial.name} Avatar`} />
-                      <AvatarFallback className="bg-primary text-primary-foreground">
+                      <AvatarFallback className="bg-primary text-xs text-primary-foreground">
                         {testimonial.fallback}
                       </AvatarFallback>
                     </Avatar>
                     <div>
-                      <h3 className="text-lg font-bold text-card-foreground">
+                      <h3 className="text-base font-bold text-card-foreground">
                         {testimonial.name}
                       </h3>
-                      <p className="text-sm font-semibold text-blue-700 dark:text-red-500">
+                      <p className="text-xs font-semibold text-blue-700 dark:text-red-500">
                         {testimonial.role}
                       </p>
                     </div>
                   </div>
-                  <Separator className="my-4 bg-primary/20" />
-                  <p className="text-sm text-card-foreground/90 transition-all duration-300 group-hover:text-card-foreground">
+                  <Separator className="my-3 bg-primary/20" />
+                  <p className="text-xs text-card-foreground/90 transition-all duration-300 group-hover:text-card-foreground sm:text-sm">
                     "{testimonial.content}"
                   </p>
                 </div>

@@ -40,7 +40,7 @@ export default function Component() {
         data-testid="features"
         className="w-full bg-background py-12 md:py-16 lg:py-20"
       >
-        <div className="container px-4 md:px-6">
+        <div className="container px-4 py-40 md:px-6 md:pb-60 md:pt-40">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -85,6 +85,7 @@ export default function Component() {
               initial={{ opacity: 0, scale: 0.5 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
+              className="pt-40"
             >
               <video
                 src="https://utfs.io/f/2x9MeROBnW8izghZmAdbdqj6eSUgmlVLipk0w4HItRXDYyGJ"

@@ -5,9 +5,9 @@ import Link from "next/link";
 
 export default function Donation() {
   return (
-    <div className="w-full flex justify-center overflow-hidden">
+    <div className="dark: flex w-full justify-center overflow-hidden bg-muted">
       <motion.div
-        className="w-fit" 
+        className="w-fit"
         animate={{
           x: [0, -5, 5, -5, 5, 0],
         }}
@@ -19,7 +19,7 @@ export default function Donation() {
         }}
       >
         <Link
-          className="block px-4 py-8 text-lg hover:underline dark:bg-muted whitespace-nowrap"
+          className="block whitespace-nowrap px-4 py-8 text-lg hover:underline dark:bg-muted"
           href="https://buy.stripe.com/7sIaFa7EQeJzbW8aEG"
         >
           Help Us Keep The Lights On 💡
