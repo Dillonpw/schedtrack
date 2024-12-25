@@ -217,10 +217,10 @@ export function generateScripts() {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning >
       <body
         className={cn(
-          "bg-border text-base font-semibold antialiased",
+          "bg-border text-base font-semibold antialiased font-poppins",
           fontHeading.variable,
           fontBody.variable,
         )}
