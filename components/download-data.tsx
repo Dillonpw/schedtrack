@@ -27,7 +27,7 @@ const DownloadICSButton: React.FC<DownloadICSButtonProps> = ({
   return (
     <TooltipProvider>
       <Tooltip>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <Button variant="default" className="ml-2" onClick={downloadICS}>
             Download
           </Button>
