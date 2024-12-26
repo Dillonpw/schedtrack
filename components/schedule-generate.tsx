@@ -1,150 +1,25 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { generateSchedule } from "@/lib/actions/generateSchedule";
+import { useToast } from "@/components/ui/use-toast";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { PlusCircle } from 'lucide-react';
+import { FormField } from './form-field';
+import { SegmentCard } from './shift-segment-card';
+import { useScheduleForm } from '@/hooks/useScheduleForm';
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Calendar } from "@/components/ui/calendar";
-import { generateSchedule } from "@/lib/actions/generateSchedule";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/components/ui/use-toast";
-import { FormData, ShiftSegment } from "@/types";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { PlusCircle, MinusCircle, HelpCircle } from "lucide-react";
-
-const useScheduleForm = (
-  initialData: FormData,
-): {
-  formData: FormData;
-  addSegment: () => void;
-  updateSegment: (index: number, field: keyof ShiftSegment, value: any) => void;
-  removeSegment: (index: number) => void;
-  updateField: (
-    field: keyof FormData,
-    value: number | Date | ShiftSegment[] | undefined,
-  ) => void;
-  segments: ShiftSegment[];
-  totalDays: number | undefined;
-  startDate: Date | undefined;
-} => {
-  const [formData, setFormData] = useState<FormData>(initialData);
-  const { segments, startDate } = formData;
-
-  useEffect(() => {
-    const total = segments.reduce(
-      (sum, segment) => sum + (segment.days || 0),
-      0,
-    );
-    setFormData((prev) => ({ ...prev, totalDays: total }));
-  }, [segments]);
-
-  const addSegment = () => {
-    setFormData((prev) => ({
-      ...prev,
-      segments: [
-        ...prev.segments,
-        { shiftType: "Work", days: undefined, title: "" },
-      ],
-    }));
-  };
-
-  const updateSegment = (
-    index: number,
-    field: keyof ShiftSegment,
-    value: any,
-  ) => {
-    setFormData((prev) => {
-      const newSegments = [...prev.segments];
-      newSegments[index] = { ...newSegments[index], [field]: value };
-      return { ...prev, segments: newSegments };
-    });
-  };
-
-  const removeSegment = (index: number) => {
-    setFormData((prev) => {
-      const newSegments = [...prev.segments];
-      newSegments.splice(index, 1);
-      return { ...prev, segments: newSegments };
-    });
-  };
-
-  const updateField = (
-    field: keyof FormData,
-    value: number | Date | ShiftSegment[] | undefined,
-  ) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  return {
-    formData,
-    addSegment,
-    updateSegment,
-    removeSegment,
-    updateField,
-    segments,
-    totalDays: formData.totalDays,
-    startDate,
-  };
-};
-
-const FormField = ({
-  label,
-  id,
-  value,
-  onChange,
-  min,
-  max,
-  tooltip,
-}: {
-  label: string;
-  id: string;
-  value: number | undefined;
-  onChange: (value: number | undefined) => void;
-  min: number;
-  max?: number;
-  tooltip: string;
-}) => (
-  <div className="space-y-2">
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Label htmlFor={id} className="flex items-center gap-1">
-            {label} <HelpCircle className="h-4 w-4 text-muted-foreground" />
-          </Label>
-        </TooltipTrigger>
-        <TooltipContent>{tooltip}</TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-    <Input
-      type="number"
-      id={id}
-      value={value !== undefined && value !== 0 ? value : ""}
-      onChange={(e) => {
-        const val = e.target.value;
-        onChange(val ? parseInt(val, 10) : undefined);
-      }}
-      min={min}
-      max={max}
-      placeholder="Enter days"
-      className="bg-gray-200 text-black"
-      required
-    />
-  </div>
-);
+import { HelpCircle } from 'lucide-react';
 
 export default function GenerateSchedule() {
   const router = useRouter();
@@ -181,7 +56,7 @@ export default function GenerateSchedule() {
     try {
       await generateSchedule({
         segments,
-        totalDays: totalDays || 0, // Handle undefined totalDays
+        totalDays: totalDays || 0,
         startDate,
       });
       router.push("/schedule");
@@ -223,71 +98,13 @@ export default function GenerateSchedule() {
             <div className="flex flex-col gap-6 md:flex-row">
               <div className="flex-1 space-y-4">
                 {segments.map((segment, index) => (
-                  <Card key={index}>
-                    <CardContent className="rounded-lg pt-6 dark:bg-background">
-                      <div className="flex flex-col items-center gap-2">
-                        <div className="space-y-2">
-                          <Label htmlFor={`segment-type-${index}`}>
-                            Shift Type
-                          </Label>
-                          <Select
-                            value={segment.shiftType}
-                            onValueChange={(value) =>
-                              updateSegment(
-                                index,
-                                "shiftType",
-                                value as "Work" | "Off",
-                              )
-                            }
-                          >
-                            <SelectTrigger id={`segment-type-${index}`}>
-                              <SelectValue placeholder="Select shift type" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="Work">Work</SelectItem>
-                              <SelectItem value="Off">Off</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <FormField
-                          label="Days"
-                          id={`segment-days-${index}`}
-                          value={segment.days}
-                          onChange={(value) =>
-                            updateSegment(index, "days", value)
-                          }
-                          min={1}
-                          tooltip="Enter the number of days for this segment"
-                        />
-                        {segment.shiftType === "Work" && (
-                          <div className="space-y-2">
-                            <Label htmlFor={`segment-title-${index}`}>
-                              Time
-                            </Label>
-                            <Input
-                              type="text"
-                              id={`segment-title-${index}`}
-                              value={segment.title || ""}
-                              onChange={(e) =>
-                                updateSegment(index, "title", e.target.value)
-                              }
-                              placeholder="Enter work hours"
-                              className="bg-gray-200 text-black"
-                            />
-                          </div>
-                        )}
-                        <Button
-                          type="button"
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => removeSegment(index)}
-                          className="h-10 w-10 shrink-0 text-destructive"
-                        >
-                          <MinusCircle className="h-5 w-5" />
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <SegmentCard
+                    key={index}
+                    segment={segment}
+                    index={index}
+                    updateSegment={updateSegment}
+                    removeSegment={removeSegment}
+                  />
                 ))}
                 <div className="flex justify-center md:justify-start">
                   <Button
@@ -358,3 +175,4 @@ export default function GenerateSchedule() {
     </main>
   );
 }
+
