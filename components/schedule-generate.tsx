@@ -4,22 +4,22 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { DatePicker } from "@/components/ui/date-picker";
 import { generateSchedule } from "@/lib/actions/generateSchedule";
 import { useToast } from "@/components/ui/use-toast";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { PlusCircle } from 'lucide-react';
-import { FormField } from './form-field';
-import { SegmentCard } from './shift-segment-card';
-import { useScheduleForm } from '@/hooks/useScheduleForm';
+import { PlusCircle } from "lucide-react";
+import { FormField } from "./form-field";
+import { SegmentCard } from "./shift-segment-card";
+import { useScheduleForm } from "@/hooks/useScheduleForm";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { HelpCircle } from 'lucide-react';
+import { HelpCircle } from "lucide-react";
 
 export default function GenerateSchedule() {
   const router = useRouter();
@@ -88,14 +88,9 @@ export default function GenerateSchedule() {
   return (
     <main className="mx-auto max-w-7xl px-4 pt-10 dark:bg-muted sm:px-6 lg:px-8">
       <Card className="mx-auto w-full max-w-4xl border-none bg-border dark:bg-muted">
-        <CardHeader>
-          <CardTitle className="text-center text-3xl font-bold">
-            Generate Schedule
-          </CardTitle>
-        </CardHeader>
         <CardContent>
           <form onSubmit={handleGenerateSchedule} className="space-y-6">
-            <div className="flex flex-col gap-6 md:flex-row">
+            <div className="flex flex-col gap-6">
               <div className="flex-1 space-y-4">
                 {segments.map((segment, index) => (
                   <SegmentCard
@@ -106,7 +101,7 @@ export default function GenerateSchedule() {
                     removeSegment={removeSegment}
                   />
                 ))}
-                <div className="flex justify-center md:justify-start">
+                <div className="flex justify-center">
                   <Button
                     type="button"
                     onClick={addSegment}
@@ -144,17 +139,13 @@ export default function GenerateSchedule() {
                             </Label>
                           </TooltipTrigger>
                           <TooltipContent>
-                            Select the first day of your next or last rotation
+                            Select the first day of a recent work rotation
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
-                      <Calendar
-                        mode="single"
-                        selected={startDate}
-                        onSelect={(date) =>
-                          updateField("startDate", date as Date)
-                        }
-                        className="rounded-md"
+                      <DatePicker
+                        date={startDate}
+                        onDateChange={(date) => updateField("startDate", date)}
                       />
                     </div>
                   </CardContent>
@@ -175,4 +166,3 @@ export default function GenerateSchedule() {
     </main>
   );
 }
-
