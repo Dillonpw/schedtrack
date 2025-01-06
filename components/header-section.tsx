@@ -3,15 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import ThemeToggle from "./toggle-theme";
 import { HeaderProps } from "@/types";
-import { motion } from "framer-motion";
 
 const Header = ({ children }: HeaderProps) => {
   return (
-    <motion.header
-      initial={{ opacity: 0, x: -200 }}
-      animate={{ opacity: 1, x: 0 }}
-      className="flex h-14 items-center justify-between bg-border p-2 dark:bg-muted xl:px-40"
-    >
+    <header className="flex h-14 items-center justify-between bg-border p-2 dark:bg-muted xl:px-40">
       <Link
         data-testid="favicon-link"
         href="/"
@@ -27,7 +22,7 @@ const Header = ({ children }: HeaderProps) => {
         {children}
         <ThemeToggle />
       </div>
-    </motion.header>
+    </header>
   );
 };
 
