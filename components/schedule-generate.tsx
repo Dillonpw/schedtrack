@@ -1,5 +1,4 @@
 "use client";
-
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -13,6 +12,7 @@ import { PlusCircle } from "lucide-react";
 import { FormField } from "./form-field";
 import { SegmentCard } from "./shift-segment-card";
 import { useScheduleForm } from "@/hooks/useScheduleForm";
+import { generateLocalSchedule, useLocalSchedule } from "@/lib/localSchedule";
 import {
   Tooltip,
   TooltipContent,
@@ -25,6 +25,8 @@ export default function GenerateSchedule() {
   const router = useRouter();
   const { data: session, status } = useSession();
   const { toast } = useToast();
+  const { saveLocalSchedule } = useLocalSchedule();
+
   const {
     addSegment,
     updateSegment,
@@ -44,22 +46,34 @@ export default function GenerateSchedule() {
 
   const handleGenerateSchedule = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!startDate || !session) {
+    if (!startDate) {
       toast({
         title: "Error",
-        description: "Please select a start date and ensure you're logged in.",
+        description: "Please select a start date.",
         variant: "destructive",
       });
       return;
     }
 
     try {
-      await generateSchedule({
-        segments,
-        totalDays: totalDays || 0,
-        startDate,
-      });
-      router.push("/schedule");
+      if (session) {
+        // Handle authenticated user
+        await generateSchedule({
+          segments,
+          totalDays: totalDays || 0,
+          startDate,
+        });
+        router.push("/schedule");
+      } else {
+        // Handle guest user
+        const localSchedule = generateLocalSchedule({
+          segments,
+          totalDays: totalDays || 0,
+          startDate,
+        });
+        saveLocalSchedule(localSchedule);
+        router.push("/schedule");
+      }
     } catch (error) {
       toast({
         title: "Error",
@@ -77,18 +91,15 @@ export default function GenerateSchedule() {
     );
   }
 
-  if (status === "unauthenticated") {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        Please sign in to generate a schedule.
-      </div>
-    );
-  }
-
   return (
     <main className="mx-auto max-w-7xl px-4 pt-10 dark:bg-muted sm:px-6 md:mx-40 lg:px-8">
       <Card className="mx-auto w-full max-w-4xl border-none bg-border dark:bg-muted">
         <CardContent>
+          {!session && (
+            <div className="mb-6 rounded-lg bg-blue-100 p-4 text-blue-800 dark:bg-blue-900/20 dark:text-blue-200">
+              <p>You are using the app as a guest. Your schedule will be saved locally in your browser.</p>
+            </div>
+          )}
           <form onSubmit={handleGenerateSchedule} className="space-y-6">
             <div className="flex flex-col gap-6">
               <div className="flex-1 space-y-4">

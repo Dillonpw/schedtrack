@@ -1,30 +1,72 @@
-import { db } from "@/db/index";
-import { scheduleEntries } from "@/db/schema";
-import { eq } from "drizzle-orm";
-import { auth } from "@/auth";
-import { ScheduleEntry } from "@/types";
-import ClientScheduleView from "./schedule-view";
+"use client";
 
-export default async function ScheduleData() {
-  const session = await auth();
-  if (!session || !session.user?.id) {
-    // User is not logged in, return null
-    return null;
+import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
+import { useLocalSchedule } from "@/lib/localSchedule";
+import ClientScheduleView from "./schedule-view";
+import { ScheduleEntry } from "@/types";
+
+export default function ScheduleData() {
+  const { data: session } = useSession();
+  const { localSchedule } = useLocalSchedule();
+  const [scheduleData, setScheduleData] = useState<ScheduleEntry[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchSchedule = async () => {
+      try {
+        if (session) {
+          // Fetch authenticated user's schedule from your API
+          const response = await fetch("/api/schedule");
+          if (!response.ok) {
+            throw new Error("Failed to fetch schedule");
+          }
+          const data = await response.json();
+          setScheduleData(data);
+        } else {
+          // Use local schedule for guest users
+          setScheduleData(localSchedule || []);
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : "Failed to load schedule");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchSchedule();
+  }, [session, localSchedule]);
+
+  if (loading) {
+    return (
+      <div className="flex h-64 items-center justify-center">
+        <div className="text-lg">Loading schedule...</div>
+      </div>
+    );
   }
 
-  // Get the user's schedule entries
-  const scheduleEntriesData: ScheduleEntry[] = await db
-    .select()
-    .from(scheduleEntries)
-    .where(eq(scheduleEntries.userId, session.user.id));
-
-  // Render the schedule page
-  return (
-    <section>
-      <h1 className="text-center text-3xl font-bold">Schedule</h1>
-      <div className="mt-4">
-        <ClientScheduleView scheduleEntriesData={scheduleEntriesData} />
+  if (error) {
+    return (
+      <div className="flex h-64 items-center justify-center">
+        <div className="text-red-500">{error}</div>
       </div>
-    </section>
+    );
+  }
+
+  if (scheduleData.length === 0) {
+    return (
+      <div className="flex h-64 items-center justify-center">
+        <div className="text-lg">
+          No schedule found. Please generate a schedule first.
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="container mx-auto py-8">
+      <ClientScheduleView scheduleEntriesData={scheduleData} />
+    </div>
   );
 }

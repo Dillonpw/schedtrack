@@ -1,17 +1,16 @@
 import { Metadata, Viewport } from "next";
 import Header from "@/components/header-section";
 import { auth } from "@/auth";
-import SignIn from "@/components/sign-in";
-import AccountInfo from "@/components/account-info";
 import ScheduleData from "@/components/schedule-data";
+import LoggedIn from "@/components/account-info";
+
 
 export const metadata: Metadata = {
   title: {
     default: "Your Schedule - Sched Track",
     template: "%s | Sched Track",
   },
-  description:
-    "View your generated schedule and keep track of your life efficiently.",
+  description: "View your generated schedule and keep track of your life efficiently.",
   robots: "index, follow",
 };
 
@@ -21,25 +20,25 @@ export const viewport: Viewport = {
   maximumScale: 1,
 };
 
-export default async function Dashboard() {
+export default async function SchedulePage() {
   const session = await auth();
-
-  if (!session?.user) {
-    return (
-      <main className="dark:bg-muted">
-        <Header />
-        <div className="flex h-screen flex-col items-center justify-center">
-          <SignIn />
-        </div>
-      </main>
-    );
-  }
 
   return (
     <main className="dark:bg-muted">
       <Header />
-      <AccountInfo />
-      <ScheduleData />
+      <LoggedIn />
+      {session?.user ? (
+        <>
+          <ScheduleData />
+        </>
+      ) : (
+        <div className="container mx-auto">
+          <ScheduleData />
+          <div className="mt-8 rounded-lg bg-blue-100 p-4 text-blue-800 dark:bg-blue-900/20 dark:text-blue-200">
+            <p>Sign in to save your schedule across devices and access additional features.</p>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
