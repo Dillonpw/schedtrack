@@ -9,13 +9,7 @@ export function SignOut() {
         await signOut();
       }}
     >
-      <Button
-        className="text-black dark:text-gray-100"
-        variant="ghost"
-        type="submit"
-        size="sm"
-        data-testid="sign-out"
-      >
+      <Button variant="destructive" size="lg" type="submit" data-testid="sign-out">
         Sign Out
       </Button>
     </form>
