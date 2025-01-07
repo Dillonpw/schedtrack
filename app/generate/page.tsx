@@ -36,12 +36,7 @@ export default async function GeneratePage() {
         <div className=" mx-auto">
             <LoggedIn />
           <ScheduleGen />
-          <div className="mt-8 rounded-lg bg-blue-100 p-4 text-blue-800 dark:bg-blue-900/20 dark:text-blue-200">
-            <p>
-              Sign in to save your schedule across devices and access additional
-              features.
-            </p>
-          </div>
+  
         </div>
       )}
     </main>

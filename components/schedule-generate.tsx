@@ -43,13 +43,27 @@ export default function GenerateSchedule() {
     totalDays: undefined,
     startDate: new Date(),
   });
+  const MAX_DAYS_LOGGED_IN = 630;
+  const MAX_DAYS_GUEST = 60;
 
   const handleGenerateSchedule = async (e: React.FormEvent) => {
     e.preventDefault();
+    const resolvedTotalDays = totalDays ?? 60; // Use 0 if totalDays is undefined
+
     if (!startDate) {
       toast({
         title: "Error",
         description: "Please select a start date.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Additional validation for guest users
+    if (!session && resolvedTotalDays > MAX_DAYS_GUEST) {
+      toast({
+        title: "Error",
+        description: `As a guest, you can only schedule up to ${MAX_DAYS_GUEST} days into the future.`,
         variant: "destructive",
       });
       return;
@@ -97,7 +111,11 @@ export default function GenerateSchedule() {
         <CardContent>
           {!session && (
             <div className="mb-6 rounded-lg bg-blue-100 p-4 text-blue-800 dark:bg-blue-900/20 dark:text-blue-200">
-              <p>You are using the app as a guest. Your schedule will be saved locally in your browser.</p>
+              <p>
+                You are using the app as a guest. Your schedule will be lost
+                after you leave the page. Sign in to save your data, and gain
+                access to additional options.
+              </p>
             </div>
           )}
           <form onSubmit={handleGenerateSchedule} className="space-y-6">
@@ -132,8 +150,12 @@ export default function GenerateSchedule() {
                         value={totalDays}
                         onChange={(value) => updateField("totalDays", value)}
                         min={1}
-                        max={630}
-                        tooltip="Enter the number of days ahead you would like to display"
+                        max={session ? MAX_DAYS_LOGGED_IN : MAX_DAYS_GUEST} // Set limit conditionally
+                        tooltip={
+                          session
+                            ? "Enter the number of days ahead you would like to display (up to 630 days)"
+                            : `As a guest, you can only schedule up to ${MAX_DAYS_GUEST} days into the future`
+                        }
                       />
                     </div>
                   </CardContent>
