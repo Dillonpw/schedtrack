@@ -87,7 +87,7 @@ function CalendarView({
   };
 
   return (
-    <div className="mx-auto w-full max-w-4xl px-2 dark:bg-muted">
+    <div className="mx-auto w-full dark:bg-muted">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-2xl font-bold">
           {currentDate.toLocaleString("default", {
@@ -123,12 +123,12 @@ function CalendarView({
           >
             <div className="grid grid-cols-7 gap-1">
               {DAYS.map((day) => (
-                <div key={day} className="p-2 text-center font-bold">
+                <div key={day} className="p-4 text-left font-bold">
                   {day}
                 </div>
               ))}
               {[...Array(firstDayOfMonth)].map((_, index) => (
-                <div key={index} className="p-2"></div>
+                <div key={index} className="p-4"></div>
               ))}
               {Array.from({ length: daysInMonth }).map((_, index) => {
                 const date = new Date(
@@ -142,7 +142,7 @@ function CalendarView({
                 return (
                   <div
                     key={index}
-                    className={`flex h-20 w-full flex-col items-start rounded-md border p-2 ${colorClass}`}
+                    className={`flex h-20 w-full flex-col items-start rounded-md border p-2 pl-1 text-center ${colorClass}`}
                   >
                     <div className="font-semibold">{index + 1}</div>
                     {scheduleEntry ? (
