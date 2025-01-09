@@ -29,7 +29,9 @@ export default function ScheduleData() {
           setScheduleData(SessionSchedule || []);
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : "Failed to load schedule");
+        setError(
+          err instanceof Error ? err.message : "Failed to load schedule",
+        );
       } finally {
         setLoading(false);
       }
@@ -65,8 +67,11 @@ export default function ScheduleData() {
   }
 
   return (
-    <div className="container mx-auto py-8">
-      <ClientScheduleView session={session} scheduleEntriesData={scheduleData} />
+    <div>
+      <ClientScheduleView
+        session={session}
+        scheduleEntriesData={scheduleData}
+      />
     </div>
   );
 }

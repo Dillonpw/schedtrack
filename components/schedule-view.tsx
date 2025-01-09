@@ -21,8 +21,8 @@ export default function ClientScheduleView({
 
 
   return (
-    <main className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-      <Card className="mx-auto w-full border-none bg-border dark:bg-muted">
+    <main className=" lg:px-8">
+      <Card className=" w-full border-none bg-border dark:bg-muted">
         <CardContent>
           {!session && (
             <div className="mb-6 rounded-lg bg-blue-100 p-4 text-blue-800 dark:bg-blue-900/20 dark:text-blue-200">
@@ -105,7 +105,7 @@ function CalendarView({
   };
 
   return (
-    <div className="mx-auto w-full dark:bg-muted">
+    <div className="w-full dark:bg-muted">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-2xl font-bold">
           {currentDate.toLocaleString("default", {
@@ -113,7 +113,7 @@ function CalendarView({
             year: "numeric",
           })}
         </h2>
-        <div>
+        <div className="flex">
           <Button onClick={() => changeMonth(-1)} size="icon" className="mr-2">
             <ChevronLeftIcon className="h-4 w-4" />
             <span className="sr-only">Previous Month</span>
@@ -156,7 +156,6 @@ function CalendarView({
                 );
                 const scheduleEntry = getScheduleForDate(date);
                 const colorClass = getColorClass(scheduleEntry);
-
                 return (
                   <div
                     key={index}
