@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import { Card, CardContent } from "./ui/card";
 import { ScheduleEntry } from "@/types";
 import DownloadButton from "@/components/download-data";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
@@ -9,23 +10,40 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function ClientScheduleView({
   scheduleEntriesData,
+  session
 }: {
   scheduleEntriesData: ScheduleEntry[];
+  session: any;
 }): JSX.Element {
   if (scheduleEntriesData.length === 0) {
     return <p className="text-center text-lg">No schedule available</p>;
   }
 
+
   return (
-    <>
-      <div className="mb-10 flex items-center justify-between">
-        <DownloadButton scheduleEntriesData={scheduleEntriesData} />
-      </div>
-      <CalendarView scheduleEntriesData={scheduleEntriesData} />
-    </>
+    <main className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+      <Card className="mx-auto w-full border-none bg-border dark:bg-muted">
+        <CardContent>
+          {!session && (
+            <div className="mb-6 rounded-lg bg-blue-100 p-4 text-blue-800 dark:bg-blue-900/20 dark:text-blue-200">
+              <p>
+                You are using the app as a guest. Your schedule will be lost
+                after you leave close this window. Sign in to save your data, and gain
+                access to additional features.
+              </p>
+            </div>
+          )}
+          <div className="space-y-6">
+            <div className="flex items-center justify-between">
+              <DownloadButton scheduleEntriesData={scheduleEntriesData} />
+            </div>
+            <CalendarView scheduleEntriesData={scheduleEntriesData} />
+          </div>
+        </CardContent>
+      </Card>
+    </main>
   );
 }
-
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 function CalendarView({

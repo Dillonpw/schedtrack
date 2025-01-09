@@ -1,7 +1,5 @@
 "use client";
-import React from "react";
 import { useRouter } from "next/navigation";
-import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/date-picker";
 import { generateSchedule } from "@/lib/actions/generateSchedule";
@@ -22,10 +20,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Session } from "next-auth";
 
-export default async function GenerateSchedule() {
+interface GenerateScheduleFormProps {
+  session: Session | null;
+}
+
+export function GenerateScheduleForm({ session }: GenerateScheduleFormProps) {
   const router = useRouter();
-  const session = await auth();
   const { toast } = useToast();
   const { saveSessionSchedule } = useSessionSchedule();
 

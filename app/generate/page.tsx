@@ -1,9 +1,8 @@
 import Header from "@/components/header-section";
 import { auth } from "@/auth";
-import AccountInfo from "@/components/account-info";
-import ScheduleGen from "@/components/schedule-generate";
-import { Metadata, Viewport } from "next";
 import LoggedIn from "@/components/account-info";
+import { GenerateScheduleForm } from "@/components/schedule-generate";
+import { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
   title: {
@@ -27,18 +26,17 @@ export default async function GeneratePage() {
   return (
     <main className="dark:bg-muted">
       <Header />
-      {session?.user ? (
-        <>
-          <AccountInfo />
-          <ScheduleGen />
-        </>
-      ) : (
-        <div className=" mx-auto">
-            <LoggedIn />
-          <ScheduleGen />
-  
-        </div>
-      )}
+      <LoggedIn />
+
+      <div className="mx-auto">
+        {session?.user ? (
+          <>
+            <GenerateScheduleForm session={session} />
+          </>
+        ) : (
+          <GenerateScheduleForm session={session} />
+        )}
+      </div>
     </main>
   );
 }
