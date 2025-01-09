@@ -2,13 +2,13 @@
 
 import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { useLocalSchedule } from "@/lib/localSchedule";
+import { useSessionSchedule } from "@/lib/sessionSchedule";
 import ClientScheduleView from "./schedule-view";
 import { ScheduleEntry } from "@/types";
 
 export default function ScheduleData() {
   const { data: session } = useSession();
-  const { localSchedule } = useLocalSchedule();
+  const { SessionSchedule } = useSessionSchedule();
   const [scheduleData, setScheduleData] = useState<ScheduleEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -25,8 +25,8 @@ export default function ScheduleData() {
           const data = await response.json();
           setScheduleData(data);
         } else {
-          // Use local schedule for guest users
-          setScheduleData(localSchedule || []);
+          // Use session schedule for guest users
+          setScheduleData(SessionSchedule || []);
         }
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to load schedule");
@@ -36,7 +36,7 @@ export default function ScheduleData() {
     };
 
     fetchSchedule();
-  }, [session, localSchedule]);
+  }, [session, SessionSchedule]);
 
   if (loading) {
     return (

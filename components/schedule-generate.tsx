@@ -12,7 +12,7 @@ import { PlusCircle } from "lucide-react";
 import { FormField } from "./form-field";
 import { SegmentCard } from "./shift-segment-card";
 import { useScheduleForm } from "@/hooks/useScheduleForm";
-import { generateLocalSchedule, useLocalSchedule } from "@/lib/localSchedule";
+import { generateSessionSchedule, useSessionSchedule } from "@/lib/sessionSchedule";
 import {
   Tooltip,
   TooltipContent,
@@ -25,7 +25,7 @@ export default function GenerateSchedule() {
   const router = useRouter();
   const { data: session, status } = useSession();
   const { toast } = useToast();
-  const { saveLocalSchedule } = useLocalSchedule();
+  const { saveSessionSchedule } = useSessionSchedule();
 
   const {
     addSegment,
@@ -80,12 +80,12 @@ export default function GenerateSchedule() {
         router.push("/schedule");
       } else {
         // Handle guest user
-        const localSchedule = generateLocalSchedule({
+        const sessionSchedule = generateSessionSchedule({
           segments,
           totalDays: totalDays || 0,
           startDate,
         });
-        saveLocalSchedule(localSchedule);
+        saveSessionSchedule(sessionSchedule);
         router.push("/schedule");
       }
     } catch (error) {

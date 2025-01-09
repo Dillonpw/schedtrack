@@ -1,38 +1,38 @@
 import { useState, useEffect } from 'react';
 import { ScheduleEntry, ShiftSegment } from '@/types';
 
-const LOCAL_STORAGE_KEY = 'guest_schedule';
+const SESSION_STORAGE_KEY = 'guest_schedule';
 
-export const useLocalSchedule = () => {
-  const [localSchedule, setLocalSchedule] = useState<ScheduleEntry[]>([]);
+export const useSessionSchedule = () => {
+  const [SessionSchedule, setSessionSchedule] = useState<ScheduleEntry[]>([]);
 
   useEffect(() => {
-    // Load schedule from localStorage on component mount
-    const savedSchedule = localStorage.getItem(LOCAL_STORAGE_KEY);
+    // Load schedule from sessionStorage on component mount
+    const savedSchedule = sessionStorage.getItem(SESSION_STORAGE_KEY);
     if (savedSchedule) {
-      setLocalSchedule(JSON.parse(savedSchedule));
+      setSessionSchedule(JSON.parse(savedSchedule));
     }
   }, []);
 
-  const saveLocalSchedule = (scheduleData: ScheduleEntry[]) => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(scheduleData));
-    setLocalSchedule(scheduleData);
+  const saveSessionSchedule = (scheduleData: ScheduleEntry[]) => {
+    sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(scheduleData));
+    setSessionSchedule(scheduleData);
   };
 
-  const clearLocalSchedule = () => {
-    localStorage.removeItem(LOCAL_STORAGE_KEY);
-    setLocalSchedule([]);
+  const clearSessionSchedule = () => {
+    sessionStorage.removeItem(SESSION_STORAGE_KEY);
+    setSessionSchedule([]);
   };
 
   return {
-    localSchedule,
-    saveLocalSchedule,
-    clearLocalSchedule,
+    SessionSchedule,
+    saveSessionSchedule,
+    clearSessionSchedule,
   };
 };
 
-// Modify the generateSchedule function to work with localStorage
-export const generateLocalSchedule = ({
+// Modify the generateSchedule function to work with sessionStorage
+export const generateSessionSchedule = ({
   segments,
   totalDays,
   startDate,
