@@ -66,7 +66,7 @@ export default function ScheduleData() {
 
   return (
     <div className="container mx-auto py-8">
-      <ClientScheduleView scheduleEntriesData={scheduleData} />
+      <ClientScheduleView session={session} scheduleEntriesData={scheduleData} />
     </div>
   );
 }
