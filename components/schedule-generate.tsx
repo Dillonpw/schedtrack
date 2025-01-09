@@ -1,29 +1,31 @@
 "use client";
 import React from "react";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { auth } from "@/auth";
 import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/date-picker";
 import { generateSchedule } from "@/lib/actions/generateSchedule";
 import { useToast } from "@/components/ui/use-toast";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { PlusCircle } from "lucide-react";
+import { PlusCircle, HelpCircle } from "lucide-react";
 import { FormField } from "./form-field";
 import { SegmentCard } from "./shift-segment-card";
 import { useScheduleForm } from "@/hooks/useScheduleForm";
-import { generateSessionSchedule, useSessionSchedule } from "@/lib/sessionSchedule";
+import {
+  generateSessionSchedule,
+  useSessionSchedule,
+} from "@/lib/sessionSchedule";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { HelpCircle } from "lucide-react";
 
-export default function GenerateSchedule() {
+export default async function GenerateSchedule() {
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const session = await auth();
   const { toast } = useToast();
   const { saveSessionSchedule } = useSessionSchedule();
 
@@ -48,7 +50,7 @@ export default function GenerateSchedule() {
 
   const handleGenerateSchedule = async (e: React.FormEvent) => {
     e.preventDefault();
-    const resolvedTotalDays = totalDays ?? 60; // Use 0 if totalDays is undefined
+    const resolvedTotalDays = totalDays ?? 60;
 
     if (!startDate) {
       toast({
@@ -97,14 +99,6 @@ export default function GenerateSchedule() {
     }
   };
 
-  if (status === "loading") {
-    return (
-      <div className="flex h-screen items-center justify-center">
-        Loading...
-      </div>
-    );
-  }
-
   return (
     <main className="mx-auto max-w-7xl px-4 pt-10 dark:bg-muted sm:px-6 md:mx-40 lg:px-8">
       <Card className="mx-auto w-full max-w-4xl border-none bg-border dark:bg-muted">
@@ -150,7 +144,7 @@ export default function GenerateSchedule() {
                         value={totalDays}
                         onChange={(value) => updateField("totalDays", value)}
                         min={1}
-                        max={session ? MAX_DAYS_LOGGED_IN : MAX_DAYS_GUEST} // Set limit conditionally
+                        max={session ? MAX_DAYS_LOGGED_IN : MAX_DAYS_GUEST}
                         tooltip={
                           session
                             ? "Enter the number of days ahead you would like to display (up to 630 days)"
