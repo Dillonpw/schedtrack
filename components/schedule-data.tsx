@@ -58,8 +58,8 @@ export default function ScheduleData() {
 
   if (scheduleData.length === 0) {
     return (
-      <div className="flex h-64 items-center justify-center">
-        <div className="text-lg">
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-lg text-center">
           No schedule found. Please generate a schedule first.
         </div>
       </div>

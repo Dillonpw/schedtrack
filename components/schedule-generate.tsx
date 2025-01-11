@@ -168,7 +168,8 @@ export function GenerateScheduleForm({ session }: GenerateScheduleFormProps) {
                             </Label>
                           </TooltipTrigger>
                           <TooltipContent>
-                            Select the first day of a recent work rotation
+                            Click to change the date if it is not the start of a
+                            recent work rotation
                           </TooltipContent>
                         </Tooltip>
                       </TooltipProvider>
