@@ -1,7 +1,7 @@
 import Header from "@/components/header-section";
 import AccountInfo from "@/components/account-info";
 import SignIn from "@/components/sign-in";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 
 export const metadata: Metadata = {
   title: {
@@ -11,6 +11,11 @@ export const metadata: Metadata = {
   description: "Sign in.",
   robots: "noindex, nofollow",
 };
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 
 export default function SignInPage() {
   return (

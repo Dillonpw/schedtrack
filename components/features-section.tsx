@@ -87,15 +87,20 @@ export default function Component() {
               viewport={{ once: true }}
               className="pt-40"
             >
-              <video
-                src="https://utfs.io/f/2x9MeROBnW8izghZmAdbdqj6eSUgmlVLipk0w4HItRXDYyGJ"
-                className="mx-auto aspect-video w-full max-w-[95%] rounded-xl object-cover object-center shadow-lg sm:max-w-lg md:max-w-2xl"
-                muted
-                playsInline
-                autoPlay
-                loop
-                preload="metadata"
-              />
+              <figure className="mx-auto max-w-[95%] sm:max-w-lg md:max-w-2xl">
+                <video
+                  src="https://utfs.io/f/2x9MeROBnW8izghZmAdbdqj6eSUgmlVLipk0w4HItRXDYyGJ"
+                  className="aspect-video w-full rounded-xl object-cover object-center shadow-lg"
+                  muted
+                  playsInline
+                  autoPlay
+                  loop
+                  preload="metadata"
+                />
+                <figcaption className="mt-2 text-center text-md text-blue-800 dark:text-gray-100">
+                  A demonstration of how to use the schedule builder.
+                </figcaption>
+              </figure>
             </motion.div>
           </div>
         </div>
