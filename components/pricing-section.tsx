@@ -1,4 +1,4 @@
-import { Check } from "lucide-react";
+import { Check } from 'lucide-react';
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -8,82 +8,94 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { auth } from "@/auth";
 
 export default async function Pricing() {
-  const session = await auth();
-  if (!session) {
-    <section
-      id="pricing"
-      data-testid="pricing"
-      className="flex w-full max-w-6xl flex-col items-center justify-center gap-6 bg-muted py-40 md:pb-60 md:pt-40"
-    >
-      <Card className="max-w-md overflow-hidden hover:shadow-lg dark:bg-gray-600">
-        <CardHeader className="p-6 text-center dark:bg-background dark:text-gray-100">
-          <CardTitle className="text-2xl font-bold md:text-3xl lg:text-4xl">
-            Free Account
-          </CardTitle>
-          <p className="mt-2 text-sm dark:text-gray-100">Start Scheduling</p>
-        </CardHeader>
-        <CardContent className="p-6">
-          <ul className="mb-6 space-y-4 text-sm">
-            {[
-              "Full access to our custom schedule generating technology",
-              "Unlimited schedule adjustments and redos",
-              "Schedule up to 2 years into the future",
-              "Your most recent schedule will always be a few clicks away",
-            ].map((feature, index) => (
-              <li key={index} className="flex items-start gap-2">
-                <Check className="mt-1 h-5 w-5 flex-shrink-0 text-primary" />
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
-        </CardContent>
-        <CardFooter className="flex items-center justify-between gap-4 border-t p-6">
-          <div className="text-2xl font-bold md:text-3xl lg:text-4xl">FREE</div>
-          <Button
-            asChild
-            size="lg"
-            className="transition-transform hover:scale-105"
-          >
-            <Link href="/signin" prefetch={false}>
-              Get Started
-            </Link>
-          </Button>
-        </CardFooter>
-      </Card>
-    </section>;
-  }
   return (
-    <section
-      id="pricing"
-      data-testid="pricing"
-      className="flex w-full flex-col items-center justify-center gap-6 bg-muted py-40 dark:bg-muted md:pb-60 md:pt-40"
-    >
-      <Card className="w-full max-w-md overflow-hidden bg-border transition-all duration-300 ease-in-out hover:shadow-lg dark:bg-gray-600">
-        <CardHeader className="p-6 text-center dark:bg-background dark:text-gray-100">
-          <CardTitle className="text-2xl font-bold md:text-3xl lg:text-4xl">
-            Free Account
-          </CardTitle>
-          <p className="mt-2 text-sm dark:text-gray-100">Start Scheduling</p>
-        </CardHeader>
-        <CardContent className="p-6">
-          <ul className="mb-6 space-y-4 text-sm">
-            {[
-              "Full access to our custom schedule generating technology",
-              "Unlimited schedule adjustments and redos",
-              "Schedule up to 2 years into the future",
-              "Your most recent schedule will always be a few clicks away",
-            ].map((feature, index) => (
-              <li key={index} className="flex items-start gap-2">
-                <Check className="mt-1 h-5 w-5 flex-shrink-0 text-primary" />
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
-        </CardContent>
-      </Card>
-    </section>
+    <div className="container mx-auto px-4 py-16 lg:py-24">
+      <div className="flex flex-col lg:flex-row items-stretch justify-center gap-8 w-full">
+        {/* Guest Users Features */}
+        <div className="w-full lg:w-1/2 max-w-md mx-auto">
+          <Card className="h-full overflow-hidden bg-border transition-all duration-300 ease-in-out hover:shadow-lg dark:bg-gray-600">
+            <CardHeader className="p-6 text-center dark:bg-background dark:text-gray-100">
+              <CardTitle className="text-2xl font-bold md:text-3xl">
+                Guest
+              </CardTitle>
+              <p className="mt-2 text-sm dark:text-gray-100">
+                Get To Know Our Platform
+              </p>
+            </CardHeader>
+            <CardContent className="p-6 flex-grow">
+              <ul className="space-y-4 text-sm">
+                {[
+                  "Limited access to our custom schedule generating technology",
+                  "Unlimited schedule adjustments and redos",
+                  "schedule up to 90 days into the future",
+                  "Schedules are not stored and are lost after closing the window",
+                  "Download and add your schedule to your calendar of choice",
+                ].map((feature, index) => (
+                  <li key={index} className="flex items-start gap-2">
+                    <Check className="mt-1 h-5 w-5 flex-shrink-0 text-primary" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+            <CardFooter className="flex items-center justify-between gap-4 border-t p-6 mt-auto">
+              <div className="text-2xl font-bold md:text-3xl">FREE</div>
+              <Button
+                asChild
+                size="lg"
+                className="transition-transform hover:scale-105"
+              >
+                <Link href="/generate" prefetch={false}>
+                  Get Started
+                </Link>
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+
+        {/* Free Account Pricing */}
+        <div className="w-full lg:w-1/2 max-w-md mx-auto">
+          <Card className="h-full overflow-hidden bg-border transition-all duration-300 ease-in-out hover:shadow-lg dark:bg-gray-600">
+            <CardHeader className="p-6 text-center dark:bg-background dark:text-gray-100">
+              <CardTitle className="text-2xl font-bold md:text-3xl">
+                Free Account
+              </CardTitle>
+              <p className="mt-2 text-sm dark:text-gray-100">Start Scheduling</p>
+            </CardHeader>
+            <CardContent className="p-6 flex-grow">
+              <ul className="space-y-4 text-sm">
+                {[
+                  "Full access to our custom schedule generating technology",
+                  "Unlimited schedule adjustments and redos",
+                  "Schedule up to 2 years into the future",
+                  "Your most recent schedule will always be a few clicks away",
+                  "Download and add your schedule to your calendar of choice",
+                ].map((feature, index) => (
+                  <li key={index} className="flex items-start gap-2">
+                    <Check className="mt-1 h-5 w-5 flex-shrink-0 text-primary" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+            <CardFooter className="flex items-center justify-between gap-4 border-t p-6 mt-auto">
+              <div className="text-2xl font-bold md:text-3xl">FREE</div>
+              <Button
+                asChild
+                size="lg"
+                className="transition-transform hover:scale-105"
+              >
+                <Link href="/signin" prefetch={false}>
+                  Get Started
+                </Link>
+              </Button>
+            </CardFooter>
+          </Card>
+        </div>
+      </div>
+    </div>
   );
 }
+

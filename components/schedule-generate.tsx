@@ -48,7 +48,7 @@ export function GenerateScheduleForm({ session }: GenerateScheduleFormProps) {
     startDate: new Date(),
   });
   const MAX_DAYS_LOGGED_IN = 630;
-  const MAX_DAYS_GUEST = 60;
+  const MAX_DAYS_GUEST = 90;
 
   const handleGenerateSchedule = async (e: React.FormEvent) => {
     e.preventDefault();
