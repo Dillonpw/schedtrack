@@ -11,16 +11,16 @@ import {
 
 export default async function Pricing() {
   return (
-    <div className="container mx-auto px-4 py-16 lg:py-24">
+    <div className="container mx-auto px-4 py-16 lg:py-24 bg-muted">
       <div className="flex flex-col lg:flex-row items-stretch justify-center gap-8 w-full">
         {/* Guest Users Features */}
         <div className="w-full lg:w-1/2 max-w-md mx-auto">
-          <Card className="h-full overflow-hidden bg-border transition-all duration-300 ease-in-out hover:shadow-lg dark:bg-gray-600">
-            <CardHeader className="p-6 text-center dark:bg-background dark:text-gray-100">
-              <CardTitle className="text-2xl font-bold md:text-3xl">
+          <Card className="h-full overflow-hidden border bg-card transition-all duration-300 hover:shadow-lg dark:bg-gray-600 group">
+            <CardHeader className="p-6 text-center bg-card dark:bg-gray-600">
+              <CardTitle className="text-2xl font-bold md:text-3xl text-card-foreground">
                 Guest
               </CardTitle>
-              <p className="mt-2 text-sm dark:text-gray-100">
+              <p className="mt-2 text-sm text-blue-700 dark:text-red-500">
                 Get To Know Our Platform
               </p>
             </CardHeader>
@@ -35,17 +35,17 @@ export default async function Pricing() {
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start gap-2">
                     <Check className="mt-1 h-5 w-5 flex-shrink-0 text-primary" />
-                    <span>{feature}</span>
+                    <span className="text-card-foreground/90 transition-all duration-300 group-hover:text-card-foreground">{feature}</span>
                   </li>
                 ))}
               </ul>
             </CardContent>
             <CardFooter className="flex items-center justify-between gap-4 border-t p-6 mt-auto">
-              <div className="text-2xl font-bold md:text-3xl">FREE</div>
+              <div className="text-2xl font-bold md:text-3xl text-card-foreground">FREE</div>
               <Button
                 asChild
                 size="lg"
-                className="transition-transform hover:scale-105"
+                className="transition-all duration-300 hover:scale-105 bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 <Link href="/generate" prefetch={false}>
                   Get Started
@@ -57,12 +57,12 @@ export default async function Pricing() {
 
         {/* Free Account Pricing */}
         <div className="w-full lg:w-1/2 max-w-md mx-auto">
-          <Card className="h-full overflow-hidden bg-border transition-all duration-300 ease-in-out hover:shadow-lg dark:bg-gray-600">
-            <CardHeader className="p-6 text-center dark:bg-background dark:text-gray-100">
-              <CardTitle className="text-2xl font-bold md:text-3xl">
+          <Card className="h-full overflow-hidden border bg-card transition-all duration-300 hover:shadow-lg dark:bg-gray-600 group">
+            <CardHeader className="p-6 text-center bg-card dark:bg-gray-600">
+              <CardTitle className="text-2xl font-bold md:text-3xl text-card-foreground">
                 Free Account
               </CardTitle>
-              <p className="mt-2 text-sm dark:text-gray-100">Start Scheduling</p>
+              <p className="mt-2 text-sm text-blue-700 dark:text-red-500">Start Scheduling</p>
             </CardHeader>
             <CardContent className="p-6 flex-grow">
               <ul className="space-y-4 text-sm">
@@ -75,17 +75,17 @@ export default async function Pricing() {
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start gap-2">
                     <Check className="mt-1 h-5 w-5 flex-shrink-0 text-primary" />
-                    <span>{feature}</span>
+                    <span className="text-card-foreground/90 transition-all duration-300 group-hover:text-card-foreground">{feature}</span>
                   </li>
                 ))}
               </ul>
             </CardContent>
             <CardFooter className="flex items-center justify-between gap-4 border-t p-6 mt-auto">
-              <div className="text-2xl font-bold md:text-3xl">FREE</div>
+              <div className="text-2xl font-bold md:text-3xl text-card-foreground">FREE</div>
               <Button
                 asChild
                 size="lg"
-                className="transition-transform hover:scale-105"
+                className="transition-all duration-300 hover:scale-105 bg-primary text-primary-foreground hover:bg-primary/90"
               >
                 <Link href="/signin" prefetch={false}>
                   Get Started
