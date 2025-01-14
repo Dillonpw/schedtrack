@@ -200,7 +200,6 @@ export function generateJsonLd() {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
 };
 
 // Google Ads script generation
@@ -219,7 +218,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <html lang="en" className="scroll-smooth" suppressHydrationWarning >
       <body
         className={cn(
-          "bg-border text-base font-semibold antialiased font-poppins",
+          "bg-border text-base antialiased font-poppins font-light",
           fontHeading.variable,
           fontBody.variable,
         )}
@@ -260,11 +259,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               softwareVersion: "1.0",
             }),
           }}
-        />
-        <Script
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4500026491096816"
-          strategy="afterInteractive"
-          crossOrigin="anonymous"
         />
       </body>
     </html>

@@ -16,15 +16,23 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
               <motion.h1
                 initial={{ opacity: 0, x: -200 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="mx-auto text-center text-4xl font-bold tracking-tighter sm:text-4xl md:text-left lg:text-5xl"
+                className="mx-auto text-center text-4xl font-bold tracking-tighter sm:text-left sm:text-4xl md:text-5xl"
               >
-                Effortless Schedule Management
+                Sched Track
               </motion.h1>
+              <motion.h2
+                initial={{ opacity: 0, x: -200 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 }}
+                className="max-w-[600px] text-center text-xl font-bold text-foreground sm:text-left md:text-4xl"
+              >
+                Effortless Schedule Managament
+              </motion.h2>
               <motion.p
                 initial={{ opacity: 0, x: -200 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 }}
-                className="max-w-[600px] text-center text-foreground md:text-left md:text-xl"
+                className="max-w-[600px] text-center text-foreground sm:text-left md:text-left md:text-xl"
               >
                 Our rotating schedule builder helps{" "}
                 <span className="font-semibold text-blue-700 dark:text-red-500">
@@ -32,9 +40,6 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
                 </span>{" "}
                 as well as a multidude of other professionals schedule next
                 month, 6 months, or a year from now with ease. <br />
-                <span className="font-semibold text-blue-700 dark:text-red-500">
-                  Say goodbye to manual planning.
-                </span>
               </motion.p>
             </div>
             <motion.div

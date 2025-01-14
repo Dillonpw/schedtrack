@@ -6,7 +6,7 @@ export default async function HeroBtn() {
   const session = await auth();
   if (!session || !session.user?.id) {
     return (
-      <div className="flex flex-row items-center justify-center gap-2 md:justify-start">
+      <div className="flex flex-row items-center justify-center gap-2 sm:justify-start">
         <Button variant="default" asChild>
           <Link href="/generate" prefetch={false}>
             Get Started For Free
@@ -23,7 +23,7 @@ export default async function HeroBtn() {
     );
   }
   return (
-    <div className="flex flex-row items-center justify-center gap-2 md:justify-start">
+    <div className="flex flex-row items-center justify-center gap-2 sm:justify-start">
       <Button variant="default" asChild>
         <Link href="/generate" prefetch={false}>
           Get Started

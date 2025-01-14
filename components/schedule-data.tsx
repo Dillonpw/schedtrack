@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { LoaderPinwheel } from "lucide-react";
 import { useSession } from "next-auth/react";
 import { useSessionSchedule } from "@/lib/sessionSchedule";
 import ClientScheduleView from "./schedule-view";
@@ -42,8 +43,10 @@ export default function ScheduleData() {
 
   if (loading) {
     return (
-      <div className="flex h-64 items-center justify-center">
-        <div className="text-lg">Loading schedule...</div>
+      <div className="flex h-screen items-center justify-center">
+        <div className="text-lg">
+          <LoaderPinwheel className="animate-spin" />
+        </div>
       </div>
     );
   }
@@ -58,8 +61,8 @@ export default function ScheduleData() {
 
   if (scheduleData.length === 0) {
     return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="text-lg text-center">
+      <div className="flex h-screen items-center justify-center">
+        <div className="text-center text-lg">
           No schedule found. Please generate a schedule first.
         </div>
       </div>

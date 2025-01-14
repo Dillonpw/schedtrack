@@ -89,7 +89,7 @@ export default function Faq() {
                 transition={{ delay: index * 0.1 }}
               >
                 <AccordionItem value={`item-${index + 1}`}>
-                  <AccordionTrigger className="text-left text-lg font-semibold md:text-xl">
+                  <AccordionTrigger className="text-left text-lg md:text-xl">
                     {item.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-base md:text-lg">

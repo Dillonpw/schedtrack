@@ -51,7 +51,7 @@ export default function Component() {
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl lg:text-5xl">
                 Manage Your Time More Efficiently and Without the Headache
               </h2>
-              <p className="mx-auto max-w-[700px] md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              <p className="mx-auto max-w-[700px] font-light text-lg">
                 Our rotating schedule builder comes packed with features
                 designed to simplify your life and streamline your workflow.
               </p>
