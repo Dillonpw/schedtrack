@@ -13,7 +13,7 @@ export default async function Pricing() {
   return (
     <div className="container mx-auto bg-muted px-4 py-16 lg:py-24">
       <div
-        data-test-id="pricing"
+        data-testid="pricing"
         id="pricing"
         className="flex w-full flex-col items-stretch justify-center gap-8 lg:flex-row"
       >
