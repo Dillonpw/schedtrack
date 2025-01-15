@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import Footer from "@/components/footer-section";
 import { SessionProvider } from "next-auth/react";
+import GoogleAdsense from "@/components/adsense";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 import { Metadata, Viewport } from "next";
@@ -215,10 +216,10 @@ export function generateScripts() {
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning >
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
         className={cn(
-          "bg-border text-base antialiased font-poppins font-light",
+          "font-poppins bg-border text-base font-light antialiased",
           fontHeading.variable,
           fontBody.variable,
         )}
@@ -260,6 +261,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             }),
           }}
         />
+        <GoogleAdsense pId="4500026491096816" />
       </body>
     </html>
   );
