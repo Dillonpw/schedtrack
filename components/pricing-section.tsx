@@ -11,7 +11,7 @@ import {
 
 export default async function Pricing() {
   return (
-    <div className="container mx-auto px-4 py-16 lg:py-24 bg-muted">
+    <div data-test-id="pricing" className="container mx-auto px-4 py-16 lg:py-24 bg-muted">
       <div className="flex flex-col lg:flex-row items-stretch justify-center gap-8 w-full">
         {/* Guest Users Features */}
         <div className="w-full lg:w-1/2 max-w-md mx-auto">
