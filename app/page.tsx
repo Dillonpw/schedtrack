@@ -14,8 +14,9 @@ const Home = () => {
       <Header>
         <Nav />
       </Header>
-      <main >
         <AccountInfo />
+      <div className="text-center bg-blue-700 text-white dark:bg-red-800 py-4 font-bold">Mobile and Web App coming soon!</div>
+
         <HeroSection>
           <HeroBtn />
         </HeroSection>
@@ -23,7 +24,6 @@ const Home = () => {
         <TestimonialsSection />
         <Faq />
         <Pricing />
-      </main>
     </div>
   );
 };

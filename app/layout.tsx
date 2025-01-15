@@ -224,13 +224,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           fontBody.variable,
         )}
       >
-        <main>
           <Providers>
             <SessionProvider>{children}</SessionProvider>
           </Providers>
-        </main>
         <Donation />
-
         <Footer />
         <Analytics />
         <Script
