@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import Link from "next/link";
-import { SignInBtn } from "./sign-in"
+import SignInBtn from "./sign-in"
 import { SignOut } from "./sign-out";
 import { Button } from "./ui/button";
 import {
