@@ -70,9 +70,7 @@ const LoggedIn = async () => {
             </AlertDialog>
           </>
         ) : (
-          <Button asChild variant="ghost" size="sm">
             <SignIn />
-          </Button>
         )}
       </div>
     </div>
