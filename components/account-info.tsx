@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import Link from "next/link";
-import { SignIn } from "./sign-in"
+import { SignInBtn } from "./sign-in"
 import { SignOut } from "./sign-out";
 import { Button } from "./ui/button";
 import {
@@ -70,7 +70,7 @@ const LoggedIn = async () => {
             </AlertDialog>
           </>
         ) : (
-            <SignIn />
+            <SignInBtn />
         )}
       </div>
     </div>
