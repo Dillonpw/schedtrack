@@ -47,7 +47,7 @@ function GithubIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-export default function Component() {
+export default function SignInBtn() {
   return (
     <div className="w-full max-w-sm rounded-lg border-2 bg-background p-6 shadow-md">
       <h2 className="mb-6 text-center text-2xl font-bold">Sign in</h2>
