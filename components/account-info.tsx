@@ -43,7 +43,7 @@ const LoggedIn = async () => {
             )}
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant="ghost" size="sm">Sign Out</Button>
+                <Button variant="destructive" size="sm">Sign Out</Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
@@ -57,7 +57,7 @@ const LoggedIn = async () => {
                 <AlertDialogFooter>
                   <AlertDialogCancel asChild>
                     <Button
-                      variant="destructive"
+                      variant="ghost"
                       className="dark:border-none dark:text-gray-100"
                       size="lg"
                     >

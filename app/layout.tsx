@@ -226,12 +226,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           fontBody.variable,
         )}
       >
-          <Providers>
-            <SessionProvider>
+        <Providers>
+          <SessionProvider>
             <Header>
-        <Nav />
-      </Header>{children}</SessionProvider>
-          </Providers>
+              <Nav />
+            </Header>
+            {children}
+          </SessionProvider>
+        </Providers>
         <Donation />
         <Footer />
         <Analytics />
