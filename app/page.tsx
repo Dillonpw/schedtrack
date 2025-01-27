@@ -11,9 +11,7 @@ import HeroBtn from "@/components/hero-buttons";
 const Home = () => {
   return (
     <div className="flex min-h-[100vh] flex-col w-full">
-      <Header>
-        <Nav />
-      </Header>
+
         <AccountInfo />
       <div className="text-center bg-blue-700 text-white dark:bg-red-800 py-4 font-bold">Mobile and Web App coming soon!</div>
 

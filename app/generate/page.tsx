@@ -24,7 +24,6 @@ export default async function GeneratePage() {
 
   return (
     <main className="dark:bg-muted">
-      <Header />
       <LoggedIn />
 
       <div className="mx-auto">

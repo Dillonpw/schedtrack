@@ -51,7 +51,12 @@ export default async function Nav() {
           <DropdownMenuContent className="w-56" align="end" sideOffset={8}>
             <DropdownMenuLabel>Navigation</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <div className="grid grid-cols-2 gap-2">
+            <DropdownMenuItem asChild>
+                <Link href="/" className="flex items-center">
+                  <Home className="mr-2 h-4 w-4" />
+                  <span>Home</span>
+                </Link>
+              </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/#features" className="flex items-center">
                   <Zap className="mr-2 h-4 w-4" />
@@ -64,14 +69,7 @@ export default async function Nav() {
                   <span>Pricing</span>
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/" className="flex items-center">
-                  <Home className="mr-2 h-4 w-4" />
-                  <span>Home</span>
-                </Link>
-              </DropdownMenuItem>
-            </div>
-            <DropdownMenuSeparator />
+
             <DropdownMenuItem asChild>
               <Link
                 href="/privacy"

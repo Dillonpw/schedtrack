@@ -24,7 +24,6 @@ export default async function SchedulePage() {
 
   return (
     <main className="dark:bg-muted">
-      <Header />
       <LoggedIn />
       {session?.user ? (
         <>

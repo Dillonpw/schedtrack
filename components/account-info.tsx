@@ -56,7 +56,7 @@ const LoggedIn = async () => {
                 <AlertDialogFooter>
                   <AlertDialogCancel asChild>
                     <Button
-                      variant="ghost"
+                      variant="destructive"
                       className="dark:border-none dark:text-gray-100"
                       size="lg"
                     >

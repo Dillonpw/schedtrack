@@ -20,7 +20,6 @@ export default function Privacy() {
   return (
     <>
       <main className="dark:bg-muted">
-        <Header />
         <h1 className="mt-10 text-center text-3xl font-bold text-red-600/80">
           Privacy Policy
         </h1>

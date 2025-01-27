@@ -2,6 +2,8 @@ import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 import { Providers } from "./providers";
+import Header from "@/components/header-section";
+import Nav from "@/components/nav-section";
 import Footer from "@/components/footer-section";
 import { SessionProvider } from "next-auth/react";
 import GoogleAdsense from "@/components/adsense";
@@ -225,7 +227,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         )}
       >
           <Providers>
-            <SessionProvider>{children}</SessionProvider>
+            <SessionProvider>
+            <Header>
+        <Nav />
+      </Header>{children}</SessionProvider>
           </Providers>
         <Donation />
         <Footer />

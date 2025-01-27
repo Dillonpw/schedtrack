@@ -73,7 +73,7 @@ export const SegmentCard: React.FC<SegmentCardProps> = ({
           variant="ghost"
           size="icon"
           onClick={() => removeSegment(index)}
-          className="h-10 w-10 shrink-0 text-destructive"
+          className="h-10 w-10 shrink-0 text-destructive dark:text-red-500"
         >
           <MinusCircle className="h-5 w-5" />
         </Button>
