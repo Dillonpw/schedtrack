@@ -80,7 +80,7 @@ export default function TestimonialsSection() {
             <h2 className="text-2xl font-bold tracking-tighter text-primary sm:text-3xl md:text-4xl">
               What Our Users Say
             </h2>
-            <p className="max-w-[600px] text-sm text-blue-700 dark:text-red-500 md:text-base">
+            <p className="max-w-[600px] text-blue-700 dark:text-red-500">
               Hear from our satisfied users about how our rotating schedule
               builder has simplified their day to day.
             </p>
