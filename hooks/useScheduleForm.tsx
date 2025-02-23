@@ -61,4 +61,3 @@ export const useScheduleForm = (initialData: FormData) => {
     startDate,
   };
 };
-

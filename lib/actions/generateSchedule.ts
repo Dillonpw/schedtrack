@@ -20,6 +20,7 @@ interface ScheduleEntry {
   title: string | null;
 }
 
+// Constants
 const DAYS_OF_WEEK = [
   "Sunday",
   "Monday",
@@ -35,12 +36,7 @@ export async function generateSchedule({
   totalDays,
   startDate,
 }: GenerateScheduleParams): Promise<string> {
-  // Validate inputs
-  if (!segments?.length || !totalDays || !startDate) {
-    throw new Error("Missing required parameters");
-  }
-
-  // Get the user ID from the authentication session
+  // Get the user ID from the authentication session.
   const session = await auth();
   if (!session?.user?.id) {
     throw new Error("Not authenticated");
@@ -48,39 +44,30 @@ export async function generateSchedule({
 
   const userId = session.user.id;
 
-  try {
-    // Create the schedule
-    const schedule = createRotatingSchedule(segments, totalDays, startDate);
+  // Create the schedule.
+  const schedule = createRotatingSchedule(segments, totalDays, startDate);
 
-    // Save the schedule to the database
-    await db.transaction(async (tx) => {
-      // Delete existing schedule entries
-      await tx
-        .delete(scheduleEntries)
-        .where(eq(scheduleEntries.userId, userId));
+  // Save the schedule to the database.
+  await db.transaction(async (tx) => {
+    // Delete the old schedule entries.
+    await tx.delete(scheduleEntries).where(eq(scheduleEntries.userId, userId));
 
-      // Insert new schedule entries in batches
-      const batchSize = 100;
-      for (let i = 0; i < schedule.length; i += batchSize) {
-        const batch = schedule.slice(i, i + batchSize).map((entry) => ({
-          userId,
-          ...entry,
-        }));
-        await tx.insert(scheduleEntries).values(batch);
-      }
+    // Insert the new schedule entries.
+    await tx.insert(scheduleEntries).values(
+      schedule.map((entry) => ({
+        userId,
+        ...entry,
+      })),
+    );
 
-      // Update user's last schedule update time
-      await tx
-        .update(users)
-        .set({ lastScheduleUpdate: new Date() })
-        .where(eq(users.id, userId));
-    });
+    // Update the user's last schedule update time.
+    await tx
+      .update(users)
+      .set({ lastScheduleUpdate: new Date() })
+      .where(eq(users.id, userId));
+  });
 
-    return userId;
-  } catch (error) {
-    console.error("Schedule generation error:", error);
-    throw new Error("Failed to generate schedule");
-  }
+  return userId;
 }
 
 function createRotatingSchedule(
@@ -88,56 +75,60 @@ function createRotatingSchedule(
   totalDays: number,
   startDate: Date,
 ): ScheduleEntry[] {
-  // Validate segments
-  if (!segments.every((segment) => segment.days && segment.days > 0)) {
-    throw new Error("All segments must have a valid number of days");
+  const schedule: ScheduleEntry[] = [];
+  const cycleLength = segments.reduce(
+    (sum, segment) => sum + (segment.days ?? 0),
+    0,
+  );
+
+  if (cycleLength === 0) {
+    throw new Error(
+      "Invalid segments: Each segment must have a valid number of days.",
+    );
   }
 
-  const schedule: ScheduleEntry[] = [];
-  const cycleLength = segments.reduce((sum, segment) => sum + segment.days!, 0);
-
-  // Clone the start date to avoid modifying the input
   let currentDate = new Date(startDate);
   currentDate.setHours(0, 0, 0, 0);
 
+  let cycleDay = 0;
+
   for (let day = 0; day < totalDays; day++) {
-    let dayInCycle = day % cycleLength;
-    let currentSegment = findSegmentForDay(segments, dayInCycle);
+    let dayInCycle = cycleDay % cycleLength;
+    let accumulatedDays = 0;
+    let currentSegment: ShiftSegment | null = null;
+
+    for (const segment of segments) {
+      const segmentDays = segment.days ?? 0;
+      accumulatedDays += segmentDays;
+      if (dayInCycle < accumulatedDays) {
+        currentSegment = segment;
+        break;
+      }
+    }
 
     if (!currentSegment) {
-      throw new Error("Failed to find matching segment");
+      // Fallback in case no segment is found
+      currentSegment = segments[segments.length - 1];
     }
 
     schedule.push({
       date: formatDate(currentDate),
       dayOfWeek: DAYS_OF_WEEK[currentDate.getDay()],
       shift: currentSegment.shiftType,
-      title: currentSegment.title || null,
+      title: currentSegment.title,
     });
 
-    // Move to next day
+    // Move to the next day
     currentDate.setDate(currentDate.getDate() + 1);
+    cycleDay++;
   }
 
   return schedule;
 }
 
-function findSegmentForDay(
-  segments: ShiftSegment[],
-  dayInCycle: number,
-): ShiftSegment | null {
-  let accumulatedDays = 0;
-
-  for (const segment of segments) {
-    accumulatedDays += segment.days!;
-    if (dayInCycle < accumulatedDays) {
-      return segment;
-    }
-  }
-
-  return null;
-}
-
 function formatDate(date: Date): string {
-  return date.toISOString().split("T")[0];
+  const year = date.getFullYear();
+  const month = `${date.getMonth() + 1}`.padStart(2, "0");
+  const dayOfMonth = `${date.getDate()}`.padStart(2, "0");
+  return `${year}-${month}-${dayOfMonth}`;
 }

@@ -1,7 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Card, CardContent } from "./ui/card";
+import React, { useState, useEffect } from "react";
 import { ScheduleEntry } from "@/types";
 import DownloadButton from "@/components/download-data";
 import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
@@ -10,39 +9,23 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function ClientScheduleView({
   scheduleEntriesData,
-  session,
 }: {
   scheduleEntriesData: ScheduleEntry[];
-  session: any;
 }): JSX.Element {
   if (scheduleEntriesData.length === 0) {
     return <p className="text-center text-lg">No schedule available</p>;
   }
 
   return (
-    <main className="mx-auto max-w-7xl px-4 pt-10 dark:bg-muted sm:px-6 md:mx-40 lg:px-8">
-      <Card className="w-full border-none bg-border dark:bg-muted">
-        <CardContent>
-          {!session && (
-            <div className="mb-6 rounded-lg bg-blue-100 p-4 text-blue-800 dark:bg-blue-900/20 dark:text-blue-200">
-              <p>
-                You are using the app as a guest. Your schedule will be lost
-                after you close this window. Sign in to save your data, and gain
-                access to additional options.
-              </p>
-            </div>
-          )}
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <DownloadButton scheduleEntriesData={scheduleEntriesData} />
-            </div>
-            <CalendarView scheduleEntriesData={scheduleEntriesData} />
-          </div>
-        </CardContent>
-      </Card>
-    </main>
+    <>
+      <div className="mb-10 flex items-center justify-between">
+        <DownloadButton scheduleEntriesData={scheduleEntriesData} />
+      </div>
+      <CalendarView scheduleEntriesData={scheduleEntriesData} />
+    </>
   );
 }
+
 const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 function CalendarView({
@@ -104,7 +87,7 @@ function CalendarView({
   };
 
   return (
-    <div className="w-full dark:bg-muted">
+    <div className="mx-auto w-full max-w-4xl px-2 dark:bg-muted">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-2xl font-bold">
           {currentDate.toLocaleString("default", {
@@ -112,7 +95,7 @@ function CalendarView({
             year: "numeric",
           })}
         </h2>
-        <div className="flex">
+        <div>
           <Button onClick={() => changeMonth(-1)} size="icon" className="mr-2">
             <ChevronLeftIcon className="h-4 w-4" />
             <span className="sr-only">Previous Month</span>
@@ -140,12 +123,12 @@ function CalendarView({
           >
             <div className="grid grid-cols-7 gap-1">
               {DAYS.map((day) => (
-                <div key={day} className="p-4 text-left font-bold">
+                <div key={day} className="p-2 text-center font-bold">
                   {day}
                 </div>
               ))}
               {[...Array(firstDayOfMonth)].map((_, index) => (
-                <div key={index} className="p-4"></div>
+                <div key={index} className="p-2"></div>
               ))}
               {Array.from({ length: daysInMonth }).map((_, index) => {
                 const date = new Date(
@@ -155,10 +138,11 @@ function CalendarView({
                 );
                 const scheduleEntry = getScheduleForDate(date);
                 const colorClass = getColorClass(scheduleEntry);
+
                 return (
                   <div
                     key={index}
-                    className={`flex h-20 w-full flex-col items-start rounded-md border p-2 pl-1 text-center ${colorClass}`}
+                    className={`flex h-20 w-full flex-col items-start rounded-md border p-2 ${colorClass}`}
                   >
                     <div className="font-semibold">{index + 1}</div>
                     {scheduleEntry ? (
@@ -183,7 +167,7 @@ function CalendarView({
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className="mt-20 flex justify-center space-x-4">
+      <div className="mt-4 flex justify-center space-x-4">
         <div className="flex items-center">
           <div className="mr-2 h-4 w-4 rounded border border-green-800 bg-blue-700 dark:bg-red-500"></div>
           <span>Work Day</span>
