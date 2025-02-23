@@ -10,6 +10,7 @@ import { PlusCircle, HelpCircle } from "lucide-react";
 import { FormField } from "./form-field";
 import { SegmentCard } from "./shift-segment-card";
 import { useScheduleForm } from "@/hooks/useScheduleForm";
+import { useFormStatus } from "react-dom";
 import {
   generateSessionSchedule,
   useSessionSchedule,
@@ -30,6 +31,7 @@ export function GenerateScheduleForm({ session }: GenerateScheduleFormProps) {
   const router = useRouter();
   const { toast } = useToast();
   const { saveSessionSchedule } = useSessionSchedule();
+  const { pending } = useFormStatus();
 
   const {
     addSegment,
@@ -182,6 +184,7 @@ export function GenerateScheduleForm({ session }: GenerateScheduleFormProps) {
                 </Card>
                 <div className="flex justify-center">
                   <Button
+                    disabled={pending}
                     type="submit"
                     className="w-full bg-blue-700 text-primary-foreground hover:bg-blue-700/80 dark:bg-red-500 dark:hover:bg-red-500/80 md:w-auto"
                   >

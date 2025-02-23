@@ -8,6 +8,7 @@ import {
   TooltipTrigger,
 } from "./ui/tooltip";
 import { saveAs } from "file-saver";
+import { useFormStatus } from "react-dom";
 
 interface DownloadICSButtonProps {
   scheduleEntriesData: ScheduleEntry[];
@@ -16,6 +17,7 @@ interface DownloadICSButtonProps {
 const DownloadICSButton: React.FC<DownloadICSButtonProps> = ({
   scheduleEntriesData,
 }) => {
+  const { pending } = useFormStatus();
   const downloadICS = () => {
     const icsContent = generateICS(scheduleEntriesData);
     const blob = new Blob([icsContent], {
@@ -28,7 +30,12 @@ const DownloadICSButton: React.FC<DownloadICSButtonProps> = ({
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button variant="default" className="ml-2" onClick={downloadICS}>
+          <Button
+            variant="default"
+            disabled={pending}
+            className="ml-2"
+            onClick={downloadICS}
+          >
             Download
           </Button>
         </TooltipTrigger>
@@ -50,13 +57,15 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 `;
 
-  const workDays = scheduleEntriesData.filter((entry) => entry.shift.toLowerCase() === "work");
+  const workDays = scheduleEntriesData.filter(
+    (entry) => entry.shift.toLowerCase() === "work",
+  );
 
   workDays.forEach((entry, index) => {
     const eventDate = new Date(entry.date);
     const startDate = formatDateICS(eventDate);
     const endDate = formatDateICS(
-      new Date(eventDate.getTime() + 24 * 60 * 60 * 1000)
+      new Date(eventDate.getTime() + 24 * 60 * 60 * 1000),
     );
 
     ics += `BEGIN:VEVENT
@@ -65,7 +74,7 @@ DTSTAMP:${formatDateICS(new Date())}
 DTSTART;VALUE=DATE:${startDate}
 DTEND;VALUE=DATE:${endDate}
 SUMMARY:${entry.shift}
-DESCRIPTION:${entry.title || 'No additional information'}
+DESCRIPTION:${entry.title || "No additional information"}
 END:VEVENT
 `;
   });
@@ -85,4 +94,3 @@ function formatDateICS(date: Date): string {
 function padZero(num: number): string {
   return num < 10 ? `0${num}` : `${num}`;
 }
-
