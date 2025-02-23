@@ -183,7 +183,7 @@ function CalendarView({
           </motion.div>
         </AnimatePresence>
       </div>
-      <div className="mt-4 flex justify-center space-x-4">
+      <div className="mt-20 flex justify-center space-x-4">
         <div className="flex items-center">
           <div className="mr-2 h-4 w-4 rounded border border-green-800 bg-blue-700 dark:bg-red-500"></div>
           <span>Work Day</span>
