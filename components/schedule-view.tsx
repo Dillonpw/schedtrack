@@ -18,7 +18,7 @@ export default function ClientScheduleView({
 
   return (
     <>
-      <div className="mb-10 flex items-center justify-between">
+      <div className="mb-10 lg:mx-40 md:mx-20 flex items-center justify-between">
         <DownloadButton scheduleEntriesData={scheduleEntriesData} />
       </div>
       <CalendarView scheduleEntriesData={scheduleEntriesData} />

@@ -31,7 +31,6 @@ export const useSessionSchedule = () => {
   };
 };
 
-// Modify the generateSchedule function to work with sessionStorage
 export const generateSessionSchedule = ({
   segments,
   totalDays,
