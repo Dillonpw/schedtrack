@@ -86,7 +86,7 @@ export default function GenerateScheduleForm() {
 
   return (
     <main className="mx-auto max-w-7xl px-4 pt-10 dark:bg-muted sm:px-6 md:mx-40 lg:px-8">
-      <Card className="mx-auto w-full max-w-4xl border-none bg-border dark:bg-muted">
+      <Card className="mx-auto w-full max-w-2xl border-none bg-border dark:bg-muted">
         <CardContent>
           <form onSubmit={handleGenerateSchedule} className="space-y-6">
             <div className="flex flex-col gap-6">
