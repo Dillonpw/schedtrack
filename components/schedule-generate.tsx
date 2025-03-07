@@ -7,9 +7,15 @@ import { Button } from "@/components/ui/button";
 import { DatePicker } from "@/components/ui/date-picker";
 import { generateSchedule } from "@/lib/actions/generateSchedule";
 import { useToast } from "@/components/ui/use-toast";
-import { Card, CardContent } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { PlusCircle, HelpCircle } from "lucide-react";
+import { PlusCircle, HelpCircle, Calendar, Loader2 } from "lucide-react";
 import { FormField } from "./form-field";
 import { SegmentCard } from "./shift-segment-card";
 import { useScheduleForm } from "@/hooks/useScheduleForm";
@@ -19,6 +25,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Separator } from "@/components/ui/separator";
 
 export default function GenerateScheduleForm() {
   const router = useRouter();
@@ -58,6 +65,11 @@ export default function GenerateScheduleForm() {
         totalDays: totalDays || 0,
         startDate,
       });
+      toast({
+        title: "Success!",
+        description: "Your schedule has been generated.",
+        variant: "default",
+      });
       router.push("/schedule");
     } catch (error) {
       toast({
@@ -70,94 +82,140 @@ export default function GenerateScheduleForm() {
 
   if (status === "loading") {
     return (
-      <div className="flex h-screen items-center justify-center">
-        Loading...
+      <div className="flex h-[80vh] items-center justify-center">
+        <div className="flex flex-col items-center gap-4">
+          <Loader2 className="h-12 w-12 animate-spin text-primary" />
+          <p className="text-lg font-medium">Loading your profile...</p>
+        </div>
       </div>
     );
   }
 
   if (status === "unauthenticated") {
     return (
-      <div className="flex h-screen items-center justify-center">
-        Please sign in to generate a schedule.
+      <div className="flex h-[80vh] flex-col items-center justify-center gap-4">
+        <Card className="w-full max-w-md border-2 border-destructive/20 p-6 text-center shadow-lg">
+          <CardTitle className="mb-2 text-xl">
+            Authentication Required
+          </CardTitle>
+          <CardDescription className="text-base">
+            Please sign in to create and manage your work schedules.
+          </CardDescription>
+        </Card>
       </div>
     );
   }
 
   return (
-    <main className="mx-auto max-w-7xl px-4 pt-10 dark:bg-muted sm:px-6 md:mx-40 lg:px-8">
-      <Card className="mx-auto w-full max-w-2xl border-none bg-border dark:bg-muted">
-        <CardContent>
-          <form onSubmit={handleGenerateSchedule} className="space-y-6">
-            <div className="flex flex-col gap-6">
-              <div className="flex-1 space-y-4">
-                {segments.map((segment, index) => (
-                  <SegmentCard
-                    key={index}
-                    segment={segment}
-                    index={index}
-                    updateSegment={updateSegment}
-                    removeSegment={removeSegment}
-                  />
-                ))}
-                <div className="flex justify-center">
-                  <Button
-                    type="button"
-                    onClick={addSegment}
-                    className="w-full border-2 border-gray-300 bg-accent text-foreground hover:bg-accent/80 hover:text-accent-foreground dark:bg-background md:w-auto"
-                  >
-                    <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
-                  </Button>
+    <main className="container mx-auto px-4 py-10">
+      <Card className="mx-auto w-full max-w-3xl overflow-hidden bg-card shadow-lg">
+        <CardHeader className="bg-primary/5 pb-6">
+          <CardTitle className="text-center text-2xl font-bold">
+            Create Your Work Schedule
+          </CardTitle>
+          <CardDescription className="text-center text-sm">
+            Define your work and off-duty segments to generate a personalized
+            schedule
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="p-6">
+          <form onSubmit={handleGenerateSchedule} className="space-y-8">
+            <div className="space-y-6">
+              <div>
+                <div className="mb-4 flex items-center justify-between">
+                  <h3 className="text-lg font-medium">Shift Segments</h3>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="ghost" size="icon" className="h-8 w-8">
+                          <HelpCircle className="h-4 w-4" />
+                          <span className="sr-only">Help</span>
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent side="left" className="max-w-xs">
+                        <p>
+                          Define your work rotation pattern. Add segments for
+                          work days and off days.
+                        </p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
                 </div>
+
+                <div className="space-y-3">
+                  {segments.map((segment, index) => (
+                    <SegmentCard
+                      key={index}
+                      segment={segment}
+                      index={index}
+                      updateSegment={updateSegment}
+                      removeSegment={removeSegment}
+                    />
+                  ))}
+                </div>
+
+                <Button
+                  type="button"
+                  onClick={addSegment}
+                  variant="outline"
+                  className="mt-3 w-full border-dashed bg-background text-gray-100 hover:bg-background/50"
+                >
+                  <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
+                </Button>
               </div>
-              <div className="flex-1 space-y-4">
-                <Card>
-                  <CardContent className="rounded-lg pt-6 dark:bg-background">
-                    <div className="flex flex-col items-center gap-2">
+
+              <Separator />
+
+              <div className="grid gap-6 md:grid-cols-2">
+                <Card className="overflow-hidden border bg-card/50 shadow-sm">
+                  <CardContent className="p-4">
+                    <div className="flex flex-col gap-3">
+                      <Label
+                        htmlFor="totalDays"
+                        className="text-sm font-medium"
+                      >
+                        Schedule Length
+                      </Label>
                       <FormField
-                        label="Total Days"
+                        label=""
                         id="totalDays"
                         value={totalDays}
                         onChange={(value) => updateField("totalDays", value)}
                         min={1}
                         max={630}
-                        tooltip="Enter the number of days ahead you would like to display"
+                        tooltip="Enter the number of days to display in your schedule"
                       />
                     </div>
                   </CardContent>
                 </Card>
-                <Card>
-                  <CardContent className="rounded-lg pt-6 dark:bg-background">
-                    <div className="flex flex-col items-center space-y-2">
-                      <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <Label className="flex items-center gap-1">
-                              Start Date{" "}
-                              <HelpCircle className="h-4 w-4 text-muted-foreground" />
-                            </Label>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            Select the first day of a recent work rotation
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
-                      <DatePicker
-                        date={startDate}
-                        onDateChange={(date) => updateField("startDate", date)}
-                      />
+
+                <Card className="overflow-hidden border bg-card/50 shadow-sm">
+                  <CardContent className="p-4">
+                    <div className="flex flex-col gap-3">
+                      <Label className="text-sm font-medium">Start Date</Label>
+                      <div className="flex items-center gap-2">
+                        <Calendar className="h-4 w-4 text-muted-foreground" />
+                        <DatePicker
+                          date={startDate}
+                          onDateChange={(date) =>
+                            updateField("startDate", date)
+                          }
+                        />
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
-                <div className="flex justify-center">
-                  <Button
-                    type="submit"
-                    className="w-full bg-blue-700 text-primary-foreground hover:bg-blue-700/80 dark:bg-red-500 dark:hover:bg-red-500/80 md:w-auto"
-                  >
-                    Generate Schedule
-                  </Button>
-                </div>
               </div>
+            </div>
+
+            <div className="flex justify-center pt-2">
+              <Button
+                type="submit"
+                size="lg"
+                className="relative overflow-hidden bg-primary px-8 text-primary-foreground transition-all hover:bg-primary/90"
+              >
+                <span className="relative z-10">Generate My Schedule</span>
+              </Button>
             </div>
           </form>
         </CardContent>

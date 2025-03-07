@@ -1,25 +1,26 @@
-import React from 'react';
+"use client";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { HelpCircle } from "lucide-react";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { HelpCircle } from 'lucide-react';
 
-interface FormFieldProps {
+type FormFieldProps = {
   label: string;
   id: string;
   value: number | undefined;
   onChange: (value: number | undefined) => void;
-  min: number;
+  min?: number;
   max?: number;
-  tooltip: string;
-}
+  tooltip?: string;
+};
 
-export const FormField: React.FC<FormFieldProps> = ({
+export function FormField({
   label,
   id,
   value,
@@ -27,32 +28,47 @@ export const FormField: React.FC<FormFieldProps> = ({
   min,
   max,
   tooltip,
-}) => (
-  <div className="space-y-2">
-    <TooltipProvider>
-      <Tooltip>
-        <TooltipTrigger asChild>
-          <Label htmlFor={id} className="flex items-center gap-1">
-            {label} <HelpCircle className="h-4 w-4 text-muted-foreground" />
+}: FormFieldProps) {
+  return (
+    <div className="w-full space-y-2">
+      {label && (
+        <div className="flex items-center gap-1">
+          <Label htmlFor={id} className="text-sm font-medium">
+            {label}
           </Label>
-        </TooltipTrigger>
-        <TooltipContent>{tooltip}</TooltipContent>
-      </Tooltip>
-    </TooltipProvider>
-    <Input
-      type="number"
-      id={id}
-      value={value !== undefined && value !== 0 ? value : ""}
-      onChange={(e) => {
-        const val = e.target.value;
-        onChange(val ? parseInt(val, 10) : undefined);
-      }}
-      min={min}
-      max={max}
-      placeholder="Enter days"
-      className="bg-gray-200 text-black"
-      required
-    />
-  </div>
-);
-
+          {tooltip && (
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <HelpCircle className="h-3.5 w-3.5 text-muted-foreground" />
+                </TooltipTrigger>
+                <TooltipContent side="top">
+                  <p>{tooltip}</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
+          )}
+        </div>
+      )}
+      <div className="relative">
+        <Input
+          id={id}
+          type="number"
+          min={min}
+          max={max}
+          value={value || ""}
+          onChange={(e) => {
+            const value = e.target.value
+              ? Number.parseInt(e.target.value)
+              : undefined;
+            onChange(value);
+          }}
+          className="w-full dark:text-black"
+        />
+        <div className="absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-muted-foreground">
+          days
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -1,9 +1,10 @@
-import React from 'react';
+"use client";
+
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { MinusCircle } from 'lucide-react';
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -11,74 +12,153 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { FormField } from "./form-field";
-import { ShiftSegment } from "@/types";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Trash2, HelpCircle, Briefcase, Coffee } from "lucide-react";
 
-interface SegmentCardProps {
-  segment: ShiftSegment;
+type Segment = {
+  shiftType: string;
+  days: number | undefined;
+  title: string | null;
+};
+
+type SegmentCardProps = {
+  segment: Segment;
   index: number;
-  updateSegment: (index: number, field: keyof ShiftSegment, value: any) => void;
+  updateSegment: (index: number, field: keyof Segment, value: any) => void;
   removeSegment: (index: number) => void;
-}
+};
 
-export const SegmentCard: React.FC<SegmentCardProps> = ({
+export function SegmentCard({
   segment,
   index,
   updateSegment,
   removeSegment,
-}) => (
-  <Card>
-    <CardContent className="rounded-lg pt-6 dark:bg-background">
-      <div className="flex flex-col items-center gap-2">
-        <div className="space-y-2">
-          <Label htmlFor={`segment-type-${index}`}>Shift Type</Label>
-          <Select
-            value={segment.shiftType}
-            onValueChange={(value) =>
-              updateSegment(index, "shiftType", value as "Work" | "Off")
-            }
-          >
-            <SelectTrigger id={`segment-type-${index}`}>
-              <SelectValue placeholder="Select shift type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Work">Work</SelectItem>
-              <SelectItem value="Off">Off</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        <FormField
-          label="Days"
-          id={`segment-days-${index}`}
-          value={segment.days}
-          onChange={(value) => updateSegment(index, "days", value)}
-          min={1}
-          tooltip="Enter the number of days for this segment"
-        />
-        {segment.shiftType === "Work" && (
-          <div className="space-y-2">
-            <Label htmlFor={`segment-title-${index}`}>Time</Label>
-            <Input
-              type="text"
-              id={`segment-title-${index}`}
-              value={segment.title || ""}
-              onChange={(e) => updateSegment(index, "title", e.target.value)}
-              placeholder="Enter work hours"
-              className="bg-gray-200 text-black"
-            />
-          </div>
-        )}
-        <Button
-          type="button"
-          variant="ghost"
-          size="icon"
-          onClick={() => removeSegment(index)}
-          className="h-10 w-10 shrink-0 text-destructive dark:text-red-500"
-        >
-          <MinusCircle className="h-5 w-5" />
-        </Button>
-      </div>
-    </CardContent>
-  </Card>
-);
+}: SegmentCardProps) {
+  const [focused, setFocused] = useState(false);
 
+  return (
+    <Card
+      className={`overflow-hidden border transition-all duration-200 ${focused ? "ring-2 ring-primary/20" : ""}`}
+    >
+      <CardContent className="p-4">
+        <div className="flex flex-col gap-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              {segment.shiftType === "Work" ? (
+                <Briefcase className="h-4 w-4 text-primary" />
+              ) : (
+                <Coffee className="h-4 w-4 text-muted-foreground" />
+              )}
+              <span className="font-medium">
+                {segment.shiftType === "Work"
+                  ? "Work Period"
+                  : "Off-Duty Period"}
+              </span>
+            </div>
+            {index > 1 && (
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                onClick={() => removeSegment(index)}
+                className="h-8 w-8 text-muted-foreground hover:text-destructive"
+              >
+                <Trash2 className="h-4 w-4" />
+                <span className="sr-only">Remove segment</span>
+              </Button>
+            )}
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-2">
+              <div className="flex items-center gap-1">
+                <Label htmlFor={`segment-type-${index}`} className="text-sm">
+                  Segment Type
+                </Label>
+              </div>
+              <Select
+                value={segment.shiftType}
+                onValueChange={(value) =>
+                  updateSegment(index, "shiftType", value)
+                }
+              >
+                <SelectTrigger
+                  id={`segment-type-${index}`}
+                  className="w-full"
+                  onFocus={() => setFocused(true)}
+                  onBlur={() => setFocused(false)}
+                >
+                  <SelectValue placeholder="Select type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Work">Work</SelectItem>
+                  <SelectItem value="Off">Off</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <div className="flex items-center gap-1">
+                <Label htmlFor={`segment-days-${index}`} className="text-sm">
+                  Number of Days
+                </Label>
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <HelpCircle className="h-3 w-3 text-muted-foreground" />
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="max-w-xs">
+                      <p>Enter how many consecutive days for this segment</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </div>
+              <Input
+                id={`segment-days-${index}`}
+                type="number"
+                min={1}
+                max={30}
+                value={segment.days || ""}
+                placeholder="0"
+                onChange={(e) => {
+                  const value = e.target.value
+                    ? Number.parseInt(e.target.value)
+                    : undefined;
+                  updateSegment(index, "days", value);
+                }}
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                className="w-full dark:text-black"
+              />
+            </div>
+          </div>
+
+          {segment.shiftType === "Work" && (
+            <div className="space-y-2">
+              <div className="flex items-center gap-1">
+                <Label htmlFor={`segment-title-${index}`} className="text-sm">
+                  Shift Title (Optional)
+                </Label>
+              </div>
+              <Input
+                id={`segment-title-${index}`}
+                type="text"
+                value={segment.title || ""}
+                onChange={(e) => updateSegment(index, "title", e.target.value)}
+                placeholder="Day Shift, Night Shift, etc."
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                className="w-full dark:text-black"
+              />
+            </div>
+          )}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
