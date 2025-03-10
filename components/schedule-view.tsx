@@ -174,7 +174,7 @@ function CalendarView({
                   return (
                     <div
                       key={`day-${index}`}
-                      className={`flex h-20 flex-col rounded-md border ${colorClass} ${
+                      className={`flex h-14 flex-col rounded-md border sm:h-20 ${colorClass} ${
                         isToday ? "ring-2 ring-blue-400 dark:ring-red-300" : ""
                       } transition-all`}
                     >

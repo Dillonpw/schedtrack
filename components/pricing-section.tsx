@@ -23,7 +23,7 @@ export default async function Pricing() {
               <CardTitle className="text-2xl font-bold text-card-foreground md:text-3xl">
                 Free Account
               </CardTitle>
-              <p className="mt-2 text-sm text-blue-700 dark:text-red-500">
+              <p className="mt-2 text-base text-blue-700 dark:text-gray-200">
                 Start Scheduling
               </p>
             </CardHeader>
@@ -37,7 +37,7 @@ export default async function Pricing() {
                   "Download and add your schedule to your calendar of choice",
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start gap-2">
-                    <Check className="mt-1 h-5 w-5 flex-shrink-0 text-primary" />
+                    <Check className="h-1lh w-4 flex-shrink-0 text-primary" />
                     <span className="text-card-foreground/90 transition-all duration-300 group-hover:text-card-foreground">
                       {feature}
                     </span>
@@ -52,7 +52,7 @@ export default async function Pricing() {
               <Button
                 asChild
                 size="lg"
-                className="bg-primary text-primary-foreground transition-all duration-300 hover:scale-105 hover:bg-primary/90"
+                className="bg-primary text-primary-foreground transition-all hover:bg-primary/90"
               >
                 <Link href="/signin" prefetch={false}>
                   Get Started
