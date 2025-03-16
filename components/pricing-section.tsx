@@ -11,13 +11,13 @@ import {
 
 export default async function Pricing() {
   return (
-    <div className="container mx-auto bg-muted px-4 py-16 lg:py-24">
+    <div className="bg-muted px-4 py-16 lg:py-24">
       <div
         data-testid="pricing"
         id="pricing"
         className="flex w-full flex-col items-stretch justify-center gap-8 lg:flex-row"
       >
-        <div className="mx-auto w-full max-w-md lg:w-1/2">
+        <div className="mx-auto w-full max-w-md lg:w-1/2 ">
           <Card className="group h-full overflow-hidden border bg-card transition-all duration-300 hover:shadow-lg dark:bg-gray-600">
             <CardHeader className="bg-card p-6 text-center dark:bg-gray-600">
               <CardTitle className="text-2xl font-bold text-card-foreground md:text-3xl">
