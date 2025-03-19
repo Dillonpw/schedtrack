@@ -19,6 +19,21 @@ export default function Component() {
       description:
         "Access your schedule anytime, anywhere with desktop and mobile friendly application. Perfect for checking your shifts on the go or making quick adjustments from your smartphone or tablet.",
     },
+    {
+      title: "Flexible Scheduling Patterns",
+      description:
+        "Create any type of schedule that fits your needs - from standard 9-5 shifts to complex rotating patterns. Our system handles regular, irregular, and rotating schedules with ease.",
+    },
+    {
+      title: "Smart Calendar Integration",
+      description:
+        "Seamlessly sync your schedule with your preferred calendar app. Export to Google Calendar, Apple Calendar, or Outlook with just a few clicks, keeping your schedule accessible everywhere.",
+    },
+    {
+      title: "Cross-Platform Access",
+      description:
+        "Access and manage your schedule from any device. Our responsive design works perfectly on desktop, tablet, or mobile, ensuring you can check or update your schedule anytime, anywhere.",
+    },
   ];
 
   return (
@@ -49,11 +64,11 @@ export default function Component() {
               className="space-y-2"
             >
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl lg:text-5xl">
-                Manage Your Time More Efficiently and Without the Headache
+                Flexible Scheduling for Any Pattern
               </h2>
               <p className="mx-auto max-w-[700px] text-lg font-light">
-                Our rotating schedule builder comes packed with features
-                designed to simplify your life and streamline your workflow.
+                Our schedule builder adapts to your unique needs, whether you're
+                managing regular shifts, rotating schedules, or any other pattern.
               </p>
             </motion.div>
           </div>
@@ -79,29 +94,6 @@ export default function Component() {
                 ))}
               </ul>
             </div>
-          </div>
-          <div className="mx-auto max-w-3xl">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.5 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="pt-40"
-            >
-              <figure className="mx-auto max-w-[95%] sm:max-w-lg md:max-w-2xl">
-                <video
-                  src="https://utfs.io/f/2x9MeROBnW8izghZmAdbdqj6eSUgmlVLipk0w4HItRXDYyGJ"
-                  className="aspect-video w-full rounded-xl object-cover object-center shadow-lg"
-                  muted
-                  playsInline
-                  autoPlay
-                  loop
-                  preload="metadata"
-                />
-                <figcaption className="text-md mt-2 text-center text-blue-800 dark:text-gray-100">
-                  A demonstration of how to use the schedule builder.
-                </figcaption>
-              </figure>
-            </motion.div>
           </div>
         </div>
       </section>

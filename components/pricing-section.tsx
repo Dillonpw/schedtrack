@@ -17,24 +17,24 @@ export default async function Pricing() {
         id="pricing"
         className="flex w-full flex-col items-stretch justify-center gap-8 lg:flex-row"
       >
-        <div className="mx-auto w-full max-w-md lg:w-1/2 ">
+        <div className="mx-auto w-full max-w-md lg:w-1/2">
           <Card className="group h-full overflow-hidden border bg-card transition-all duration-300 hover:shadow-lg dark:bg-gray-600">
             <CardHeader className="bg-card p-6 text-center dark:bg-gray-600">
               <CardTitle className="text-2xl font-bold text-card-foreground md:text-3xl">
                 Free Account
               </CardTitle>
               <p className="mt-2 text-base text-blue-700 dark:text-gray-200">
-                Start Scheduling
+                Perfect for Personal Use
               </p>
             </CardHeader>
             <CardContent className="flex-grow p-6">
               <ul className="space-y-4 text-sm">
                 {[
-                  "Full access to our custom schedule generating technology",
-                  "Unlimited schedule adjustments and redos",
-                  "Schedule up to 2 years into the future",
-                  "Your most recent schedule will always be a few clicks away",
-                  "Download and add your schedule to your calendar of choice",
+                  "Create and manage all types of schedules",
+                  "Basic schedule patterns and templates",
+                  "Schedule up to 2 year into the future",
+                  "Export to your preferred calendar app",
+                  "Mobile-friendly access",
                 ].map((feature, index) => (
                   <li key={index} className="flex items-start gap-2">
                     <Check className="h-1lh w-4 flex-shrink-0 text-primary" />

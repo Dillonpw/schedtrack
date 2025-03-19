@@ -26,7 +26,7 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
                 transition={{ delay: 0.1 }}
                 className="max-w-[600px] text-center text-xl font-bold text-foreground sm:text-left md:text-4xl"
               >
-                Effortless Schedule Managament
+                Smart Schedule Management
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0, x: -200 }}
@@ -34,12 +34,14 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
                 transition={{ delay: 0.2 }}
                 className="max-w-[600px] text-center text-foreground sm:text-left md:text-left md:text-xl"
               >
-                Our rotating schedule builder helps{" "}
+                Our intelligent schedule builder helps you manage any type of
+                schedule - from regular 9-5 shifts to complex rotating patterns.
+                Perfect for{" "}
                 <span className="font-semibold text-blue-700 dark:text-red-500">
-                  First Responders
+                  Everyone
                 </span>{" "}
-                as well as a multidude of other professionals schedule next
-                month, 6 months, or a year from now with ease. <br />
+                who need to plan ahead, whether it's for next month, 6 months,
+                or years.
               </motion.p>
             </div>
             <motion.div

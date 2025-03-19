@@ -42,9 +42,7 @@ export default function GenerateScheduleForm() {
     startDate,
     scheduleName,
   } = useScheduleForm({
-    segments: [
-      { shiftType: "On", days: undefined, note: "", description: "" },
-    ],
+    segments: [{ shiftType: "On", days: undefined, note: "", description: "" }],
     totalDays: undefined,
     startDate: new Date(),
     scheduleName: "",
@@ -224,8 +222,8 @@ export default function GenerateScheduleForm() {
                         value={totalDays}
                         onChange={(value) => updateField("totalDays", value)}
                         min={1}
-                        max={630}
-                        tooltip="Enter the number of days to display in your schedule"
+                        max={730}
+                        tooltip="Enter the number of days to display in your schedule (maximum 2 years)"
                       />
                     </div>
                   </CardContent>

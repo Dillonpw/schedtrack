@@ -57,6 +57,10 @@ export async function generateSchedule({
       throw new Error("Total days must be greater than 0");
     }
 
+    if (totalDays > 730) {
+      throw new Error("Schedule cannot exceed 2 years (730 days)");
+    }
+
     if (!startDate || isNaN(startDate.getTime())) {
       throw new Error("Invalid start date");
     }
@@ -143,7 +147,7 @@ function createRotatingSchedule(
     const segment = dayToSegmentMap[cyclePosition];
 
     schedule.push({
-      date: formatDate(new Date(currentDate)), 
+      date: formatDate(new Date(currentDate)),
       dayOfWeek: DAYS_OF_WEEK[currentDate.getDay()],
       shift: segment.shiftType as "Work" | "Off",
       title: segment.note || null,

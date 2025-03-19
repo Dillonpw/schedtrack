@@ -14,6 +14,13 @@ const testimonials = [
       "Sched Track has been a game-changer for me. It's so easy to create and view my work schedule, before finding Sched Track I would have to sit down and count the days to try to figure out my days off now it's just there anytime I need it. Highly recommend!",
   },
   {
+    name: "Lisa Martinez",
+    role: "Home Manager",
+    fallback: "LM",
+    content:
+      "I use Sched Track to manage our household maintenance schedule. From cleaning rotations to plant watering schedules, it keeps everything organized. The calendar sync feature means I never miss a task, and my family can easily check what needs to be done.",
+  },
+  {
     name: "Mike Johnson",
     role: "Fire Captain",
     fallback: "MJ",
@@ -21,32 +28,25 @@ const testimonials = [
       "As a fire captain, managing shifts for my team used to be a nightmare. This app has streamlined the entire process. It's intuitive, reliable, and has significantly reduced scheduling conflicts.",
   },
   {
-    name: "Sarah Lee",
-    role: "ER Doctor",
-    fallback: "SL",
+    name: "Rachel Chen",
+    role: "Property Manager",
+    fallback: "RC",
     content:
-      "In the fast-paced environment of the ER, having a clear view of my rotating schedule is crucial. This app has made it so much easier to balance my work life with personal commitments. It's a must-have for any healthcare professional.",
+      "Managing multiple properties means juggling various maintenance schedules. Sched Track helps me keep track of everything from regular cleaning to seasonal maintenance. The ability to create different schedules for different properties is invaluable.",
   },
   {
-    name: "Jane Smith",
-    role: "Nursing Supervisor",
-    fallback: "JS",
+    name: "David Thompson",
+    role: "Small Business Owner",
+    fallback: "DT",
     content:
-      "I've been using this rotating schedule app for months and it's been a lifesaver. I've gotten my whole team involved. The ability to create and manage rotating schedules has made planning our lives so much easier.",
+      "I run a small café and use Sched Track for both staff scheduling and maintenance tasks. From employee shifts to cleaning schedules and equipment maintenance, everything is in one place. It's made running my business so much easier.",
   },
   {
-    name: "Tom Wilson",
-    role: "Police Sergeant",
-    fallback: "TW",
+    name: "Sarah Anderson",
+    role: "Homeowner",
+    fallback: "SA",
     content:
-      "I've tried several scheduling apps, but this one takes the cake. It's particularly useful for our department's complex rotating shifts. The ability to sync with my personal calendar is a game-changer.",
-  },
-  {
-    name: "Emily Chen",
-    role: "Air Traffic Controller",
-    fallback: "EC",
-    content:
-      "Managing rotating shifts in air traffic control is critical. This app has not only made scheduling easier but has also helped improve our team's work-life balance. It's an essential tool in our high-stress environment.",
+      "As someone who travels frequently, Sched Track is perfect for managing my home maintenance tasks. I can set up schedules for house cleaning, plant care, and even pet sitting. The notifications ensure nothing gets missed while I'm away.",
   },
 ];
 
