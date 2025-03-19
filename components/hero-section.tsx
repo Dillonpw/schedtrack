@@ -8,8 +8,8 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
   const [date, setDate] = React.useState<Date | undefined>(new Date());
 
   return (
-    <section className="w-full pb-40 pt-20 md:pb-60 md:pt-40">
-      <div className="container px-4 md:px-16">
+    <section className="w-full py-20 md:py-32 lg:py-40">
+      <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center justify-center sm:flex-row">
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-2">

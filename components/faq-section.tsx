@@ -63,7 +63,7 @@ export default function Faq() {
       </svg>
       <section
         data-testid="faq"
-        className="flex w-full flex-col gap-6 bg-muted py-40 md:pb-60 md:pt-40"
+        className="flex w-full flex-col gap-6 bg-muted py-20 md:py-32 lg:py-40"
       >
         <div className="container px-4 md:px-6">
           <motion.h2

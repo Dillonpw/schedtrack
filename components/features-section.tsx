@@ -53,9 +53,9 @@ export default function Component() {
       <section
         id="features"
         data-testid="features"
-        className="w-full bg-muted py-12 md:py-16 lg:py-20"
+        className="w-full bg-muted py-20 md:py-32 lg:py-40"
       >
-        <div className="container px-4 py-40 md:px-6 md:pb-60 md:pt-40">
+        <div className="container px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -68,7 +68,8 @@ export default function Component() {
               </h2>
               <p className="mx-auto max-w-[700px] text-lg font-light">
                 Our schedule builder adapts to your unique needs, whether you're
-                managing regular shifts, rotating schedules, or any other pattern.
+                managing regular shifts, rotating schedules, or any other
+                pattern.
               </p>
             </motion.div>
           </div>
