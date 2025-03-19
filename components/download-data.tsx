@@ -9,7 +9,7 @@ import {
 } from "./ui/tooltip";
 import { saveAs } from "file-saver";
 import { useFormStatus } from "react-dom";
-
+import { Download } from "lucide-react";
 interface DownloadICSButtonProps {
   scheduleEntriesData: ScheduleEntry[];
 }
@@ -31,11 +31,12 @@ const DownloadICSButton: React.FC<DownloadICSButtonProps> = ({
       <Tooltip>
         <TooltipTrigger asChild>
           <Button
-            variant="default"
+            variant="outline"
             disabled={pending}
-            className="ml-2"
+            className="flex items-center gap-2 text-foreground"
             onClick={downloadICS}
           >
+            <Download className="h-4 w-4" />
             Download
           </Button>
         </TooltipTrigger>

@@ -9,16 +9,26 @@ export interface ScheduleEntry {
   dayOfWeek: string;
   shift: string;
   title: string | null;
+  description: string | null;
 }
 
 export interface ShiftSegment {
-  shiftType: "Work" | "Off";
+  shiftType: "On" | "Off";
   days: number | undefined;
-  title: string | null;
+  note: string | null;
+  description: string | null;
 }
 
 export interface FormData {
   segments: ShiftSegment[];
   totalDays: number | undefined;
   startDate: Date | undefined;
+  scheduleName: string;
+}
+
+export interface GenerateScheduleParams {
+  segments: ShiftSegment[];
+  totalDays: number;
+  startDate: Date;
+  name: string;
 }

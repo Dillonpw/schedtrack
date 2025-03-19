@@ -26,6 +26,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Separator } from "@/components/ui/separator";
+import { Input } from "@/components/ui/input";
 
 export default function GenerateScheduleForm() {
   const router = useRouter();
@@ -39,31 +40,41 @@ export default function GenerateScheduleForm() {
     segments,
     totalDays,
     startDate,
+    scheduleName,
   } = useScheduleForm({
     segments: [
-      { shiftType: "Work", days: undefined, title: "" },
-      { shiftType: "Off", days: undefined, title: null },
+      { shiftType: "On", days: undefined, note: "", description: "" },
     ],
     totalDays: undefined,
     startDate: new Date(),
+    scheduleName: "",
   });
 
   const handleGenerateSchedule = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!startDate || !session) {
+    if (!startDate || !session || !scheduleName) {
       toast({
         title: "Error",
-        description: "Please select a start date and ensure you're logged in.",
+        description:
+          "Please fill in all required fields and ensure you're logged in.",
         variant: "destructive",
       });
       return;
     }
 
+    if (segments.length === 0) {
+      addSegment("On");
+    }
+
     try {
       await generateSchedule({
-        segments,
+        segments:
+          segments.length === 0
+            ? [{ shiftType: "On", days: undefined, note: "", description: "" }]
+            : segments,
         totalDays: totalDays || 0,
         startDate,
+        name: scheduleName,
       });
       toast({
         title: "Success!",
@@ -72,12 +83,17 @@ export default function GenerateScheduleForm() {
       });
       router.push("/schedule");
     } catch (error) {
+      console.error("Frontend error details:", error);
       toast({
         title: "Error",
-        description: "Failed to generate schedule. Please try again.",
+        description: `Failed to generate schedule: ${error instanceof Error ? error.message : "Unknown error"}`,
         variant: "destructive",
       });
     }
+  };
+
+  const handleAddSegment = (type: "On" | "Off") => {
+    addSegment(type);
   };
 
   if (status === "loading") {
@@ -111,16 +127,39 @@ export default function GenerateScheduleForm() {
       <Card className="mx-auto w-full max-w-3xl overflow-hidden bg-card shadow-lg">
         <CardHeader className="bg-primary/5 pb-6">
           <CardTitle className="text-center text-2xl font-bold">
-            Create Your Work Schedule
+            Create Your Schedule
           </CardTitle>
           <CardDescription className="text-center text-sm">
-            Define your work and off-duty segments to generate a personalized
+            Define your On and off-duty segments to generate a personalized
             schedule
           </CardDescription>
         </CardHeader>
         <CardContent className="p-6">
           <form onSubmit={handleGenerateSchedule} className="space-y-8">
             <div className="space-y-6">
+              <Card className="overflow-hidden border bg-card/50 shadow-sm">
+                <CardContent className="p-4">
+                  <div className="flex flex-col gap-3">
+                    <Label
+                      htmlFor="scheduleName"
+                      className="text-sm font-medium"
+                    >
+                      Schedule Name
+                    </Label>
+                    <Input
+                      id="scheduleName"
+                      className="dark:text-black"
+                      placeholder="Enter a name for your schedule"
+                      value={scheduleName}
+                      onChange={(e) =>
+                        updateField("scheduleName", e.target.value)
+                      }
+                      required
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+
               <div>
                 <div className="mb-4 flex items-center justify-between">
                   <h3 className="text-lg font-medium">Shift Segments</h3>
@@ -134,8 +173,8 @@ export default function GenerateScheduleForm() {
                       </TooltipTrigger>
                       <TooltipContent side="left" className="max-w-xs">
                         <p>
-                          Define your work rotation pattern. Add segments for
-                          work days and off days.
+                          Define your schedule rotation pattern. Add segments
+                          for on days and off days.
                         </p>
                       </TooltipContent>
                     </Tooltip>
@@ -148,20 +187,23 @@ export default function GenerateScheduleForm() {
                       key={index}
                       segment={segment}
                       index={index}
+                      segments={segments}
                       updateSegment={updateSegment}
                       removeSegment={removeSegment}
                     />
                   ))}
                 </div>
 
-                <Button
-                  type="button"
-                  onClick={addSegment}
-                  variant="outline"
-                  className="mt-3 w-full border-dashed bg-background text-gray-100 hover:bg-background/50"
-                >
-                  <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
-                </Button>
+                <div className="mt-3 flex gap-2">
+                  <Button
+                    type="button"
+                    onClick={() => handleAddSegment("On")}
+                    variant="outline"
+                    className="flex-1 border-dashed"
+                  >
+                    <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
+                  </Button>
+                </div>
               </div>
 
               <Separator />

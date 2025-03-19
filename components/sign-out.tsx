@@ -1,7 +1,12 @@
 import { signOut } from "@/auth";
 import { Button } from "./ui/button";
 
-export function SignOut() {
+interface SignOutProps {
+  className?: string;
+  size?: "default" | "sm" | "lg" | "icon";
+}
+
+export function SignOut({ className, size = "default" }: SignOutProps) {
   return (
     <form
       action={async () => {
@@ -9,7 +14,13 @@ export function SignOut() {
         await signOut();
       }}
     >
-      <Button variant="destructive" size="lg" type="submit" data-testid="sign-out">
+      <Button
+        variant="destructive"
+        size={size}
+        type="submit"
+        data-testid="sign-out"
+        className={className}
+      >
         Sign Out
       </Button>
     </form>

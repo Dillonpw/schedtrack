@@ -221,7 +221,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
         className={cn(
-          "font-poppins bg-border text-base antialiased",
+          "font-poppins text-base antialiased",
           fontHeading.variable,
           fontBody.variable,
         )}

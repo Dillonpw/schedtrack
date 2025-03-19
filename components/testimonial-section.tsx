@@ -68,7 +68,7 @@ export default function TestimonialsSection() {
   });
 
   return (
-    <section className="w-full bg-muted py-40 md:px-6 md:pb-60 md:pt-40">
+    <section className="w-full bg-background py-40 md:px-6 md:pb-60 md:pt-40">
       <div className="container mx-auto max-w-7xl px-2 md:px-4">
         <div className="mb-12 flex flex-col items-center justify-center space-y-4 text-center">
           <motion.div

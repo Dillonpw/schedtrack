@@ -51,6 +51,9 @@ export function FormField({
         </div>
       )}
       <div className="relative">
+        <div className="absolute inset-y-0 left-0 flex items-center pl-3 text-sm text-muted-foreground">
+          days
+        </div>
         <Input
           id={id}
           type="number"
@@ -63,11 +66,8 @@ export function FormField({
               : undefined;
             onChange(value);
           }}
-          className="w-full dark:text-black"
+          className="w-full pl-12 dark:text-black"
         />
-        <div className="absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-muted-foreground">
-          days
-        </div>
       </div>
     </div>
   );

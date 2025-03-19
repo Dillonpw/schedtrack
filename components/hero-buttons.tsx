@@ -14,7 +14,6 @@ export default async function HeroBtn() {
         </Button>
         <Button
           variant="secondary"
-          className="border-2 border-blue-700 dark:border-red-500"
           asChild
         >
           <Link href="https://buy.stripe.com/7sIaFa7EQeJzbW8aEG">Donate</Link>

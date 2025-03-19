@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/db/index";
-import { scheduleEntries, users } from "@/db/schema";
+import { schedules, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
 import { ShiftSegment } from "@/types";
@@ -11,6 +11,7 @@ interface GenerateScheduleParams {
   segments: ShiftSegment[];
   totalDays: number;
   startDate: Date;
+  name: string;
 }
 
 interface ScheduleEntry {
@@ -18,56 +19,100 @@ interface ScheduleEntry {
   dayOfWeek: string;
   shift: "Work" | "Off";
   title: string | null;
+  description: string | null;
 }
 
 // Constants
-const DAYS_OF_WEEK = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-] as const;
+const DAYS_OF_WEEK = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 export async function generateSchedule({
   segments,
   totalDays,
   startDate,
+  name,
 }: GenerateScheduleParams): Promise<string> {
-  // Get the user ID from the authentication session.
-  const session = await auth();
-  if (!session?.user?.id) {
-    throw new Error("Not authenticated");
+  try {
+    console.log("Starting schedule generation with params:", {
+      name,
+      totalDays,
+      startDate,
+    });
+    console.log("Segments:", segments);
+
+    // Get the user ID from the authentication session.
+    const session = await auth();
+    if (!session?.user?.id) {
+      throw new Error("Not authenticated");
+    }
+
+    console.log("User authenticated:", session.user.id);
+    const userId = session.user.id;
+
+    // Validate input parameters
+    if (!name || name.trim().length === 0) {
+      throw new Error("Schedule name is required");
+    }
+
+    if (!segments || segments.length === 0) {
+      throw new Error("At least one segment is required");
+    }
+
+    if (totalDays <= 0) {
+      throw new Error("Total days must be greater than 0");
+    }
+
+    if (!startDate || isNaN(startDate.getTime())) {
+      throw new Error("Invalid start date");
+    }
+
+    console.log("All validations passed");
+
+    // Create the schedule.
+    console.log("Creating rotating schedule...");
+    const schedule = createRotatingSchedule(segments, totalDays, startDate);
+    console.log("Schedule created with", schedule.length, "entries");
+
+    // Save the schedule to the database.
+    console.log("Starting database transaction...");
+    try {
+      await db.transaction(async (tx) => {
+        console.log("Inserting schedule record...");
+        const result = await tx.insert(schedules).values({
+          userId,
+          name: name.trim(),
+          schedule: JSON.stringify(schedule),
+        });
+        console.log("Schedule inserted successfully");
+
+        console.log("Updating user's last schedule update time...");
+        await tx
+          .update(users)
+          .set({ lastScheduleUpdate: new Date() })
+          .where(eq(users.id, userId));
+        console.log("User updated successfully");
+      });
+      console.log("Transaction completed successfully");
+    } catch (dbError) {
+      console.error("Database error details:", dbError);
+      throw new Error(
+        `Database operation failed: ${dbError instanceof Error ? dbError.message : String(dbError)}`,
+      );
+    }
+
+    return userId;
+  } catch (error) {
+    console.error("Error generating schedule:", error);
+    throw error instanceof Error
+      ? error
+      : new Error("Failed to generate schedule");
   }
+}
 
-  const userId = session.user.id;
-
-  // Create the schedule.
-  const schedule = createRotatingSchedule(segments, totalDays, startDate);
-
-  // Save the schedule to the database.
-  await db.transaction(async (tx) => {
-    // Delete the old schedule entries.
-    await tx.delete(scheduleEntries).where(eq(scheduleEntries.userId, userId));
-
-    // Insert the new schedule entries.
-    await tx.insert(scheduleEntries).values(
-      schedule.map((entry) => ({
-        userId,
-        ...entry,
-      })),
-    );
-
-    // Update the user's last schedule update time.
-    await tx
-      .update(users)
-      .set({ lastScheduleUpdate: new Date() })
-      .where(eq(users.id, userId));
-  });
-
-  return userId;
+function formatDate(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
 }
 
 function createRotatingSchedule(
@@ -76,59 +121,46 @@ function createRotatingSchedule(
   startDate: Date,
 ): ScheduleEntry[] {
   const schedule: ScheduleEntry[] = [];
-  const cycleLength = segments.reduce(
-    (sum, segment) => sum + (segment.days ?? 0),
-    0,
-  );
 
-  if (cycleLength === 0) {
-    throw new Error(
-      "Invalid segments: Each segment must have a valid number of days.",
-    );
+  if (!segments || segments.length === 0) {
+    throw new Error("At least one segment is required");
   }
 
-  let currentDate = new Date(startDate);
-  currentDate.setHours(0, 0, 0, 0);
+  // Calculate total cycle length
+  const cycleLength = segments.reduce(
+    (sum, segment) => sum + (segment.days || 0),
+    0,
+  );
+  if (cycleLength <= 0) {
+    throw new Error("Total cycle length must be greater than 0");
+  }
 
-  let cycleDay = 0;
-
-  for (let day = 0; day < totalDays; day++) {
-    let dayInCycle = cycleDay % cycleLength;
-    let accumulatedDays = 0;
-    let currentSegment: ShiftSegment | null = null;
-
-    for (const segment of segments) {
-      const segmentDays = segment.days ?? 0;
-      accumulatedDays += segmentDays;
-      if (dayInCycle < accumulatedDays) {
-        currentSegment = segment;
-        break;
-      }
+  // Create a mapping of days in the cycle to their corresponding segment
+  const dayToSegmentMap: ShiftSegment[] = [];
+  segments.forEach((segment) => {
+    const days = segment.days || 0;
+    for (let i = 0; i < days; i++) {
+      dayToSegmentMap.push(segment);
     }
+  });
 
-    if (!currentSegment) {
-      // Fallback in case no segment is found
-      currentSegment = segments[segments.length - 1];
-    }
+  // Generate the schedule
+  const currentDate = new Date(startDate);
+  for (let i = 0; i < totalDays; i++) {
+    const cyclePosition = i % cycleLength;
+    const segment = dayToSegmentMap[cyclePosition];
 
     schedule.push({
-      date: formatDate(currentDate),
+      date: formatDate(new Date(currentDate)), // Create a new Date to avoid modifying the original
       dayOfWeek: DAYS_OF_WEEK[currentDate.getDay()],
-      shift: currentSegment.shiftType,
-      title: currentSegment.title,
+      shift: segment.shiftType as "Work" | "Off",
+      title: segment.note || null,
+      description: segment.description || null,
     });
 
     // Move to the next day
     currentDate.setDate(currentDate.getDate() + 1);
-    cycleDay++;
   }
 
   return schedule;
-}
-
-function formatDate(date: Date): string {
-  const year = date.getFullYear();
-  const month = `${date.getMonth() + 1}`.padStart(2, "0");
-  const dayOfMonth = `${date.getDate()}`.padStart(2, "0");
-  return `${year}-${month}-${dayOfMonth}`;
 }

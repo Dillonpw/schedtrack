@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { FormData, ShiftSegment } from "@/types";
 
 export const useScheduleForm = (initialData: FormData) => {
   const [formData, setFormData] = useState<FormData>(initialData);
-  const { segments, startDate } = formData;
+  const { segments, startDate, scheduleName } = formData;
 
   useEffect(() => {
     const total = segments.reduce(
@@ -13,12 +13,17 @@ export const useScheduleForm = (initialData: FormData) => {
     setFormData((prev) => ({ ...prev, totalDays: total }));
   }, [segments]);
 
-  const addSegment = () => {
+  const addSegment = (type: "On" | "Off") => {
     setFormData((prev) => ({
       ...prev,
       segments: [
         ...prev.segments,
-        { shiftType: "Work", days: undefined, title: "" },
+        {
+          shiftType: type,
+          days: undefined,
+          note: type === "On" ? "" : null,
+          description: null,
+        },
       ],
     }));
   };
@@ -45,7 +50,7 @@ export const useScheduleForm = (initialData: FormData) => {
 
   const updateField = (
     field: keyof FormData,
-    value: number | Date | ShiftSegment[] | undefined,
+    value: number | Date | ShiftSegment[] | string | undefined,
   ) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
@@ -59,5 +64,6 @@ export const useScheduleForm = (initialData: FormData) => {
     segments,
     totalDays: formData.totalDays,
     startDate,
+    scheduleName,
   };
 };

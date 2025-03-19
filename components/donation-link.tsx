@@ -19,7 +19,7 @@ export default function Donation() {
         }}
       >
         <Link
-          className="block whitespace-nowrap font-semibold px-4 py-8 text-lg hover:underline dark:bg-muted"
+          className="block whitespace-nowrap font-semibold px-4 py-8 text-lg hover:underline"
           href="https://buy.stripe.com/7sIaFa7EQeJzbW8aEG"
         >
           Help Us Keep The Lights On 💡

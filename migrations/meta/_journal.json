@@ -57,6 +57,13 @@
       "when": 1725737529666,
       "tag": "0007_majestic_aqueduct",
       "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1742331963514,
+      "tag": "0008_chemical_bug",
+      "breakpoints": true
     }
   ]
 }

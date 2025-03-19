@@ -18,24 +18,21 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Trash2, HelpCircle, Briefcase, Coffee } from "lucide-react";
-
-type Segment = {
-  shiftType: string;
-  days: number | undefined;
-  title: string | null;
-};
+import { Trash2, HelpCircle, Briefcase, Coffee, Clock } from "lucide-react";
+import { ShiftSegment } from "@/types";
 
 type SegmentCardProps = {
-  segment: Segment;
+  segment: ShiftSegment;
   index: number;
-  updateSegment: (index: number, field: keyof Segment, value: any) => void;
+  segments: ShiftSegment[];
+  updateSegment: (index: number, field: keyof ShiftSegment, value: any) => void;
   removeSegment: (index: number) => void;
 };
 
 export function SegmentCard({
   segment,
   index,
+  segments,
   updateSegment,
   removeSegment,
 }: SegmentCardProps) {
@@ -49,29 +46,29 @@ export function SegmentCard({
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              {segment.shiftType === "Work" ? (
+              {segment.shiftType === "On" ? (
                 <Briefcase className="h-4 w-4 text-primary" />
               ) : (
                 <Coffee className="h-4 w-4 text-muted-foreground" />
               )}
               <span className="font-medium">
-                {segment.shiftType === "Work"
-                  ? "Work Period"
-                  : "Off-Duty Period"}
+                {segment.shiftType === "On" && segment.note
+                  ? `On-Duty: ${segment.note}`
+                  : segment.shiftType === "On"
+                    ? "On-Duty Period"
+                    : "Off-Duty Period"}
               </span>
             </div>
-            {index > 1 && (
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                onClick={() => removeSegment(index)}
-                className="h-8 w-8 text-muted-foreground hover:text-destructive"
-              >
-                <Trash2 className="h-4 w-4" />
-                <span className="sr-only">Remove segment</span>
-              </Button>
-            )}
+            <Button
+              type="button"
+              variant="ghost"
+              size="icon"
+              onClick={() => removeSegment(index)}
+              className="h-8 w-8 text-muted-foreground hover:text-destructive"
+            >
+              <Trash2 className="h-4 w-4" />
+              <span className="sr-only">Remove segment</span>
+            </Button>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2">
@@ -96,7 +93,7 @@ export function SegmentCard({
                   <SelectValue placeholder="Select type" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Work">Work</SelectItem>
+                  <SelectItem value="On">On</SelectItem>
                   <SelectItem value="Off">Off</SelectItem>
                 </SelectContent>
               </Select>
@@ -138,25 +135,52 @@ export function SegmentCard({
             </div>
           </div>
 
-          {segment.shiftType === "Work" && (
-            <div className="space-y-2">
-              <div className="flex items-center gap-1">
-                <Label htmlFor={`segment-title-${index}`} className="text-sm">
-                  Shift Title (Optional)
-                </Label>
+          {segment.shiftType === "On" && (
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div className="space-y-2">
+                <div className="flex items-center gap-1">
+                  <Label htmlFor={`segment-title-${index}`} className="text-sm">
+                    Shift Note
+                  </Label>
+                </div>
+                <Input
+                  id={`segment-note-${index}`}
+                  type="text"
+                  value={segment.note || ""}
+                  onChange={(e) =>
+                    updateSegment(index, "note", e.target.value)
+                  }
+                  placeholder="Day Shift, Night Shift, etc."
+                  onFocus={() => setFocused(true)}
+                  onBlur={() => setFocused(false)}
+                  className="w-full dark:text-black"
+                />
               </div>
-              <Input
-                id={`segment-title-${index}`}
-                type="text"
-                value={segment.title || ""}
-                onChange={(e) => updateSegment(index, "title", e.target.value)}
-                placeholder="Day Shift, Night Shift, etc."
-                onFocus={() => setFocused(true)}
-                onBlur={() => setFocused(false)}
-                className="w-full dark:text-black"
-              />
             </div>
           )}
+
+          <div className="space-y-2">
+            <div className="flex items-center gap-1">
+              <Label
+                htmlFor={`segment-description-${index}`}
+                className="text-sm"
+              >
+                Description
+              </Label>
+            </div>
+            <Input
+              id={`segment-description-${index}`}
+              type="text"
+              value={segment.description || ""}
+              onChange={(e) =>
+                updateSegment(index, "description", e.target.value)
+              }
+              placeholder="Add a description for this segment"
+              onFocus={() => setFocused(true)}
+              onBlur={() => setFocused(false)}
+              className="w-full dark:text-black"
+            />
+          </div>
         </div>
       </CardContent>
     </Card>

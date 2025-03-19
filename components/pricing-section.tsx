@@ -11,7 +11,7 @@ import {
 
 export default async function Pricing() {
   return (
-    <div className="bg-muted px-4 py-16 lg:py-24">
+    <section className="px-4 py-16 lg:py-24">
       <div
         data-testid="pricing"
         id="pricing"
@@ -62,6 +62,6 @@ export default async function Pricing() {
           </Card>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

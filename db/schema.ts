@@ -8,15 +8,13 @@ import {
   date,
   json,
   varchar,
+  boolean,
 } from "drizzle-orm/pg-core";
-import postgres from "postgres";
-import { drizzle } from "drizzle-orm/postgres-js";
+import { sql } from "@vercel/postgres";
+import { drizzle } from "drizzle-orm/vercel-postgres";
 import type { AdapterAccountType } from "next-auth/adapters";
 
-const connectionString = "postgres://postgres:postgres@localhost:5432/drizzle";
-const pool = postgres(connectionString, { max: 1 });
-
-export const db = drizzle(pool);
+export const db = drizzle(sql);
 
 export const users = pgTable("user", {
   id: text("id")
@@ -26,7 +24,6 @@ export const users = pgTable("user", {
   email: text("email").unique(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
-  schedule: json("schedule").default("[]"),
   lastScheduleUpdate: timestamp("lastScheduleUpdate", { mode: "date" }),
 });
 
@@ -75,6 +72,17 @@ export const verificationTokens = pgTable(
     }),
   }),
 );
+
+export const schedules = pgTable("schedules", {
+  id: serial("id").primaryKey(),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  name: text("name").notNull(),
+  schedule: json("schedule").default("[]"),
+  createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
+  updatedAt: timestamp("updatedAt", { mode: "date" }).defaultNow(),
+});
 
 export const scheduleEntries = pgTable("schedule_entries", {
   id: serial("id").primaryKey(),

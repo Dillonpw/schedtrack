@@ -28,17 +28,17 @@ export default function Component() {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         width="100%"
-        className="bg-background"
+        className="bg-muted"
       >
         <path
           d="M-100 58C-100 58 218.416 36.3297 693.5 36.3297C1168.58 36.3297 1487 58 1487 58V-3.8147e-06H-100V58Z"
-          className="fill-muted"
+          className="fill-background"
         ></path>
       </svg>
       <section
         id="features"
         data-testid="features"
-        className="w-full bg-background py-12 md:py-16 lg:py-20"
+        className="w-full bg-muted py-12 md:py-16 lg:py-20"
       >
         <div className="container px-4 py-40 md:px-6 md:pb-60 md:pt-40">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
@@ -51,7 +51,7 @@ export default function Component() {
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl lg:text-5xl">
                 Manage Your Time More Efficiently and Without the Headache
               </h2>
-              <p className="mx-auto max-w-[700px] font-light text-lg">
+              <p className="mx-auto max-w-[700px] text-lg font-light">
                 Our rotating schedule builder comes packed with features
                 designed to simplify your life and streamline your workflow.
               </p>
@@ -97,7 +97,7 @@ export default function Component() {
                   loop
                   preload="metadata"
                 />
-                <figcaption className="mt-2 text-center text-md text-blue-800 dark:text-gray-100">
+                <figcaption className="text-md mt-2 text-center text-blue-800 dark:text-gray-100">
                   A demonstration of how to use the schedule builder.
                 </figcaption>
               </figure>
@@ -111,12 +111,12 @@ export default function Component() {
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
         width="100%"
-        className="bg-background"
+        className="bg-muted"
       >
         <path
           transform="rotate(180) translate(-1440, -60)"
           d="M-100 58C-100 58 218.416 36.3297 693.5 36.3297C1168.58 36.3297 1487 58 1487 58V-3.8147e-06H-100V58Z"
-          className="fill-muted"
+          className="fill-background"
         ></path>
       </svg>
     </>
