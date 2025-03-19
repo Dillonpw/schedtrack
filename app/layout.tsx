@@ -1,4 +1,5 @@
-import { Inter } from "next/font/google";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 import { cn } from "@/lib/utils";
 import "./globals.css";
 import { Providers } from "./providers";
@@ -11,18 +12,6 @@ import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 import { Metadata, Viewport } from "next";
 import Donation from "@/components/donation-link";
-
-const fontHeading = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-heading",
-});
-
-const fontBody = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-body",
-});
 
 export const metadata: Metadata = {
   title: "Rotating Schedule Builder for First Responders",
@@ -201,8 +190,10 @@ export function generateJsonLd() {
 }
 
 export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "white" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
 };
 
 // Google Ads script generation
@@ -221,9 +212,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
         className={cn(
-          "font-poppins text-base antialiased",
-          fontHeading.variable,
-          fontBody.variable,
+          "font-sans antialiased",
+          GeistSans.variable,
+          GeistMono.variable,
         )}
       >
         <Providers>
