@@ -1,8 +1,9 @@
 import { Metadata, Viewport } from "next";
-import Header from "@/components/header-section";
 import { auth } from "@/auth";
 import ScheduleData from "@/components/schedule-data";
 import LoggedIn from "@/components/account-info";
+import { SignIn } from "@/components/sign-in";
+
 
 export const metadata: Metadata = {
   title: {
@@ -21,7 +22,16 @@ export const viewport: Viewport = {
 
 export default async function SchedulePage() {
   const session = await auth();
-
+  if (!session) {
+    return (
+      <main className="flex min-h-screen flex-col items-center justify-center dark:bg-muted">
+        <div className="flex flex-col items-center">
+          <p className="text-center">Please login to view schedules.</p>
+          <SignIn />
+        </div>
+      </main>
+    );
+  }
   return (
     <main className="dark:bg-muted">
       <LoggedIn />
@@ -31,7 +41,6 @@ export default async function SchedulePage() {
         </>
       ) : (
         <div className="mx-auto">
-
           <ScheduleData />
         </div>
       )}

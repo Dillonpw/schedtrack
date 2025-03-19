@@ -6,7 +6,6 @@ import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
 import { ShiftSegment } from "@/types";
 
-// Types
 interface GenerateScheduleParams {
   segments: ShiftSegment[];
   totalDays: number;
@@ -22,7 +21,6 @@ interface ScheduleEntry {
   description: string | null;
 }
 
-// Constants
 const DAYS_OF_WEEK = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
 export async function generateSchedule({
@@ -39,7 +37,6 @@ export async function generateSchedule({
     });
     console.log("Segments:", segments);
 
-    // Get the user ID from the authentication session.
     const session = await auth();
     if (!session?.user?.id) {
       throw new Error("Not authenticated");
@@ -48,7 +45,6 @@ export async function generateSchedule({
     console.log("User authenticated:", session.user.id);
     const userId = session.user.id;
 
-    // Validate input parameters
     if (!name || name.trim().length === 0) {
       throw new Error("Schedule name is required");
     }
@@ -67,12 +63,10 @@ export async function generateSchedule({
 
     console.log("All validations passed");
 
-    // Create the schedule.
     console.log("Creating rotating schedule...");
     const schedule = createRotatingSchedule(segments, totalDays, startDate);
     console.log("Schedule created with", schedule.length, "entries");
 
-    // Save the schedule to the database.
     console.log("Starting database transaction...");
     try {
       await db.transaction(async (tx) => {
@@ -126,7 +120,6 @@ function createRotatingSchedule(
     throw new Error("At least one segment is required");
   }
 
-  // Calculate total cycle length
   const cycleLength = segments.reduce(
     (sum, segment) => sum + (segment.days || 0),
     0,
@@ -135,7 +128,6 @@ function createRotatingSchedule(
     throw new Error("Total cycle length must be greater than 0");
   }
 
-  // Create a mapping of days in the cycle to their corresponding segment
   const dayToSegmentMap: ShiftSegment[] = [];
   segments.forEach((segment) => {
     const days = segment.days || 0;
@@ -151,7 +143,7 @@ function createRotatingSchedule(
     const segment = dayToSegmentMap[cyclePosition];
 
     schedule.push({
-      date: formatDate(new Date(currentDate)), // Create a new Date to avoid modifying the original
+      date: formatDate(new Date(currentDate)), 
       dayOfWeek: DAYS_OF_WEEK[currentDate.getDay()],
       shift: segment.shiftType as "Work" | "Off",
       title: segment.note || null,

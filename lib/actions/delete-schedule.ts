@@ -8,7 +8,6 @@ import { revalidatePath } from "next/cache"
 
 export async function deleteSchedule(scheduleId: number): Promise<{ success: boolean; message: string }> {
   try {
-    // Get the user ID from the authentication session
     const session = await auth()
     if (!session?.user?.id) {
       return {
@@ -19,10 +18,8 @@ export async function deleteSchedule(scheduleId: number): Promise<{ success: boo
 
     const userId = session.user.id
 
-    // Delete the schedule, ensuring it belongs to the current user
     const result = await db.delete(schedules).where(and(eq(schedules.id, scheduleId), eq(schedules.userId, userId)))
 
-    // Revalidate the schedule page to refresh the data
     revalidatePath("/schedule")
 
     return {
