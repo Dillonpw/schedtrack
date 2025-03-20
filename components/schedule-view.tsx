@@ -126,83 +126,82 @@ function CalendarView({
         className="group relative h-16 rounded-sm border border-muted p-1 hover:bg-accent hover:text-accent-foreground sm:h-24 sm:p-2"
       >
         <div className="mb-1 text-sm font-medium sm:text-base">{i}</div>
-        <div className="flex max-h-12 flex-wrap gap-1 overflow-hidden sm:max-h-16 sm:gap-1">
-          {Object.entries(entriesBySchedule).map(([scheduleName, entries]) =>
-            entries.slice(0, 3).map((entry, idx) => (
-              <Popover key={`${scheduleName}-${idx}`}>
-                <PopoverTrigger asChild>
-                  <div className="flex items-center">
+        {entriesForDay.length >= 3 && (
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute right-1 top-1 h-6 w-6 p-0 hover:bg-accent"
+              >
+                <span className="text-xs">+{entriesForDay.length}</span>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-56">
+              <ScrollArea className="h-72">
+                <div className="space-y-4 p-4">
+                  {entriesForDay.map((entry, idx) => (
                     <div
-                      className={`h-3 w-3 cursor-pointer rounded-full sm:hidden ${scheduleColors[scheduleName]}`}
-                      title={scheduleName}
-                    />
-                    <Badge
-                      variant="secondary"
-                      className={`hidden cursor-pointer sm:inline-flex ${scheduleColors[scheduleName]}`}
+                      key={idx}
+                      className="border-b pb-4 last:border-0 last:pb-0"
                     >
-                      {scheduleName}
-                    </Badge>
-                  </div>
-                </PopoverTrigger>
-                <PopoverContent className="w-56 p-4">
-                  <div className="space-y-4">
-                    <div className="flex items-center justify-between">
-                      <h4 className="font-medium">{scheduleName}</h4>
-                      {entry.shift === "On" && entry.title && (
-                        <Badge variant="default">{entry.title}</Badge>
-                      )}
-                    </div>
-                    {entry.shift === "On" && entry.description && (
-                      <p className="text-sm text-muted-foreground">
-                        {entry.description}
-                      </p>
-                    )}
-                  </div>
-                </PopoverContent>
-              </Popover>
-            )),
-          )}
-
-          {entriesForDay.length > 3 && (
-            <Popover>
-              <PopoverTrigger asChild>
-                <div className="flex items-center">
-                  <div className="h-3 w-3 cursor-pointer rounded-full bg-muted sm:hidden" />
-                  <Badge
-                    variant="secondary"
-                    className="hidden cursor-pointer sm:inline-flex"
-                  >
-                    +{entriesForDay.length - 3}
-                  </Badge>
-                </div>
-              </PopoverTrigger>
-              <PopoverContent className="w-56">
-                <ScrollArea className="h-72">
-                  <div className="space-y-4 p-4">
-                    {entriesForDay.map((entry, idx) => (
-                      <div
-                        key={idx}
-                        className="border-b pb-4 last:border-0 last:pb-0"
-                      >
-                        <div className="flex items-center justify-between">
-                          <h4 className="font-medium">{entry.scheduleName}</h4>
-                          {entry.shift === "On" && entry.title && (
-                            <Badge variant="default">{entry.title}</Badge>
-                          )}
-                        </div>
-                        {entry.shift === "On" && entry.description && (
-                          <p className="mt-2 text-sm text-muted-foreground">
-                            {entry.description}
-                          </p>
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-medium">{entry.scheduleName}</h4>
+                        {entry.shift === "On" && entry.title && (
+                          <Badge variant="default">{entry.title}</Badge>
                         )}
                       </div>
-                    ))}
-                  </div>
-                </ScrollArea>
-              </PopoverContent>
-            </Popover>
-          )}
-        </div>
+                      {entry.shift === "On" && entry.description && (
+                        <p className="mt-2 text-sm text-muted-foreground">
+                          {entry.description}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </ScrollArea>
+            </PopoverContent>
+          </Popover>
+        )}
+        <ScrollArea className="h-[calc(100%-2rem)]">
+          <div className="flex flex-wrap gap-1">
+            {Object.entries(entriesBySchedule).map(([scheduleName, entries]) =>
+              entries.slice(0, 3).map((entry, idx) => (
+                <Popover key={`${scheduleName}-${idx}`}>
+                  <PopoverTrigger asChild>
+                    <div className="flex items-center">
+                      <div
+                        className={`border-current/30 h-3 w-3 cursor-pointer rounded-full border sm:hidden ${scheduleColors[scheduleName]} transition-colors hover:opacity-60`}
+                        title={scheduleName}
+                      />
+                      <Badge
+                        variant="secondary"
+                        className={`border-current/30 hidden cursor-pointer border sm:inline-flex ${scheduleColors[scheduleName]} transition-colors hover:bg-opacity-70`}
+                      >
+                        {scheduleName}
+                      </Badge>
+                    </div>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-56 p-4">
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <h4 className="font-medium">{scheduleName}</h4>
+                        {entry.shift === "On" && entry.title && (
+                          <Badge variant="default">{entry.title}</Badge>
+                        )}
+                      </div>
+                      {entry.shift === "On" && entry.description && (
+                        <p className="text-sm text-muted-foreground">
+                          {entry.description}
+                        </p>
+                      )}
+                    </div>
+                  </PopoverContent>
+                </Popover>
+              )),
+            )}
+          </div>
+        </ScrollArea>
       </div>,
     );
   }

@@ -18,6 +18,7 @@ interface ScheduleInfo {
   name: string;
   createdAt: Date;
   entryCount: number;
+  startDate: Date | null;
 }
 
 export default async function ScheduleData() {
@@ -52,11 +53,24 @@ export default async function ScheduleData() {
           ? JSON.parse(schedule.schedule)
           : schedule.schedule;
 
+      // Find the earliest date in the entries
+      const startDate =
+        Array.isArray(entries) && entries.length > 0
+          ? new Date(
+              Math.min(
+                ...entries.map((entry: ScheduleEntry) =>
+                  new Date(entry.date).getTime(),
+                ),
+              ),
+            )
+          : null;
+
       return {
         id: schedule.id,
         name: schedule.name,
         createdAt: schedule.createdAt || new Date(),
         entryCount: Array.isArray(entries) ? entries.length : 0,
+        startDate,
       };
     });
 
@@ -92,14 +106,14 @@ export default async function ScheduleData() {
 
     return (
       <section>
-        <div className="mx-auto mt-6">
+        <div className="mx-4 mt-6">
           <div className="p-4">
-            <h2 className="mb-3 text-lg font-medium">Your Schedules</h2>
+            <h2 className="mb-3 text-lg font-medium">All Schedules</h2>
             <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-6">
               {scheduleInfoList.map((info) => (
                 <div
                   key={info.id}
-                  className="group relative rounded-md border p-3 transition-all hover:border-primary hover:shadow-md"
+                  className="group relative rounded-md border p-3 transition-all hover:border-primary hover:bg-muted hover:shadow-md"
                 >
                   <div className="flex items-center justify-between">
                     <div className="font-medium transition-colors group-hover:text-primary">
@@ -114,7 +128,11 @@ export default async function ScheduleData() {
                     {info.entryCount} days
                   </div>
                   <div className="mt-1 text-xs text-muted-foreground transition-colors group-hover:text-muted-foreground/80">
-                    Created: {new Date(info.createdAt).toLocaleDateString()}
+                    {info.startDate && (
+                      <div className="mt-0.5">
+                        Starting: {info.startDate.toLocaleDateString()}
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}

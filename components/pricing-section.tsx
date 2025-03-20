@@ -25,17 +25,17 @@ export default async function Pricing() {
                   Free Account
                 </CardTitle>
                 <p className="mt-2 text-base text-blue-700 dark:text-gray-200">
-                  Perfect for Personal Use
+                  Perfect for Personal and Professional Use
                 </p>
               </CardHeader>
               <CardContent className="flex-grow p-6">
                 <ul className="space-y-4 text-sm">
                   {[
                     "Create and manage all types of schedules",
-                    "Basic schedule patterns and templates",
+                    "Basic schedule patterns or complex custom schedules",
+                    "Schedule for your entire team",
                     "Schedule up to 2 year into the future",
                     "Export to your preferred calendar app",
-                    "Mobile-friendly access",
                   ].map((feature, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <Check className="h-1lh w-4 flex-shrink-0 text-primary" />
@@ -48,7 +48,7 @@ export default async function Pricing() {
               </CardContent>
               <CardFooter className="mt-auto flex items-center justify-between gap-4 border-t p-6">
                 <div className="text-2xl font-bold text-card-foreground md:text-3xl">
-                  FREE
+                  FREE <span className="text-sm text-muted-foreground">for now</span>
                 </div>
                 <Button
                   asChild
