@@ -68,7 +68,14 @@ export default function GenerateScheduleForm() {
       await generateSchedule({
         segments:
           segments.length === 0
-            ? [{ shiftType: "On", days: undefined, note: "", description: "" }]
+            ? [
+                {
+                  shiftType: "On",
+                  days: undefined,
+                  note: null,
+                  description: null,
+                },
+              ]
             : segments,
         totalDays: totalDays || 0,
         startDate,

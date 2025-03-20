@@ -101,10 +101,12 @@ function CalendarView({
 
     const entriesForDay = scheduleEntriesData.filter((entry) => {
       const entryDate = new Date(entry.date);
+      entryDate.setUTCHours(12, 0, 0, 0);
+      dayDate.setUTCHours(12, 0, 0, 0);
       return (
-        entryDate.getFullYear() === dayDate.getFullYear() &&
-        entryDate.getMonth() === dayDate.getMonth() &&
-        entryDate.getDate() === dayDate.getDate() &&
+        entryDate.getUTCFullYear() === dayDate.getUTCFullYear() &&
+        entryDate.getUTCMonth() === dayDate.getUTCMonth() &&
+        entryDate.getUTCDate() === dayDate.getUTCDate() &&
         visibleSchedules.includes(entry.scheduleName) &&
         entry.shift === "On"
       );
@@ -124,9 +126,9 @@ function CalendarView({
         className="group relative h-24 rounded-sm border border-muted p-2 hover:bg-accent hover:text-accent-foreground"
       >
         <div className="mb-1 font-medium">{i}</div>
-        <div className="flex max-h-16 flex-col gap-1 overflow-hidden">
+        <div className="flex max-h-16 flex-wrap gap-1 overflow-hidden">
           {Object.entries(entriesBySchedule).map(([scheduleName, entries]) =>
-            entries.slice(0, 2).map((entry, idx) => (
+            entries.slice(0, 4).map((entry, idx) => (
               <Popover key={`${scheduleName}-${idx}`}>
                 <PopoverTrigger asChild>
                   <div
@@ -155,11 +157,11 @@ function CalendarView({
             )),
           )}
 
-          {entriesForDay.length > 2 && (
+          {entriesForDay.length > 4 && (
             <Popover>
               <PopoverTrigger asChild>
                 <div className="cursor-pointer py-0.5 text-center text-xs text-muted-foreground">
-                  +{entriesForDay.length - 2} more
+                  +{entriesForDay.length - 4} more
                 </div>
               </PopoverTrigger>
               <PopoverContent className="w-56">

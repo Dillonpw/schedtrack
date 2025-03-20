@@ -1,31 +1,32 @@
-import { useState, useEffect } from "react";
-import { FormData, ShiftSegment } from "@/types";
+"use client";
 
-export const useScheduleForm = (initialData: FormData) => {
-  const [formData, setFormData] = useState<FormData>(initialData);
-  const { segments, startDate, scheduleName } = formData;
+import { useState } from "react";
+import type { ShiftSegment } from "@/types";
 
-  useEffect(() => {
-    const total = segments.reduce(
-      (sum, segment) => sum + (segment.days || 0),
-      0,
-    );
-    setFormData((prev) => ({ ...prev, totalDays: total }));
-  }, [segments]);
+interface ScheduleFormState {
+  segments: ShiftSegment[];
+  totalDays: number | undefined;
+  startDate: Date;
+  scheduleName: string;
+}
 
-  const addSegment = (type: "On" | "Off") => {
-    setFormData((prev) => ({
-      ...prev,
-      segments: [
-        ...prev.segments,
-        {
-          shiftType: type,
-          days: undefined,
-          note: type === "On" ? "" : null,
-          description: null,
-        },
-      ],
-    }));
+export function useScheduleForm(initialState: ScheduleFormState) {
+  const [segments, setSegments] = useState<ShiftSegment[]>(
+    initialState.segments,
+  );
+  const [totalDays, setTotalDays] = useState<number | undefined>(
+    initialState.totalDays,
+  );
+  const [startDate, setStartDate] = useState<Date>(initialState.startDate);
+  const [scheduleName, setScheduleName] = useState<string>(
+    initialState.scheduleName,
+  );
+
+  const addSegment = (shiftType: "On" | "Off") => {
+    setSegments([
+      ...segments,
+      { shiftType, days: undefined, note: "", description: "" },
+    ]);
   };
 
   const updateSegment = (
@@ -33,37 +34,46 @@ export const useScheduleForm = (initialData: FormData) => {
     field: keyof ShiftSegment,
     value: any,
   ) => {
-    setFormData((prev) => {
-      const newSegments = [...prev.segments];
-      newSegments[index] = { ...newSegments[index], [field]: value };
-      return { ...prev, segments: newSegments };
-    });
+    const updatedSegments = [...segments];
+    updatedSegments[index] = {
+      ...updatedSegments[index],
+      [field]: value,
+    };
+    setSegments(updatedSegments);
   };
 
   const removeSegment = (index: number) => {
-    setFormData((prev) => {
-      const newSegments = [...prev.segments];
-      newSegments.splice(index, 1);
-      return { ...prev, segments: newSegments };
-    });
+    setSegments(segments.filter((_, i) => i !== index));
   };
 
-  const updateField = (
-    field: keyof FormData,
-    value: number | Date | ShiftSegment[] | string | undefined,
-  ) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+  const updateField = (field: keyof ScheduleFormState, value: any) => {
+    switch (field) {
+      case "segments":
+        setSegments(value);
+        break;
+      case "totalDays":
+        setTotalDays(value);
+        break;
+      case "startDate":
+        // Create a new date object and set to noon to avoid timezone issues
+        const newDate = new Date(value);
+        newDate.setHours(12, 0, 0, 0);
+        setStartDate(newDate);
+        break;
+      case "scheduleName":
+        setScheduleName(value);
+        break;
+    }
   };
 
   return {
-    formData,
+    segments,
+    totalDays,
+    startDate,
+    scheduleName,
     addSegment,
     updateSegment,
     removeSegment,
     updateField,
-    segments,
-    totalDays: formData.totalDays,
-    startDate,
-    scheduleName,
   };
-};
+}

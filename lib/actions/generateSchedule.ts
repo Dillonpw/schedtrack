@@ -4,7 +4,8 @@ import { db } from "@/db/index";
 import { schedules, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
-import { ShiftSegment } from "@/types";
+import type { ShiftSegment } from "@/types";
+import { revalidatePath } from "next/cache";
 
 interface GenerateScheduleParams {
   segments: ShiftSegment[];
@@ -30,19 +31,11 @@ export async function generateSchedule({
   name,
 }: GenerateScheduleParams): Promise<string> {
   try {
-    console.log("Starting schedule generation with params:", {
-      name,
-      totalDays,
-      startDate,
-    });
-    console.log("Segments:", segments);
-
     const session = await auth();
     if (!session?.user?.id) {
       throw new Error("Not authenticated");
     }
 
-    console.log("User authenticated:", session.user.id);
     const userId = session.user.id;
 
     if (!name || name.trim().length === 0) {
@@ -65,33 +58,33 @@ export async function generateSchedule({
       throw new Error("Invalid start date");
     }
 
-    console.log("All validations passed");
+    // Create a new date object to avoid timezone issues
+    const adjustedStartDate = new Date(startDate);
+    adjustedStartDate.setHours(12, 0, 0, 0);
 
-    console.log("Creating rotating schedule...");
-    const schedule = createRotatingSchedule(segments, totalDays, startDate);
-    console.log("Schedule created with", schedule.length, "entries");
+    const schedule = createRotatingSchedule(
+      segments,
+      totalDays,
+      adjustedStartDate,
+    );
 
-    console.log("Starting database transaction...");
     try {
       await db.transaction(async (tx) => {
-        console.log("Inserting schedule record...");
-        const result = await tx.insert(schedules).values({
+        await tx.insert(schedules).values({
           userId,
           name: name.trim(),
           schedule: JSON.stringify(schedule),
         });
-        console.log("Schedule inserted successfully");
 
-        console.log("Updating user's last schedule update time...");
         await tx
           .update(users)
           .set({ lastScheduleUpdate: new Date() })
           .where(eq(users.id, userId));
-        console.log("User updated successfully");
       });
-      console.log("Transaction completed successfully");
+
+      revalidatePath("/schedule");
     } catch (dbError) {
-      console.error("Database error details:", dbError);
+      console.error("Database error:", dbError);
       throw new Error(
         `Database operation failed: ${dbError instanceof Error ? dbError.message : String(dbError)}`,
       );
@@ -107,9 +100,10 @@ export async function generateSchedule({
 }
 
 function formatDate(date: Date): string {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, "0");
+  const day = String(date.getUTCDate()).padStart(2, "0");
+
   return `${year}-${month}-${day}`;
 }
 
@@ -140,22 +134,43 @@ function createRotatingSchedule(
     }
   });
 
-  // Generate the schedule
-  const currentDate = new Date(startDate);
+  const currentDate = new Date(
+    Date.UTC(
+      startDate.getFullYear(),
+      startDate.getMonth(),
+      startDate.getDate(),
+      12,
+      0,
+      0,
+      0,
+    ),
+  );
+
   for (let i = 0; i < totalDays; i++) {
     const cyclePosition = i % cycleLength;
     const segment = dayToSegmentMap[cyclePosition];
 
+    const entryDate = new Date(
+      Date.UTC(
+        currentDate.getUTCFullYear(),
+        currentDate.getUTCMonth(),
+        currentDate.getUTCDate(),
+        12,
+        0,
+        0,
+        0,
+      ),
+    );
+
     schedule.push({
-      date: formatDate(new Date(currentDate)),
-      dayOfWeek: DAYS_OF_WEEK[currentDate.getDay()],
+      date: formatDate(entryDate),
+      dayOfWeek: DAYS_OF_WEEK[entryDate.getUTCDay()],
       shift: segment.shiftType as "Work" | "Off",
       title: segment.note || null,
       description: segment.description || null,
     });
 
-    // Move to the next day
-    currentDate.setDate(currentDate.getDate() + 1);
+    currentDate.setUTCDate(currentDate.getUTCDate() + 1);
   }
 
   return schedule;

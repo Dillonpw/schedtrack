@@ -7,6 +7,7 @@ import ClientScheduleView from "./schedule-view";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar } from "lucide-react";
 import DeleteScheduleButton from "@/components/delete-schedule";
+import { unstable_noStore as noStore } from "next/cache";
 
 interface ScheduleEntryWithName extends ScheduleEntry {
   scheduleName: string;
@@ -20,6 +21,8 @@ interface ScheduleInfo {
 }
 
 export default async function ScheduleData() {
+  noStore();
+
   try {
     const session = await auth();
     if (!session || !session.user?.id) {
@@ -33,7 +36,7 @@ export default async function ScheduleData() {
 
     if (!userSchedules || userSchedules.length === 0) {
       return (
-        <section>
+        <section className="mx-auto flex min-h-screen flex-col items-center justify-center">
           <h1 className="text-center text-3xl font-bold">Schedule</h1>
           <p className="mt-4 text-center text-gray-600">
             You haven't created any schedules yet. Create a new schedule to get
@@ -78,7 +81,7 @@ export default async function ScheduleData() {
 
     if (scheduleEntriesData.length === 0) {
       return (
-        <section>
+        <section className="mx-auto flex min-h-screen flex-col items-center justify-center">
           <h1 className="text-center text-3xl font-bold">Schedule</h1>
           <p className="mt-4 text-center text-gray-600">
             Your schedules are empty. Create a new schedule to get started.
@@ -89,10 +92,10 @@ export default async function ScheduleData() {
 
     return (
       <section>
-        <div className="mx-auto mt-6 max-w-4xl">
+        <div className="mx-auto mt-6">
           <div className="p-4">
             <h2 className="mb-3 text-lg font-medium">Your Schedules</h2>
-            <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-3">
+            <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-6">
               {scheduleInfoList.map((info) => (
                 <div
                   key={info.id}

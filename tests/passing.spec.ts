@@ -32,12 +32,11 @@ test.describe("Basic Interactions, designed to show success", () => {
 
   test("test layout stripe donation integration", async ({ page }) => {
     await page
-      .getByRole("link", { name: "Help Us Keep the Lights On 💡" })
+      .getByRole("link", { name: "Help Us Keep The Lights On 💡" })
       .click();
     await expect(page).toHaveURL("https://buy.stripe.com/7sIaFa7EQeJzbW8aEG");
   });
 
-  //faq section tests
   // FAQ section tests
   test("should display the FAQ section", async ({ page }) => {
     // Locators for each accordion answer text
