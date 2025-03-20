@@ -43,7 +43,7 @@ const LoggedIn = async () => {
             )}
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant="destructive" size="sm">
+                <Button variant="outline" size="sm">
                   Sign Out
                 </Button>
               </AlertDialogTrigger>

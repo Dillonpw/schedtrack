@@ -87,7 +87,7 @@ function CalendarView({
     days.push(
       <div
         key={`padding-${i}`}
-        className="h-24 rounded-sm border border-muted p-2"
+        className="h-16 rounded-sm border border-muted p-1 sm:h-24 sm:p-2"
       ></div>,
     );
   }
@@ -123,19 +123,25 @@ function CalendarView({
     days.push(
       <div
         key={i}
-        className="group relative h-24 rounded-sm border border-muted p-2 hover:bg-accent hover:text-accent-foreground"
+        className="group relative h-16 rounded-sm border border-muted p-1 hover:bg-accent hover:text-accent-foreground sm:h-24 sm:p-2"
       >
-        <div className="mb-1 font-medium">{i}</div>
-        <div className="flex max-h-16 flex-wrap gap-1 overflow-hidden">
+        <div className="mb-1 text-sm font-medium sm:text-base">{i}</div>
+        <div className="flex max-h-12 flex-wrap gap-1 overflow-hidden sm:max-h-16 sm:gap-1">
           {Object.entries(entriesBySchedule).map(([scheduleName, entries]) =>
-            entries.slice(0, 4).map((entry, idx) => (
+            entries.slice(0, 3).map((entry, idx) => (
               <Popover key={`${scheduleName}-${idx}`}>
                 <PopoverTrigger asChild>
-                  <div
-                    className={`flex cursor-pointer items-center gap-1 truncate rounded px-1 py-0.5 text-xs ${scheduleColors[scheduleName]}`}
-                    title={scheduleName}
-                  >
-                    <span className="truncate">{scheduleName}</span>
+                  <div className="flex items-center">
+                    <div
+                      className={`h-3 w-3 cursor-pointer rounded-full sm:hidden ${scheduleColors[scheduleName]}`}
+                      title={scheduleName}
+                    />
+                    <Badge
+                      variant="secondary"
+                      className={`hidden cursor-pointer sm:inline-flex ${scheduleColors[scheduleName]}`}
+                    >
+                      {scheduleName}
+                    </Badge>
                   </div>
                 </PopoverTrigger>
                 <PopoverContent className="w-56 p-4">
@@ -157,11 +163,17 @@ function CalendarView({
             )),
           )}
 
-          {entriesForDay.length > 4 && (
+          {entriesForDay.length > 3 && (
             <Popover>
               <PopoverTrigger asChild>
-                <div className="cursor-pointer py-0.5 text-center text-xs text-muted-foreground">
-                  +{entriesForDay.length - 4} more
+                <div className="flex items-center">
+                  <div className="h-3 w-3 cursor-pointer rounded-full bg-muted sm:hidden" />
+                  <Badge
+                    variant="secondary"
+                    className="hidden cursor-pointer sm:inline-flex"
+                  >
+                    +{entriesForDay.length - 3}
+                  </Badge>
                 </div>
               </PopoverTrigger>
               <PopoverContent className="w-56">
@@ -196,12 +208,12 @@ function CalendarView({
   }
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container mx-auto px-2 py-4 sm:px-4 sm:py-6">
       <div className="mb-4 flex items-center justify-between">
         <Button variant="outline" size="icon" onClick={goToPreviousMonth}>
           <ChevronLeftIcon className="h-4 w-4" />
         </Button>
-        <h2 className="text-xl font-semibold">
+        <h2 className="text-lg font-semibold sm:text-xl">
           {currentDate.toLocaleString("default", {
             month: "long",
             year: "numeric",
@@ -211,9 +223,12 @@ function CalendarView({
           <ChevronRightIcon className="h-4 w-4" />
         </Button>
       </div>
-      <div className="grid grid-cols-7 gap-1">
+      <div className="grid grid-cols-7 gap-0.5 sm:gap-1">
         {dayLabels.map((day, index) => (
-          <div key={index} className="p-2 text-center font-medium">
+          <div
+            key={index}
+            className="p-1 text-center text-xs font-medium sm:p-2 sm:text-sm"
+          >
             {day}
           </div>
         ))}
@@ -286,15 +301,15 @@ export default function ClientScheduleView({
   );
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between md:mx-20 lg:mx-40">
-        <h1 className="text-2xl font-bold">Your Schedule</h1>
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+    <div className="container mx-auto px-2 py-4 sm:px-4 sm:py-6">
+      <div className="mb-4 flex flex-col gap-4 sm:mb-6 sm:flex-row sm:items-center sm:justify-between md:mx-20 lg:mx-40">
+        <h1 className="text-xl font-bold sm:text-2xl">Your Schedule</h1>
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
           <Popover>
             <PopoverTrigger asChild>
               <Button
                 variant="outline"
-                className="flex items-center gap-2 border-white text-foreground"
+                className="flex w-full items-center justify-center gap-2 border-white text-foreground sm:w-auto"
               >
                 <Filter className="h-4 w-4" />
                 <span>Schedules</span>
@@ -353,13 +368,13 @@ export default function ClientScheduleView({
         </div>
       </div>
 
-      <div className="mb-4 flex flex-wrap gap-3">
+      <div className="mb-4 flex flex-wrap gap-2 sm:gap-3">
         {scheduleNames.map(
           (name) =>
             visibleSchedules.includes(name) && (
               <div
                 key={name}
-                className="group flex cursor-pointer items-center gap-2 rounded-full border bg-card px-3 py-1.5 text-sm transition-all hover:border-primary hover:text-primary"
+                className="group flex cursor-pointer items-center gap-2 rounded-full border bg-card px-2 py-1 text-xs transition-all hover:border-primary hover:text-primary sm:px-3 sm:py-1.5 sm:text-sm"
                 onClick={() => toggleSchedule(name)}
               >
                 <div
