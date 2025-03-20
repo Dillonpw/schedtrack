@@ -1,46 +1,72 @@
 # Sched Track
 
-Sched Track is a scheduling web application designed to help users create work schedules based on flexible input parameters such as work days, off days, total days, and a start date. The app generates a new schedule based on the user’s inputs and provides a download feature for exporting schedules in CSV format.
+A modern, interactive schedule management application built with Next.js, TypeScript, and Tailwind CSS. This application allows users to create, manage, and view multiple schedules with a beautiful calendar interface.
 
-## Table of Contents
-
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Usage](#usage)
-
+🌐 [Live](https://schedtrack.com)
 
 ## Features
 
-- **Schedule Generator:** Users can generate custom schedules by inputting their desired work days, off days, total days, and a start date.
-- **CSV Download:** Users can download their schedules in CSV format for easy integration into other software or personal use.
-- **Responsive UI:** Designed to work on all devicees.
-- **FAQ Section with Accordion:** Users can view frequently asked questions with a collapsible accordion feature for easy navigation.
-- **Feedback**: Authenticated users can leave feedback of any kind to help make a better product.
-- **User Authentication:** Users can sign up and log in to save and access their schedules (integrated with Auth.js).
-- **Real-Time Updates:** The schedule is updated immediately after submission for, and stored until a new schedule is made.
+### Schedule Management
+- Create and manage multiple schedules
+- Delete schedules with confirmation
+- View all schedules in a grid layout with entry counts and start dates
+- Toggle schedule visibility in the calendar view
 
-## Technologies Used
+### Calendar View
+- Interactive monthly calendar display
+- Color-coded schedule entries
+- Responsive design for mobile and desktop
+- Hover effects for better interaction
+- Scrollable schedule entries within each day
+- Quick view of schedule details in popovers
+- "+X" indicator for days with multiple schedules
+- Detailed view of all schedules for a specific day
 
-- **Next.js**
-- **React**
-- **TypeScript**
-- **Auth.js**
-- **Tailwind CSS**
--  **Shadcn/UI**
-- **CSV Export**
+### Schedule Entries
+- Add shift notes and descriptions
+- Color-coded schedule indicators
+- Mobile-optimized display with dots for small screens
+- Desktop view with full schedule names
+- Centered text for multi-line shift notes
 
+### Data Management
+- Download schedule data
+- Filter visible schedules
+- Persistent storage with database integration
+- Real-time updates
 
-## Usage
+## Tech Stack
 
-1. **Login/Signup:**
-   - Click on the "Sign In" button to log in or create an account. Once authenticated, you can genertae and save your schedules.
+- **Framework**: Next.js with TypeScript
+- **Styling**: Tailwind CSS
+- **UI Components**: Shadcn/ui
+- **Database**: Drizzle ORM
+- **Authentication**: NextAuth.js
+- **Icons**: Lucide Icons
 
-2. **Generate a Schedule:**
-   - Navigate to the schedule generation form.
-   - Input your desired number of workdays, off days, total days, and a start date.
-   - Click "Generate Schedule" to see the output in calendar format or in a list depending on your preference.
+## Project Structure
 
-3. **Download CSV:**
-   - After generating a schedule, click the "Download CSV" button to export the schedule in `.csv` format to export into your more broadly scoped calendar.
+```
+├── app/                    # Next.js app directory
+├── components/            # React components
+│   ├── schedule-view.tsx  # Main calendar view component
+│   ├── schedule-data.tsx  # Schedule data management
+│   └── ui/               # Reusable UI components
+├── db/                    # Database configuration
+├── types/                # TypeScript type definitions
+└── public/               # Static assets
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 

@@ -148,7 +148,12 @@ function CalendarView({
                       <div className="flex items-center justify-between">
                         <h4 className="font-medium">{entry.scheduleName}</h4>
                         {entry.shift === "On" && entry.title && (
-                          <Badge variant="default">{entry.title}</Badge>
+                          <Badge
+                            variant="default"
+                            className="min-w-[80px] whitespace-normal text-center"
+                          >
+                            {entry.title}
+                          </Badge>
                         )}
                       </div>
                       {entry.shift === "On" && entry.description && (

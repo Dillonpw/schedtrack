@@ -106,7 +106,11 @@ export default async function ScheduleData() {
 
     return (
       <section>
-        <div className="mx-4 mt-6">
+        <div className="mt-6">
+          <ClientScheduleView scheduleEntriesData={scheduleEntriesData} />
+        </div>
+
+        <div className="px-4 mt-6 border-t-2">
           <div className="p-4">
             <h2 className="mb-3 text-lg font-medium">All Schedules</h2>
             <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-6">
@@ -138,10 +142,6 @@ export default async function ScheduleData() {
               ))}
             </div>
           </div>
-        </div>
-
-        <div className="mt-6">
-          <ClientScheduleView scheduleEntriesData={scheduleEntriesData} />
         </div>
       </section>
     );
