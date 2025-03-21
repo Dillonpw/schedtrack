@@ -14,7 +14,7 @@ import { Metadata, Viewport } from "next";
 import Donation from "@/components/donation-link";
 
 export const metadata: Metadata = {
-  title: "Rotating Schedule Builder for Variable Weekly Patterns",
+  title: "Rotating Schedule Builder for everything and everyone",
   description:
     "Create schedules for any activity that doesn't happen on the same day every week. Perfect for shift work, irregular meetings, alternating custody arrangements, recreational leagues, and more. Sched Track offers efficient schedule management for all your variable scheduling needs.",
   applicationName: "Sched Track",
