@@ -109,7 +109,7 @@ function CalendarView({
         entryDate.getUTCMonth() === dayDate.getUTCMonth() &&
         entryDate.getUTCDate() === dayDate.getUTCDate() &&
         visibleSchedules.includes(entry.scheduleName) &&
-        entry.shift === "On"
+        (entry.shift === "On" || entry.shift === "Work")
       );
     });
 
@@ -156,7 +156,7 @@ function CalendarView({
                           {entry.shift === "On" && entry.title && (
                             <Badge
                               variant="default"
-                              className="min-w-[80px] whitespace-normal text-center"
+                              className="min-w-[80px] tracking-tighter text-center text-xs"
                             >
                               Note: {entry.title}
                             </Badge>
@@ -196,7 +196,7 @@ function CalendarView({
                           />
                           <Badge
                             variant="secondary"
-                            className={`border-current/30 hidden cursor-pointer border sm:inline-flex ${scheduleColors[scheduleName]} transition-colors hover:bg-opacity-70`}
+                            className={`border-current/30 hidden cursor-pointer border text-center tracking-tighter text-xs sm:inline-flex ${scheduleColors[scheduleName]} transition-colors hover:bg-opacity-70`}
                           >
                             {scheduleName}
                           </Badge>
