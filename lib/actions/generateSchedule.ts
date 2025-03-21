@@ -17,7 +17,7 @@ interface GenerateScheduleParams {
 interface ScheduleEntry {
   date: string;
   dayOfWeek: string;
-  shift: "Work" | "Off";
+  shift: "On" | "Off";
   title: string | null;
   description: string | null;
 }
@@ -167,7 +167,7 @@ function createRotatingSchedule(
     schedule.push({
       date: formatDate(entryDate),
       dayOfWeek: DAYS_OF_WEEK[entryDate.getUTCDay()],
-      shift: segment.shiftType === "On" ? "Work" : "Off",
+      shift: segment.shiftType,
       title: segment.note || null,
       description: segment.description || null,
     });
