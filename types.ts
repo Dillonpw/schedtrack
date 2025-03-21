@@ -1,14 +1,15 @@
 import { ReactNode } from "react";
 
 export interface HeaderProps {
-  children?: ReactNode;
+  children: ReactNode;
 }
 
 export interface ScheduleEntry {
+  id: number;
   date: string;
   dayOfWeek: string;
   shift: string;
-  title: string | null;
+  note: string | null;
   description: string | null;
 }
 

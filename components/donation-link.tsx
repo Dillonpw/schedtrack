@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Donation() {
   return (
-    <div className="flex w-full justify-center overflow-hidden dark:bg-muted">
+    <div className="flex w-full justify-center overflow-hidden">
       <motion.div
         className="w-fit"
         animate={{

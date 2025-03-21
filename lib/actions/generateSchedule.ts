@@ -108,7 +108,12 @@ function formatDate(date: Date): string {
 }
 
 function createRotatingSchedule(
-  segments: ShiftSegment[],
+  segments: {
+    shiftType: "On" | "Off";
+    days: number | undefined;
+    note: string | null;
+    description: string | null;
+  }[],
   totalDays: number,
   startDate: Date,
 ): ScheduleEntry[] {
@@ -126,12 +131,9 @@ function createRotatingSchedule(
     throw new Error("Total cycle length must be greater than 0");
   }
 
-  const dayToSegmentMap: ShiftSegment[] = [];
-  segments.forEach((segment) => {
+  const dayToSegmentMap = segments.flatMap((segment) => {
     const days = segment.days || 0;
-    for (let i = 0; i < days; i++) {
-      dayToSegmentMap.push(segment);
-    }
+    return Array(days).fill(segment);
   });
 
   const currentDate = new Date(
@@ -165,7 +167,7 @@ function createRotatingSchedule(
     schedule.push({
       date: formatDate(entryDate),
       dayOfWeek: DAYS_OF_WEEK[entryDate.getUTCDay()],
-      shift: segment.shiftType as "Work" | "Off",
+      shift: segment.shiftType === "On" ? "Work" : "Off",
       title: segment.note || null,
       description: segment.description || null,
     });

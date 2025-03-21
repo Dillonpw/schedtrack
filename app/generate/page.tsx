@@ -24,7 +24,7 @@ export default async function GeneratePage() {
 
   if (!session) {
     return (
-      <main className="flex min-h-screen flex-col items-center justify-center dark:bg-muted">
+      <main className="flex min-h-screen flex-col items-center justify-center">
         <div className="flex flex-col items-center">
           <p className="text-center">Please login to generate your schedule.</p>
           <SignIn />
@@ -34,7 +34,7 @@ export default async function GeneratePage() {
   }
 
   return (
-    <main className="dark:bg-muted">
+    <main className="">
       <LoggedIn />
       <div className="mx-auto">
         <GenerateScheduleForm />

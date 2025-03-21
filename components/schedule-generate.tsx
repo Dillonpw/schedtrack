@@ -71,9 +71,9 @@ export default function GenerateScheduleForm() {
             ? [
                 {
                   shiftType: "On",
-                  days: undefined,
-                  note: null,
-                  description: null,
+                  days: 1,
+                  note: "",
+                  description: "",
                 },
               ]
             : segments,

@@ -75,7 +75,7 @@ DTSTAMP:${formatDateICS(new Date())}
 DTSTART;VALUE=DATE:${startDate}
 DTEND;VALUE=DATE:${endDate}
 SUMMARY:${entry.shift}
-DESCRIPTION:${entry.title || "No additional information"}
+DESCRIPTION:${entry.note || "No additional information"}
 END:VEVENT
 `;
   });
