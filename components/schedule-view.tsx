@@ -186,54 +186,46 @@ function CalendarView({
             <div className="flex flex-wrap gap-1">
               {Object.entries(entriesBySchedule).map(
                 ([scheduleName, entries]) =>
-                  entries.slice(0, 3).map((entry, idx) => {
-                    console.log(
-                      "Schedule entry in popover:",
-                      entry,
-                      "Note value:",
-                      entry.note,
-                    );
-                    return (
-                      <Popover key={`${scheduleName}-${idx}`}>
-                        <PopoverTrigger asChild>
-                          <div className="flex items-center">
-                            <div
-                              className={`border-current/30 h-3 w-3 cursor-pointer rounded-full border sm:hidden ${scheduleColors[scheduleName]} transition-colors hover:opacity-60`}
-                              title={scheduleName}
-                            />
-                            <Badge
-                              variant="secondary"
-                              className={`border-current/30 hidden cursor-pointer border text-center text-xs tracking-tighter sm:inline-flex ${scheduleColors[scheduleName]} transition-colors hover:bg-opacity-70`}
-                            >
-                              {scheduleName}
-                            </Badge>
-                          </div>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-56 p-4">
-                          <div className="space-y-4">
-                            <div className="flex flex-col gap-2">
-                              <div className="flex items-center justify-between">
-                                <h4 className="font-medium">{scheduleName}</h4>
-                                {entry.shift === "On" && entry.note && (
-                                  <Badge
-                                    variant="outline"
-                                    className="ml-2 whitespace-nowrap text-xs"
-                                  >
-                                    {entry.note}
-                                  </Badge>
-                                )}
-                              </div>
-                              {entry.shift === "On" && entry.description && (
-                                <p className="text-sm text-muted-foreground/80">
-                                  {entry.description}
-                                </p>
+                  entries.slice(0, 3).map((entry, idx) => (
+                    <Popover key={`${scheduleName}-${idx}`}>
+                      <PopoverTrigger asChild>
+                        <div className="flex items-center">
+                          <div
+                            className={`border-current/30 h-3 w-3 cursor-pointer rounded-full border sm:hidden ${scheduleColors[scheduleName]} transition-colors hover:opacity-60`}
+                            title={scheduleName}
+                          />
+                          <Badge
+                            variant="secondary"
+                            className={`border-current/30 hidden cursor-pointer border text-center text-xs tracking-tighter sm:inline-flex ${scheduleColors[scheduleName]} transition-colors hover:bg-opacity-70`}
+                          >
+                            {scheduleName}
+                          </Badge>
+                        </div>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-56 p-4">
+                        <div className="space-y-4">
+                          <div className="flex flex-col gap-2">
+                            <div className="flex items-center justify-between">
+                              <h4 className="font-medium">{scheduleName}</h4>
+                              {entry.shift === "On" && entry.note && (
+                                <Badge
+                                  variant="outline"
+                                  className="ml-2 whitespace-nowrap text-xs"
+                                >
+                                  {entry.note}
+                                </Badge>
                               )}
                             </div>
+                            {entry.shift === "On" && entry.description && (
+                              <p className="text-sm text-muted-foreground/80">
+                                {entry.description}
+                              </p>
+                            )}
                           </div>
-                        </PopoverContent>
-                      </Popover>
-                    );
-                  }),
+                        </div>
+                      </PopoverContent>
+                    </Popover>
+                  )),
               )}
             </div>
           </ScrollArea>

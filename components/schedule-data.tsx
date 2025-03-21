@@ -83,12 +83,9 @@ export default async function ScheduleData() {
               : schedule.schedule;
 
           return entries.map((entry: ScheduleEntry) => {
-            console.log("Entry data:", entry);
-            // Convert title to note if note is not present
             const updatedEntry = {
               ...entry,
               scheduleName: schedule.name,
-              // If entry has a title but not a note, use title as note
               note: entry.note || (entry as any).title || null,
             };
             return updatedEntry;
