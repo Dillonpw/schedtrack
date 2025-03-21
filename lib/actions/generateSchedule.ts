@@ -18,7 +18,7 @@ interface ScheduleEntry {
   date: string;
   dayOfWeek: string;
   shift: "On" | "Off";
-  title: string | null;
+  note: string | null;
   description: string | null;
 }
 
@@ -168,7 +168,7 @@ function createRotatingSchedule(
       date: formatDate(entryDate),
       dayOfWeek: DAYS_OF_WEEK[entryDate.getUTCDay()],
       shift: segment.shiftType,
-      title: segment.note || null,
+      note: segment.note || null,
       description: segment.description || null,
     });
 

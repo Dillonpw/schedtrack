@@ -82,10 +82,17 @@ export default async function ScheduleData() {
               ? JSON.parse(schedule.schedule)
               : schedule.schedule;
 
-          return entries.map((entry: ScheduleEntry) => ({
-            ...entry,
-            scheduleName: schedule.name,
-          }));
+          return entries.map((entry: ScheduleEntry) => {
+            console.log("Entry data:", entry);
+            // Convert title to note if note is not present
+            const updatedEntry = {
+              ...entry,
+              scheduleName: schedule.name,
+              // If entry has a title but not a note, use title as note
+              note: entry.note || (entry as any).title || null,
+            };
+            return updatedEntry;
+          });
         } catch (parseError) {
           console.error("Error processing schedule data:", parseError);
           return [];
@@ -110,7 +117,7 @@ export default async function ScheduleData() {
           <ClientScheduleView scheduleEntriesData={scheduleEntriesData} />
         </div>
 
-        <div className="px-4 mt-6 border-t-2">
+        <div className="mt-6 border-t-2 px-4">
           <div className="p-4">
             <h2 className="mb-3 text-lg font-medium">All Schedules</h2>
             <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-6">
