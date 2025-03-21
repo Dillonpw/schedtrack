@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef, Suspense } from "react";
 import type { ScheduleEntry } from "@/types";
-import DownloadButton from "@/components/download-data";
 import {
   ChevronLeftIcon,
   ChevronRightIcon,
@@ -388,17 +387,6 @@ export default function ClientScheduleView({
                 </div>
               </PopoverContent>
             </Popover>
-          </Suspense>
-          <Suspense
-            fallback={
-              <div className="h-10 w-32 animate-pulse rounded-md bg-muted"></div>
-            }
-          >
-            <DownloadButton
-              scheduleEntriesData={scheduleEntriesData.filter((entry) =>
-                visibleSchedules.includes(entry.scheduleName),
-              )}
-            />
           </Suspense>
         </div>
       </div>
