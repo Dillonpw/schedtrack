@@ -14,9 +14,9 @@ import { Metadata, Viewport } from "next";
 import Donation from "@/components/donation-link";
 
 export const metadata: Metadata = {
-  title: "Rotating Schedule Builder for First Responders",
+  title: "Rotating Schedule Builder for Variable Weekly Patterns",
   description:
-    "Streamline shift scheduling for first responders, nurses, and 24/7 operations. Sched Track offers efficient workforce management, optimized rotations, and improved work-life balance.",
+    "Create schedules for any activity that doesn't happen on the same day every week. Perfect for shift work, irregular meetings, alternating custody arrangements, recreational leagues, and more. Sched Track offers efficient schedule management for all your variable scheduling needs.",
   applicationName: "Sched Track",
   keywords: [
     "Sched Track",
@@ -48,6 +48,20 @@ export const metadata: Metadata = {
     "Schedule Coordination",
     "Shift Coverage",
     "Staff Availability",
+    "Hospitality",
+    "Manufacturing",
+    "Retail",
+    "Security",
+    "Transportation",
+    "Logistics",
+    "Irregular Schedules",
+    "Variable Patterns",
+    "Rotating Activities",
+    "Alternating Schedules",
+    "Non-fixed Days",
+    "Custody Arrangements",
+    "Club Meetings",
+    "Sports Leagues",
     "nextjs",
     "react",
     "typescript",
@@ -108,10 +122,9 @@ export const metadata: Metadata = {
     email: false,
   },
   openGraph: {
-    title:
-      "Sched Track | Rotating Schedule Builder for First Responders & Healthcare",
+    title: "Sched Track | Schedule Builder for Variable Weekly Patterns",
     description:
-      "Streamline shift scheduling for first responders, nurses, and 24/7 operations. Efficient workforce management, optimized rotations, and improved work-life balance.",
+      "Create schedules for any activity that doesn't happen on the same day every week. Perfect for shift work, rotating meetings, alternating custody, recreational activities, and more. Manage all your variable scheduling needs efficiently.",
     url: "https://www.schedtrack.com",
     siteName: "Sched Track",
     images: [
@@ -135,9 +148,10 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     site: "@dillonpw_",
     creator: "@dillonpw_",
-    title: "Sched Track | Scheduling your rotation just became a breeze",
+    title:
+      "Sched Track | Scheduling your variable activities just became a breeze",
     description:
-      "Streamline your shift scheduling, staff planning, and work-life balance with Sched Track - the ultimate workforce management tool for first responders, nurses, and 24/7 operations.",
+      "Create schedules for any activity that doesn't follow a consistent weekly pattern. From shift work to alternating custody arrangements, club meetings to sports leagues - Sched Track handles all your variable scheduling needs.",
     images: [
       {
         url: "https://www.schedtrack.com/schedule-dt.webp",
@@ -171,7 +185,7 @@ export function generateJsonLd() {
       priceCurrency: "USD",
     },
     description:
-      "Efficient shift scheduling and workforce management tool for first responders, nurses, and 24/7 operations.",
+      "Schedule builder for any activity that doesn't happen on the same day every week. Perfect for shift work, irregular meetings, alternating custody arrangements, recreational leagues, and more.",
     aggregateRating: {
       "@type": "AggregateRating",
       ratingValue: "4.8",
@@ -245,7 +259,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 priceCurrency: "USD",
               },
               description:
-                "Efficient shift scheduling and workforce management tool for first responders, nurses, and 24/7 operations.",
+                "Schedule builder for any activity that doesn't happen on the same day every week. Perfect for shift work, irregular meetings, alternating custody arrangements, recreational leagues, and more.",
               aggregateRating: {
                 "@type": "AggregateRating",
                 ratingValue: "4.8",
