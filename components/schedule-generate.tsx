@@ -88,7 +88,6 @@ export default function GenerateScheduleForm() {
       });
       router.push("/schedule");
     } catch (error) {
-      console.error("Frontend error details:", error);
       toast({
         title: "Error",
         description: `Failed to generate schedule: ${error instanceof Error ? error.message : "Unknown error"}`,

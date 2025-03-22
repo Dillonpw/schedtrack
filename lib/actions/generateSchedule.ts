@@ -6,21 +6,7 @@ import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
 import type { ShiftSegment } from "@/types";
 import { revalidatePath } from "next/cache";
-
-interface GenerateScheduleParams {
-  segments: ShiftSegment[];
-  totalDays: number;
-  startDate: Date;
-  name: string;
-}
-
-interface ScheduleEntry {
-  date: string;
-  dayOfWeek: string;
-  shift: "On" | "Off";
-  note: string | null;
-  description: string | null;
-}
+import { GenerateScheduleParams, ScheduleEntry } from "@/types";
 
 const DAYS_OF_WEEK = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -165,6 +151,7 @@ function createRotatingSchedule(
     );
 
     schedule.push({
+      id: i + 1,
       date: formatDate(entryDate),
       dayOfWeek: DAYS_OF_WEEK[entryDate.getUTCDay()],
       shift: segment.shiftType,
