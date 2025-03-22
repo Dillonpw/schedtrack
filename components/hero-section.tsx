@@ -9,8 +9,8 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <section className="w-full py-20 md:py-32 lg:py-40">
-      <div className="container px-4 md:px-6">
-        <div className="flex flex-col items-center justify-center sm:flex-row">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="flex flex-col items-center justify-center gap-8 sm:flex-row">
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-2">
               <motion.h1
@@ -24,7 +24,7 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
                 initial={{ opacity: 0, x: -200 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 }}
-                className="max-w-[600px] text-center text-xl font-bold text-foreground sm:text-left md:text-4xl"
+                className="text-foreground max-w-[600px] text-center text-xl font-bold sm:text-left md:text-4xl"
               >
                 Smart Schedule Management
               </motion.h2>
@@ -32,7 +32,7 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
                 initial={{ opacity: 0, x: -200 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2 }}
-                className="max-w-[600px] text-center text-foreground sm:text-left md:text-left md:text-xl"
+                className="text-foreground max-w-[600px] text-center sm:text-left md:text-left md:text-xl"
               >
                 Our intelligent schedule builder helps you manage any type of
                 schedule - from regular 9-5 shifts to complex rotating patterns.

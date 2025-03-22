@@ -12,19 +12,19 @@ import {
 export default async function Pricing() {
   return (
     <section className="w-full py-20 md:py-32 lg:py-40">
-      <div className="container px-4 md:px-6">
+      <div className="container mx-auto px-4 md:px-6">
         <div
           data-testid="pricing"
           id="pricing"
           className="flex w-full flex-col items-stretch justify-center gap-8 lg:flex-row"
         >
           <div className="mx-auto w-full max-w-md lg:w-1/2">
-            <Card className="group h-full overflow-hidden border bg-card transition-all duration-300 hover:shadow-lg dark:bg-gray-600">
+            <Card className="group bg-card h-full overflow-hidden border transition-all duration-300 hover:shadow-lg dark:bg-gray-600">
               <CardHeader className="bg-card p-6 text-center dark:bg-gray-600">
-                <CardTitle className="text-2xl font-bold text-card-foreground md:text-3xl">
+                <CardTitle className="text-card-foreground text-2xl font-bold md:text-3xl">
                   Free Account
                 </CardTitle>
-                <p className="mt-2 text-base text-blue-700 dark:text-gray-200">
+                <p className="dark:text-primary/78 mt-2 text-base text-blue-700">
                   Perfect for Personal and Professional Use
                 </p>
               </CardHeader>
@@ -38,8 +38,8 @@ export default async function Pricing() {
                     "Export to your preferred calendar app",
                   ].map((feature, index) => (
                     <li key={index} className="flex items-start gap-2">
-                      <Check className="h-1lh w-4 flex-shrink-0 text-primary" />
-                      <span className="text-card-foreground/90 transition-all duration-300 group-hover:text-card-foreground">
+                      <Check className="h-1lh text-primary w-4 flex-shrink-0" />
+                      <span className="text-card-foreground/90 group-hover:text-card-foreground transition-all duration-300">
                         {feature}
                       </span>
                     </li>
@@ -47,13 +47,13 @@ export default async function Pricing() {
                 </ul>
               </CardContent>
               <CardFooter className="mt-auto flex items-center justify-between gap-4 border-t p-6">
-                <div className="text-2xl font-bold text-card-foreground md:text-3xl">
-                  FREE <span className="text-sm text-muted-foreground">for now</span>
+                <div className="text-card-foreground text-2xl font-bold md:text-3xl">
+                  FREE <span className="text-primary/80 text-sm">for now</span>
                 </div>
                 <Button
                   asChild
                   size="lg"
-                  className="bg-primary text-primary-foreground transition-all hover:bg-primary/90"
+                  className="bg-primary text-primary-foreground hover:bg-primary/90 transition-all"
                 >
                   <Link href="/signin" prefetch={false}>
                     Get Started

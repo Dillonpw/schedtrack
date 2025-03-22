@@ -63,9 +63,9 @@ export default function Faq() {
       </svg>
       <section
         data-testid="faq"
-        className="flex w-full flex-col gap-6 bg-muted py-20 md:py-32 lg:py-40"
+        className="bg-muted flex w-full flex-col gap-6 py-20 md:py-32 lg:py-40"
       >
-        <div className="container px-4 md:px-6">
+        <div className="container mx-auto px-4 md:px-6">
           <motion.h2
             className="mb-10 text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl"
             initial={{ opacity: 0, y: 50 }}

@@ -53,9 +53,9 @@ export default function Component() {
       <section
         id="features"
         data-testid="features"
-        className="w-full bg-muted py-20 md:py-32 lg:py-40"
+        className="bg-muted w-full py-20 md:py-32 lg:py-40"
       >
-        <div className="container px-4 md:px-6">
+        <div className="container mx-auto px-4 md:px-6">
           <div className="flex flex-col items-center justify-center space-y-4 text-center">
             <motion.div
               initial={{ opacity: 0, y: 50 }}
@@ -66,7 +66,7 @@ export default function Component() {
               <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl lg:text-5xl">
                 Flexible Scheduling for Any Pattern
               </h2>
-              <p className="mx-auto max-w-[700px] text-lg font-light">
+              <p className="mx-auto max-w-[700px] text-lg dark:text-red-500">
                 Our schedule builder adapts to your unique needs, whether you're
                 managing regular shifts, rotating schedules, or any other
                 pattern.
@@ -86,7 +86,7 @@ export default function Component() {
                   >
                     <div className="grid gap-1">
                       <h3 className="flex items-center text-lg font-bold dark:text-red-500">
-                        <CheckCircle className="mr-2 h-5 w-5 text-primary" />
+                        <CheckCircle className="text-primary mr-2 h-5 w-5" />
                         {feature.title}
                       </h3>
                       <p>{feature.description}</p>

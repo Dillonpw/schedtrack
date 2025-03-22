@@ -8,15 +8,15 @@ import HeroBtn from "@/components/hero-buttons";
 
 const Home = () => {
   return (
-    <div className="flex min-h-[100vh] flex-col w-full">
-        <AccountInfo />
-        <HeroSection>
-          <HeroBtn />
-        </HeroSection>
-        <FeaturesSection />
-        <TestimonialsSection />
-        <Faq />
-        <Pricing />
+    <div className="flex min-h-[100vh] w-full flex-col items-center">
+      <AccountInfo />
+      <HeroSection>
+        <HeroBtn />
+      </HeroSection>
+      <FeaturesSection />
+      <TestimonialsSection />
+      <Faq />
+      <Pricing />
     </div>
   );
 };
