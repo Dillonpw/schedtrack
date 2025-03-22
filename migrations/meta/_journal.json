@@ -64,6 +64,13 @@
       "when": 1742331963514,
       "tag": "0008_chemical_bug",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1742648127707,
+      "tag": "0009_gorgeous_machine_man",
+      "breakpoints": true
     }
   ]
 }
