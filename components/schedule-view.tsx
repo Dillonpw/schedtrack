@@ -49,7 +49,7 @@ function CalendarView({
   scheduleEntriesData,
   visibleSchedules,
   scheduleColors,
-}: CalendarViewProps): JSX.Element {
+}: CalendarViewProps): React.ReactNode {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const daysInMonth = (date: Date): number => {
@@ -88,7 +88,7 @@ function CalendarView({
     days.push(
       <div
         key={`padding-${i}`}
-        className="h-16 rounded-sm border border-muted p-1 sm:h-24 sm:p-2"
+        className="border-muted h-16 rounded-sm border p-1 sm:h-24 sm:p-2"
       ></div>,
     );
   }
@@ -124,7 +124,7 @@ function CalendarView({
     days.push(
       <div
         key={i}
-        className="group relative h-16 rounded-sm border border-muted p-1 hover:bg-accent hover:text-accent-foreground sm:h-24 sm:p-2"
+        className="group border-muted hover:bg-accent hover:text-accent-foreground relative h-16 rounded-sm border p-1 sm:h-24 sm:p-2"
       >
         <div className="mb-1 text-sm font-medium sm:text-base">{i}</div>
         {entriesForDay.length >= 3 && (
@@ -133,7 +133,7 @@ function CalendarView({
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute right-1 top-1 h-6 w-6 p-0 hover:bg-accent"
+                className="hover:bg-accent absolute top-1 right-1 h-6 w-6 p-0"
               >
                 <span className="text-xs">+{entriesForDay.length}</span>
               </Button>
@@ -156,14 +156,14 @@ function CalendarView({
                           {entry.shift === "On" && entry.note && (
                             <Badge
                               variant="outline"
-                              className="ml-2 whitespace-nowrap text-xs"
+                              className="ml-2 text-xs whitespace-nowrap"
                             >
                               {entry.note}
                             </Badge>
                           )}
                         </div>
                         {entry.shift === "On" && entry.description && (
-                          <p className="mt-2 text-sm text-muted-foreground">
+                          <p className="text-muted-foreground mt-2 text-sm">
                             {entry.description}
                           </p>
                         )}
@@ -191,12 +191,12 @@ function CalendarView({
                       <PopoverTrigger asChild>
                         <div className="flex items-center">
                           <div
-                            className={`border-current/30 h-3 w-3 cursor-pointer rounded-full border sm:hidden ${scheduleColors[scheduleName]} transition-colors hover:opacity-60`}
+                            className={`h-3 w-3 cursor-pointer rounded-full border border-current/30 sm:hidden ${scheduleColors[scheduleName]} transition-colors hover:opacity-60`}
                             title={scheduleName}
                           />
                           <Badge
                             variant="secondary"
-                            className={`border-current/30 hidden cursor-pointer border text-center text-xs tracking-tighter sm:inline-flex ${scheduleColors[scheduleName]} transition-colors hover:bg-opacity-70`}
+                            className={`hidden cursor-pointer border border-current/30 text-center text-xs tracking-tighter sm:inline-flex ${scheduleColors[scheduleName]} hover:bg-opacity-70 transition-colors`}
                           >
                             {scheduleName}
                           </Badge>
@@ -210,14 +210,14 @@ function CalendarView({
                               {entry.shift === "On" && entry.note && (
                                 <Badge
                                   variant="outline"
-                                  className="ml-2 whitespace-nowrap text-xs"
+                                  className="ml-2 text-xs whitespace-nowrap"
                                 >
                                   {entry.note}
                                 </Badge>
                               )}
                             </div>
                             {entry.shift === "On" && entry.description && (
-                              <p className="text-sm text-muted-foreground/80">
+                              <p className="text-muted-foreground/80 text-sm">
                                 {entry.description}
                               </p>
                             )}
@@ -269,7 +269,7 @@ export default function ClientScheduleView({
   scheduleEntriesData,
 }: {
   scheduleEntriesData: ScheduleEntryWithName[];
-}): JSX.Element {
+}): React.ReactNode {
   const [visibleSchedules, setVisibleSchedules] = useState<string[]>([]);
 
   const scheduleColorsRef = useRef<Record<string, string>>({});
@@ -310,11 +310,11 @@ export default function ClientScheduleView({
   if (scheduleEntriesData.length === 0) {
     return (
       <div className="flex h-60 items-center justify-center">
-        <Card className="w-full max-w-md border-2 border-muted p-6 text-center shadow-md">
+        <Card className="border-muted w-full max-w-md border-2 p-6 text-center shadow-md">
           <CardContent className="flex flex-col items-center gap-4 pt-6">
-            <Calendar className="h-12 w-12 text-muted-foreground opacity-70" />
+            <Calendar className="text-muted-foreground h-12 w-12 opacity-70" />
             <p className="text-lg font-medium">No schedule available</p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-sm">
               Create a new schedule to get started
             </p>
           </CardContent>
@@ -334,20 +334,20 @@ export default function ClientScheduleView({
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
           <Suspense
             fallback={
-              <div className="h-10 w-32 animate-pulse rounded-md bg-muted"></div>
+              <div className="bg-muted h-10 w-32 animate-pulse rounded-md"></div>
             }
           >
             <Popover>
               <PopoverTrigger asChild>
                 <Button
                   variant="outline"
-                  className="flex w-full items-center justify-center gap-2 border-white text-foreground sm:w-auto"
+                  className="text-foreground flex w-full items-center justify-center gap-2 border-white sm:w-auto"
                 >
                   <Filter className="h-4 w-4" />
                   <span>Schedules</span>
                 </Button>
               </PopoverTrigger>
-              <PopoverContent className="w-56 bg-card">
+              <PopoverContent className="bg-card w-56">
                 <div className="space-y-3">
                   <div className="flex items-center space-x-2">
                     <Checkbox
@@ -359,12 +359,12 @@ export default function ClientScheduleView({
                     />
                     <label
                       htmlFor="all-schedules"
-                      className="cursor-pointer text-sm font-medium leading-none text-foreground"
+                      className="text-foreground cursor-pointer text-sm leading-none font-medium"
                     >
                       All Schedules
                     </label>
                   </div>
-                  <div className="border-t border-border pt-3">
+                  <div className="border-border border-t pt-3">
                     {scheduleNames.map((name) => (
                       <div
                         key={name}
@@ -381,7 +381,7 @@ export default function ClientScheduleView({
                           />
                           <label
                             htmlFor={`schedule-${name}`}
-                            className="cursor-pointer text-sm font-medium leading-none text-foreground"
+                            className="text-foreground cursor-pointer text-sm leading-none font-medium"
                           >
                             {name}
                           </label>
@@ -399,8 +399,8 @@ export default function ClientScheduleView({
       <Suspense
         fallback={
           <div className="flex h-10 items-center gap-2">
-            <div className="h-6 w-24 animate-pulse rounded-full bg-muted"></div>
-            <div className="h-6 w-24 animate-pulse rounded-full bg-muted"></div>
+            <div className="bg-muted h-6 w-24 animate-pulse rounded-full"></div>
+            <div className="bg-muted h-6 w-24 animate-pulse rounded-full"></div>
           </div>
         }
       >
@@ -410,7 +410,7 @@ export default function ClientScheduleView({
               visibleSchedules.includes(name) && (
                 <div
                   key={name}
-                  className="group flex cursor-pointer items-center gap-2 rounded-full border bg-card px-2 py-1 text-xs transition-all hover:border-primary hover:text-primary sm:px-3 sm:py-1.5 sm:text-sm"
+                  className="group bg-card hover:border-primary hover:text-primary flex cursor-pointer items-center gap-2 rounded-full border px-2 py-1 text-xs transition-all sm:px-3 sm:py-1.5 sm:text-sm"
                   onClick={() => toggleSchedule(name)}
                 >
                   <div
@@ -431,13 +431,13 @@ export default function ClientScheduleView({
               .fill(0)
               .map((_, i) => (
                 <div key={i} className="p-1 text-center">
-                  <div className="mx-auto h-4 w-8 rounded bg-muted"></div>
+                  <div className="bg-muted mx-auto h-4 w-8 rounded"></div>
                 </div>
               ))}
             {Array(35)
               .fill(0)
               .map((_, i) => (
-                <div key={i} className="h-16 rounded-sm bg-muted sm:h-24"></div>
+                <div key={i} className="bg-muted h-16 rounded-sm sm:h-24"></div>
               ))}
           </div>
         }
