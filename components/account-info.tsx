@@ -26,19 +26,27 @@ const AccountInfo = async () => {
     <div className="w-full border-b-2">
       <div className="flex items-center justify-between gap-4 px-4 pb-2 md:px-6 lg:container lg:mx-auto">
         <div className="flex">
-          <Button asChild variant="link">
+          <Button
+            asChild
+            variant="ghost"
+            className="hover:bg-transparent focus:bg-transparent"
+          >
             <Link
               href="/schedule"
-              className="flex items-center hover:text-blue-500 focus:text-blue-500"
+              className="flex items-center no-underline hover:text-blue-500 focus:text-blue-500"
             >
               <CalendarDays className="block h-8 w-8 hover:text-blue-500 focus:text-blue-500 sm:hidden" />
               <span className="hidden sm:block">Schedule</span>
             </Link>
           </Button>
-          <Button asChild variant="link">
+          <Button
+            asChild
+            variant="ghost"
+            className="hover:bg-transparent focus:bg-transparent"
+          >
             <Link
               href="/generate"
-              className="flex items-center hover:text-blue-500 focus:text-blue-500"
+              className="flex items-center no-underline hover:text-blue-500 focus:text-blue-500"
             >
               <NotebookPen className="block h-8 w-8 hover:text-blue-500 focus:text-blue-500 sm:hidden" />
               <span className="hidden sm:block">Generate</span>

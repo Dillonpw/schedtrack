@@ -63,7 +63,7 @@ export default function Component() {
               viewport={{ once: true }}
               className="space-y-2"
             >
-              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl lg:text-5xl">
+              <h2 className="text-2xl font-bold tracking-tighter sm:text-4xl lg:text-5xl">
                 Flexible Scheduling for Any Pattern
               </h2>
               <p className="mx-auto max-w-[700px] text-lg dark:text-red-500">

@@ -40,23 +40,21 @@ export function SegmentCard({
 
   return (
     <Card
-      className={`overflow-hidden border transition-all duration-200 ${focused ? "ring-2 ring-primary/20" : ""}`}
+      className={`overflow-hidden border transition-all duration-200 ${focused ? "ring-primary/20 ring-2" : ""}`}
     >
       <CardContent className="p-4">
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               {segment.shiftType === "On" ? (
-                <Briefcase className="h-4 w-4 text-primary" />
+                <Briefcase className="text-primary h-4 w-4" />
               ) : (
-                <Coffee className="h-4 w-4 text-muted-foreground" />
+                <Coffee className="text-muted-foreground h-4 w-4" />
               )}
               <span className="font-medium">
-                {segment.shiftType === "On" && segment.note
-                  ? `On-Duty: ${segment.note}`
-                  : segment.shiftType === "On"
-                    ? "On-Duty Period"
-                    : "Off-Duty Period"}
+                {segment.shiftType === "On"
+                  ? "On-Duty Period"
+                  : "Off-Duty Period"}
               </span>
             </div>
             <Button
@@ -64,7 +62,7 @@ export function SegmentCard({
               variant="ghost"
               size="icon"
               onClick={() => removeSegment(index)}
-              className="h-8 w-8 text-muted-foreground hover:text-destructive"
+              className="text-muted-foreground hover:text-destructive h-8 w-8"
             >
               <Trash2 className="h-4 w-4" />
               <span className="sr-only">Remove segment</span>
@@ -107,7 +105,7 @@ export function SegmentCard({
                 <TooltipProvider>
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <HelpCircle className="h-3 w-3 text-muted-foreground" />
+                      <HelpCircle className="text-muted-foreground h-3 w-3" />
                     </TooltipTrigger>
                     <TooltipContent side="top" className="max-w-xs">
                       <p>Enter how many consecutive days for this segment</p>
@@ -147,9 +145,7 @@ export function SegmentCard({
                   id={`segment-note-${index}`}
                   type="text"
                   value={segment.note || ""}
-                  onChange={(e) =>
-                    updateSegment(index, "note", e.target.value)
-                  }
+                  onChange={(e) => updateSegment(index, "note", e.target.value)}
                   placeholder="Day Shift, Night Shift, etc."
                   onFocus={() => setFocused(true)}
                   onBlur={() => setFocused(false)}

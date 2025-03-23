@@ -16,18 +16,11 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
               <motion.h1
                 initial={{ opacity: 0, x: -200 }}
                 animate={{ opacity: 1, x: 0 }}
-                className="mx-auto text-center text-4xl font-bold tracking-tighter sm:text-left sm:text-4xl md:text-5xl"
-              >
-                Sched Track
-              </motion.h1>
-              <motion.h2
-                initial={{ opacity: 0, x: -200 }}
-                animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.1 }}
-                className="text-foreground max-w-[600px] text-center text-xl font-bold sm:text-left md:text-4xl"
+                className="max-w-[600px] text-center text-2xl font-bold sm:text-left sm:text-4xl lg:text-5xl"
               >
                 Smart Schedule Management
-              </motion.h2>
+              </motion.h1>
               <motion.p
                 initial={{ opacity: 0, x: -200 }}
                 animate={{ opacity: 1, x: 0 }}
