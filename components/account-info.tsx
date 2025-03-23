@@ -1,3 +1,5 @@
+"use server";
+
 import { auth } from "@/auth";
 import Link from "next/link";
 import { SignIn } from "./sign-in";
@@ -14,7 +16,8 @@ import {
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
 import { NotebookPen, CalendarDays } from "lucide-react";
-const LoggedIn = async () => {
+
+const AccountInfo = async () => {
   const session = await auth();
   const email: string | null | undefined = session?.user?.email;
   const username = email?.split("@")[0];
@@ -22,24 +25,23 @@ const LoggedIn = async () => {
   return (
     <div className="w-full border-b-2">
       <div className="flex items-center justify-between gap-4 px-4 pb-2 md:px-6 lg:container lg:mx-auto">
-        <div>
+        <div className="flex">
           <Button asChild variant="link">
-            <CalendarDays className="hidden sm:block" />
             <Link
               href="/schedule"
-              className="hidden text-xs font-semibold sm:block md:text-lg"
+              className="flex items-center hover:text-blue-500 focus:text-blue-500"
             >
-              Schedule
+              <CalendarDays className="block h-8 w-8 hover:text-blue-500 focus:text-blue-500 sm:hidden" />
+              <span className="hidden sm:block">Schedule</span>
             </Link>
           </Button>
           <Button asChild variant="link">
-            <NotebookPen className="hidden sm:block" />
-
             <Link
               href="/generate"
-              className="hidden text-xs font-semibold sm:block md:text-lg"
+              className="flex items-center hover:text-blue-500 focus:text-blue-500"
             >
-              Generate
+              <NotebookPen className="block h-8 w-8 hover:text-blue-500 focus:text-blue-500 sm:hidden" />
+              <span className="hidden sm:block">Generate</span>
             </Link>
           </Button>
         </div>
@@ -76,9 +78,7 @@ const LoggedIn = async () => {
                         Cancel
                       </Button>
                     </AlertDialogCancel>
-                    <div className="flex">
-                      <SignOut size="sm" className="mt-2 w-[80px] sm:mt-0" />
-                    </div>
+                    <SignOut size="sm" className="mt-2 w-[80px] sm:mt-0" />
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>
@@ -92,4 +92,4 @@ const LoggedIn = async () => {
   );
 };
 
-export default LoggedIn;
+export default AccountInfo;
