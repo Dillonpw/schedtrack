@@ -33,16 +33,16 @@ interface CalendarViewProps {
 }
 
 const colorPalette = [
-  "bg-blue-500",
-  "bg-green-500",
-  "bg-purple-500",
-  "bg-amber-500",
-  "bg-pink-500",
-  "bg-teal-500",
-  "bg-red-500",
-  "bg-indigo-500",
-  "bg-emerald-500",
-  "bg-rose-500",
+  "bg-blue-700",
+  "bg-green-600",
+  "bg-purple-700",
+  "bg-amber-700",
+  "bg-pink-700",
+  "bg-teal-700",
+  "bg-red-700",
+  "bg-indigo-700",
+  "bg-emerald-700",
+  "bg-rose-700",
 ];
 
 function CalendarView({
@@ -191,12 +191,11 @@ function CalendarView({
                       <PopoverTrigger asChild>
                         <div className="flex items-center">
                           <div
-                            className={`h-3 w-3 cursor-pointer rounded-full border border-current/30 sm:hidden ${scheduleColors[scheduleName]} transition-colors hover:opacity-60`}
+                            className={`h-3 w-3 cursor-pointer rounded-full border border-current/30 sm:hidden ${scheduleColors[scheduleName]} text-[${scheduleColors[scheduleName]}] transition-colors hover:opacity-60`}
                             title={scheduleName}
                           />
                           <Badge
-                            variant="secondary"
-                            className={`hidden cursor-pointer border border-current/30 text-center text-xs tracking-tighter sm:inline-flex ${scheduleColors[scheduleName]} hover:bg-opacity-70 transition-colors`}
+                            className={`hidden cursor-pointer border border-current text-center text-[10px] tracking-tighter sm:inline-flex ${scheduleColors[scheduleName]} hover:bg-opacity-70 transition-colors`}
                           >
                             {scheduleName}
                           </Badge>
@@ -410,14 +409,20 @@ export default function ClientScheduleView({
               visibleSchedules.includes(name) && (
                 <div
                   key={name}
-                  className="group bg-card hover:border-primary hover:text-primary flex cursor-pointer items-center gap-2 rounded-full border px-2 py-1 text-xs transition-all sm:px-3 sm:py-1.5 sm:text-sm"
-                  onClick={() => toggleSchedule(name)}
+                  className="group bg-card hover:border-primary hover:text-primary flex cursor-default items-center gap-2 rounded-full border px-2 py-1 text-xs transition-all select-none sm:px-3 sm:py-1.5 sm:text-sm"
                 >
                   <div
                     className={`h-2 w-2 rounded-full ${scheduleColorsRef.current[name]}`}
                   />
                   {name}
-                  <X className="ml-1 h-3 w-3 opacity-50 transition-opacity group-hover:opacity-100" />
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="ml-1 h-3 w-3 cursor-pointer hover:bg-accent p-3 opacity-50 transition-opacity group-hover:opacity-100 hover:text-red-700"
+                    onClick={() => toggleSchedule(name)}
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
                 </div>
               ),
           )}
