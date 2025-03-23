@@ -63,7 +63,7 @@ export function SegmentCard({
               variant="ghost"
               size="icon"
               onClick={() => removeSegment(index)}
-              className="text-muted-foreground hover:text-destructive h-8 w-8 cursor-pointer"
+              className="text-muted-foreground hover:text-destructive h-8 w-8"
             >
               <Trash2 className="h-4 w-4" />
               <span className="sr-only">Remove segment</span>
@@ -73,7 +73,10 @@ export function SegmentCard({
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <div className="flex items-center gap-1">
-                <Label htmlFor={`segment-type-${index}`} className="text-sm">
+                <Label
+                  htmlFor={`segment-type-${index}`}
+                  className="text-muted-foreground text-sm font-medium"
+                >
                   Segment Type
                 </Label>
               </div>
@@ -100,7 +103,10 @@ export function SegmentCard({
 
             <div className="space-y-2">
               <div className="flex items-center gap-1">
-                <Label htmlFor={`segment-days-${index}`} className="text-sm">
+                <Label
+                  htmlFor={`segment-days-${index}`}
+                  className="text-muted-foreground text-sm font-medium"
+                >
                   Number of Days
                 </Label>
                 <TooltipProvider>
@@ -137,7 +143,10 @@ export function SegmentCard({
             {segment.shiftType === "On" && (
               <div className="space-y-2">
                 <div className="flex items-center gap-1">
-                  <Label htmlFor={`segment-title-${index}`} className="text-sm">
+                  <Label
+                    htmlFor={`segment-title-${index}`}
+                    className="text-muted-foreground text-sm font-medium"
+                  >
                     Shift Note
                   </Label>
                 </div>
@@ -158,7 +167,7 @@ export function SegmentCard({
               <div className="flex items-center gap-1">
                 <Label
                   htmlFor={`segment-description-${index}`}
-                  className="text-sm"
+                  className="text-muted-foreground text-sm font-medium"
                 >
                   Description
                 </Label>
@@ -169,7 +178,11 @@ export function SegmentCard({
                 onChange={(e) =>
                   updateSegment(index, "description", e.target.value)
                 }
-                placeholder="Add a description for this segment"
+                placeholder={
+                  segment.shiftType === "On"
+                    ? "What will you be doing? 🤔"
+                    : "What will you do on your day off? 🌴"
+                }
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}
                 className="w-full dark:text-black"

@@ -104,7 +104,7 @@ export default function GenerateScheduleForm() {
     return (
       <div className="flex h-[80vh] items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <Loader2 className="h-12 w-12 animate-spin text-primary" />
+          <Loader2 className="text-primary h-12 w-12 animate-spin" />
           <p className="text-lg font-medium">Loading your profile...</p>
         </div>
       </div>
@@ -114,7 +114,7 @@ export default function GenerateScheduleForm() {
   if (status === "unauthenticated") {
     return (
       <div className="flex h-[80vh] flex-col items-center justify-center gap-4">
-        <Card className="w-full max-w-md border-2 border-destructive/20 p-6 text-center shadow-lg">
+        <Card className="border-destructive/20 w-full max-w-md border-2 p-6 text-center shadow-lg">
           <CardTitle className="mb-2 text-xl">
             Authentication Required
           </CardTitle>
@@ -128,7 +128,7 @@ export default function GenerateScheduleForm() {
 
   return (
     <main className="container mx-auto px-4 py-10">
-      <Card className="mx-auto w-full max-w-3xl overflow-hidden bg-card shadow-lg">
+      <Card className="bg-card mx-auto w-full max-w-3xl overflow-hidden shadow-lg">
         <CardHeader className="bg-primary/5 pb-6">
           <CardTitle className="text-center text-2xl font-bold">
             Create Your Schedule
@@ -141,12 +141,12 @@ export default function GenerateScheduleForm() {
         <CardContent className="p-6">
           <form onSubmit={handleGenerateSchedule} className="space-y-8">
             <div className="space-y-6">
-              <Card className="overflow-hidden border bg-card/50 shadow-sm">
+              <Card className="bg-card/50 overflow-hidden border shadow-sm">
                 <CardContent className="p-4">
                   <div className="flex flex-col gap-3">
                     <Label
                       htmlFor="scheduleName"
-                      className="text-sm font-medium"
+                      className="text-muted-foreground text-sm font-medium"
                     >
                       Schedule Name
                     </Label>
@@ -165,26 +165,6 @@ export default function GenerateScheduleForm() {
               </Card>
 
               <div>
-                <div className="mb-4 flex items-center justify-between">
-                  <h3 className="text-lg font-medium">Shift Segments</h3>
-                  <TooltipProvider>
-                    <Tooltip>
-                      <TooltipTrigger asChild>
-                        <Button variant="ghost" size="icon" className="h-8 w-8">
-                          <HelpCircle className="h-4 w-4" />
-                          <span className="sr-only">Help</span>
-                        </Button>
-                      </TooltipTrigger>
-                      <TooltipContent side="left" className="max-w-xs">
-                        <p>
-                          Define your schedule rotation pattern. Add segments
-                          for on days and off days.
-                        </p>
-                      </TooltipContent>
-                    </Tooltip>
-                  </TooltipProvider>
-                </div>
-
                 <div className="space-y-3">
                   {segments.map((segment, index) => (
                     <SegmentCard
@@ -203,7 +183,7 @@ export default function GenerateScheduleForm() {
                     type="button"
                     onClick={() => handleAddSegment("On")}
                     variant="secondary"
-                    className="flex-1 border-dashed cursor-pointer"
+                    className="flex-1 border-dashed border-2"
                   >
                     <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
                   </Button>
@@ -213,12 +193,12 @@ export default function GenerateScheduleForm() {
               <Separator />
 
               <div className="grid gap-6 md:grid-cols-2">
-                <Card className="overflow-hidden border bg-card/50 shadow-sm">
+                <Card className="bg-card/50 overflow-hidden border shadow-sm">
                   <CardContent className="p-4">
                     <div className="flex flex-col gap-3">
                       <Label
                         htmlFor="totalDays"
-                        className="text-sm font-medium"
+                        className="text-muted-foreground text-sm font-medium"
                       >
                         Schedule Length
                       </Label>
@@ -235,12 +215,14 @@ export default function GenerateScheduleForm() {
                   </CardContent>
                 </Card>
 
-                <Card className="overflow-hidden border bg-card/50 shadow-sm">
+                <Card className="bg-card/50 overflow-hidden border shadow-sm">
                   <CardContent className="p-4">
                     <div className="flex flex-col gap-3">
-                      <Label className="text-sm font-medium">Start Date</Label>
+                      <Label className="text-muted-foreground text-sm font-medium">
+                        Start Date
+                      </Label>
                       <div className="flex items-center gap-2">
-                        <Calendar className="h-4 w-4 text-muted-foreground" />
+                        <Calendar className="text-muted-foreground h-4 w-4" />
                         <DatePicker
                           date={startDate}
                           onDateChange={(date) =>
@@ -258,7 +240,7 @@ export default function GenerateScheduleForm() {
               <Button
                 type="submit"
                 size="lg"
-                className="relative overflow-hidden bg-primary px-8 text-primary-foreground transition-all hover:bg-primary/90"
+                className="bg-primary text-primary-foreground hover:bg-primary/90 relative overflow-hidden px-8 transition-all"
               >
                 <span className="relative z-10">Generate My Schedule</span>
               </Button>

@@ -418,7 +418,7 @@ export default function ClientScheduleView({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="hover:bg-accent ml-1 h-3 w-3 cursor-pointer p-3 opacity-50 transition-opacity group-hover:opacity-100 hover:text-red-700"
+                    className="hover:bg-accent ml-1 h-3 w-3 p-3 opacity-50 transition-opacity group-hover:opacity-100 hover:text-red-700"
                     onClick={() => toggleSchedule(name)}
                   >
                     <X className="h-3 w-3" />

@@ -66,7 +66,6 @@ const AccountInfo = async () => {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="cursor-pointer"
                   >
                     Sign Out
                   </Button>

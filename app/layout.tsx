@@ -7,7 +7,6 @@ import Header from "@/components/header-section";
 import Nav from "@/components/nav-section";
 import Footer from "@/components/footer-section";
 import { SessionProvider } from "next-auth/react";
-import GoogleAdsense from "@/components/adsense";
 import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 import { Metadata, Viewport } from "next";
@@ -270,7 +269,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             }),
           }}
         />
-        <GoogleAdsense pId="4500026491096816" />
       </body>
     </html>
   );
