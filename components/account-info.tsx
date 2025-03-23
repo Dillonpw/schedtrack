@@ -13,7 +13,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
-
+import { NotebookPen, CalendarDays } from "lucide-react";
 const LoggedIn = async () => {
   const session = await auth();
   const email: string | null | undefined = session?.user?.email;
@@ -21,15 +21,24 @@ const LoggedIn = async () => {
 
   return (
     <div className="w-full border-b-2">
-      <div className="flex items-center justify-between gap-2 px-4 pb-2 md:px-6 lg:container lg:mx-auto">
+      <div className="flex items-center justify-between gap-4 px-4 pb-2 md:px-6 lg:container lg:mx-auto">
         <div>
           <Button asChild variant="link">
-            <Link href="/schedule" className="text-xs font-semibold md:text-lg">
+            <CalendarDays className="hidden sm:block" />
+            <Link
+              href="/schedule"
+              className="hidden text-xs font-semibold sm:block md:text-lg"
+            >
               Schedule
             </Link>
           </Button>
           <Button asChild variant="link">
-            <Link href="/generate" className="text-xs font-semibold md:text-lg">
+            <NotebookPen className="hidden sm:block" />
+
+            <Link
+              href="/generate"
+              className="hidden text-xs font-semibold sm:block md:text-lg"
+            >
               Generate
             </Link>
           </Button>
