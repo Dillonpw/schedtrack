@@ -121,7 +121,7 @@ export default async function ScheduleData() {
               {scheduleInfoList.map((info) => (
                 <div
                   key={info.id}
-                  className="group relative rounded-md border p-3 transition-all hover:border-primary hover:bg-muted hover:shadow-md"
+                  className="group relative rounded-md border p-3 transition-all hover:border-primary hover:shadow-md"
                 >
                   <div className="flex items-center justify-between">
                     <div className="font-medium transition-colors group-hover:text-primary">

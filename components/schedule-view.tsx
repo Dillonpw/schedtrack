@@ -88,7 +88,7 @@ function CalendarView({
     days.push(
       <div
         key={`padding-${i}`}
-        className="border-muted h-16 rounded-sm border p-1 sm:h-24 sm:p-2"
+        className="border-muted dark:outline-border relative h-16 rounded-sm border p-1 sm:h-24 sm:p-2 dark:outline-1"
       ></div>,
     );
   }

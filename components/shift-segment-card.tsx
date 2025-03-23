@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Trash2, HelpCircle, Briefcase, Coffee, Clock } from "lucide-react";
 import { ShiftSegment } from "@/types";
+import { Textarea } from "./ui/textarea";
 
 type SegmentCardProps = {
   segment: ShiftSegment;
@@ -164,9 +165,8 @@ export function SegmentCard({
                 Description
               </Label>
             </div>
-            <Input
+            <Textarea
               id={`segment-description-${index}`}
-              type="text"
               value={segment.description || ""}
               onChange={(e) =>
                 updateSegment(index, "description", e.target.value)
