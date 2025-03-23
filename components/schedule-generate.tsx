@@ -203,7 +203,7 @@ export default function GenerateScheduleForm() {
                     type="button"
                     onClick={() => handleAddSegment("On")}
                     variant="secondary"
-                    className="flex-1 border-dashed"
+                    className="flex-1 border-dashed cursor-pointer"
                   >
                     <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
                   </Button>

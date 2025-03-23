@@ -63,7 +63,7 @@ export function SegmentCard({
               variant="ghost"
               size="icon"
               onClick={() => removeSegment(index)}
-              className="text-muted-foreground hover:text-destructive h-8 w-8"
+              className="text-muted-foreground hover:text-destructive h-8 w-8 cursor-pointer"
             >
               <Trash2 className="h-4 w-4" />
               <span className="sr-only">Remove segment</span>
@@ -133,9 +133,8 @@ export function SegmentCard({
               />
             </div>
           </div>
-
-          {segment.shiftType === "On" && (
-            <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            {segment.shiftType === "On" && (
               <div className="space-y-2">
                 <div className="flex items-center gap-1">
                   <Label htmlFor={`segment-title-${index}`} className="text-sm">
@@ -153,29 +152,29 @@ export function SegmentCard({
                   className="w-full dark:text-black"
                 />
               </div>
-            </div>
-          )}
+            )}
 
-          <div className="space-y-2">
-            <div className="flex items-center gap-1">
-              <Label
-                htmlFor={`segment-description-${index}`}
-                className="text-sm"
-              >
-                Description
-              </Label>
+            <div className="space-y-2">
+              <div className="flex items-center gap-1">
+                <Label
+                  htmlFor={`segment-description-${index}`}
+                  className="text-sm"
+                >
+                  Description
+                </Label>
+              </div>
+              <Textarea
+                id={`segment-description-${index}`}
+                value={segment.description || ""}
+                onChange={(e) =>
+                  updateSegment(index, "description", e.target.value)
+                }
+                placeholder="Add a description for this segment"
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                className="w-full dark:text-black"
+              />
             </div>
-            <Textarea
-              id={`segment-description-${index}`}
-              value={segment.description || ""}
-              onChange={(e) =>
-                updateSegment(index, "description", e.target.value)
-              }
-              placeholder="Add a description for this segment"
-              onFocus={() => setFocused(true)}
-              onBlur={() => setFocused(false)}
-              className="w-full dark:text-black"
-            />
           </div>
         </div>
       </CardContent>
