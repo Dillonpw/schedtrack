@@ -33,16 +33,16 @@ interface CalendarViewProps {
 }
 
 const colorPalette = [
-  "bg-blue-700",
-  "bg-green-600",
-  "bg-purple-700",
-  "bg-amber-700",
-  "bg-pink-700",
-  "bg-teal-700",
-  "bg-red-700",
-  "bg-indigo-700",
-  "bg-emerald-700",
-  "bg-rose-700",
+  "bg-blue-400",
+  "bg-green-400",
+  "bg-purple-400",
+  "bg-amber-400",
+  "bg-pink-400",
+  "bg-teal-400",
+  "bg-red-400",
+  "bg-indigo-400",
+  "bg-emerald-400",
+  "bg-rose-400",
 ];
 
 function CalendarView({
@@ -124,7 +124,7 @@ function CalendarView({
     days.push(
       <div
         key={i}
-        className="group border-muted hover:bg-accent hover:text-accent-foreground relative h-16 rounded-sm border p-1 sm:h-24 sm:p-2"
+        className="group border-muted bg-secondary dark:outline-border relative h-16 rounded-sm border p-1 sm:h-24 sm:p-2 dark:outline-1"
       >
         <div className="mb-1 text-sm font-medium sm:text-base">{i}</div>
         {entriesForDay.length >= 3 && (
@@ -195,7 +195,7 @@ function CalendarView({
                             title={scheduleName}
                           />
                           <Badge
-                            className={`hidden cursor-pointer border border-current text-center text-[10px] tracking-tighter sm:inline-flex ${scheduleColors[scheduleName]} hover:bg-opacity-70 transition-colors`}
+                            className={`hidden cursor-pointer text-center text-[10px] tracking-tighter text-gray-900 sm:inline-flex dark:text-gray-900 ${scheduleColors[scheduleName]} hover:bg-opacity-70 transition-colors`}
                           >
                             {scheduleName}
                           </Badge>
@@ -418,7 +418,7 @@ export default function ClientScheduleView({
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="ml-1 h-3 w-3 cursor-pointer hover:bg-accent p-3 opacity-50 transition-opacity group-hover:opacity-100 hover:text-red-700"
+                    className="hover:bg-accent ml-1 h-3 w-3 cursor-pointer p-3 opacity-50 transition-opacity group-hover:opacity-100 hover:text-red-700"
                     onClick={() => toggleSchedule(name)}
                   >
                     <X className="h-3 w-3" />

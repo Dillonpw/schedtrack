@@ -23,7 +23,7 @@ const AccountInfo = async () => {
   const username = email?.split("@")[0];
 
   return (
-    <div className="w-full border-b-2">
+    <div className="bg-background border-border w-full border-b-2">
       <div className="flex items-center justify-between gap-4 px-4 pb-2 md:px-6 lg:container lg:mx-auto">
         <div className="flex">
           <Button
@@ -63,7 +63,11 @@ const AccountInfo = async () => {
               )}
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button variant="outline" size="sm">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="cursor-pointer"
+                  >
                     Sign Out
                   </Button>
                 </AlertDialogTrigger>
