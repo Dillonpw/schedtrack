@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 import AccountInfo from "@/components/account-info";
-import GenerateScheduleForm from "@/components/schedule-generate";
+import GenerateScheduleForm from "@/components/form-schedule";
 import { SignIn } from "@/components/sign-in";
 import type { Metadata, Viewport } from "next";
 
