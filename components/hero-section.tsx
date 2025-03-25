@@ -30,7 +30,7 @@ const HeroSection = ({ children }: { children: React.ReactNode }) => {
                 Our intelligent schedule builder helps you manage any type of
                 schedule - from regular 9-5 shifts to complex rotating patterns.
                 Perfect for{" "}
-                <span className="font-semibold text-blue-700 dark:text-red-500">
+                <span className="font-semibold text-blue-700/80 italic">
                   Everyone
                 </span>{" "}
                 who need to plan ahead, whether it's for next month, 6 months,

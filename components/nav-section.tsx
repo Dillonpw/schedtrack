@@ -17,14 +17,14 @@ export default async function Nav() {
       <div className="hidden items-center gap-2 sm:flex sm:gap-6">
         <Link
           href="/#features"
-          className="text-lg font-medium underline-offset-4 hover:underline"
+          className="text-lg font-medium hover:text-primary"
           prefetch={false}
         >
           Features
         </Link>
         <Link
           href="/#pricing"
-          className="text-lg font-medium underline-offset-4 hover:underline"
+          className="text-lg font-medium hover:text-primary"
           prefetch={false}
         >
           Pricing
@@ -32,7 +32,7 @@ export default async function Nav() {
         <Link
           data-testid="privacyLink"
           href="/privacy"
-          className="text-lg font-medium underline-offset-4 hover:underline"
+          className="text-lg font-medium hover:text-primary"
           prefetch={true}
         >
           Privacy

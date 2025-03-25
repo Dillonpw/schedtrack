@@ -1,5 +1,5 @@
 import { auth } from "@/auth";
-import LoggedIn from "@/components/account-info";
+import AccountInfo from "@/components/account-info";
 import GenerateScheduleForm from "@/components/schedule-generate";
 import { SignIn } from "@/components/sign-in";
 import type { Metadata, Viewport } from "next";
@@ -35,7 +35,7 @@ export default async function GeneratePage() {
 
   return (
     <main className="">
-      <LoggedIn />
+      <AccountInfo />
       <div className="mx-auto">
         <GenerateScheduleForm />
       </div>

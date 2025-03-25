@@ -117,14 +117,14 @@ export default async function ScheduleData() {
         <div className="mt-6 border-t-2 px-4">
           <div className="p-4">
             <h2 className="mb-3 text-lg font-medium">All Schedules</h2>
-            <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-6">
+            <div className="grid gap-2 sm:grid-cols-2 md:grid-cols-5">
               {scheduleInfoList.map((info) => (
                 <div
                   key={info.id}
-                  className="group relative rounded-md border p-3 transition-all hover:border-primary hover:shadow-md"
+                  className="group relative rounded-md border p-3 transition-all hover:shadow-md"
                 >
                   <div className="flex items-center justify-between">
-                    <div className="font-medium transition-colors group-hover:text-primary">
+                    <div className="font-medium transition-colors">
                       {info.name}
                     </div>
                     <DeleteScheduleButton
@@ -132,13 +132,14 @@ export default async function ScheduleData() {
                       scheduleName={info.name}
                     />
                   </div>
-                  <div className="mt-1 text-sm text-muted-foreground transition-colors group-hover:text-muted-foreground/80">
+                  <div className="text-muted-foreground group-hover:text-muted-foreground/80 mt-1 text-sm transition-colors">
                     {info.entryCount} days
                   </div>
-                  <div className="mt-1 text-xs text-muted-foreground transition-colors group-hover:text-muted-foreground/80">
+                  <div className="text-muted-foreground group-hover:text-muted-foreground/80 mt-1 text-xs transition-colors">
                     {info.startDate && (
                       <div className="mt-0.5">
-                        Starting: {info.startDate.toLocaleDateString()}
+                        Starting: <br />{" "}
+                        {info.startDate.toISOString().split("T")[0]}
                       </div>
                     )}
                   </div>
@@ -153,16 +154,16 @@ export default async function ScheduleData() {
     console.error("Error in ScheduleData:", error);
     return (
       <section className="container mx-auto px-4 py-8">
-        <h1 className="text-center text-3xl font-bold text-destructive">
+        <h1 className="text-destructive text-center text-3xl font-bold">
           Error Loading Schedule
         </h1>
-        <Card className="mx-auto mt-6 max-w-md border-2 border-destructive/20">
+        <Card className="border-destructive/20 mx-auto mt-6 max-w-md border-2">
           <CardContent className="flex flex-col items-center gap-4 p-6">
-            <Calendar className="h-12 w-12 text-destructive" />
+            <Calendar className="text-destructive h-12 w-12" />
             <p className="text-center">
               There was an error loading your schedule. Please try again later.
             </p>
-            <p className="text-center text-sm text-muted-foreground">
+            <p className="text-muted-foreground text-center text-sm">
               Error details:{" "}
               {error instanceof Error ? error.message : String(error)}
             </p>

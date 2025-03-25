@@ -33,9 +33,9 @@ const AccountInfo = async () => {
           >
             <Link
               href="/schedule"
-              className="flex items-center no-underline hover:text-blue-800 focus:text-blue-500"
+              className="hover:text-primary flex items-center no-underline"
             >
-              <CalendarDays className="block h-8 w-8 hover:text-blue-800 focus:text-blue-500 sm:hidden" />
+              <CalendarDays className="hover:text-primary block h-8 w-8 sm:hidden" />
               <span className="hidden sm:block">Schedule</span>
             </Link>
           </Button>
@@ -46,9 +46,9 @@ const AccountInfo = async () => {
           >
             <Link
               href="/generate"
-              className="flex items-center no-underline hover:text-blue-800 focus:text-blue-500"
+              className="hover:text-primary flex items-center no-underline"
             >
-              <NotebookPen className="block h-8 w-8 hover:text-blue-800 focus:text-blue-500 sm:hidden" />
+              <NotebookPen className="hover:text-primary block h-8 w-8 sm:hidden" />
               <span className="hidden sm:block">Generate</span>
             </Link>
           </Button>
@@ -63,10 +63,7 @@ const AccountInfo = async () => {
               )}
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                  >
+                  <Button variant="outline" size="sm">
                     Sign Out
                   </Button>
                 </AlertDialogTrigger>

@@ -66,7 +66,7 @@ export default function Component() {
               <h2 className="text-2xl font-bold tracking-tighter sm:text-4xl lg:text-5xl">
                 Flexible Scheduling for Any Pattern
               </h2>
-              <p className="mx-auto max-w-[700px] text-lg dark:text-red-500">
+              <p className="mx-auto max-w-[700px] text-lg ">
                 Our schedule builder adapts to your unique needs, whether you're
                 managing regular shifts, rotating schedules, or any other
                 pattern.
@@ -85,7 +85,7 @@ export default function Component() {
                     transition={{ delay: index * 0.2 }}
                   >
                     <div className="grid gap-1">
-                      <h3 className="flex items-center text-lg font-bold dark:text-red-500">
+                      <h3 className="flex items-center text-lg font-bold ">
                         <CheckCircle className="text-primary mr-2 h-5 w-5" />
                         {feature.title}
                       </h3>

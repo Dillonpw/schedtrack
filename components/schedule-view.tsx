@@ -35,11 +35,11 @@ interface CalendarViewProps {
 const colorPalette = [
   "bg-blue-400",
   "bg-green-400",
-  "bg-purple-400",
+  "bg-purple-300",
   "bg-amber-400",
   "bg-pink-400",
   "bg-teal-400",
-  "bg-red-400",
+  "bg-red-300",
   "bg-indigo-400",
   "bg-emerald-400",
   "bg-rose-400",
@@ -195,7 +195,7 @@ function CalendarView({
                             title={scheduleName}
                           />
                           <Badge
-                            className={`hidden cursor-pointer text-center text-[10px] tracking-tighter text-gray-900 sm:inline-flex dark:text-gray-900 ${scheduleColors[scheduleName]} hover:bg-opacity-70 transition-colors`}
+                            className={`hidden cursor-pointer text-center text-[10px] tracking-tighter sm:inline-flex ${scheduleColors[scheduleName]} hover:bg-opacity-70 transition-colors`}
                           >
                             {scheduleName}
                           </Badge>
@@ -280,8 +280,14 @@ export default function ClientScheduleView({
 
     if (Object.keys(scheduleColorsRef.current).length === 0) {
       const colors: Record<string, string> = {};
-      scheduleNames.forEach((name, index) => {
-        colors[name] = colorPalette[index % colorPalette.length];
+      const availableColors = [...colorPalette];
+      scheduleNames.forEach((name) => {
+        const randomIndex = Math.floor(Math.random() * availableColors.length);
+        colors[name] = availableColors[randomIndex];
+        availableColors.splice(randomIndex, 1);
+        if (availableColors.length === 0) {
+          availableColors.push(...colorPalette);
+        }
       });
       scheduleColorsRef.current = colors;
     }

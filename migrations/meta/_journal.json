@@ -5,71 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1721489820049,
-      "tag": "0000_lazy_firelord",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1721574437316,
-      "tag": "0001_futuristic_frog_thor",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1722000095764,
-      "tag": "0002_lethal_tombstone",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1722009770568,
-      "tag": "0003_legal_rage",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1722025860347,
-      "tag": "0004_silly_black_cat",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1723819252557,
-      "tag": "0005_lowly_black_tom",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1723998248905,
-      "tag": "0006_silent_blonde_phantom",
-      "breakpoints": true
-    },
-    {
-      "idx": 7,
-      "version": "7",
-      "when": 1725737529666,
-      "tag": "0007_majestic_aqueduct",
-      "breakpoints": true
-    },
-    {
-      "idx": 8,
-      "version": "7",
-      "when": 1742331963514,
-      "tag": "0008_chemical_bug",
-      "breakpoints": true
-    },
-    {
-      "idx": 9,
-      "version": "7",
-      "when": 1742648127707,
-      "tag": "0009_gorgeous_machine_man",
+      "when": 1742861204490,
+      "tag": "0000_unusual_smasher",
       "breakpoints": true
     }
   ]

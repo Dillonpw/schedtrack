@@ -24,7 +24,7 @@ export default async function Pricing() {
                 <CardTitle className="text-card-foreground text-2xl font-bold md:text-3xl">
                   Free Account
                 </CardTitle>
-                <p className="dark:text-primary/78 mt-2 text-base text-blue-700">
+                <p className="dark:text-primary/78 mt-2 text-base text-blue-700/80">
                   Perfect for Personal and Professional Use
                 </p>
               </CardHeader>
