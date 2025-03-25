@@ -12,10 +12,7 @@ export default async function HeroBtn() {
             Get Started For Free
           </Link>
         </Button>
-        <Button
-          variant="secondary"
-          asChild
-        >
+        <Button variant="secondary" asChild>
           <Link href="https://buy.stripe.com/7sIaFa7EQeJzbW8aEG">Donate</Link>
         </Button>
       </div>

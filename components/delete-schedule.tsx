@@ -63,8 +63,12 @@ export default function DeleteScheduleButton({
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline" size="icon" className="hover:text-destructive">
-          <Trash2 className="h-4 w-4 " />
+        <Button
+          variant="outline"
+          size="icon"
+          className="hover:text-destructive"
+        >
+          <Trash2 className="h-4 w-4" />
           <span className="sr-only">Delete schedule</span>
         </Button>
       </AlertDialogTrigger>

@@ -17,14 +17,14 @@ export default async function Nav() {
       <div className="hidden items-center gap-2 sm:flex sm:gap-6">
         <Link
           href="/#features"
-          className="text-lg font-medium hover:text-primary"
+          className="hover:text-primary text-lg font-medium"
           prefetch={false}
         >
           Features
         </Link>
         <Link
           href="/#pricing"
-          className="text-lg font-medium hover:text-primary"
+          className="hover:text-primary text-lg font-medium"
           prefetch={false}
         >
           Pricing
@@ -32,7 +32,7 @@ export default async function Nav() {
         <Link
           data-testid="privacyLink"
           href="/privacy"
-          className="text-lg font-medium hover:text-primary"
+          className="hover:text-primary text-lg font-medium"
           prefetch={true}
         >
           Privacy
@@ -52,23 +52,23 @@ export default async function Nav() {
             <DropdownMenuLabel>Navigation</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-                <Link href="/" className="flex items-center">
-                  <Home className="mr-2 h-4 w-4" />
-                  <span>Home</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/#features" className="flex items-center">
-                  <Zap className="mr-2 h-4 w-4" />
-                  <span>Features</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/#pricing" className="flex items-center">
-                  <DollarSign className="mr-2 h-4 w-4" />
-                  <span>Pricing</span>
-                </Link>
-              </DropdownMenuItem>
+              <Link href="/" className="flex items-center">
+                <Home className="mr-2 h-4 w-4" />
+                <span>Home</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/#features" className="flex items-center">
+                <Zap className="mr-2 h-4 w-4" />
+                <span>Features</span>
+              </Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem asChild>
+              <Link href="/#pricing" className="flex items-center">
+                <DollarSign className="mr-2 h-4 w-4" />
+                <span>Pricing</span>
+              </Link>
+            </DropdownMenuItem>
 
             <DropdownMenuItem asChild>
               <Link

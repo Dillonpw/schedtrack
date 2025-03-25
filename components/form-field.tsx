@@ -40,7 +40,7 @@ export function FormField({
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <HelpCircle className="h-3.5 w-3.5 text-muted-foreground" />
+                  <HelpCircle className="text-muted-foreground h-3.5 w-3.5" />
                 </TooltipTrigger>
                 <TooltipContent side="top">
                   <p>{tooltip}</p>
@@ -51,7 +51,7 @@ export function FormField({
         </div>
       )}
       <div className="relative">
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 text-sm text-muted-foreground">
+        <div className="text-muted-foreground absolute inset-y-0 left-0 flex items-center pl-3 text-sm">
           days
         </div>
         <Input
