@@ -346,7 +346,7 @@ export default function ClientScheduleView({
               <PopoverTrigger asChild>
                 <Button
                   variant="outline"
-                  className="text-foreground flex w-full items-center justify-center gap-2 border-white sm:w-auto"
+                  className="text-foreground flex w-full items-center justify-center gap-2 sm:w-auto"
                 >
                   <Filter className="h-4 w-4" />
                   <span>Schedules</span>
@@ -415,7 +415,7 @@ export default function ClientScheduleView({
               visibleSchedules.includes(name) && (
                 <div
                   key={name}
-                  className="group bg-card hover:border-primary hover:text-primary flex cursor-default items-center gap-2 rounded-full border px-2 py-1 text-xs transition-all select-none sm:px-3 sm:py-1.5 sm:text-sm"
+                  className="group bg-card flex cursor-default items-center gap-2 rounded-full border px-2 py-1 text-xs transition-all select-none hover:shadow-md sm:px-3 sm:py-1.5 sm:text-sm"
                 >
                   <div
                     className={`h-2 w-2 rounded-full ${scheduleColorsRef.current[name]}`}

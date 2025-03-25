@@ -51,7 +51,6 @@ const testimonials = [
 ];
 
 export default function TestimonialsSection() {
-  // Define Framer Motion animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -77,9 +76,9 @@ export default function TestimonialsSection() {
             viewport={{ once: true }}
             className="space-y-2"
           >
-            <h2 className="text-primary text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl">
+            <h3 className="text-primary text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl">
               What Our Users Say
-            </h2>
+            </h3>
             <p className="max-w-[600px] text-lg">
               Hear from our satisfied users about how our rotating schedule
               builder has simplified their day to day.

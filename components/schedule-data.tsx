@@ -53,7 +53,6 @@ export default async function ScheduleData() {
           ? JSON.parse(schedule.schedule)
           : schedule.schedule;
 
-      // Find the earliest date in the entries
       const startDate =
         Array.isArray(entries) && entries.length > 0
           ? new Date(

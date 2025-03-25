@@ -36,11 +36,6 @@ export default function Faq() {
         "Yes, Sched Track is designed to work seamlessly across a wide range of devices. Our responsive web application works great on desktop computers, laptops, tablets, and smartphones. Whether you're using Windows, macOS, iOS, or Android, you can access Sched Track through your web browser. This means you can check your schedule or make updates whether you're at work, at home, or on the go.",
     },
     {
-      question: "How do I share my schedule with others?",
-      answer:
-        "Sharing your schedule is easy with Sched Track! You can share work schedules with team members, maintenance schedules with family members, or property schedules with maintenance staff. The app allows you to export your schedule to popular calendar applications like Google Calendar, Apple Calendar, or Outlook. You can also generate shareable links or PDF versions of your schedule. This makes it simple to keep everyone on the same page, whether you're coordinating work shifts or household tasks.",
-    },
-    {
       question: "Is my schedule data secure with Sched Track?",
       answer:
         "Absolutely. We take the security and privacy of your data very seriously. Your schedule information is stored securely in our databases, which are regularly backed up and protected against unauthorized access. We never share your personal information or schedule data with third parties. Additionally, we offer features like two-factor authentication for added account security. Our privacy policy clearly outlines how we handle your data, and we're always transparent about our security practices.",
@@ -66,15 +61,15 @@ export default function Faq() {
         className="bg-muted flex w-full flex-col gap-6 py-20 md:py-32 lg:py-40"
       >
         <div className="container mx-auto px-4 md:px-6">
-          <motion.h2
-            className="mb-10 text-center text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl"
+          <motion.h4
+            className="text-primary text-center text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.4 }}
           >
             Frequently Asked Questions
-          </motion.h2>
+          </motion.h4>
           <Accordion
             type="single"
             collapsible
