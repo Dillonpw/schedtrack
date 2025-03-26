@@ -53,6 +53,7 @@ export default function GenerateScheduleForm() {
       id: uuidv4(),
       description: null,
       daysOfWeek: [],
+      repeatInterval: 1, // Default to every week
     };
 
     const updatedEvents = [...(segments[0].repeatEvents || []), newEvent];
@@ -89,6 +90,9 @@ export default function GenerateScheduleForm() {
       return;
     }
 
+    // Set default total days if not set
+    const daysToGenerate = totalDays || 90; // Default to 30 days if not specified
+
     if (segments.length === 0) {
       addSegment("On");
     }
@@ -107,7 +111,7 @@ export default function GenerateScheduleForm() {
                 },
               ]
             : segments,
-        totalDays: totalDays || 0,
+        totalDays: daysToGenerate,
         startDate,
         name: scheduleName,
       });

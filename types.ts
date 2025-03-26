@@ -24,6 +24,7 @@ export interface RepeatEvent {
   id: string;
   description: string | null;
   daysOfWeek: number[];
+  repeatInterval: number; // 1 = every week, 2 = every other week, 3 = every third week, etc.
 }
 
 export interface ShiftSegment {

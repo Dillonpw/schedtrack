@@ -103,6 +103,7 @@ function createRotatingSchedule(
       id: string;
       description: string | null;
       daysOfWeek: number[];
+      repeatInterval: number;
     }[];
   }[],
   totalDays: number,
@@ -183,15 +184,30 @@ function createRotatingSchedule(
 
     // Check for repeat events on this day
     const dayRepeatEvents = currentSegment?.repeatEvents?.filter(
-      (event: { daysOfWeek: number[] }) =>
-        event.daysOfWeek.includes(entryDate.getUTCDay()),
+      (event: { daysOfWeek: number[]; repeatInterval: number }) => {
+        // First check if this is a day we want to show the event
+        const isCorrectDay = event.daysOfWeek.includes(entryDate.getUTCDay());
+        if (!isCorrectDay) return false;
+
+        // Calculate the week number since the start date
+        const weekNumber = Math.floor(i / 7);
+        // Check if this week should be included based on the repeat interval
+        return weekNumber % event.repeatInterval === 0;
+      },
     );
+
+    // For weekly schedule, only show the event on selected days
+    const shift = hasRotatingSchedule
+      ? currentSegment?.shiftType || "Off"
+      : dayRepeatEvents && dayRepeatEvents.length > 0
+        ? currentSegment?.shiftType || "Off"
+        : "Off";
 
     schedule.push({
       id: i + 1,
       date: formatDate(entryDate),
       dayOfWeek: DAYS_OF_WEEK[entryDate.getUTCDay()],
-      shift: currentSegment?.shiftType || "Off", // Default to Off if no segment
+      shift,
       note: currentSegment?.note || null,
       description: currentSegment?.description || null,
       repeatEvents: dayRepeatEvents || null,

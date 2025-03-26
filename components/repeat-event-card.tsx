@@ -1,26 +1,19 @@
 "use client";
 
-import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Badge } from "@/components/ui/badge";
-import { Trash2, Calendar, ChevronsUpDown, Check, X } from "lucide-react";
+import { Trash2, Calendar } from "lucide-react";
 import { RepeatEvent } from "@/types";
+import { DaySelector } from "@/components/day-selector";
 import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type WeeklyScheduleCardProps = {
   event: RepeatEvent;
@@ -33,34 +26,8 @@ export function WeeklyScheduleCard({
   onUpdate,
   onRemove,
 }: WeeklyScheduleCardProps) {
-  const [open, setOpen] = useState(false);
-
-  const toggleDay = (day: number) => {
-    const currentDays = event.daysOfWeek || [];
-    const newDays = currentDays.includes(day)
-      ? currentDays.filter((d) => d !== day)
-      : [...currentDays, day];
-
-    onUpdate(event.id, "daysOfWeek", newDays);
-  };
-
-  const removeDay = (day: number) => {
-    const newDays = (event.daysOfWeek || []).filter((d) => d !== day);
-    onUpdate(event.id, "daysOfWeek", newDays);
-  };
-
-  const DAYS = [
-    { value: 0, label: "Sunday" },
-    { value: 1, label: "Monday" },
-    { value: 2, label: "Tuesday" },
-    { value: 3, label: "Wednesday" },
-    { value: 4, label: "Thursday" },
-    { value: 5, label: "Friday" },
-    { value: 6, label: "Saturday" },
-  ];
-
   return (
-    <Card className="border-dashed">
+    <Card className="overflow-hidden border">
       <CardContent className="p-4">
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
@@ -81,78 +48,59 @@ export function WeeklyScheduleCard({
           </div>
 
           <div className="space-y-2">
-            <Label className="text-muted-foreground text-sm font-medium">
-              Days of Week
-            </Label>
-            <div className="flex flex-wrap gap-2">
-              {(event.daysOfWeek || []).map((day) => (
-                <Badge
-                  key={day}
-                  variant="secondary"
-                  className="flex items-center gap-1"
-                >
-                  {DAYS.find((d) => d.value === day)?.label}
-                  <button
-                    onClick={() => removeDay(day)}
-                    className="hover:bg-muted ml-1 rounded-full"
-                  >
-                    <X className="h-3 w-3" />
-                  </button>
-                </Badge>
-              ))}
+            <div className="flex items-center gap-1">
+              <Label className="text-muted-foreground text-sm font-medium">
+                Repeat Every
+              </Label>
             </div>
-            <Popover open={open} onOpenChange={setOpen}>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  role="combobox"
-                  aria-expanded={open}
-                  className="w-full justify-between"
-                >
-                  Select days
-                  <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-full p-0">
-                <Command>
-                  <CommandInput placeholder="Search days..." />
-                  <CommandEmpty>No days found.</CommandEmpty>
-                  <CommandGroup>
-                    {DAYS.map((day) => (
-                      <CommandItem
-                        key={day.value}
-                        onSelect={() => {
-                          toggleDay(day.value);
-                          setOpen(false);
-                        }}
-                      >
-                        <Check
-                          className={cn(
-                            "mr-2 h-4 w-4",
-                            (event.daysOfWeek || []).includes(day.value)
-                              ? "opacity-100"
-                              : "opacity-0",
-                          )}
-                        />
-                        {day.label}
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                </Command>
-              </PopoverContent>
-            </Popover>
+            <Select
+              value={event.repeatInterval.toString()}
+              onValueChange={(value) =>
+                onUpdate(event.id, "repeatInterval", parseInt(value))
+              }
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select interval" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="1">Every week</SelectItem>
+                <SelectItem value="2">Every other week</SelectItem>
+                <SelectItem value="3">Every third week</SelectItem>
+                <SelectItem value="4">Every fourth week</SelectItem>
+                <SelectItem value="5">Every fifth week</SelectItem>
+                <SelectItem value="6">Every sixth week</SelectItem>
+                <SelectItem value="7">Every seventh week</SelectItem>
+                <SelectItem value="8">Every eighth week</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
 
           <div className="space-y-2">
-            <Label className="text-muted-foreground text-sm font-medium">
-              Description (Optional)
-            </Label>
+            <div className="flex items-center gap-1">
+              <Label className="text-muted-foreground text-sm font-medium">
+                Days of Week
+              </Label>
+            </div>
+            <DaySelector
+              selectedDays={event.daysOfWeek}
+              onChange={(days: number[]) =>
+                onUpdate(event.id, "daysOfWeek", days)
+              }
+            />
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex items-center gap-1">
+              <Label className="text-muted-foreground text-sm font-medium">
+                Description
+              </Label>
+            </div>
             <Textarea
               value={event.description || ""}
               onChange={(e) =>
                 onUpdate(event.id, "description", e.target.value)
               }
-              placeholder="What's on the Agenda 🤔"
+              placeholder="Add a description for this schedule"
               className="w-full dark:text-black"
             />
           </div>
