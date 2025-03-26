@@ -1,5 +1,4 @@
 import Link from "next/link";
-import ThemeToggle from "./toggle-theme";
 
 const Footer = () => {
   const year = new Date().getFullYear();

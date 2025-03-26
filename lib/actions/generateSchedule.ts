@@ -99,6 +99,11 @@ function createRotatingSchedule(
     days: number | undefined;
     note: string | null;
     description: string | null;
+    repeatEvents?: {
+      id: string;
+      description: string | null;
+      daysOfWeek: number[];
+    }[];
   }[],
   totalDays: number,
   startDate: Date,
@@ -109,18 +114,35 @@ function createRotatingSchedule(
     throw new Error("At least one segment is required");
   }
 
+  // Check if we have any segments with days defined (rotating schedule)
+  const hasRotatingSchedule = segments.some(
+    (segment) => segment.days && segment.days > 0,
+  );
+
+  // If no rotating schedule, we need at least one repeat event
+  if (!hasRotatingSchedule) {
+    const hasRepeatEvents = segments.some(
+      (segment) => segment.repeatEvents && segment.repeatEvents.length > 0,
+    );
+    if (!hasRepeatEvents) {
+      throw new Error(
+        "Either rotating schedule days or repeat events must be defined",
+      );
+    }
+  }
+
   const cycleLength = segments.reduce(
     (sum, segment) => sum + (segment.days || 0),
     0,
   );
-  if (cycleLength <= 0) {
-    throw new Error("Total cycle length must be greater than 0");
-  }
 
-  const dayToSegmentMap = segments.flatMap((segment) => {
-    const days = segment.days || 0;
-    return Array(days).fill(segment);
-  });
+  // Only create dayToSegmentMap if we have a rotating schedule
+  const dayToSegmentMap = hasRotatingSchedule
+    ? segments.flatMap((segment) => {
+        const days = segment.days || 0;
+        return Array(days).fill(segment);
+      })
+    : null;
 
   const currentDate = new Date(
     Date.UTC(
@@ -135,9 +157,6 @@ function createRotatingSchedule(
   );
 
   for (let i = 0; i < totalDays; i++) {
-    const cyclePosition = i % cycleLength;
-    const segment = dayToSegmentMap[cyclePosition];
-
     const entryDate = new Date(
       Date.UTC(
         currentDate.getUTCFullYear(),
@@ -150,13 +169,32 @@ function createRotatingSchedule(
       ),
     );
 
+    // Get the current day's segment based on schedule type
+    let currentSegment;
+    if (hasRotatingSchedule && dayToSegmentMap) {
+      const cyclePosition = i % cycleLength;
+      currentSegment = dayToSegmentMap[cyclePosition];
+    } else {
+      // For repeating schedule, use the first segment that has repeat events
+      currentSegment = segments.find(
+        (segment) => segment.repeatEvents && segment.repeatEvents.length > 0,
+      );
+    }
+
+    // Check for repeat events on this day
+    const dayRepeatEvents = currentSegment?.repeatEvents?.filter(
+      (event: { daysOfWeek: number[] }) =>
+        event.daysOfWeek.includes(entryDate.getUTCDay()),
+    );
+
     schedule.push({
       id: i + 1,
       date: formatDate(entryDate),
       dayOfWeek: DAYS_OF_WEEK[entryDate.getUTCDay()],
-      shift: segment.shiftType,
-      note: segment.note || null,
-      description: segment.description || null,
+      shift: currentSegment?.shiftType || "Off", // Default to Off if no segment
+      note: currentSegment?.note || null,
+      description: currentSegment?.description || null,
+      repeatEvents: dayRepeatEvents || null,
     });
 
     currentDate.setUTCDate(currentDate.getUTCDate() + 1);

@@ -18,7 +18,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Trash2, HelpCircle, Briefcase, Coffee, Clock } from "lucide-react";
+import { Trash2, HelpCircle, Briefcase, Coffee } from "lucide-react";
 import { ShiftSegment } from "@/types";
 import { Textarea } from "./ui/textarea";
 
@@ -33,7 +33,6 @@ type SegmentCardProps = {
 export function SegmentCard({
   segment,
   index,
-  segments,
   updateSegment,
   removeSegment,
 }: SegmentCardProps) {
@@ -139,6 +138,7 @@ export function SegmentCard({
               />
             </div>
           </div>
+
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             {segment.shiftType === "On" && (
               <div className="space-y-2">

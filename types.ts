@@ -11,6 +11,19 @@ export interface ScheduleEntry {
   shift: string;
   note: string | null;
   description: string | null;
+  repeatEvents:
+    | {
+        id: string;
+        description: string | null;
+        daysOfWeek: number[];
+      }[]
+    | null;
+}
+
+export interface RepeatEvent {
+  id: string;
+  description: string | null;
+  daysOfWeek: number[];
 }
 
 export interface ShiftSegment {
@@ -18,6 +31,7 @@ export interface ShiftSegment {
   days: number | undefined;
   note: string | null;
   description: string | null;
+  repeatEvents?: RepeatEvent[];
 }
 
 export interface FormData {

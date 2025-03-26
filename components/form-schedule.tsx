@@ -15,23 +15,23 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { PlusCircle, HelpCircle, Calendar, Loader2 } from "lucide-react";
+import { PlusCircle, Calendar, Loader2 } from "lucide-react";
 import { FormField } from "./form-field";
 import { SegmentCard } from "./shift-segment-card";
 import { useScheduleForm } from "@/hooks/useScheduleForm";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { Separator } from "@/components/ui/separator";
 import { Input } from "@/components/ui/input";
+import { useState } from "react";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { WeeklyScheduleCard } from "./repeat-event-card";
+import { v4 as uuidv4 } from "uuid";
+import { RepeatEvent } from "@/types";
 
 export default function GenerateScheduleForm() {
   const router = useRouter();
   const { data: session, status } = useSession();
   const { toast } = useToast();
+  const [activeTab, setActiveTab] = useState("rotating");
+  const [isGenerating, setIsGenerating] = useState(false);
   const {
     addSegment,
     updateSegment,
@@ -47,6 +47,35 @@ export default function GenerateScheduleForm() {
     startDate: new Date(),
     scheduleName: "",
   });
+
+  const addRepeatEvent = () => {
+    const newEvent: RepeatEvent = {
+      id: uuidv4(),
+      description: null,
+      daysOfWeek: [],
+    };
+
+    const updatedEvents = [...(segments[0].repeatEvents || []), newEvent];
+    updateSegment(0, "repeatEvents", updatedEvents);
+  };
+
+  const updateRepeatEvent = (
+    eventId: string,
+    field: keyof RepeatEvent,
+    value: any,
+  ) => {
+    const updatedEvents = (segments[0].repeatEvents || []).map((event) =>
+      event.id === eventId ? { ...event, [field]: value } : event,
+    );
+    updateSegment(0, "repeatEvents", updatedEvents);
+  };
+
+  const removeRepeatEvent = (eventId: string) => {
+    const updatedEvents = (segments[0].repeatEvents || []).filter(
+      (event) => event.id !== eventId,
+    );
+    updateSegment(0, "repeatEvents", updatedEvents);
+  };
 
   const handleGenerateSchedule = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -64,6 +93,7 @@ export default function GenerateScheduleForm() {
       addSegment("On");
     }
 
+    setIsGenerating(true);
     try {
       await generateSchedule({
         segments:
@@ -93,6 +123,8 @@ export default function GenerateScheduleForm() {
         description: `Failed to generate schedule: ${error instanceof Error ? error.message : "Unknown error"}`,
         variant: "destructive",
       });
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -208,29 +240,66 @@ export default function GenerateScheduleForm() {
               </div>
 
               <div>
-                <div className="space-y-3">
-                  {segments.map((segment, index) => (
-                    <SegmentCard
-                      key={index}
-                      segment={segment}
-                      index={index}
-                      segments={segments}
-                      updateSegment={updateSegment}
-                      removeSegment={removeSegment}
-                    />
-                  ))}
-                </div>
+                <Tabs
+                  defaultValue="rotating"
+                  className="w-full"
+                  onValueChange={(value) => {
+                    setActiveTab(value);
+                    if (
+                      value === "repeating" &&
+                      (!segments[0].repeatEvents ||
+                        segments[0].repeatEvents.length === 0)
+                    ) {
+                      addRepeatEvent();
+                    }
+                  }}
+                >
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="rotating">
+                      Rotating Schedule
+                    </TabsTrigger>
+                    <TabsTrigger value="repeating">Weekly Schedule</TabsTrigger>
+                  </TabsList>
 
-                <div className="mt-3 flex gap-2">
-                  <Button
-                    type="button"
-                    onClick={() => handleAddSegment("On")}
-                    variant="secondary"
-                    className="flex-1 border-2 border-dashed"
-                  >
-                    <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
-                  </Button>
-                </div>
+                  <TabsContent value="rotating" className="mt-4">
+                    <div className="space-y-3">
+                      {segments.map((segment, index) => (
+                        <SegmentCard
+                          key={index}
+                          segment={segment}
+                          index={index}
+                          segments={segments}
+                          updateSegment={updateSegment}
+                          removeSegment={removeSegment}
+                        />
+                      ))}
+                    </div>
+
+                    <div className="mt-3 flex gap-2">
+                      <Button
+                        type="button"
+                        onClick={() => handleAddSegment("On")}
+                        variant="secondary"
+                        className="flex-1 border-2 border-dashed"
+                      >
+                        <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
+                      </Button>
+                    </div>
+                  </TabsContent>
+
+                  <TabsContent value="repeating" className="mt-4">
+                    <div className="space-y-3">
+                      {(segments[0].repeatEvents || []).map((event) => (
+                        <WeeklyScheduleCard
+                          key={event.id}
+                          event={event}
+                          onUpdate={updateRepeatEvent}
+                          onRemove={removeRepeatEvent}
+                        />
+                      ))}
+                    </div>
+                  </TabsContent>
+                </Tabs>
               </div>
             </div>
 
@@ -238,11 +307,17 @@ export default function GenerateScheduleForm() {
               <Button
                 type="submit"
                 size="lg"
+                disabled={isGenerating}
                 className="bg-primary text-primary-foreground hover:bg-primary/80 relative overflow-hidden px-8 transition-all"
               >
-                <span className="relative z-10">
-                  Generate My Schedule
-                </span>
+                {isGenerating ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Generating Schedule...
+                  </>
+                ) : (
+                  "Generate My Schedule"
+                )}
               </Button>
             </div>
           </form>
