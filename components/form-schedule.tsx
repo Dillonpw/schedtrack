@@ -142,7 +142,6 @@ export default function GenerateScheduleForm() {
           <form onSubmit={handleGenerateSchedule} className="space-y-8">
             <div className="space-y-6">
               <Card className="overflow-hidden border border-white/20 bg-white/5 shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-black/5">
-                {" "}
                 <CardContent className="p-4">
                   <div className="flex flex-col gap-3">
                     <Label
@@ -164,34 +163,6 @@ export default function GenerateScheduleForm() {
                   </div>
                 </CardContent>
               </Card>
-
-              <div>
-                <div className="space-y-3">
-                  {segments.map((segment, index) => (
-                    <SegmentCard
-                      key={index}
-                      segment={segment}
-                      index={index}
-                      segments={segments}
-                      updateSegment={updateSegment}
-                      removeSegment={removeSegment}
-                    />
-                  ))}
-                </div>
-
-                <div className="mt-3 flex gap-2">
-                  <Button
-                    type="button"
-                    onClick={() => handleAddSegment("On")}
-                    variant="secondary"
-                    className="flex-1 border-2 border-dashed"
-                  >
-                    <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
-                  </Button>
-                </div>
-              </div>
-
-              <Separator />
 
               <div className="grid gap-6 md:grid-cols-2">
                 <Card className="bg-card/50 overflow-hidden border shadow-sm">
@@ -235,15 +206,43 @@ export default function GenerateScheduleForm() {
                   </CardContent>
                 </Card>
               </div>
+
+              <div>
+                <div className="space-y-3">
+                  {segments.map((segment, index) => (
+                    <SegmentCard
+                      key={index}
+                      segment={segment}
+                      index={index}
+                      segments={segments}
+                      updateSegment={updateSegment}
+                      removeSegment={removeSegment}
+                    />
+                  ))}
+                </div>
+
+                <div className="mt-3 flex gap-2">
+                  <Button
+                    type="button"
+                    onClick={() => handleAddSegment("On")}
+                    variant="secondary"
+                    className="flex-1 border-2 border-dashed"
+                  >
+                    <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
+                  </Button>
+                </div>
+              </div>
             </div>
 
             <div className="flex justify-center pt-2">
               <Button
                 type="submit"
                 size="lg"
-                className="bg-primary text-primary-foreground hover:bg-primary/90 relative overflow-hidden px-8 transition-all"
+                className="bg-primary text-primary-foreground hover:bg-primary/80 relative overflow-hidden px-8 transition-all"
               >
-                <span className="relative z-10">Generate My Schedule</span>
+                <span className="relative z-10">
+                  Generate My Schedule
+                </span>
               </Button>
             </div>
           </form>
