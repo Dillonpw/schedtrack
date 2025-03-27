@@ -19,7 +19,7 @@ export default function Privacy() {
   return (
     <>
       <main className="dark:bg-muted">
-        <h1 className="mb-14 mt-10 text-center text-3xl font-bold text-red-600/80">
+        <h1 className="mt-10 mb-14 text-center text-3xl font-bold text-red-600/80">
           Privacy Policy
         </h1>
         <div className="mx-auto max-w-[70%] space-y-8">
@@ -51,9 +51,11 @@ export default function Privacy() {
               <p>We also collect certain information automatically:</p>
               <ul className="list-disc space-y-2 pl-6">
                 <li>Usage data and analytics through Vercel Analytics</li>
-                <li>Device and browser information through Sentry</li>
-                <li>IP address and location data through Sentry</li>
+                <li>IP address and location data</li>
                 <li>Session cookies for authentication and functionality</li>
+                <li>
+                  Device information including device type and operating system
+                </li>
               </ul>
             </div>
           </section>
@@ -86,7 +88,6 @@ export default function Privacy() {
             <ul className="mt-2 list-disc space-y-2 pl-6 text-sm lg:text-base">
               <li>Secure authentication through Auth.js</li>
               <li>Encrypted data transmission using HTTPS</li>
-              <li>Error tracking and monitoring through Sentry</li>
               <li>Regular security assessments and updates</li>
             </ul>
           </section>
@@ -100,7 +101,6 @@ export default function Privacy() {
                 <li>Stripe for processing donations</li>
                 <li>Vercel Analytics for usage tracking</li>
                 <li>Google AdSense for advertising</li>
-                <li>Sentry for error tracking and monitoring</li>
               </ul>
               <p>
                 Each of these services has its own privacy policy and data

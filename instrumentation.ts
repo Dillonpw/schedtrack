@@ -1,13 +1,7 @@
-import * as Sentry from "@sentry/nextjs";
-
 export async function register() {
-  if (process.env.NEXT_RUNTIME === "nodejs") {
-    await import("./sentry.server.config");
-  }
-
-  if (process.env.NEXT_RUNTIME === "edge") {
-    await import("./sentry.edge.config");
-  }
+  // Add any instrumentation code here if needed
 }
 
-export const onRequestError = Sentry.captureRequestError;
+export const onRequestError = (error: Error) => {
+  console.error("Request error:", error);
+};
