@@ -20,11 +20,16 @@ export interface ScheduleEntry {
     | null;
 }
 
+ export interface DaySelectorProps {
+  selectedDays: number[];
+  onChange: (days: number[]) => void;
+}
+
 export interface RepeatEvent {
   id: string;
   description: string | null;
   daysOfWeek: number[];
-  repeatInterval: number; // 1 = every week, 2 = every other week, 3 = every third week, etc.
+  repeatInterval: number;
 }
 
 export interface ShiftSegment {
@@ -47,4 +52,16 @@ export interface GenerateScheduleParams {
   totalDays: number;
   startDate: Date;
   name: string;
+}
+
+export interface ScheduleEntryWithName extends ScheduleEntry {
+  scheduleName: string;
+}
+
+export interface ScheduleInfo {
+  id: number;
+  name: string;
+  createdAt: Date;
+  entryCount: number;
+  startDate: Date | null;
 }

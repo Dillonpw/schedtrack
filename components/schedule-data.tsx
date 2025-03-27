@@ -8,18 +8,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Calendar } from "lucide-react";
 import DeleteScheduleButton from "@/components/delete-schedule";
 import { unstable_noStore as noStore } from "next/cache";
+import type { ScheduleEntryWithName, ScheduleInfo } from "@/types";
 
-interface ScheduleEntryWithName extends ScheduleEntry {
-  scheduleName: string;
-}
-
-interface ScheduleInfo {
-  id: number;
-  name: string;
-  createdAt: Date;
-  entryCount: number;
-  startDate: Date | null;
-}
 
 export default async function ScheduleData() {
   noStore();

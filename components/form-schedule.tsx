@@ -90,8 +90,7 @@ export default function GenerateScheduleForm() {
       return;
     }
 
-    // Set default total days if not set
-    const daysToGenerate = totalDays || 90; // Default to 30 days if not specified
+    const daysToGenerate = totalDays || 30;
 
     if (segments.length === 0) {
       addSegment("On");

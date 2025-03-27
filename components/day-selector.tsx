@@ -4,23 +4,16 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { X, ChevronsUpDown, Check } from "lucide-react";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-} from "@/components/ui/command";
+import { Command, CommandGroup, CommandItem } from "@/components/ui/command";
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import type { DaySelectorProps } from "@/types";
 
-interface DaySelectorProps {
-  selectedDays: number[];
-  onChange: (days: number[]) => void;
-}
+
 
 const DAYS = [
   { value: 0, label: "Sunday" },

@@ -15,12 +15,18 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "./ui/alert-dialog";
-import { NotebookPen, CalendarDays } from "lucide-react";
+import {
+  NotebookPen,
+  CalendarDays,
+  MessageSquare,
+  Settings,
+} from "lucide-react";
 
 const AccountInfo = async () => {
   const session = await auth();
   const email: string | null | undefined = session?.user?.email;
   const username = email?.split("@")[0];
+  const isAdmin = email === process.env.ADMIN_EMAIL;
 
   return (
     <div className="bg-background border-border w-full border-b-2">
@@ -52,6 +58,36 @@ const AccountInfo = async () => {
               <span className="hidden sm:block">Generate</span>
             </Link>
           </Button>
+          {session?.user && (
+            <Button
+              asChild
+              variant="ghost"
+              className="hover:bg-transparent focus:bg-transparent"
+            >
+              <Link
+                href="/feedback"
+                className="hover:text-primary flex items-center no-underline"
+              >
+                <MessageSquare className="hover:text-primary block h-8 w-8 sm:hidden" />
+                <span className="hidden sm:block">Feedback</span>
+              </Link>
+            </Button>
+          )}
+          {isAdmin && (
+            <Button
+              asChild
+              variant="ghost"
+              className="hover:bg-transparent focus:bg-transparent"
+            >
+              <Link
+                href="/admin"
+                className="hover:text-primary flex items-center no-underline"
+              >
+                <Settings className="hover:text-primary block h-8 w-8 sm:hidden" />
+                <span className="hidden sm:block">Admin</span>
+              </Link>
+            </Button>
+          )}
         </div>
         <div className="flex items-center gap-2">
           {session?.user ? (

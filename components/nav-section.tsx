@@ -69,7 +69,6 @@ export default async function Nav() {
                 <span>Pricing</span>
               </Link>
             </DropdownMenuItem>
-
             <DropdownMenuItem asChild>
               <Link
                 href="/privacy"

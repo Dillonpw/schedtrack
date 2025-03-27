@@ -25,6 +25,7 @@ export const users = pgTable("user", {
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
   lastScheduleUpdate: timestamp("lastScheduleUpdate", { mode: "date" }),
+  deviceType: text("deviceType"),
 });
 
 export const accounts = pgTable(
