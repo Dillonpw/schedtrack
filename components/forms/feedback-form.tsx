@@ -41,7 +41,7 @@ export function FeedbackForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-muted-foreground">Leave Feedback</CardTitle>
+        <CardTitle>Leave Feedback</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">

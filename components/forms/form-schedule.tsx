@@ -16,13 +16,13 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { PlusCircle, Calendar, Loader2 } from "lucide-react";
-import { FormField } from "./forms/form-field";
-import { SegmentCard } from "./shift-segment-card";
+import { FormField } from "@/components/ui/form-field";
+import { SegmentCard } from "@/components/forms/shift-segment-card";
 import { useScheduleForm } from "@/hooks/useScheduleForm";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { WeeklyScheduleCard } from "./repeat-event-card";
+import { WeeklyScheduleCard } from "@/components/forms/repeat-event-card";
 import { v4 as uuidv4 } from "uuid";
 import { RepeatEvent } from "@/types";
 
