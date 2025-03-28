@@ -34,7 +34,7 @@ export default async function SchedulePage() {
     );
   }
   return (
-    <main className="">
+    <main>
       <AccountInfo />
       {session?.user ? (
         <>

@@ -41,12 +41,11 @@ export function FeedbackForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Submit Feedback</CardTitle>
+        <CardTitle className="text-muted-foreground">Leave Feedback</CardTitle>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <Label>Type</Label>
             <RadioGroup
               value={type}
               onValueChange={setType}

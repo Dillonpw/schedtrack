@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Trash2, Calendar } from "lucide-react";
 import { RepeatEvent } from "@/types";
-import { DaySelector } from "@/components/day-selector";
+import { DaySelector } from "@/components/forms/day-selector";
 import {
   Select,
   SelectContent,

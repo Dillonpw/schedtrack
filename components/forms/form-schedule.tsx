@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { PlusCircle, Calendar, Loader2 } from "lucide-react";
-import { FormField } from "./form-field";
+import { FormField } from "./forms/form-field";
 import { SegmentCard } from "./shift-segment-card";
 import { useScheduleForm } from "@/hooks/useScheduleForm";
 import { Input } from "@/components/ui/input";

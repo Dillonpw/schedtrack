@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/tooltip";
 import { Trash2, HelpCircle, Briefcase, Coffee } from "lucide-react";
 import { ShiftSegment } from "@/types";
-import { Textarea } from "./ui/textarea";
+import { Textarea } from "@/components/ui/textarea";
 
 type SegmentCardProps = {
   segment: ShiftSegment;
