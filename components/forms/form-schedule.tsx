@@ -215,7 +215,7 @@ export default function GenerateScheduleForm() {
                         value={totalDays}
                         onChange={(value) => updateField("totalDays", value)}
                         min={1}
-                        max={730}
+                        max={1095}
                         tooltip="Enter the number of days to display in your schedule (maximum 2 years)"
                       />
                     </div>

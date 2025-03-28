@@ -189,6 +189,23 @@ function createRotatingSchedule(
         const isCorrectDay = event.daysOfWeek.includes(entryDate.getUTCDay());
         if (!isCorrectDay) return false;
 
+        // Special handling for annual events (52 weeks)
+        if (event.repeatInterval === 52) {
+          // For annual events, check if this is the same month and day as the start date
+          const isAnniversaryDate =
+            entryDate.getUTCMonth() === startDate.getUTCMonth() &&
+            entryDate.getUTCDate() === startDate.getUTCDate();
+
+          // If it's not an anniversary date, it's not an annual event
+          if (!isAnniversaryDate) return false;
+
+          // Check if it's been a full year (or multiple years)
+          const yearDifference =
+            entryDate.getUTCFullYear() - startDate.getUTCFullYear();
+          return yearDifference >= 0; // Include initial date and subsequent years
+        }
+
+        // For non-annual events, use the existing weekly logic
         // Calculate the week number since the start date
         const weekNumber = Math.floor(i / 7);
         // Check if this week should be included based on the repeat interval

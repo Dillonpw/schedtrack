@@ -71,6 +71,7 @@ export function WeeklyScheduleCard({
                 <SelectItem value="6">Every sixth week</SelectItem>
                 <SelectItem value="7">Every seventh week</SelectItem>
                 <SelectItem value="8">Every eighth week</SelectItem>
+                <SelectItem value="52">Annually</SelectItem>
               </SelectContent>
             </Select>
           </div>
