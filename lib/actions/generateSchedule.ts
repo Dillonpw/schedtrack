@@ -115,12 +115,10 @@ function createRotatingSchedule(
     throw new Error("At least one segment is required");
   }
 
-  // Check if we have any segments with days defined (rotating schedule)
   const hasRotatingSchedule = segments.some(
     (segment) => segment.days && segment.days > 0,
   );
 
-  // If no rotating schedule, we need at least one repeat event
   if (!hasRotatingSchedule) {
     const hasRepeatEvents = segments.some(
       (segment) => segment.repeatEvents && segment.repeatEvents.length > 0,
@@ -137,7 +135,6 @@ function createRotatingSchedule(
     0,
   );
 
-  // Only create dayToSegmentMap if we have a rotating schedule
   const dayToSegmentMap = hasRotatingSchedule
     ? segments.flatMap((segment) => {
         const days = segment.days || 0;
@@ -170,50 +167,38 @@ function createRotatingSchedule(
       ),
     );
 
-    // Get the current day's segment based on schedule type
     let currentSegment;
     if (hasRotatingSchedule && dayToSegmentMap) {
       const cyclePosition = i % cycleLength;
       currentSegment = dayToSegmentMap[cyclePosition];
     } else {
-      // For repeating schedule, use the first segment that has repeat events
       currentSegment = segments.find(
         (segment) => segment.repeatEvents && segment.repeatEvents.length > 0,
       );
     }
 
-    // Check for repeat events on this day
     const dayRepeatEvents = currentSegment?.repeatEvents?.filter(
       (event: { daysOfWeek: number[]; repeatInterval: number }) => {
-        // First check if this is a day we want to show the event
         const isCorrectDay = event.daysOfWeek.includes(entryDate.getUTCDay());
         if (!isCorrectDay) return false;
 
-        // Special handling for annual events (52 weeks)
         if (event.repeatInterval === 52) {
-          // For annual events, check if this is the same month and day as the start date
           const isAnniversaryDate =
             entryDate.getUTCMonth() === startDate.getUTCMonth() &&
             entryDate.getUTCDate() === startDate.getUTCDate();
 
-          // If it's not an anniversary date, it's not an annual event
           if (!isAnniversaryDate) return false;
 
-          // Check if it's been a full year (or multiple years)
           const yearDifference =
             entryDate.getUTCFullYear() - startDate.getUTCFullYear();
-          return yearDifference >= 0; // Include initial date and subsequent years
+          return yearDifference >= 0;
         }
 
-        // For non-annual events, use the existing weekly logic
-        // Calculate the week number since the start date
         const weekNumber = Math.floor(i / 7);
-        // Check if this week should be included based on the repeat interval
         return weekNumber % event.repeatInterval === 0;
       },
     );
 
-    // For weekly schedule, only show the event on selected days
     const shift = hasRotatingSchedule
       ? currentSegment?.shiftType || "Off"
       : dayRepeatEvents && dayRepeatEvents.length > 0

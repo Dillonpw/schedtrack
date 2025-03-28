@@ -264,6 +264,40 @@ function CalendarView({
   );
 }
 
+function getConsistentColors(
+  scheduleNames: string[],
+  existingColors: Record<string, string> = {},
+): Record<string, string> {
+  const colors = { ...existingColors };
+  const availableColors = [...colorPalette];
+
+  const usedColors = Object.values(colors);
+  const unusedColors = availableColors.filter(
+    (color) => !usedColors.includes(color),
+  );
+
+  scheduleNames.forEach((name) => {
+    if (!colors[name]) {
+      if (unusedColors.length > 0) {
+        const randomIndex = Math.floor(Math.random() * unusedColors.length);
+        colors[name] = unusedColors[randomIndex];
+        unusedColors.splice(randomIndex, 1);
+      } else {
+        const randomIndex = Math.floor(Math.random() * availableColors.length);
+        colors[name] = availableColors[randomIndex];
+      }
+    }
+  });
+
+  try {
+    localStorage.setItem("scheduleColors", JSON.stringify(colors));
+  } catch (error) {
+    console.error("Error saving colors:", error);
+  }
+
+  return colors;
+}
+
 export default function ClientScheduleView({
   scheduleEntriesData,
 }: {
@@ -279,23 +313,26 @@ export default function ClientScheduleView({
     );
 
     if (Object.keys(scheduleColorsRef.current).length === 0) {
-      const colors: Record<string, string> = {};
-      const availableColors = [...colorPalette];
-      scheduleNames.forEach((name) => {
-        const randomIndex = Math.floor(Math.random() * availableColors.length);
-        colors[name] = availableColors[randomIndex];
-        availableColors.splice(randomIndex, 1);
-        if (availableColors.length === 0) {
-          availableColors.push(...colorPalette);
+      try {
+        const savedColors = localStorage.getItem("scheduleColors");
+        if (savedColors) {
+          const parsedColors = JSON.parse(savedColors);
+          scheduleColorsRef.current = parsedColors;
         }
-      });
-      scheduleColorsRef.current = colors;
+      } catch (error) {
+        console.error("Error loading saved colors:", error);
+      }
     }
+
+    scheduleColorsRef.current = getConsistentColors(
+      scheduleNames,
+      scheduleColorsRef.current,
+    );
 
     if (visibleSchedules.length === 0) {
       setVisibleSchedules(scheduleNames);
     }
-  }, [scheduleEntriesData]);
+  }, [scheduleEntriesData, visibleSchedules.length]);
 
   const toggleSchedule = (scheduleName: string) => {
     setVisibleSchedules((prev) =>
