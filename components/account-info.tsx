@@ -41,7 +41,7 @@ const AccountInfo = async () => {
               href="/schedule"
               className="hover:text-primary flex items-center no-underline"
             >
-              <CalendarDays className="hover:text-primary block h-8 w-8 sm:hidden" />
+              <CalendarDays className="hover:stroke-primary block h-8 w-8 transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-6 sm:hidden" />
               <span className="hidden sm:block">Schedule</span>
             </Link>
           </Button>
@@ -54,7 +54,7 @@ const AccountInfo = async () => {
               href="/generate"
               className="hover:text-primary flex items-center no-underline"
             >
-              <NotebookPen className="hover:text-primary block h-8 w-8 sm:hidden" />
+              <NotebookPen className="hover:stroke-primary block h-8 w-8 transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-6 sm:hidden" />
               <span className="hidden sm:block">Generate</span>
             </Link>
           </Button>
@@ -68,7 +68,7 @@ const AccountInfo = async () => {
                 href="/feedback"
                 className="hover:text-primary flex items-center no-underline"
               >
-                <MessageSquare className="hover:text-primary block h-8 w-8 sm:hidden" />
+                <MessageSquare className="hover:stroke-primary block h-8 w-8 transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-6 sm:hidden" />
                 <span className="hidden sm:block">Feedback</span>
               </Link>
             </Button>
@@ -83,7 +83,7 @@ const AccountInfo = async () => {
                 href="/admin"
                 className="hover:text-primary flex items-center no-underline"
               >
-                <Settings className="hover:text-primary block h-8 w-8 sm:hidden" />
+                <Settings className="hover:stroke-primary block h-8 w-8 transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-6 sm:hidden" />
                 <span className="hidden sm:block">Admin</span>
               </Link>
             </Button>
