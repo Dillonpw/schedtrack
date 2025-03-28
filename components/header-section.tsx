@@ -9,7 +9,7 @@ const Header = ({ children }: HeaderProps) => {
     <header className="flex h-14 items-center justify-between p-2 xl:px-40">
       <Link
         data-testid="favicon-link"
-        href="/"
+        href="/?landing=true"
         className="flex items-center justify-center"
         prefetch={true}
       >

@@ -22,6 +22,7 @@ export const viewport: Viewport = {
 
 export default async function SchedulePage() {
   const session = await auth();
+
   if (!session) {
     return (
       <main className="flex min-h-screen flex-col items-center justify-center">

@@ -157,7 +157,7 @@ export default async function AdminPage() {
 
   return (
     <div className="container mx-auto py-8">
-      <h1 className="mb-8 text-3xl font-bold">Admin Dashboard</h1>
+      <h1 className="mx-6 mb-8 text-left text-xl font-bold">Dashboard</h1>
 
       <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
@@ -225,6 +225,14 @@ export default async function AdminPage() {
 
         <Card>
           <CardHeader>
+            <CardTitle>Device Usage</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <PieChartComponent data={stats.deviceUsage} title="" />
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
             <CardTitle>Feedback Received (Last 7 Days)</CardTitle>
           </CardHeader>
           <CardContent>
@@ -234,15 +242,6 @@ export default async function AdminPage() {
               yKey="count"
               title=""
             />
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Device Usage</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <PieChartComponent data={stats.deviceUsage} title="" />
           </CardContent>
         </Card>
       </div>

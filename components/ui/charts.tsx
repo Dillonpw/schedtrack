@@ -12,6 +12,7 @@ import {
   Pie,
   Cell,
   Tooltip,
+  Legend,
 } from "recharts";
 
 interface ChartProps {
@@ -106,9 +107,7 @@ export function PieChartComponent({ data, title }: PieChartProps) {
             outerRadius={80}
             fill="#8884d8"
             dataKey="value"
-            label={({ name, percent }) =>
-              `${name} ${(percent * 100).toFixed(0)}%`
-            }
+            label={false}
           >
             {data.map((entry, index) => (
               <Cell
@@ -126,6 +125,14 @@ export function PieChartComponent({ data, title }: PieChartProps) {
             }}
             labelStyle={{ color: "var(--foreground)" }}
             itemStyle={{ color: "var(--foreground)" }}
+          />
+          <Legend
+            verticalAlign="bottom"
+            height={36}
+            layout="vertical"
+            formatter={(value) =>
+              `${value} (${(((data.find((item) => item.name === value)?.value || 0) / data.reduce((acc, curr) => acc + curr.value, 0)) * 100).toFixed(0)}%)`
+            }
           />
         </PieChart>
       </ResponsiveContainer>
