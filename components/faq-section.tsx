@@ -43,73 +43,45 @@ export default function Faq() {
   ];
 
   return (
-    <>
-      <svg
-        viewBox="0 0 1440 58"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        width="100%"
-        className="bg-muted"
-      >
-        <path
-          d="M-100 58C-100 58 218.416 36.3297 693.5 36.3297C1168.58 36.3297 1487 58 1487 58V-3.8147e-06H-100V58Z"
-          className="fill-background"
-        ></path>
-      </svg>
-      <section
-        data-testid="faq"
-        className="bg-muted flex w-full flex-col gap-6 py-20 md:py-32 lg:py-40"
-      >
-        <div className="container mx-auto px-4 md:px-6">
-          <motion.h4
-            className="text-primary text-center text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl"
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{ duration: 0.4 }}
-          >
-            Frequently Asked Questions
-          </motion.h4>
-          <Accordion
-            type="single"
-            collapsible
-            className="mx-auto w-full max-w-3xl"
-          >
-            {faqItems.map((item, index) => (
-              <motion.div
-                key={`item-${index + 1}`}
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <AccordionItem value={`item-${index + 1}`}>
-                  <AccordionTrigger className="text-left text-lg md:text-xl">
-                    {item.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-base md:text-lg">
-                    {item.answer}
-                  </AccordionContent>
-                </AccordionItem>
-              </motion.div>
-            ))}
-          </Accordion>
-        </div>
-      </section>
-      <svg
-        viewBox="0 0 1440 58"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        version="1.1"
-        width="100%"
-        className="bg-muted"
-      >
-        <path
-          transform="rotate(180) translate(-1440, -60)"
-          d="M-100 58C-100 58 218.416 36.3297 693.5 36.3297C1168.58 36.3297 1487 58 1487 58V-3.8147e-06H-100V58Z"
-          className="fill-background"
-        ></path>
-      </svg>
-    </>
+    <section
+      data-testid="faq"
+      className="flex w-full flex-col gap-6 py-20 md:py-32 lg:py-40"
+    >
+      <div className="container mx-auto px-4 md:px-6">
+        <motion.h4
+          className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-4xl font-bold tracking-tighter text-transparent"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.4 }}
+        >
+          Frequently Asked Questions
+        </motion.h4>
+        <Accordion
+          type="single"
+          collapsible
+          className="mx-auto w-full max-w-3xl"
+        >
+          {faqItems.map((item, index) => (
+            <motion.div
+              key={`item-${index + 1}`}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <AccordionItem value={`item-${index + 1}`}>
+                <AccordionTrigger className="text-left text-lg md:text-xl">
+                  {item.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-base md:text-lg">
+                  {item.answer}
+                </AccordionContent>
+              </AccordionItem>
+            </motion.div>
+          ))}
+        </Accordion>
+      </div>
+    </section>
   );
 }

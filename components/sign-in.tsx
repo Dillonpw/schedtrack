@@ -9,7 +9,12 @@ export function SignIn() {
         await signIn();
       }}
     >
-      <Button type="submit">Sign in</Button>
+      <Button
+        type="submit"
+        className="from-primary to-secondary text-primary-foreground group w-full bg-gradient-to-r hover:scale-103 min-[400px]:w-auto"
+      >
+        Sign in
+      </Button>
     </form>
   );
 }

@@ -124,7 +124,7 @@ function CalendarView({
     days.push(
       <div
         key={i}
-        className="group border-muted bg-secondary dark:outline-border relative h-16 rounded-sm border p-1 sm:h-24 sm:p-2 dark:outline-1"
+        className="group border-muted bg-background/50 dark:outline-border relative h-16 rounded-sm border p-1 sm:h-24 sm:p-2 dark:outline-1"
       >
         <div className="mb-1 text-sm font-medium sm:text-base">{i}</div>
         {entriesForDay.length >= 3 && (

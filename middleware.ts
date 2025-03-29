@@ -29,12 +29,10 @@ export async function middleware(request: NextRequest) {
     console.error("Error updating device type:", error);
   }
 
-  // Allow access to landing page if explicitly requested
   if (request.nextUrl.searchParams.has("landing")) {
     return NextResponse.next();
   }
 
-  // Redirect to schedule page only on direct root path access
   if (session?.user && request.nextUrl.pathname === "/") {
     return NextResponse.redirect(new URL("/schedule", request.url));
   }

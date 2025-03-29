@@ -39,74 +39,67 @@ export function FeedbackForm() {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Leave Feedback</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <RadioGroup
-              value={type}
-              onValueChange={setType}
-              className="flex space-x-4"
+    <Card className="border-primary/20 relative border shadow-lg">
+      <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+      <div className="relative">
+        <CardHeader>
+          <CardTitle>Leave Feedback</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="space-y-2">
+              <RadioGroup
+                value={type}
+                onValueChange={setType}
+                className="flex gap-4"
+              >
+                {[
+                  { value: "feedback", label: "General Feedback" },
+                  { value: "bug", label: "Bug Report" },
+                  { value: "feature", label: "Feature Request" },
+                ].map(({ value, label }) => (
+                  <div key={value} className="flex items-center gap-2">
+                    <RadioGroupItem
+                      value={value}
+                      id={value}
+                      className="cursor-pointer"
+                    />
+                    <Label htmlFor={value} className="cursor-pointer">
+                      {label}
+                    </Label>
+                  </div>
+                ))}
+              </RadioGroup>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="feedback-text">Your Message</Label>
+              <Textarea
+                id="feedback-text"
+                placeholder={
+                  type === "bug"
+                    ? "Please describe the bug and steps to reproduce it..."
+                    : type === "feature"
+                      ? "Please describe the feature you'd like to see..."
+                      : "Share your thoughts about the application..."
+                }
+                value={feedback}
+                onChange={(e) => setFeedback(e.target.value)}
+                className="min-h-[200px]"
+                required
+              />
+            </div>
+
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="from-primary to-secondary text-primary-foreground bg-gradient-to-r"
             >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem
-                  value="feedback"
-                  id="feedback"
-                  className="cursor-pointer"
-                />
-                <Label htmlFor="feedback" className="cursor-pointer">
-                  General Feedback
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem
-                  value="bug"
-                  id="bug"
-                  className="cursor-pointer"
-                />
-                <Label htmlFor="bug" className="cursor-pointer">
-                  Bug Report
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem
-                  value="feature"
-                  id="feature"
-                  className="cursor-pointer"
-                />
-                <Label htmlFor="feature" className="cursor-pointer">
-                  Feature Request
-                </Label>
-              </div>
-            </RadioGroup>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="feedback-text">Your Message</Label>
-            <Textarea
-              id="feedback-text"
-              placeholder={
-                type === "bug"
-                  ? "Please describe the bug and steps to reproduce it..."
-                  : type === "feature"
-                    ? "Please describe the feature you'd like to see..."
-                    : "Share your thoughts about the application..."
-              }
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
-              className="min-h-[200px]"
-              required
-            />
-          </div>
-
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting ? "Submitting..." : "Submit Feedback"}
-          </Button>
-        </form>
-      </CardContent>
+              {isSubmitting ? "Submitting..." : "Submit Feedback"}
+            </Button>
+          </form>
+        </CardContent>
+      </div>
     </Card>
   );
 }

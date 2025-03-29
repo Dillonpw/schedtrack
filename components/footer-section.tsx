@@ -1,21 +1,83 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { Mail, Calendar, Twitter, Github, Instagram } from "lucide-react";
 
-const Footer = () => {
-  const year = new Date().getFullYear();
+export default function Footer() {
   return (
-    <footer className="just flex max-h-18 w-full shrink-0 flex-col items-center gap-2 border-t px-4 py-10 sm:flex-row md:px-6">
-      <p className="text-xs">&copy; {year} Sched Track. All rights reserved.</p>
-      <nav className="flex gap-4 sm:ml-auto sm:gap-6">
-        <Link
-          href="/privacy"
-          className="text-xs underline-offset-4 hover:underline"
-          prefetch={false}
-        >
-          Privacy Policy
-        </Link>
-      </nav>
+    <footer className="bg-background border-primary/10 border-t">
+      <div className="container mx-auto px-4 py-12 md:py-16">
+        <div className="grid gap-8 md:grid-cols-3">
+          <div className="space-y-4">
+            <Link href="/" className="inline-block">
+              <div className="flex items-center">
+                <Calendar className="text-primary mr-2 h-6 w-6" />
+                <span className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-xl font-bold text-transparent">
+                  Sched Track
+                </span>
+              </div>
+            </Link>
+            <p className="text-muted-foreground max-w-xs text-sm">
+              Simplify your life.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="from-primary to-secondary bg-gradient-to-r bg-clip-text font-semibold text-transparent">
+              Product
+            </h3>
+            <ul className="space-y-2">
+              {["Features", "Pricing"].map((item) => (
+                <li key={item}>
+                  <Link
+                    href={`#${item.toLowerCase()}`}
+                    className="text-muted-foreground hover:text-secondary text-sm transition-colors"
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="from-primary to-secondary bg-gradient-to-r bg-clip-text font-semibold text-transparent">
+              Company
+            </h3>
+            <ul className="space-y-2">
+              {["About", "Contact"].map((item) => (
+                <li key={item}>
+                  <Link
+                    href={`/${item.toLowerCase()}`}
+                    className="text-muted-foreground hover:text-primary text-sm transition-colors"
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <Separator className="from-primary/10 via-secondary/10 to-primary/10 my-8 bg-gradient-to-r" />
+
+        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+          <p className="text-muted-foreground text-xs">
+            © {new Date().getFullYear()} Sched Track. All rights reserved.
+          </p>
+          <div className="flex flex-wrap gap-4">
+            {["Privacy Policy", "Terms of Service", "Sitemap"].map((item) => (
+              <Link
+                key={item}
+                href={`/${item.toLowerCase().replace(/ /g, "-")}`}
+                className="text-muted-foreground hover:text-secondary text-xs transition-colors"
+              >
+                {item}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
     </footer>
   );
-};
-
-export default Footer;
+}

@@ -11,57 +11,67 @@ import {
 
 export default async function Pricing() {
   return (
-    <section className="w-full py-20 md:py-32 lg:py-40">
+    <section
+      className="py-20 md:py-32 lg:py-40"
+      id="pricing"
+      data-testid="pricing"
+    >
       <div className="container mx-auto px-4 md:px-6">
-        <div
-          data-testid="pricing"
-          id="pricing"
-          className="flex w-full flex-col items-stretch justify-center gap-8 lg:flex-row"
-        >
-          <div className="mx-auto w-full max-w-md lg:w-1/2">
-            <Card className="group bg-card h-full overflow-hidden border transition-all duration-300 hover:shadow-lg dark:bg-gray-600">
-              <CardHeader className="bg-card p-6 text-center dark:bg-gray-600">
-                <CardTitle className="text-card-foreground text-2xl font-bold md:text-3xl">
+        <div className="mb-12 text-center">
+          <h2 className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-4xl font-bold tracking-tighter text-transparent">
+            Simple & Transparent Pricing
+          </h2>
+          <p className="text-muted-foreground mx-auto max-w-[700px] text-lg">
+            Everything you need to create and manage your schedules, with no
+            hidden fees.
+          </p>
+        </div>
+
+        <div className="mx-auto max-w-md">
+          <Card className="border-primary/20 relative border shadow-lg">
+            <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+            <div className="relative">
+              <CardHeader className="text-center">
+                <CardTitle className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-4xl font-bold text-transparent">
                   Free Account
                 </CardTitle>
-                <p className="dark:text-primary/78 mt-2 text-base text-blue-700/80">
+                <p className="text-muted-foreground mt-2">
                   Perfect for Personal and Professional Use
                 </p>
               </CardHeader>
-              <CardContent className="flex-grow p-6">
+              <CardContent>
                 <ul className="space-y-4 text-sm">
                   {[
                     "Create and manage all types of schedules",
                     "Basic schedule patterns or complex custom schedules",
                     "Schedule for your entire team",
                     "Schedule up to 2 year into the future",
-                    "Export to your preferred calendar app",
                   ].map((feature, index) => (
                     <li key={index} className="flex items-start gap-2">
-                      <Check className="h-1lh text-primary w-4 flex-shrink-0" />
-                      <span className="text-card-foreground/90 group-hover:text-card-foreground transition-all duration-300">
-                        {feature}
-                      </span>
+                      <Check
+                        className={`h-5 w-5 ${index % 2 === 0 ? "text-primary" : "text-secondary"}`}
+                      />
+                      <span className="text-card-foreground/90">{feature}</span>
                     </li>
                   ))}
                 </ul>
               </CardContent>
-              <CardFooter className="mt-auto flex items-center justify-between gap-4 border-t p-6">
-                <div className="text-card-foreground text-2xl font-bold md:text-3xl">
+              <CardFooter className="flex items-center justify-between gap-4 border-t pt-6">
+                <div className="text-4xl font-bold">
                   FREE <span className="text-primary/80 text-sm">for now</span>
                 </div>
                 <Button
                   asChild
                   size="lg"
-                  className="bg-primary text-primary-foreground hover:bg-primary/90 transition-all"
+                  className="from-primary to-secondary text-primary-foreground bg-gradient-to-r hover:scale-105"
                 >
                   <Link href="/signin" prefetch={false}>
                     Get Started
                   </Link>
                 </Button>
               </CardFooter>
-            </Card>
-          </div>
+            </div>
+          </Card>
         </div>
       </div>
     </section>

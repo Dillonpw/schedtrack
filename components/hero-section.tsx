@@ -1,60 +1,122 @@
 "use client";
 
-import { Calendar } from "./ui/calendar";
-import React from "react";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Calendar, Clock, Zap } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import BlurBackground from "@/components/ui/blur-background";
 
-const HeroSection = ({ children }: { children: React.ReactNode }) => {
-  const [date, setDate] = React.useState<Date | undefined>(new Date());
+export default function HeroSection() {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
 
   return (
-    <section className="w-full py-20 md:py-32 lg:py-40">
-      <div className="container mx-auto px-4 md:px-6">
-        <div className="flex flex-col items-center justify-center gap-8 sm:flex-row">
-          <div className="flex flex-col justify-center space-y-4">
-            <div className="space-y-2">
-              <motion.h1
-                initial={{ opacity: 0, x: -200 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.1 }}
-                className="max-w-[600px] text-center text-2xl font-bold sm:text-left sm:text-4xl lg:text-5xl"
-              >
-                Smart Schedule Management
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, x: -200 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-foreground max-w-[600px] text-center sm:text-left md:text-left md:text-xl"
-              >
-                Our intelligent schedule builder helps you manage any type of
-                schedule - from regular 9-5 shifts to complex rotating patterns.
-                Perfect for{" "}
-                <span className="font-semibold text-blue-700/80 italic">
-                  Everyone
-                </span>{" "}
-                who need to plan ahead, whether it's for next month, 6 months,
-                or years.
-              </motion.p>
-            </div>
+    <section className="bg-background relative w-full overflow-hidden py-20 md:py-32 lg:py-40">
+      <BlurBackground
+        primaryColor="bg-primary/20"
+        secondaryColor="bg-secondary/20"
+        accentColor="bg-accent/10"
+      />
+
+      <div className="relative z-10 container mx-auto px-4 md:px-6">
+        <div className="grid items-center gap-6 lg:gap-12 xl:grid-cols-2">
+          <div className="flex flex-col items-center xl:items-start">
             <motion.div
-              initial={{ opacity: 0, x: -200 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.4 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={loaded ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="bg-secondary/10 text-secondary mb-6 inline-flex justify-center rounded-full px-3 py-1 text-xs font-medium md:text-sm"
             >
-              {children}
-            </motion.div>{" "}
+              The complete schedule builder
+            </motion.div>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={loaded ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="text-center text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl xl:text-left"
+            >
+              <span className="block">Build Any Schedule</span>
+              <span className="from-primary to-secondary bg-gradient-to-r bg-clip-text pr-2 text-transparent">
+                Simple to Complex
+              </span>
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={loaded ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="text-muted-foreground mt-4 max-w-[600px] text-center md:text-xl xl:text-left"
+            >
+              Create any type of schedule with our powerful builder. From basic
+              weekly plans to complex rotating patterns that other apps can't
+              handle - we've got you covered.
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={loaded ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.4 }}
+              className="mt-6 flex flex-col items-center gap-2 min-[400px]:flex-row xl:items-start"
+            >
+              <Link href="/generate" className="w-full min-[400px]:w-auto">
+                <Button className="from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-primary-foreground group w-full bg-gradient-to-r min-[400px]:w-auto">
+                  Start Building Free
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </Link>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={loaded ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.5 }}
+              className="mt-8 flex flex-col items-center gap-4 md:flex-row xl:items-start"
+            >
+              {[
+                {
+                  icon: <Calendar className="text-primary h-4 w-4" />,
+                  text: "Unlimited schedules",
+                },
+                {
+                  icon: <Clock className="text-secondary h-4 w-4" />,
+                  text: "Optimized for shift work",
+                },
+                {
+                  icon: <Zap className="text-accent h-4 w-4" />,
+                  text: "Fast & intuitive interface",
+                },
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="border-primary/10 bg-background/50 flex items-center gap-2 rounded-lg border px-3 py-2 text-sm backdrop-blur-sm"
+                >
+                  {item.icon}
+                  <span>{item.text}</span>
+                </div>
+              ))}
+            </motion.div>
           </div>
-          <motion.div
-            initial={{ opacity: 0, y: -50 }}
-            animate={{ opacity: 1, y: 0 }}
+          {/* <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={loaded ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.7, delay: 0.3 }}
+            className="border-primary/20 bg-card shadow-primary/5 relative overflow-hidden rounded-xl border p-2 shadow-xl"
           >
-            <Calendar mode="single" selected={date} onSelect={setDate} />
-          </motion.div>
+            <div className="from-primary/30 to-secondary/30 absolute -inset-1 rounded-xl bg-gradient-to-r opacity-20 blur-md"></div>
+            <div className="relative overflow-hidden rounded-lg">
+              <Image
+                alt="Schedule Dashboard Preview"
+                className="aspect-video w-full rounded-lg object-cover"
+                height="500"
+                width="900"
+                src="/dashboard.png"
+              />
+            </div>
+          </motion.div> */}
         </div>
       </div>
     </section>
   );
-};
-
-export default HeroSection;
+}

@@ -16,14 +16,14 @@ export default async function Nav() {
       {/* Desktop navigation */}
       <div className="hidden items-center gap-2 sm:flex sm:gap-6">
         <Link
-          href="/#features"
+          href="/?landing=true#features"
           className="hover:text-primary text-lg font-medium"
           prefetch={false}
         >
           Features
         </Link>
         <Link
-          href="/#pricing"
+          href="/?landing=true#pricing"
           className="hover:text-primary text-lg font-medium"
           prefetch={false}
         >
@@ -52,19 +52,19 @@ export default async function Nav() {
             <DropdownMenuLabel>Navigation</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
-              <Link href="/" className="flex items-center">
+              <Link href="/?landing=true" className="flex items-center">
                 <Home className="mr-2 h-4 w-4" />
                 <span>Home</span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="/#features" className="flex items-center">
+              <Link href="/?landing=true#features" className="flex items-center">
                 <Zap className="mr-2 h-4 w-4" />
                 <span>Features</span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="/#pricing" className="flex items-center">
+              <Link href="/?landing=true#pricing" className="flex items-center">
                 <DollarSign className="mr-2 h-4 w-4" />
                 <span>Pricing</span>
               </Link>

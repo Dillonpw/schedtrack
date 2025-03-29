@@ -11,6 +11,7 @@ import { Analytics } from "@vercel/analytics/react";
 import Script from "next/script";
 import { Metadata, Viewport } from "next";
 import Donation from "@/components/donation-link";
+import BlurBackground from "@/components/ui/blur-background";
 
 export const metadata: Metadata = {
   title: "Rotating Schedule Builder for everything and everyone",
@@ -232,22 +233,29 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body
         className={cn(
-          "font-sans antialiased",
+          "relative min-h-screen font-sans antialiased",
           GeistSans.variable,
           GeistMono.variable,
         )}
       >
-        <Providers>
-          <SessionProvider>
-            <Header>
-              <Nav />
-            </Header>
-            {children}
-          </SessionProvider>
-        </Providers>
-        <Donation />
-        <Footer />
-        <Analytics />
+        <BlurBackground
+          primaryColor="bg-primary/20"
+          secondaryColor="bg-secondary/20"
+          accentColor="bg-accent/15"
+        />
+        <div className="relative z-10">
+          <Providers>
+            <SessionProvider>
+              <Header>
+                <Nav />
+              </Header>
+              {children}
+            </SessionProvider>
+          </Providers>
+          <Donation />
+          <Footer />
+          <Analytics />
+        </div>
         <Script
           id="structured-data"
           type="application/ld+json"

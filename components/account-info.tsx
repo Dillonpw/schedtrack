@@ -29,7 +29,7 @@ const AccountInfo = async () => {
   const isAdmin = email === process.env.ADMIN_EMAIL;
 
   return (
-    <div className="bg-background border-border w-full border-b-2">
+    <div className="border-border w-full border-b-2">
       <div className="mx-auto flex items-center justify-between px-2 pb-2 md:px-6 lg:container lg:mx-auto">
         <div className="flex">
           <Button

@@ -174,7 +174,11 @@ export default function GenerateScheduleForm() {
           </CardDescription>
         </CardHeader>
         <CardContent className="p-6">
-          <form onSubmit={handleGenerateSchedule} className="space-y-8">
+          <form
+            onSubmit={handleGenerateSchedule}
+            className="space-y-8"
+            autoComplete="off"
+          >
             <div className="space-y-6">
               <Card className="overflow-hidden border border-white/20 bg-white/5 shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-black/5">
                 <CardContent className="p-4">
@@ -282,8 +286,8 @@ export default function GenerateScheduleForm() {
                       <Button
                         type="button"
                         onClick={() => handleAddSegment("On")}
-                        variant="secondary"
-                        className="flex-1 border-2 border-dashed"
+                        variant="outline"
+                        className="flex-1 border-dashed"
                       >
                         <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
                       </Button>
@@ -311,7 +315,7 @@ export default function GenerateScheduleForm() {
                 type="submit"
                 size="lg"
                 disabled={isGenerating}
-                className="bg-primary text-primary-foreground hover:bg-primary/80 relative overflow-hidden px-8 transition-all"
+                className="from-primary to-secondary text-primary-foreground group bg-gradient-to-r transition-all hover:scale-105"
               >
                 {isGenerating ? (
                   <>

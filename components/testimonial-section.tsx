@@ -67,8 +67,8 @@ export default function TestimonialsSection() {
   });
 
   return (
-    <section className="bg-background w-full py-20 md:py-32 lg:py-40">
-      <div className="container mx-auto px-4 md:px-6">
+    <section className="relative w-full overflow-hidden py-20 md:py-32 lg:py-40">
+      <div className="relative z-10 container mx-auto px-4 md:px-6">
         <div className="mb-12 flex flex-col items-center justify-center space-y-4 text-center">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
@@ -76,18 +76,18 @@ export default function TestimonialsSection() {
             viewport={{ once: true }}
             className="space-y-2"
           >
-            <h3 className="text-primary text-2xl font-bold tracking-tighter sm:text-3xl md:text-4xl">
-              What Our Users Say
+            <h3 className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-4xl font-bold tracking-tighter text-transparent">
+              What People Are Building
             </h3>
-            <p className="max-w-[600px] text-lg">
-              Hear from our satisfied users about how our rotating schedule
-              builder has simplified their day to day.
+            <p className="text-muted-foreground mx-auto max-w-[700px] text-lg">
+              See how our users are creating schedules for every need imaginable
+              - from simple to the most complex patterns.
             </p>
           </motion.div>
         </div>
 
         <motion.div
-          className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -95,12 +95,12 @@ export default function TestimonialsSection() {
         >
           {testimonials.map((testimonial, index) => (
             <motion.div key={index} variants={itemVariants()}>
-              <Card className="group bg-card h-full overflow-hidden border transition-all duration-300 hover:shadow-lg dark:bg-gray-600">
+              <Card className="group bg-card border-primary/10 hover:border-primary/30 h-full overflow-hidden border transition-all duration-300 hover:shadow-lg dark:bg-gray-600">
                 <div className="p-4 md:p-6">
                   <div className="flex items-start gap-4">
                     <Avatar className="border-primary h-10 w-10 border-2">
                       <AvatarImage alt={`${testimonial.name} Avatar`} />
-                      <AvatarFallback className="bg-primary text-primary-foreground text-xs">
+                      <AvatarFallback className="text-primary-foreground bg-primary text-xs">
                         {testimonial.fallback}
                       </AvatarFallback>
                     </Avatar>
@@ -108,12 +108,12 @@ export default function TestimonialsSection() {
                       <h3 className="text-card-foreground text-base font-bold">
                         {testimonial.name}
                       </h3>
-                      <p className="text-xs font-semibold">
+                      <p className="text-primary/80 text-xs font-semibold">
                         {testimonial.role}
                       </p>
                     </div>
                   </div>
-                  <Separator className="bg-primary/20 my-3" />
+                  <Separator className="from-primary/20 to-secondary/20 my-3 bg-gradient-to-r" />
                   <p className="text-card-foreground/90 group-hover:text-card-foreground text-xs transition-all duration-300 sm:text-sm">
                     "{testimonial.content}"
                   </p>
