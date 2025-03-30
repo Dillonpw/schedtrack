@@ -211,7 +211,10 @@ function createRotatingSchedule(
       dayOfWeek: DAYS_OF_WEEK[entryDate.getUTCDay()],
       shift,
       note: currentSegment?.note || null,
-      description: currentSegment?.description || null,
+      description:
+        dayRepeatEvents && dayRepeatEvents.length > 0
+          ? dayRepeatEvents[0].description
+          : currentSegment?.description || null,
       repeatEvents: dayRepeatEvents || null,
     });
 

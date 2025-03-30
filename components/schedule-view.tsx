@@ -152,7 +152,9 @@ function CalendarView({
                         className="border-b pb-4 last:border-0 last:pb-0"
                       >
                         <div className="flex items-center justify-between">
-                          <h4 className="font-medium">{entry.scheduleName}</h4>
+                          <h4 className="max-w-[180px] truncate font-medium">
+                            {entry.scheduleName}
+                          </h4>
                           {entry.shift === "On" && entry.note && (
                             <Badge
                               variant="outline"
@@ -191,11 +193,11 @@ function CalendarView({
                       <PopoverTrigger asChild>
                         <div className="flex items-center">
                           <div
-                            className={`h-3 w-3 cursor-pointer rounded-full border border-current/30 sm:hidden ${scheduleColors[scheduleName]} text-[${scheduleColors[scheduleName]}] transition-colors hover:opacity-60`}
+                            className={`h-3 w-3 cursor-pointer rounded-full border border-current/30 lg:hidden ${scheduleColors[scheduleName]} text-[${scheduleColors[scheduleName]}] transition-colors hover:opacity-60`}
                             title={scheduleName}
                           />
                           <Badge
-                            className={`hidden cursor-pointer text-center text-[10px] tracking-tighter sm:inline-flex ${scheduleColors[scheduleName]} hover:bg-opacity-70 transition-colors`}
+                            className={`hidden cursor-pointer text-center text-[10px] tracking-tighter lg:inline-flex ${scheduleColors[scheduleName]} hover:bg-opacity-70 max-w-[120px] truncate transition-colors`}
                           >
                             {scheduleName}
                           </Badge>
@@ -205,7 +207,9 @@ function CalendarView({
                         <div className="space-y-4">
                           <div className="flex flex-col gap-2">
                             <div className="flex items-center justify-between">
-                              <h4 className="font-medium">{scheduleName}</h4>
+                              <h4 className="max-w-[180px] truncate font-medium">
+                                {scheduleName}
+                              </h4>
                               {entry.shift === "On" && entry.note && (
                                 <Badge
                                   variant="outline"
@@ -423,7 +427,7 @@ export default function ClientScheduleView({
                           />
                           <label
                             htmlFor={`schedule-${name}`}
-                            className="text-foreground cursor-pointer text-sm leading-none font-medium"
+                            className="text-foreground max-w-[150px] cursor-pointer truncate text-sm leading-none font-medium"
                           >
                             {name}
                           </label>
