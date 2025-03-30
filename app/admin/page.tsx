@@ -81,14 +81,14 @@ async function getStats() {
     processedDeviceUsage.push({ name: "No Data", value: 1 });
   }
 
-  const last7Days = Array.from({ length: 7 }, (_, i) => {
+  const last30Days = Array.from({ length: 30 }, (_, i) => {
     const date = new Date();
     date.setDate(date.getDate() - i);
     return date;
   }).reverse();
 
   const schedulesByDay = await Promise.all(
-    last7Days.map(async (date) => {
+    last30Days.map(async (date) => {
       const startOfDay = new Date(date);
       startOfDay.setHours(0, 0, 0, 0);
       const endOfDay = new Date(date);
@@ -102,14 +102,17 @@ async function getStats() {
         );
 
       return {
-        date: date.toLocaleDateString(),
-        count: result[0].count,
+        date: date.toLocaleDateString(undefined, {
+          month: "short",
+          day: "numeric",
+        }),
+        count: Number(result[0].count),
       };
     }),
   );
 
   const feedbackByDay = await Promise.all(
-    last7Days.map(async (date) => {
+    last30Days.map(async (date) => {
       const startOfDay = new Date(date);
       startOfDay.setHours(0, 0, 0, 0);
       const endOfDay = new Date(date);
@@ -123,8 +126,11 @@ async function getStats() {
         );
 
       return {
-        date: date.toLocaleDateString(),
-        count: result[0].count,
+        date: date.toLocaleDateString(undefined, {
+          month: "short",
+          day: "numeric",
+        }),
+        count: Number(result[0].count),
       };
     }),
   );
@@ -211,7 +217,7 @@ export default async function AdminPage() {
       <div className="mb-8 grid grid-cols-1 gap-4">
         <Card>
           <CardHeader>
-            <CardTitle>Schedules Created (Last 7 Days)</CardTitle>
+            <CardTitle>Schedules Created (Last 30 Days)</CardTitle>
           </CardHeader>
           <CardContent>
             <BarChartComponent
@@ -233,7 +239,7 @@ export default async function AdminPage() {
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>Feedback Received (Last 7 Days)</CardTitle>
+            <CardTitle>Feedback Received (Last 30 Days)</CardTitle>
           </CardHeader>
           <CardContent>
             <LineChartComponent
