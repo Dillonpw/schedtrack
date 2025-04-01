@@ -65,3 +65,22 @@ export interface ScheduleInfo {
   entryCount: number;
   startDate: Date | null;
 }
+
+
+export interface ScheduleEntryUpdate {
+  id: number;
+  shift: "On" | "Off";
+  note: string | null;
+  description: string | null;
+}
+
+export interface ScheduleEntryWithName extends ScheduleEntry {
+  scheduleName: string;
+  scheduleId: number;
+}
+
+export interface CalendarViewProps {
+  scheduleEntriesData: ScheduleEntryWithName[];
+  visibleSchedules: string[];
+  scheduleColors: Record<string, string>;
+}

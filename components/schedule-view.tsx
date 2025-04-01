@@ -19,18 +19,8 @@ import {
 } from "@/components/ui/popover";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ScrollArea } from "@/components/ui/scroll-area";
-
-interface ScheduleEntryWithName extends ScheduleEntry {
-  scheduleName: string;
-  note: string | null;
-  description: string | null;
-}
-
-interface CalendarViewProps {
-  scheduleEntriesData: ScheduleEntryWithName[];
-  visibleSchedules: string[];
-  scheduleColors: Record<string, string>;
-}
+import { EditScheduleEntryDialog } from "@/components/edit-schedule-entry-dialog";
+import { CalendarViewProps, ScheduleEntryWithName } from "@/types";
 
 const colorPalette = [
   "bg-blue-600",
@@ -67,7 +57,8 @@ function CalendarView({
   const goToPreviousMonth = () => {
     setCurrentDate((prevDate) => {
       const newDate = new Date(prevDate);
-      newDate.setMonth(prevDate.getMonth() - 1);
+      newDate.setDate(1);
+      newDate.setMonth(newDate.getMonth() - 1);
       return newDate;
     });
   };
@@ -75,7 +66,8 @@ function CalendarView({
   const goToNextMonth = () => {
     setCurrentDate((prevDate) => {
       const newDate = new Date(prevDate);
-      newDate.setMonth(prevDate.getMonth() + 1);
+      newDate.setDate(1);
+      newDate.setMonth(newDate.getMonth() + 1);
       return newDate;
     });
   };
@@ -151,17 +143,30 @@ function CalendarView({
                         key={idx}
                         className="border-b pb-4 last:border-0 last:pb-0"
                       >
-                        <div className="flex items-center justify-between">
-                          <h4 className="max-w-[180px] truncate font-medium">
+                        <div className="relative">
+                          <h4 className="max-w-[180px] truncate pr-8 font-medium">
                             {entry.scheduleName}
                           </h4>
+                          <div className="absolute top-0 right-0">
+                            <EditScheduleEntryDialog
+                              scheduleId={entry.scheduleId}
+                              entry={{
+                                id: entry.id,
+                                shift: entry.shift as "On" | "Off",
+                                note: entry.note,
+                                description: entry.description,
+                              }}
+                            />
+                          </div>
                           {entry.shift === "On" && entry.note && (
-                            <Badge
-                              variant="outline"
-                              className="ml-2 text-xs whitespace-nowrap"
-                            >
-                              {entry.note}
-                            </Badge>
+                            <div className="mt-1">
+                              <Badge
+                                variant="outline"
+                                className="text-xs whitespace-nowrap"
+                              >
+                                {entry.note}
+                              </Badge>
+                            </div>
                           )}
                         </div>
                         {entry.shift === "On" && entry.description && (
@@ -206,17 +211,30 @@ function CalendarView({
                       <PopoverContent className="w-56 p-4">
                         <div className="space-y-4">
                           <div className="flex flex-col gap-2">
-                            <div className="flex items-center justify-between">
-                              <h4 className="max-w-[180px] truncate font-medium">
+                            <div className="relative">
+                              <h4 className="max-w-[180px] truncate pr-8 font-medium">
                                 {scheduleName}
                               </h4>
+                              <div className="absolute top-0 right-0">
+                                <EditScheduleEntryDialog
+                                  scheduleId={entry.scheduleId}
+                                  entry={{
+                                    id: entry.id,
+                                    shift: entry.shift as "On" | "Off",
+                                    note: entry.note,
+                                    description: entry.description,
+                                  }}
+                                />
+                              </div>
                               {entry.shift === "On" && entry.note && (
-                                <Badge
-                                  variant="outline"
-                                  className="ml-2 text-xs whitespace-nowrap"
-                                >
-                                  {entry.note}
-                                </Badge>
+                                <div className="mt-1">
+                                  <Badge
+                                    variant="outline"
+                                    className="text-xs whitespace-nowrap"
+                                  >
+                                    {entry.note}
+                                  </Badge>
+                                </div>
                               )}
                             </div>
                             {entry.shift === "On" && entry.description && (

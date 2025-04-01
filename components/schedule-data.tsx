@@ -10,7 +10,6 @@ import DeleteScheduleButton from "@/components/delete-schedule";
 import { unstable_noStore as noStore } from "next/cache";
 import type { ScheduleEntryWithName, ScheduleInfo } from "@/types";
 
-
 export default async function ScheduleData() {
   noStore();
 
@@ -75,6 +74,7 @@ export default async function ScheduleData() {
             const updatedEntry = {
               ...entry,
               scheduleName: schedule.name,
+              scheduleId: schedule.id,
               note: entry.note || (entry as any).title || null,
             };
             return updatedEntry;
