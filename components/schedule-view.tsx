@@ -54,6 +54,12 @@ function CalendarView({
     return new Date(year, month, 1).getDay();
   };
 
+  const getPreviousMonthDays = (date: Date): number => {
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    return new Date(year, month, 0).getDate();
+  };
+
   const goToPreviousMonth = () => {
     setCurrentDate((prevDate) => {
       const newDate = new Date(prevDate);
@@ -75,17 +81,24 @@ function CalendarView({
   const dayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const days = [];
   const paddingDays = firstDayOfMonth(currentDate);
+  const previousMonthDays = getPreviousMonthDays(currentDate);
+  const daysInCurrentMonth = daysInMonth(currentDate);
 
   for (let i = 0; i < paddingDays; i++) {
+    const dayNumber = previousMonthDays - paddingDays + i + 1;
     days.push(
       <div
         key={`padding-${i}`}
-        className="border-muted dark:outline-border relative h-16 rounded-sm border p-1 sm:h-24 sm:p-2 dark:outline-1"
-      ></div>,
+        className="border-border dark:outline-border relative aspect-square rounded-sm border-2 p-1 sm:p-2 dark:outline-1"
+      >
+        <div className="text-muted-foreground/50 text-sm font-medium sm:text-base">
+          {dayNumber}
+        </div>
+      </div>,
     );
   }
 
-  for (let i = 1; i <= daysInMonth(currentDate); i++) {
+  for (let i = 1; i <= daysInCurrentMonth; i++) {
     const dayDate = new Date(
       currentDate.getFullYear(),
       currentDate.getMonth(),
@@ -116,7 +129,7 @@ function CalendarView({
     days.push(
       <div
         key={i}
-        className="group border-muted bg-background/50 dark:outline-border relative h-16 rounded-sm border p-1 sm:h-24 sm:p-2 dark:outline-1"
+        className="group border-border dark:outline-border relative aspect-square rounded-sm border-2 p-1 sm:p-2 dark:outline-1"
       >
         <div className="mb-1 text-sm font-medium sm:text-base">{i}</div>
         {entriesForDay.length >= 3 && (
@@ -255,6 +268,22 @@ function CalendarView({
     );
   }
 
+  const totalDays = paddingDays + daysInCurrentMonth;
+  const remainingDays = totalDays % 7 === 0 ? 0 : 7 - (totalDays % 7);
+
+  for (let i = 1; i <= remainingDays; i++) {
+    days.push(
+      <div
+        key={`next-${i}`}
+        className="border-border dark:outline-border relative aspect-square rounded-sm border-2 p-1 sm:p-2 dark:outline-1"
+      >
+        <div className="text-muted-foreground/50 text-sm font-medium sm:text-base">
+          {i}
+        </div>
+      </div>,
+    );
+  }
+
   return (
     <div className="container mx-auto px-2 py-4 sm:px-4 sm:py-6">
       <div className="mb-4 flex items-center justify-between">
@@ -271,16 +300,18 @@ function CalendarView({
           <ChevronRightIcon className="h-4 w-4" />
         </Button>
       </div>
-      <div className="grid grid-cols-7 gap-0.5 sm:gap-1">
-        {dayLabels.map((day, index) => (
-          <div
-            key={index}
-            className="p-1 text-center text-xs font-medium sm:p-2 sm:text-sm"
-          >
-            {day}
-          </div>
-        ))}
-        {days}
+      <div className="mx-auto max-w-6xl">
+        <div className="grid grid-cols-7 gap-0.5 sm:gap-1">
+          {dayLabels.map((day, index) => (
+            <div
+              key={index}
+              className="p-1 text-center text-xs font-medium sm:p-2 sm:text-sm"
+            >
+              {day}
+            </div>
+          ))}
+          {days}
+        </div>
       </div>
     </div>
   );
@@ -506,7 +537,10 @@ export default function ClientScheduleView({
             {Array(35)
               .fill(0)
               .map((_, i) => (
-                <div key={i} className="bg-muted h-16 rounded-sm sm:h-24"></div>
+                <div
+                  key={i}
+                  className="bg-muted aspect-square rounded-sm"
+                ></div>
               ))}
           </div>
         }
