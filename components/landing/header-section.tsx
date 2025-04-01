@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import Image from "next/image";
-import ThemeToggle from "./toggle-theme";
+import ThemeToggle from "@/components/landing/toggle-theme";
 import { HeaderProps } from "@/types";
 
 const Header = ({ children }: HeaderProps) => {
