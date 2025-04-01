@@ -394,7 +394,6 @@ export default function ClientScheduleView({
   return (
     <div className="container mx-auto px-2 py-4 sm:px-4 sm:py-6">
       <div className="mb-4 flex flex-col gap-4 sm:mb-6 sm:flex-row sm:items-center sm:justify-between md:mx-20 lg:mx-40">
-        <h1 className="text-xl font-bold sm:text-2xl">Your Schedule</h1>
         <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
           <Suspense
             fallback={
