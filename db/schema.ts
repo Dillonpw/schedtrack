@@ -9,7 +9,6 @@ import {
   json,
   varchar,
   boolean,
-  uuid,
 } from "drizzle-orm/pg-core";
 import { sql } from "@vercel/postgres";
 import { drizzle } from "drizzle-orm/vercel-postgres";
@@ -17,21 +16,16 @@ import type { AdapterAccountType } from "next-auth/adapters";
 
 export const db = drizzle(sql);
 
-export const users = pgTable("users", {
-  id: text("id").primaryKey(),
+export const users = pgTable("user", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => crypto.randomUUID()),
   name: text("name"),
   email: text("email").unique(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
-  subscription: text("subscription").default("free"),
-  stripeCustomerId: text("stripeCustomerId").unique(),
-  stripeSubscriptionId: text("stripeSubscriptionId").unique(),
-  createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
-  updatedAt: timestamp("updatedAt", { mode: "date" }).defaultNow(),
   lastScheduleUpdate: timestamp("lastScheduleUpdate", { mode: "date" }),
   deviceType: text("deviceType"),
-  stripePriceId: text("stripePriceId"),
-  stripeCurrentPeriodEnd: timestamp("stripeCurrentPeriodEnd", { mode: "date" }),
 });
 
 export const accounts = pgTable(
@@ -96,19 +90,4 @@ export const feedbacks = pgTable("feedbacks", {
   userId: text("userId").notNull(),
   text: text("text").notNull(),
   date: timestamp("date", { mode: "date" }).notNull(),
-});
-
-export const sharedSchedules = pgTable("shared_schedules", {
-  id: serial("id").primaryKey(),
-  scheduleId: integer("scheduleId")
-    .notNull()
-    .references(() => schedules.id, { onDelete: "cascade" }),
-  sharedByUserId: text("sharedByUserId")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  sharedWithUserId: text("sharedWithUserId")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
-  updatedAt: timestamp("updatedAt", { mode: "date" }).defaultNow(),
 });
