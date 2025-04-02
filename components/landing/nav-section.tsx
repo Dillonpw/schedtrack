@@ -7,7 +7,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import { Home, Zap, DollarSign, Shield, Menu } from "lucide-react";
 
 export default async function Nav() {
