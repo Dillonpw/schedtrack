@@ -28,7 +28,6 @@ export async function updateScheduleEntry(
     update,
   });
   try {
-    // First, get the current schedule
     const [schedule] = await db
       .select({ schedule: schedules.schedule })
       .from(schedules)
@@ -41,7 +40,6 @@ export async function updateScheduleEntry(
       return { success: false, error: "Schedule not found" };
     }
 
-    // Parse the JSON schedule if it's a string
     const entries =
       typeof schedule.schedule === "string"
         ? JSON.parse(schedule.schedule)
@@ -49,7 +47,6 @@ export async function updateScheduleEntry(
 
     console.log("Current entries:", JSON.stringify(entries, null, 2));
 
-    // Find and update the specific entry
     const updatedEntries = entries.map((entry: any) => {
       if (entry.id === entryId) {
         console.log("Found entry to update:", {
@@ -59,17 +56,32 @@ export async function updateScheduleEntry(
             shift: update.shift,
             note: update.note,
             description: update.description,
-            repeatEvents: entry.repeatEvents, // Preserve existing repeatEvents
+            repeatEvents: entry.repeatEvents,
           },
         });
 
-        // Create updated entry
+        if (entry.repeatEvents) {
+          const repeatEventId = entry.repeatEvents[0].id;
+          return entries.map((e: any) => {
+            if (e.repeatEvents && e.repeatEvents[0].id === repeatEventId) {
+              return {
+                ...e,
+                shift: update.shift,
+                note: update.note,
+                description: update.description,
+                repeatEvents: e.repeatEvents,
+              };
+            }
+            return e;
+          });
+        }
+
         const updatedEntry = {
           ...entry,
           shift: update.shift,
           note: update.note,
           description: update.description,
-          repeatEvents: entry.repeatEvents, // Preserve existing repeatEvents
+          repeatEvents: entry.repeatEvents,
         };
 
         return updatedEntry;
@@ -77,13 +89,14 @@ export async function updateScheduleEntry(
       return entry;
     });
 
-    console.log("Updated entries:", JSON.stringify(updatedEntries, null, 2));
+    const flattenedEntries = updatedEntries.flat();
 
-    // Update the schedule in the database
+    console.log("Updated entries:", JSON.stringify(flattenedEntries, null, 2));
+
     const result = await db
       .update(schedules)
       .set({
-        schedule: updatedEntries,
+        schedule: flattenedEntries,
         updatedAt: new Date(),
       })
       .where(eq(schedules.id, scheduleId))

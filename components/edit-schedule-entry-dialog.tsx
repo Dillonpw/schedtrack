@@ -142,14 +142,14 @@ export function EditScheduleEntryDialog({
               name="shift"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Shift Status</FormLabel>
+                  <FormLabel>Shift</FormLabel>
                   <Select
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select shift status" />
+                        <SelectValue placeholder="Select shift" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -160,45 +160,42 @@ export function EditScheduleEntryDialog({
                 </FormItem>
               )}
             />
-            {!entry.repeatEvents && (
-              <>
-                <FormField
-                  control={form.control}
-                  name="note"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Note</FormLabel>
-                      <FormControl>
-                        <Input
-                          placeholder="Add a note"
-                          {...field}
-                          value={field.value || ""}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="description"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Description</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Add a description"
-                          {...field}
-                          value={field.value || ""}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </>
-            )}
+            <FormField
+              control={form.control}
+              name="note"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Note</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="Add a note"
+                      {...field}
+                      value={field.value || ""}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Add a description"
+                      {...field}
+                      value={field.value || ""}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
             {entry.repeatEvents && (
               <div className="text-muted-foreground text-sm">
-                This is a recurring event. You can only modify the shift status.
+                This is a recurring event. Changes will apply to all instances
+                of this event.
               </div>
             )}
             <div className="flex justify-end gap-2">
