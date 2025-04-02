@@ -109,9 +109,17 @@ export default function HeroSection() {
                 autoPlay
                 muted
                 loop
+                playsInline
+                preload="auto"
                 className="aspect-video w-full rounded-lg object-cover"
-                src="/schedtrack-demo.mp4"
-              />
+                onError={(e) => {
+                  console.error("Error loading video:", e);
+                  // You could set a state here to show a fallback image or message
+                }}
+              >
+                <source src="/schedtrack-demo.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
             </div>
           </motion.div>
         </div>
