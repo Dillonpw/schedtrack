@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Calendar, Clock, Zap } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
@@ -110,8 +109,6 @@ export default function HeroSection() {
                 autoPlay
                 muted
                 loop
-                playsInline
-                onError={(e) => console.error("Video loading error:", e)}
                 className="aspect-video w-full rounded-lg object-cover"
                 src="/schedtrack-demo.mp4"
               />
