@@ -47,11 +47,9 @@ export default async function Pricing() {
               <CardContent>
                 <ul className="space-y-4 text-sm">
                   {[
-                    "Create up to 3 schedules",
-                    "Schedule up to 1 year into the future",
-                    "Basic schedule patterns",
-                    "Mobile-friendly interface",
-                    "Export to CSV",
+                    "Create up to 5 schedules",
+                    "Schedule up to 2 year into the future",
+                    "Access to all schedule patterns",
                   ].map((feature, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <Check
@@ -94,10 +92,8 @@ export default async function Pricing() {
                   {[
                     "Unlimited schedules",
                     "Schedule up to 5 years into the future",
-                    "Advanced schedule patterns",
                     "Today view with current events",
                     "Priority support",
-                    "All free features included",
                   ].map((feature, index) => (
                     <li key={index} className="flex items-start gap-2">
                       <Check
@@ -110,7 +106,7 @@ export default async function Pricing() {
               </CardContent>
               <CardFooter className="flex items-center justify-between gap-4 border-t pt-6">
                 <div className="text-4xl font-bold">
-                  $9.99 <span className="text-primary/80 text-sm">/month</span>
+                  $5.00 <span className="text-primary/80 text-sm">/month</span>
                 </div>
                 {session ? (
                   isPro ? (
