@@ -110,6 +110,8 @@ export default function HeroSection() {
                 autoPlay
                 muted
                 loop
+                playsInline
+                onError={(e) => console.error("Video loading error:", e)}
                 className="aspect-video w-full rounded-lg object-cover"
                 src="/schedtrack-demo.mp4"
               />
