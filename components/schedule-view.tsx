@@ -168,6 +168,7 @@ function CalendarView({
                                 shift: entry.shift as "On" | "Off",
                                 note: entry.note,
                                 description: entry.description,
+                                repeatEvents: entry.repeatEvents,
                               }}
                             />
                           </div>
@@ -236,6 +237,7 @@ function CalendarView({
                                     shift: entry.shift as "On" | "Off",
                                     note: entry.note,
                                     description: entry.description,
+                                    repeatEvents: entry.repeatEvents,
                                   }}
                                 />
                               </div>

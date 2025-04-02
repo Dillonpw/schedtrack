@@ -18,9 +18,14 @@ export interface ScheduleEntry {
         daysOfWeek: number[];
       }[]
     | null;
+  overrides?: {
+    shift?: string;
+    note?: string | null;
+    description?: string | null;
+  };
 }
 
- export interface DaySelectorProps {
+export interface DaySelectorProps {
   selectedDays: number[];
   onChange: (days: number[]) => void;
 }
@@ -65,7 +70,6 @@ export interface ScheduleInfo {
   entryCount: number;
   startDate: Date | null;
 }
-
 
 export interface ScheduleEntryUpdate {
   id: number;

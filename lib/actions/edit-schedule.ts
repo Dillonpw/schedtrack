@@ -10,11 +10,13 @@ export interface ScheduleEntryUpdate {
   shift: "On" | "Off";
   note: string | null;
   description: string | null;
-  repeatEvents?: {
-    days: string[];
-    startDate: string;
-    endDate: string;
-  } | null;
+  repeatEvents?:
+    | {
+        id: string;
+        description: string | null;
+        daysOfWeek: number[];
+      }[]
+    | null;
 }
 
 export async function updateScheduleEntry(
@@ -41,7 +43,6 @@ export async function updateScheduleEntry(
       return { success: false, error: "Schedule not found" };
     }
 
-    // Parse the JSON schedule if it's a string
     const entries =
       typeof schedule.schedule === "string"
         ? JSON.parse(schedule.schedule)
@@ -59,7 +60,13 @@ export async function updateScheduleEntry(
             shift: update.shift,
             note: update.note,
             description: update.description,
-            repeatEvents: entry.repeatEvents, // Preserve existing repeatEvents
+            repeatEvents: entry.repeatEvents,
+            overrides: {
+              ...(entry.overrides || {}),
+              shift: update.shift,
+              note: update.note,
+              description: update.description,
+            },
           },
         });
 
@@ -69,7 +76,13 @@ export async function updateScheduleEntry(
           shift: update.shift,
           note: update.note,
           description: update.description,
-          repeatEvents: entry.repeatEvents, // Preserve existing repeatEvents
+          repeatEvents: entry.repeatEvents,
+          overrides: {
+            ...(entry.overrides || {}),
+            shift: update.shift,
+            note: update.note,
+            description: update.description,
+          },
         };
 
         return updatedEntry;
