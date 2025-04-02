@@ -17,7 +17,9 @@ export function ShareSchedule({ scheduleId, isPro }: ShareScheduleProps) {
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const handleShare = async () => {
+  const handleShare = async (e: React.FormEvent) => {
+    e.preventDefault();
+
     if (!isPro) {
       toast({
         title: "Pro Feature",
@@ -27,16 +29,28 @@ export function ShareSchedule({ scheduleId, isPro }: ShareScheduleProps) {
       return;
     }
 
+    if (!email) {
+      toast({
+        title: "Error",
+        description: "Please enter an email address",
+        variant: "destructive",
+      });
+      return;
+    }
+
     try {
       setIsLoading(true);
-      await shareSchedule(scheduleId, email);
+      const result = await shareSchedule(scheduleId, email);
 
-      toast({
-        title: "Success",
-        description: "Schedule shared successfully",
-      });
-      setEmail("");
+      if (result.success) {
+        toast({
+          title: "Success",
+          description: "Schedule shared successfully",
+        });
+        setEmail("");
+      }
     } catch (error) {
+      console.error("Share error:", error);
       toast({
         title: "Error",
         description:
@@ -49,15 +63,16 @@ export function ShareSchedule({ scheduleId, isPro }: ShareScheduleProps) {
   };
 
   return (
-    <div className="flex gap-2">
+    <form onSubmit={handleShare} className="flex gap-2">
       <Input
         type="email"
         placeholder="Enter email to share with"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         disabled={!isPro}
+        required
       />
-      <Button onClick={handleShare} disabled={isLoading || !email || !isPro}>
+      <Button type="submit" disabled={isLoading || !isPro}>
         {isLoading ? (
           <>
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -67,6 +82,6 @@ export function ShareSchedule({ scheduleId, isPro }: ShareScheduleProps) {
           "Share"
         )}
       </Button>
-    </div>
+    </form>
   );
 }
