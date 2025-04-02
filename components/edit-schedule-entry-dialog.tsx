@@ -39,13 +39,17 @@ const formSchema = z.object({
   note: z.string().nullable(),
   description: z.string().nullable(),
   repeatEvents: z
-    .object({
-      days: z.array(z.string()),
-      startDate: z.string(),
-      endDate: z.string(),
-    })
+    .array(
+      z.object({
+        id: z.string(),
+        description: z.string().nullable(),
+        daysOfWeek: z.array(z.number()),
+      }),
+    )
     .nullable(),
 });
+
+type FormValues = z.infer<typeof formSchema>;
 
 interface EditScheduleEntryDialogProps {
   scheduleId: number;
@@ -54,11 +58,13 @@ interface EditScheduleEntryDialogProps {
     shift: "On" | "Off";
     note: string | null;
     description: string | null;
-    repeatEvents?: {
-      days: string[];
-      startDate: string;
-      endDate: string;
-    } | null;
+    repeatEvents?:
+      | {
+          id: string;
+          description: string | null;
+          daysOfWeek: number[];
+        }[]
+      | null;
   };
 }
 
@@ -69,7 +75,7 @@ export function EditScheduleEntryDialog({
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
-  const form = useForm<z.infer<typeof formSchema>>({
+  const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       shift: entry.shift,
@@ -79,7 +85,7 @@ export function EditScheduleEntryDialog({
     },
   });
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  async function onSubmit(values: FormValues) {
     console.log("Form submitted with values:", values);
     try {
       console.log("Calling updateScheduleEntry with:", {
@@ -194,8 +200,7 @@ export function EditScheduleEntryDialog({
             />
             {entry.repeatEvents && (
               <div className="text-muted-foreground text-sm">
-                This is a recurring event. Changes will apply to all instances
-                of this event.
+                This is a recurring event. You can only modify the shift status.
               </div>
             )}
             <div className="flex justify-end gap-2">

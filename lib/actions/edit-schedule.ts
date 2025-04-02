@@ -10,11 +10,13 @@ export interface ScheduleEntryUpdate {
   shift: "On" | "Off";
   note: string | null;
   description: string | null;
-  repeatEvents?: {
-    days: string[];
-    startDate: string;
-    endDate: string;
-  } | null;
+  repeatEvents?:
+    | {
+        id: string;
+        description: string | null;
+        daysOfWeek: number[];
+      }[]
+    | null;
 }
 
 export async function updateScheduleEntry(
@@ -57,6 +59,12 @@ export async function updateScheduleEntry(
             note: update.note,
             description: update.description,
             repeatEvents: entry.repeatEvents,
+            overrides: {
+              ...(entry.overrides || {}),
+              shift: update.shift,
+              note: update.note,
+              description: update.description,
+            },
           },
         });
 
@@ -82,6 +90,12 @@ export async function updateScheduleEntry(
           note: update.note,
           description: update.description,
           repeatEvents: entry.repeatEvents,
+          overrides: {
+            ...(entry.overrides || {}),
+            shift: update.shift,
+            note: update.note,
+            description: update.description,
+          },
         };
 
         return updatedEntry;
