@@ -20,11 +20,12 @@ import { FormField } from "@/components/ui/form-field";
 import { SegmentCard } from "@/components/forms/shift-segment-card";
 import { useScheduleForm } from "@/hooks/useScheduleForm";
 import { Input } from "@/components/ui/input";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { WeeklyScheduleCard } from "@/components/forms/repeat-event-card";
 import { v4 as uuidv4 } from "uuid";
 import { RepeatEvent } from "@/types";
+import Link from "next/link";
 
 export default function GenerateScheduleForm() {
   const router = useRouter();
@@ -47,6 +48,9 @@ export default function GenerateScheduleForm() {
     startDate: new Date(),
     scheduleName: "",
   });
+  const isPro = session?.user?.subscription === "pro";
+  const maxDays = isPro ? 1825 : 365; // 5 years for pro, 1 year for free
+  const maxSchedules = isPro ? Infinity : 3;
 
   const addRepeatEvent = () => {
     const newEvent: RepeatEvent = {
@@ -135,6 +139,24 @@ export default function GenerateScheduleForm() {
     addSegment(type);
   };
 
+  useEffect(() => {
+    // Check if user has reached schedule limit
+    if (!isPro) {
+      // TODO: Fetch user's schedule count from API
+      const userScheduleCount = 0; // Placeholder
+      if (userScheduleCount >= maxSchedules) {
+        toast({
+          title: "Schedule Limit Reached",
+          description:
+            "Free users can create up to 3 schedules. Upgrade to Pro for unlimited schedules.",
+          variant: "destructive",
+        });
+        router.push("/?plan=pro");
+        return;
+      }
+    }
+  }, [isPro, router, toast]);
+
   if (status === "loading") {
     return (
       <div className="flex h-[80vh] items-center justify-center">
@@ -162,173 +184,189 @@ export default function GenerateScheduleForm() {
   }
 
   return (
-    <main className="container mx-auto px-4 py-10">
-      <Card className="mx-auto w-full max-w-3xl overflow-hidden border border-white/20 bg-white/10 shadow-lg backdrop-blur-md dark:border-white/10 dark:bg-black/10">
-        <CardHeader className="bg-primary/5 pb-6">
-          <CardTitle className="text-center text-2xl font-bold">
-            Create Your Schedule
-          </CardTitle>
-          <CardDescription className="text-center text-sm">
-            Define your On and off-duty segments to generate a personalized
-            schedule
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="p-6">
-          <form
-            onSubmit={handleGenerateSchedule}
-            className="space-y-8"
-            autoComplete="off"
-          >
-            <div className="space-y-6">
-              <Card className="overflow-hidden border border-white/20 bg-white/5 shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-black/5">
-                <CardContent className="p-4">
-                  <div className="flex flex-col gap-3">
-                    <Label
-                      htmlFor="scheduleName"
-                      className="text-muted-foreground text-sm font-medium"
-                    >
-                      Schedule Name
-                    </Label>
-                    <Input
-                      id="scheduleName"
-                      className="dark:text-black"
-                      placeholder="Enter a name for your schedule"
-                      value={scheduleName}
-                      onChange={(e) =>
-                        updateField("scheduleName", e.target.value)
-                      }
-                      required
-                    />
-                  </div>
-                </CardContent>
-              </Card>
-
-              <div className="grid gap-6 md:grid-cols-2">
-                <Card className="bg-card/50 overflow-hidden border shadow-sm">
+    <main className="container mx-auto p-8">
+      <Card className="border-primary/20 relative border shadow-lg">
+        <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+        <div className="relative">
+          <CardHeader>
+            <CardTitle className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-3xl font-bold text-transparent">
+              Create New Schedule
+            </CardTitle>
+            <CardDescription>
+              {!isPro && (
+                <div className="text-muted-foreground mt-2">
+                  Free users can create up to 3 schedules and schedule up to 1
+                  year in advance.{" "}
+                  <Link
+                    href="/?plan=pro"
+                    className="text-primary hover:underline"
+                  >
+                    Upgrade to Pro
+                  </Link>{" "}
+                  for unlimited schedules and 5-year planning.
+                </div>
+              )}
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form
+              onSubmit={handleGenerateSchedule}
+              className="space-y-8"
+              autoComplete="off"
+            >
+              <div className="space-y-6">
+                <Card className="overflow-hidden border border-white/20 bg-white/5 shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-black/5">
                   <CardContent className="p-4">
                     <div className="flex flex-col gap-3">
                       <Label
-                        htmlFor="totalDays"
+                        htmlFor="scheduleName"
                         className="text-muted-foreground text-sm font-medium"
                       >
-                        Schedule Length
+                        Schedule Name
                       </Label>
-                      <FormField
-                        label=""
-                        id="totalDays"
-                        value={totalDays}
-                        onChange={(value) => updateField("totalDays", value)}
-                        min={1}
-                        max={1095}
-                        tooltip="Enter the number of days to display in your schedule (maximum 2 years)"
+                      <Input
+                        id="scheduleName"
+                        className="dark:text-black"
+                        placeholder="Enter a name for your schedule"
+                        value={scheduleName}
+                        onChange={(e) =>
+                          updateField("scheduleName", e.target.value)
+                        }
+                        required
                       />
                     </div>
                   </CardContent>
                 </Card>
 
-                <Card className="bg-card/50 overflow-hidden border shadow-sm">
-                  <CardContent className="p-4">
-                    <div className="flex flex-col gap-3">
-                      <Label className="text-muted-foreground text-sm font-medium">
-                        Start Date
-                      </Label>
-                      <div className="flex items-center gap-2">
-                        <Calendar className="text-muted-foreground h-4 w-4" />
-                        <DatePicker
-                          date={startDate}
-                          onDateChange={(date) =>
-                            updateField("startDate", date)
-                          }
+                <div className="grid gap-6 md:grid-cols-2">
+                  <Card className="bg-card/50 overflow-hidden border shadow-sm">
+                    <CardContent className="p-4">
+                      <div className="flex flex-col gap-3">
+                        <Label
+                          htmlFor="totalDays"
+                          className="text-muted-foreground text-sm font-medium"
+                        >
+                          Schedule Length
+                        </Label>
+                        <FormField
+                          label=""
+                          id="totalDays"
+                          value={totalDays}
+                          onChange={(value) => updateField("totalDays", value)}
+                          min={1}
+                          max={maxDays}
+                          tooltip={`Enter the number of days to display in your schedule (maximum ${maxDays / 365} year${maxDays / 365 > 1 ? "s" : ""})`}
                         />
                       </div>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </CardContent>
+                  </Card>
+
+                  <Card className="bg-card/50 overflow-hidden border shadow-sm">
+                    <CardContent className="p-4">
+                      <div className="flex flex-col gap-3">
+                        <Label className="text-muted-foreground text-sm font-medium">
+                          Start Date
+                        </Label>
+                        <div className="flex items-center gap-2">
+                          <Calendar className="text-muted-foreground h-4 w-4" />
+                          <DatePicker
+                            date={startDate}
+                            onDateChange={(date) =>
+                              updateField("startDate", date)
+                            }
+                          />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+
+                <div>
+                  <Tabs
+                    defaultValue="rotating"
+                    className="w-full"
+                    onValueChange={(value) => {
+                      setActiveTab(value);
+                      if (
+                        value === "repeating" &&
+                        (!segments[0].repeatEvents ||
+                          segments[0].repeatEvents.length === 0)
+                      ) {
+                        addRepeatEvent();
+                      }
+                    }}
+                  >
+                    <TabsList className="grid w-full grid-cols-2">
+                      <TabsTrigger value="rotating">
+                        Rotating Schedule
+                      </TabsTrigger>
+                      <TabsTrigger value="repeating">
+                        Weekly Schedule
+                      </TabsTrigger>
+                    </TabsList>
+
+                    <TabsContent value="rotating" className="mt-4">
+                      <div className="space-y-3">
+                        {segments.map((segment, index) => (
+                          <SegmentCard
+                            key={index}
+                            segment={segment}
+                            index={index}
+                            segments={segments}
+                            updateSegment={updateSegment}
+                            removeSegment={removeSegment}
+                          />
+                        ))}
+                      </div>
+
+                      <div className="mt-3 flex gap-2">
+                        <Button
+                          type="button"
+                          onClick={() => handleAddSegment("On")}
+                          variant="outline"
+                          className="flex-1 border-dashed"
+                        >
+                          <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
+                        </Button>
+                      </div>
+                    </TabsContent>
+
+                    <TabsContent value="repeating" className="mt-4">
+                      <div className="space-y-3">
+                        {(segments[0].repeatEvents || []).map((event) => (
+                          <WeeklyScheduleCard
+                            key={event.id}
+                            event={event}
+                            onUpdate={updateRepeatEvent}
+                            onRemove={removeRepeatEvent}
+                          />
+                        ))}
+                      </div>
+                    </TabsContent>
+                  </Tabs>
+                </div>
               </div>
 
-              <div>
-                <Tabs
-                  defaultValue="rotating"
-                  className="w-full"
-                  onValueChange={(value) => {
-                    setActiveTab(value);
-                    if (
-                      value === "repeating" &&
-                      (!segments[0].repeatEvents ||
-                        segments[0].repeatEvents.length === 0)
-                    ) {
-                      addRepeatEvent();
-                    }
-                  }}
+              <div className="flex justify-center pt-2">
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={isGenerating}
+                  className="from-primary to-secondary text-primary-foreground group bg-gradient-to-r transition-all hover:scale-105"
                 >
-                  <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="rotating">
-                      Rotating Schedule
-                    </TabsTrigger>
-                    <TabsTrigger value="repeating">Weekly Schedule</TabsTrigger>
-                  </TabsList>
-
-                  <TabsContent value="rotating" className="mt-4">
-                    <div className="space-y-3">
-                      {segments.map((segment, index) => (
-                        <SegmentCard
-                          key={index}
-                          segment={segment}
-                          index={index}
-                          segments={segments}
-                          updateSegment={updateSegment}
-                          removeSegment={removeSegment}
-                        />
-                      ))}
-                    </div>
-
-                    <div className="mt-3 flex gap-2">
-                      <Button
-                        type="button"
-                        onClick={() => handleAddSegment("On")}
-                        variant="outline"
-                        className="flex-1 border-dashed"
-                      >
-                        <PlusCircle className="mr-2 h-4 w-4" /> Add Segment
-                      </Button>
-                    </div>
-                  </TabsContent>
-
-                  <TabsContent value="repeating" className="mt-4">
-                    <div className="space-y-3">
-                      {(segments[0].repeatEvents || []).map((event) => (
-                        <WeeklyScheduleCard
-                          key={event.id}
-                          event={event}
-                          onUpdate={updateRepeatEvent}
-                          onRemove={removeRepeatEvent}
-                        />
-                      ))}
-                    </div>
-                  </TabsContent>
-                </Tabs>
+                  {isGenerating ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Generating Schedule...
+                    </>
+                  ) : (
+                    "Generate My Schedule"
+                  )}
+                </Button>
               </div>
-            </div>
-
-            <div className="flex justify-center pt-2">
-              <Button
-                type="submit"
-                size="lg"
-                disabled={isGenerating}
-                className="from-primary to-secondary text-primary-foreground group bg-gradient-to-r transition-all hover:scale-105"
-              >
-                {isGenerating ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Generating Schedule...
-                  </>
-                ) : (
-                  "Generate My Schedule"
-                )}
-              </Button>
-            </div>
-          </form>
-        </CardContent>
+            </form>
+          </CardContent>
+        </div>
       </Card>
     </main>
   );

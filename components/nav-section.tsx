@@ -8,9 +8,13 @@ import {
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "./ui/button";
-import { Home, Zap, DollarSign, Shield, Menu } from "lucide-react";
+import { Home, Zap, DollarSign, Shield, Menu, Calendar } from "lucide-react";
+import { auth } from "@/auth";
 
 export default async function Nav() {
+  const session = await auth();
+  const isPro = session?.user?.subscription === "pro";
+
   return (
     <nav className="flex items-center justify-between px-4 py-2">
       {/* Desktop navigation */}
@@ -29,6 +33,15 @@ export default async function Nav() {
         >
           Pricing
         </Link>
+        {isPro && (
+          <Link
+            href="/today"
+            className="hover:text-primary text-lg font-medium"
+            prefetch={false}
+          >
+            Today
+          </Link>
+        )}
         <Link
           data-testid="privacyLink"
           href="/privacy"
@@ -58,7 +71,10 @@ export default async function Nav() {
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href="/?landing=true#features" className="flex items-center">
+              <Link
+                href="/?landing=true#features"
+                className="flex items-center"
+              >
                 <Zap className="mr-2 h-4 w-4" />
                 <span>Features</span>
               </Link>
@@ -69,6 +85,14 @@ export default async function Nav() {
                 <span>Pricing</span>
               </Link>
             </DropdownMenuItem>
+            {isPro && (
+              <DropdownMenuItem asChild>
+                <Link href="/today" className="flex items-center">
+                  <Calendar className="mr-2 h-4 w-4" />
+                  <span>Today</span>
+                </Link>
+              </DropdownMenuItem>
+            )}
             <DropdownMenuItem asChild>
               <Link
                 href="/privacy"

@@ -77,11 +77,11 @@ export default function HeroSection() {
               {[
                 {
                   icon: <Calendar className="text-primary h-4 w-4" />,
-                  text: "Unlimited schedules",
+                  text: "Up to 5 schedules",
                 },
                 {
                   icon: <Clock className="text-secondary h-4 w-4" />,
-                  text: "Optimized for shift work",
+                  text: "Up to 2 year planning",
                 },
                 {
                   icon: <Zap className="text-accent h-4 w-4" />,

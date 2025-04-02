@@ -9,6 +9,7 @@ import {
   json,
   varchar,
   boolean,
+  uuid,
 } from "drizzle-orm/pg-core";
 import { sql } from "@vercel/postgres";
 import { drizzle } from "drizzle-orm/vercel-postgres";
@@ -16,16 +17,21 @@ import type { AdapterAccountType } from "next-auth/adapters";
 
 export const db = drizzle(sql);
 
-export const users = pgTable("user", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => crypto.randomUUID()),
+export const users = pgTable("users", {
+  id: text("id").primaryKey(),
   name: text("name"),
   email: text("email").unique(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
+  subscription: text("subscription").default("free"),
+  stripeCustomerId: text("stripeCustomerId").unique(),
+  stripeSubscriptionId: text("stripeSubscriptionId").unique(),
+  createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
+  updatedAt: timestamp("updatedAt", { mode: "date" }).defaultNow(),
   lastScheduleUpdate: timestamp("lastScheduleUpdate", { mode: "date" }),
   deviceType: text("deviceType"),
+  stripePriceId: text("stripePriceId"),
+  stripeCurrentPeriodEnd: timestamp("stripeCurrentPeriodEnd", { mode: "date" }),
 });
 
 export const accounts = pgTable(
