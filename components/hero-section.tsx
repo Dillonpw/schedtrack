@@ -98,23 +98,23 @@ export default function HeroSection() {
               ))}
             </motion.div>
           </div>
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={loaded ? { opacity: 1, scale: 1 } : {}}
             transition={{ duration: 0.7, delay: 0.3 }}
-            className="bg-card shadow-primary/5 relative mt-24 overflow-hidden rounded-xl border p-1 shadow-xl"
+            className="border-primary/20 bg-card shadow-primary/5 relative overflow-hidden rounded-xl border p-2 shadow-xl"
           >
             <div className="from-primary/30 to-secondary/30 absolute -inset-1 rounded-xl bg-gradient-to-r opacity-20 blur-md"></div>
             <div className="relative overflow-hidden rounded-lg">
-              <video
-                autoPlay
-                muted
-                loop
+              <Image
+                alt="Schedule Dashboard Preview"
                 className="aspect-video w-full rounded-lg object-cover"
-                src="/schedtrack-demo.mp4"
+                height="500"
+                width="900"
+                src="/dashboard.png"
               />
             </div>
-          </motion.div>
+          </motion.div> */}
         </div>
       </div>
     </section>
