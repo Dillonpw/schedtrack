@@ -109,6 +109,8 @@ export default function HeroSection() {
                 autoPlay
                 muted
                 loop
+                playsInline
+                preload="auto"
                 className="aspect-video w-full rounded-lg object-cover"
                 src="/schedtrack-demo.mp4"
               />
