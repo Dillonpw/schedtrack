@@ -97,3 +97,18 @@ export const feedbacks = pgTable("feedbacks", {
   text: text("text").notNull(),
   date: timestamp("date", { mode: "date" }).notNull(),
 });
+
+export const sharedSchedules = pgTable("shared_schedules", {
+  id: serial("id").primaryKey(),
+  scheduleId: integer("scheduleId")
+    .notNull()
+    .references(() => schedules.id, { onDelete: "cascade" }),
+  sharedByUserId: text("sharedByUserId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  sharedWithUserId: text("sharedWithUserId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  createdAt: timestamp("createdAt", { mode: "date" }).defaultNow(),
+  updatedAt: timestamp("updatedAt", { mode: "date" }).defaultNow(),
+});
