@@ -144,8 +144,14 @@ export function EditScheduleEntryDialog({
                 <FormItem>
                   <FormLabel>Shift</FormLabel>
                   <Select
-                    onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value}
+                    onValueChange={(value: "On" | "Off") => {
+                      field.onChange(value);
+                      if (value === "Off") {
+                        form.setValue("note", "");
+                        form.setValue("description", "");
+                      }
+                    }}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -160,38 +166,42 @@ export function EditScheduleEntryDialog({
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="note"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Note</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="Add a note"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      placeholder="Add a description"
-                      {...field}
-                      value={field.value || ""}
-                    />
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+            {form.watch("shift") === "On" && (
+              <>
+                <FormField
+                  control={form.control}
+                  name="note"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Note</FormLabel>
+                      <FormControl>
+                        <Input
+                          placeholder="Add a note"
+                          {...field}
+                          value={field.value || ""}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="description"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Description</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Add a description"
+                          {...field}
+                          value={field.value || ""}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </>
+            )}
             {entry.repeatEvents && (
               <div className="text-muted-foreground text-sm">
                 This is a recurring event. You can only modify the shift status.
