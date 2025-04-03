@@ -60,13 +60,14 @@ export function FormField({
           min={min}
           max={max}
           value={value || ""}
+          placeholder="365"
           onChange={(e) => {
             const value = e.target.value
               ? Number.parseInt(e.target.value)
               : undefined;
             onChange(value);
           }}
-          className="w-full pl-12 dark:text-black"
+          className="text-foreground w-full pl-12"
         />
       </div>
     </div>

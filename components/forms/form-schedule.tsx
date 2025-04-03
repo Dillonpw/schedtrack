@@ -43,7 +43,7 @@ export default function GenerateScheduleForm() {
     scheduleName,
   } = useScheduleForm({
     segments: [{ shiftType: "On", days: undefined, note: "", description: "" }],
-    totalDays: undefined,
+    totalDays: 365,
     startDate: new Date(),
     scheduleName: "",
   });
@@ -192,7 +192,7 @@ export default function GenerateScheduleForm() {
                     </Label>
                     <Input
                       id="scheduleName"
-                      className="dark:text-black"
+                      className="text-foreground"
                       placeholder="Enter a name for your schedule"
                       value={scheduleName}
                       onChange={(e) =>
