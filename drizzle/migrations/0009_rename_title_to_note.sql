@@ -1,1 +1,0 @@
-ALTER TABLE "schedule_entries" RENAME COLUMN "title" TO "note"; 

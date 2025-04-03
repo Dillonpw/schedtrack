@@ -1,1 +1,0 @@
-ALTER TABLE "schedule_entries" DROP CONSTRAINT "schedule_entries_userId_unique";

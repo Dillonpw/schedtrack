@@ -1,9 +1,8 @@
-import { sql } from "@vercel/postgres";
-import { drizzle } from "drizzle-orm/vercel-postgres";
+import { neon } from '@neondatabase/serverless';
+import { drizzle } from 'drizzle-orm/neon-http';
 
 
-if (!process.env.POSTGRES_URL) {
-  throw new Error("Database connection URL is not defined");
-}
+
+const sql = neon(process.env.DATABASE_URL!);
 
 export const db = drizzle(sql);

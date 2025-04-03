@@ -1,1 +1,0 @@
-ALTER TABLE "schedule_entries" ADD CONSTRAINT "schedule_entries_userId_unique" UNIQUE("userId");
