@@ -86,13 +86,7 @@ export function EditScheduleEntryDialog({
   });
 
   async function onSubmit(values: FormValues) {
-    console.log("Form submitted with values:", values);
     try {
-      console.log("Calling updateScheduleEntry with:", {
-        scheduleId,
-        entryId: entry.id,
-        values,
-      });
       const result = await updateScheduleEntry(scheduleId, entry.id, {
         id: entry.id,
         shift: values.shift,
@@ -101,14 +95,14 @@ export function EditScheduleEntryDialog({
         repeatEvents: values.repeatEvents,
       });
 
-      console.log("Update result:", result);
-      if (result.success) {
+      if (result?.success) {
         toast.success("Schedule entry updated successfully");
         setOpen(false);
         router.refresh();
       } else {
-        console.error("Update failed:", result.error);
-        toast.error(result.error || "Failed to update schedule entry");
+        const errorMessage = result?.error || "Failed to update schedule entry";
+        console.error("Update failed:", errorMessage);
+        toast.error(errorMessage);
       }
     } catch (error) {
       console.error("Error in onSubmit:", error);

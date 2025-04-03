@@ -3,6 +3,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Trash2, Calendar } from "lucide-react";
 import { RepeatEvent } from "@/types";
@@ -93,6 +94,21 @@ export function WeeklyScheduleCard({
           <div className="space-y-2">
             <div className="flex items-center gap-1">
               <Label className="text-muted-foreground text-sm font-medium">
+                Note
+              </Label>
+            </div>
+            <Input
+              type="text"
+              value={event.note || ""}
+              onChange={(e) => onUpdate(event.id, "note", e.target.value)}
+              placeholder="Day Shift, Night Shift, etc."
+              className="w-full dark:text-black"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex items-center gap-1">
+              <Label className="text-muted-foreground text-sm font-medium">
                 Description
               </Label>
             </div>
@@ -101,7 +117,7 @@ export function WeeklyScheduleCard({
               onChange={(e) =>
                 onUpdate(event.id, "description", e.target.value)
               }
-              placeholder="Add a description for this schedule"
+              placeholder="What will you be doing? 🤔"
               className="w-full dark:text-black"
             />
           </div>

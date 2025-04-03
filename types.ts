@@ -4,6 +4,18 @@ export interface HeaderProps {
   children: ReactNode;
 }
 
+export interface ScheduleFormState {
+  segments: ShiftSegment[];
+  totalDays: number | undefined;
+  startDate: Date;
+  scheduleName: string;
+}
+
+export interface DeleteScheduleButtonProps {
+  scheduleId: number;
+  scheduleName: string;
+}
+
 export interface ScheduleEntry {
   id: number;
   date: string;
@@ -33,6 +45,7 @@ export interface DaySelectorProps {
 export interface RepeatEvent {
   id: string;
   description: string | null;
+  note: string | null;
   daysOfWeek: number[];
   repeatInterval: number;
 }

@@ -17,11 +17,7 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { deleteSchedule } from "@/lib/actions/delete-schedule";
 import { useRouter } from "next/navigation";
-
-interface DeleteScheduleButtonProps {
-  scheduleId: number;
-  scheduleName: string;
-}
+import { DeleteScheduleButtonProps } from "@/types";
 
 export default function DeleteScheduleButton({
   scheduleId,

@@ -44,7 +44,6 @@ export async function generateSchedule({
       throw new Error("Invalid start date");
     }
 
-    // Create a new date object to avoid timezone issues
     const adjustedStartDate = new Date(startDate);
     adjustedStartDate.setHours(12, 0, 0, 0);
 

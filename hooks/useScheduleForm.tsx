@@ -1,14 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import type { ShiftSegment } from "@/types";
-
-interface ScheduleFormState {
-  segments: ShiftSegment[];
-  totalDays: number | undefined;
-  startDate: Date;
-  scheduleName: string;
-}
+import type { ShiftSegment, ScheduleFormState } from "@/types";
 
 export function useScheduleForm(initialState: ScheduleFormState) {
   const [segments, setSegments] = useState<ShiftSegment[]>(
@@ -55,8 +48,7 @@ export function useScheduleForm(initialState: ScheduleFormState) {
         setTotalDays(value);
         break;
       case "startDate":
-        // Create a new date object and set to noon to avoid timezone issues
-        const newDate = new Date(value);
+        const newDate = new Date();
         newDate.setHours(12, 0, 0, 0);
         setStartDate(newDate);
         break;

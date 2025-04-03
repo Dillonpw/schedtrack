@@ -52,8 +52,9 @@ export default function GenerateScheduleForm() {
     const newEvent: RepeatEvent = {
       id: uuidv4(),
       description: null,
+      note: null,
       daysOfWeek: [],
-      repeatInterval: 1, // Default to every week
+      repeatInterval: 1,
     };
 
     const updatedEvents = [...(segments[0].repeatEvents || []), newEvent];

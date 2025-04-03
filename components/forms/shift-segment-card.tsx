@@ -140,54 +140,48 @@ export function SegmentCard({
           </div>
 
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            {segment.shiftType === "On" && (
-              <>
-                <div className="space-y-2">
-                  <div className="flex items-center gap-1">
-                    <Label
-                      htmlFor={`segment-title-${index}`}
-                      className="text-muted-foreground text-sm font-medium"
-                    >
-                      Shift Note
-                    </Label>
-                  </div>
-                  <Input
-                    id={`segment-note-${index}`}
-                    type="text"
-                    value={segment.note || ""}
-                    onChange={(e) =>
-                      updateSegment(index, "note", e.target.value)
-                    }
-                    placeholder="Day Shift, Night Shift, etc."
-                    onFocus={() => setFocused(true)}
-                    onBlur={() => setFocused(false)}
-                    className="w-full dark:text-black"
-                  />
-                </div>
+            <div className="space-y-2">
+              <div className="flex items-center gap-1">
+                <Label
+                  htmlFor={`segment-title-${index}`}
+                  className="text-muted-foreground text-sm font-medium"
+                >
+                  Shift Note
+                </Label>
+              </div>
+              <Input
+                id={`segment-note-${index}`}
+                type="text"
+                value={segment.note || ""}
+                onChange={(e) => updateSegment(index, "note", e.target.value)}
+                placeholder="Day Shift, Night Shift, etc."
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                className="w-full dark:text-black"
+              />
+            </div>
 
-                <div className="space-y-2">
-                  <div className="flex items-center gap-1">
-                    <Label
-                      htmlFor={`segment-description-${index}`}
-                      className="text-muted-foreground text-sm font-medium"
-                    >
-                      Description
-                    </Label>
-                  </div>
-                  <Textarea
-                    id={`segment-description-${index}`}
-                    value={segment.description || ""}
-                    onChange={(e) =>
-                      updateSegment(index, "description", e.target.value)
-                    }
-                    placeholder="What will you be doing? 🤔"
-                    onFocus={() => setFocused(true)}
-                    onBlur={() => setFocused(false)}
-                    className="w-full dark:text-black"
-                  />
-                </div>
-              </>
-            )}
+            <div className="space-y-2">
+              <div className="flex items-center gap-1">
+                <Label
+                  htmlFor={`segment-description-${index}`}
+                  className="text-muted-foreground text-sm font-medium"
+                >
+                  Description
+                </Label>
+              </div>
+              <Textarea
+                id={`segment-description-${index}`}
+                value={segment.description || ""}
+                onChange={(e) =>
+                  updateSegment(index, "description", e.target.value)
+                }
+                placeholder="What will you be doing? 🤔"
+                onFocus={() => setFocused(true)}
+                onBlur={() => setFocused(false)}
+                className="w-full dark:text-black"
+              />
+            </div>
           </div>
         </div>
       </CardContent>

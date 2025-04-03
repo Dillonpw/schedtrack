@@ -165,27 +165,31 @@ function CalendarView({
                               scheduleId={entry.scheduleId}
                               entry={{
                                 id: entry.id,
-                                shift: entry.shift as "On" | "Off",
-                                note: entry.note,
-                                description: entry.description,
+                                shift: (entry.overrides?.shift ||
+                                  entry.shift) as "On" | "Off",
+                                note: entry.overrides?.note ?? entry.note,
+                                description:
+                                  entry.overrides?.description ??
+                                  entry.description,
                                 repeatEvents: entry.repeatEvents,
                               }}
                             />
                           </div>
-                          {entry.shift === "On" && entry.note && (
+                          {(entry.overrides?.note ?? entry.note) && (
                             <div className="mt-1">
                               <Badge
                                 variant="outline"
                                 className="text-xs whitespace-nowrap"
                               >
-                                {entry.note}
+                                {entry.overrides?.note ?? entry.note}
                               </Badge>
                             </div>
                           )}
                         </div>
-                        {entry.shift === "On" && entry.description && (
+                        {(entry.overrides?.description ??
+                          entry.description) && (
                           <p className="text-muted-foreground mt-2 text-sm">
-                            {entry.description}
+                            {entry.overrides?.description ?? entry.description}
                           </p>
                         )}
                       </div>
@@ -234,27 +238,32 @@ function CalendarView({
                                   scheduleId={entry.scheduleId}
                                   entry={{
                                     id: entry.id,
-                                    shift: entry.shift as "On" | "Off",
-                                    note: entry.note,
-                                    description: entry.description,
+                                    shift: (entry.overrides?.shift ||
+                                      entry.shift) as "On" | "Off",
+                                    note: entry.overrides?.note ?? entry.note,
+                                    description:
+                                      entry.overrides?.description ??
+                                      entry.description,
                                     repeatEvents: entry.repeatEvents,
                                   }}
                                 />
                               </div>
-                              {entry.shift === "On" && entry.note && (
+                              {(entry.overrides?.note ?? entry.note) && (
                                 <div className="mt-1">
                                   <Badge
                                     variant="outline"
                                     className="text-xs whitespace-nowrap"
                                   >
-                                    {entry.note}
+                                    {entry.overrides?.note ?? entry.note}
                                   </Badge>
                                 </div>
                               )}
                             </div>
-                            {entry.shift === "On" && entry.description && (
+                            {(entry.overrides?.description ??
+                              entry.description) && (
                               <p className="text-muted-foreground/80 text-sm">
-                                {entry.description}
+                                {entry.overrides?.description ??
+                                  entry.description}
                               </p>
                             )}
                           </div>
