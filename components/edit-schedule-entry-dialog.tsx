@@ -90,8 +90,8 @@ export function EditScheduleEntryDialog({
       const result = await updateScheduleEntry(scheduleId, entry.id, {
         id: entry.id,
         shift: values.shift,
-        note: values.note || null,
-        description: values.description || null,
+        note: values.shift === "Off" ? null : values.note || null,
+        description: values.shift === "Off" ? null : values.description || null,
         repeatEvents: values.repeatEvents,
       });
 

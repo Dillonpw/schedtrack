@@ -39,20 +39,32 @@ export async function updateScheduleEntry(
         ? JSON.parse(schedule.schedule)
         : schedule.schedule;
 
-    const updatedEntries = entries.map((entry: any) => {
-      if (entry.id === entryId) {
-        return {
-          ...entry,
-          overrides: {
-            ...(entry.overrides || {}),
-            shift: update.shift,
-            note: update.note,
-            description: update.description,
-          },
-        };
-      }
-      return entry;
-    });
+    const updatedEntries = entries
+      .filter((entry: any) => {
+        if (entry.id === entryId) {
+          // If changing to Off and it's not a repeat event, remove it
+          if (update.shift === "Off" && !entry.repeatEvents) {
+            return false;
+          }
+          // For repeat events or On shifts, keep the entry with overrides
+          return true;
+        }
+        return true;
+      })
+      .map((entry: any) => {
+        if (entry.id === entryId) {
+          return {
+            ...entry,
+            overrides: {
+              ...(entry.overrides || {}),
+              shift: update.shift,
+              note: update.note,
+              description: update.description,
+            },
+          };
+        }
+        return entry;
+      });
 
     await db
       .update(schedules)
