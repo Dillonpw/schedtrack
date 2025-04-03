@@ -42,11 +42,9 @@ export async function updateScheduleEntry(
     const updatedEntries = entries
       .filter((entry: any) => {
         if (entry.id === entryId) {
-          // If changing to Off and it's not a repeat event, remove it
           if (update.shift === "Off" && !entry.repeatEvents) {
             return false;
           }
-          // For repeat events or On shifts, keep the entry with overrides
           return true;
         }
         return true;

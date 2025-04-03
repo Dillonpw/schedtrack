@@ -217,16 +217,6 @@ export const viewport: Viewport = {
   ],
 };
 
-// Google Ads script generation
-export function generateScripts() {
-  return [
-    {
-      src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4500026491096816",
-      async: true,
-      crossOrigin: "anonymous",
-    },
-  ];
-}
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
