@@ -10,10 +10,11 @@ import {
   varchar,
   boolean,
 } from "drizzle-orm/pg-core";
-import { sql } from "@vercel/postgres";
-import { drizzle } from "drizzle-orm/vercel-postgres";
+import { neon } from "@neondatabase/serverless";
+import { drizzle } from "drizzle-orm/neon-http";
 import type { AdapterAccountType } from "next-auth/adapters";
 
+const sql = neon(process.env.DATABASE_URL!);
 export const db = drizzle(sql);
 
 export const users = pgTable("user", {

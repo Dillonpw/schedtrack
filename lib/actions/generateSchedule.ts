@@ -55,18 +55,16 @@ export async function generateSchedule({
     );
 
     try {
-      await db.transaction(async (tx) => {
-        await tx.insert(schedules).values({
-          userId,
-          name: name.trim(),
-          schedule: JSON.stringify(schedule),
-        });
-
-        await tx
-          .update(users)
-          .set({ lastScheduleUpdate: new Date() })
-          .where(eq(users.id, userId));
+      await db.insert(schedules).values({
+        userId,
+        name: name.trim(),
+        schedule: JSON.stringify(schedule),
       });
+
+      await db
+        .update(users)
+        .set({ lastScheduleUpdate: new Date() })
+        .where(eq(users.id, userId));
 
       revalidatePath("/schedule");
     } catch (dbError) {
