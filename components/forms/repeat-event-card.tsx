@@ -102,7 +102,7 @@ export function WeeklyScheduleCard({
               value={event.note || ""}
               onChange={(e) => onUpdate(event.id, "note", e.target.value)}
               placeholder="Day Shift, Night Shift, etc."
-              className="w-full dark:text-black"
+              className="text-foreground w-full"
             />
           </div>
 
@@ -118,7 +118,7 @@ export function WeeklyScheduleCard({
                 onUpdate(event.id, "description", e.target.value)
               }
               placeholder="What will you be doing? 🤔"
-              className="w-full dark:text-black"
+              className="text-foreground w-full"
             />
           </div>
         </div>

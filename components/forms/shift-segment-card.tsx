@@ -134,7 +134,7 @@ export function SegmentCard({
                 }}
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}
-                className="w-full dark:text-black"
+                className="text-foreground w-full"
               />
             </div>
           </div>
@@ -157,7 +157,7 @@ export function SegmentCard({
                 placeholder="Day Shift, Night Shift, etc."
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}
-                className="w-full dark:text-black"
+                className="text-foreground w-full"
               />
             </div>
 
@@ -179,7 +179,7 @@ export function SegmentCard({
                 placeholder="What will you be doing? 🤔"
                 onFocus={() => setFocused(true)}
                 onBlur={() => setFocused(false)}
-                className="w-full dark:text-black"
+                className="text-foreground w-full"
               />
             </div>
           </div>

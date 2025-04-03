@@ -48,7 +48,7 @@ export function useScheduleForm(initialState: ScheduleFormState) {
         setTotalDays(value);
         break;
       case "startDate":
-        const newDate = new Date();
+        const newDate = new Date(value);
         newDate.setHours(12, 0, 0, 0);
         setStartDate(newDate);
         break;
