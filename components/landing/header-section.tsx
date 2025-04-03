@@ -12,7 +12,7 @@ const Header = ({ children }: HeaderProps) => {
         className="flex items-center justify-center"
         prefetch={true}
       >
-        <Image src="/favicon.png" alt="Icon" width={24} height={24} />
+        <Image src="/favicon.png" alt="Icon" width={32} height={32} />
         <p className="ml-2 hidden text-xl font-semibold md:inline">
           Sched Track
         </p>

@@ -1,8 +1,6 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Mail, Calendar, Twitter, Github, Instagram } from "lucide-react";
-
+import Image from "next/image";
 export default function Footer() {
   return (
     <footer className="bg-background border-primary/10 border-t">
@@ -11,13 +9,18 @@ export default function Footer() {
           <div className="space-y-4">
             <Link href="/" className="inline-block">
               <div className="flex items-center">
-                <Calendar className="text-primary mr-2 h-6 w-6" />
+                <Image
+                  src="/favicon.png"
+                  alt="Sched Track"
+                  width={32}
+                  height={32}
+                />
                 <span className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-xl font-bold text-transparent">
                   Sched Track
                 </span>
               </div>
             </Link>
-            <p className="text-muted-foreground max-w-xs text-sm">
+            <p className="text-muted-foreground ml-2 max-w-xs text-sm">
               Simplify your life.
             </p>
           </div>
