@@ -7,11 +7,9 @@ import ClientScheduleView from "./schedule-view";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar } from "lucide-react";
 import DeleteScheduleButton from "@/components/delete-schedule";
-import { unstable_noStore as noStore } from "next/cache";
 import type { ScheduleEntryWithName, ScheduleInfo } from "@/types";
 
 export default async function ScheduleData() {
-  noStore();
 
   try {
     const session = await auth();
