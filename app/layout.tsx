@@ -217,7 +217,6 @@ export const viewport: Viewport = {
   ],
 };
 
-
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
@@ -228,11 +227,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           GeistMono.variable,
         )}
       >
-        <BlurBackground
-          primaryColor="bg-primary/20"
-          secondaryColor="bg-secondary/20"
-          accentColor="bg-accent/15"
-        />
+        <BlurBackground />
         <div className="relative z-10">
           <Providers>
             <SessionProvider>
