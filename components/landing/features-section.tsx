@@ -40,7 +40,7 @@ export default function Component() {
             viewport={{ once: true }}
             className="space-y-2"
           >
-            <h2 className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-4xl font-bold tracking-tighter text-transparent">
+            <h2 className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-3xl font-bold tracking-tighter text-transparent sm:text-4xl md:text-5xl lg:text-6xl">
               The Schedule Builder That Does It All
             </h2>
             <p className="text-muted-foreground mx-auto max-w-[700px] text-lg">

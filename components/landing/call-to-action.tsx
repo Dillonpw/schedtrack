@@ -8,7 +8,7 @@ export default function CallToAction() {
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-12">
           <div className="space-y-4">
-            <h2 className="from-primary to-secondary bg-gradient-to-r pb-1 bg-clip-text text-3xl font-bold tracking-tighter text-transparent sm:text-4xl md:text-5xl">
+            <h2 className="from-primary to-secondary bg-gradient-to-r bg-clip-text pb-1 text-3xl font-bold tracking-tighter text-transparent sm:text-4xl md:text-5xl lg:text-6xl">
               Ready to simplify your scheduling?
             </h2>
             <p className="text-muted-foreground max-w-[600px] md:text-xl">

@@ -49,7 +49,7 @@ export default function Faq() {
     >
       <div className="container mx-auto px-4 md:px-6">
         <motion.h4
-          className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-4xl font-bold tracking-tighter text-transparent"
+          className="from-primary to-secondary bg-gradient-to-r bg-clip-text pb-1 text-center text-3xl font-bold tracking-tighter text-transparent sm:text-4xl md:text-5xl lg:text-6xl"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}

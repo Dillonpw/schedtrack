@@ -76,7 +76,7 @@ export default function TestimonialsSection() {
             viewport={{ once: true }}
             className="space-y-2"
           >
-            <h3 className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-4xl font-bold tracking-tighter text-transparent">
+            <h3 className="from-primary to-secondary bg-gradient-to-r bg-clip-text pb-1 text-3xl font-bold tracking-tighter text-transparent sm:text-4xl md:text-5xl lg:text-6xl">
               What People Are Building
             </h3>
             <p className="text-muted-foreground mx-auto max-w-[700px] text-lg">
