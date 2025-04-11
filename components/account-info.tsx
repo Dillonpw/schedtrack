@@ -20,6 +20,7 @@ import {
   CalendarDays,
   MessageSquare,
   Settings,
+  User,
 } from "lucide-react";
 
 const AccountInfo = async () => {
@@ -31,7 +32,7 @@ const AccountInfo = async () => {
   return (
     <div className="border-border w-full border-b-2">
       <div className="mx-auto flex items-center justify-between px-2 pb-2 md:px-6 lg:container lg:mx-auto">
-        <div className="flex">
+        <div className="flex gap-1 md:gap-2">
           <Button
             asChild
             variant="ghost"
@@ -59,19 +60,34 @@ const AccountInfo = async () => {
             </Link>
           </Button>
           {session?.user && (
-            <Button
-              asChild
-              variant="ghost"
-              className="hover:bg-transparent focus:bg-transparent"
-            >
-              <Link
-                href="/feedback"
-                className="hover:text-primary flex items-center no-underline"
+            <>
+              <Button
+                asChild
+                variant="ghost"
+                className="hover:bg-transparent focus:bg-transparent"
               >
-                <MessageSquare className="hover:stroke-primary block h-8 w-8 transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-6 sm:hidden" />
-                <span className="hidden sm:block">Feedback</span>
-              </Link>
-            </Button>
+                <Link
+                  href="/feedback"
+                  className="hover:text-primary flex items-center no-underline"
+                >
+                  <MessageSquare className="hover:stroke-primary block h-8 w-8 transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-6 sm:hidden" />
+                  <span className="hidden sm:block">Feedback</span>
+                </Link>
+              </Button>
+              <Button
+                asChild
+                variant="ghost"
+                className="hover:bg-transparent focus:bg-transparent"
+              >
+                <Link
+                  href="/account"
+                  className="hover:text-primary flex items-center no-underline"
+                >
+                  <User className="hover:stroke-primary block h-8 w-8 transition-all duration-300 ease-in-out hover:scale-110 hover:rotate-6 sm:hidden" />
+                  <span className="hidden sm:block">Account</span>
+                </Link>
+              </Button>
+            </>
           )}
           {isAdmin && (
             <Button
@@ -92,11 +108,6 @@ const AccountInfo = async () => {
         <div className="flex items-center gap-2">
           {session?.user ? (
             <>
-              {username && (
-                <p className="text-xs font-medium select-none md:text-lg">
-                  {username}
-                </p>
-              )}
               <AlertDialog>
                 <AlertDialogTrigger asChild>
                   <Button variant="outline" size="sm">
@@ -109,7 +120,9 @@ const AccountInfo = async () => {
                       Are you sure you want to sign out?
                     </AlertDialogTitle>
                     <AlertDialogDescription>
-                      You will need to sign back in to see your schedule.
+                      You are currently signed in as{" "}
+                      <span className="font-medium">{username}</span>. You will
+                      need to sign back in to see your schedule.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter className="flex flex-row items-center justify-end gap-2">
@@ -122,7 +135,7 @@ const AccountInfo = async () => {
                         Cancel
                       </Button>
                     </AlertDialogCancel>
-                    <SignOut size="sm" className="mt-2 w-[80px] sm:mt-0" />
+                    <SignOut size="sm" className="mt-2 sm:mt-0" />
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>

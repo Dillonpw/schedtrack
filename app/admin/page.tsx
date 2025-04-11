@@ -1,4 +1,4 @@
-import { db } from "@/db";
+import { db } from "@/db/index";
 import { users, schedules, feedbacks } from "@/db/schema";
 import { desc, eq, sql, like } from "drizzle-orm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";

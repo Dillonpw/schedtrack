@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@/auth";
-import { db } from "@/db";
+import { db } from "@/db/index";
 import { feedbacks } from "@/db/schema";
 import { revalidatePath } from "next/cache";
 
