@@ -35,7 +35,6 @@ export default async function GeneratePage() {
 
   return (
     <main className="">
-      <AccountInfo />
       <div className="mx-auto">
         <GenerateScheduleForm />
       </div>

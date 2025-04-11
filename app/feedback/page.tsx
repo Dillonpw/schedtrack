@@ -33,7 +33,6 @@ export default async function FeedbackPage() {
 
   return (
     <>
-      <AccountInfo />
       <div className="container mx-auto p-8">
         <h1 className="mb-4 text-2xl font-bold">Share Your Feedback</h1>
         <Card className="border-primary/20 relative mb-8 border p-6 shadow-lg">

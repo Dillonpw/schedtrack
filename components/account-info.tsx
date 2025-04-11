@@ -135,7 +135,7 @@ const AccountInfo = async () => {
                         Cancel
                       </Button>
                     </AlertDialogCancel>
-                    <SignOut size="sm" className="mt-2 sm:mt-0" />
+                    <SignOut />
                   </AlertDialogFooter>
                 </AlertDialogContent>
               </AlertDialog>

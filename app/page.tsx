@@ -8,7 +8,6 @@ import CallToAction from "@/components/landing/call-to-action";
 const Home = () => {
   return (
     <div className="flex min-h-[100vh] w-full flex-col items-center">
-      <AccountInfo />
       <HeroSection />
       <FeaturesSection />
       <TestimonialsSection />

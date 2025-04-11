@@ -12,6 +12,7 @@ import Script from "next/script";
 import { Metadata, Viewport } from "next";
 import Donation from "@/components/donation-link";
 import BlurBackground from "@/components/ui/blur-background";
+import AccountInfo from "@/components/account-info";
 
 export const metadata: Metadata = {
   title: "Rotating Schedule Builder for everything and everyone",
@@ -234,6 +235,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <Header>
                 <Nav />
               </Header>
+              <AccountInfo />
               {children}
             </SessionProvider>
           </Providers>

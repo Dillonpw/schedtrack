@@ -16,7 +16,6 @@ export default async function AccountPage() {
 
   return (
     <main>
-      <AccountInfo />
       <div className="container mx-auto p-8">
         <h1 className="mb-8 text-2xl font-bold">Account Management</h1>
         <AccountStatistics />

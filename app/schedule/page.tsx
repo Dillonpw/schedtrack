@@ -35,7 +35,6 @@ export default async function SchedulePage() {
   }
   return (
     <main>
-      <AccountInfo />
       {session?.user ? (
         <>
           <ScheduleData />
