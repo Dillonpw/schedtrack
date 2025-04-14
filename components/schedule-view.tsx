@@ -19,15 +19,15 @@ import { cn } from "@/lib/utils";
 
 const colorPalette = [
   "bg-blue-600",
-  "bg-green-600",
-  "bg-purple-600",
   "bg-amber-600",
-  "bg-pink-600",
+  "bg-purple-600",
+  "bg-green-600",
+  "bg-rose-600",
   "bg-teal-600",
   "bg-red-600",
   "bg-indigo-600",
   "bg-emerald-600",
-  "bg-rose-600",
+  "bg-pink-600",
 ];
 
 function CalendarView({
@@ -141,7 +141,7 @@ function CalendarView({
                   <PopoverTrigger asChild>
                     <div className="flex items-center">
                       <div
-                        className={`h-2 w-2 cursor-pointer rounded-full border border-current/30 sm:h-3 sm:w-3 lg:hidden ${scheduleColors[scheduleName]} text-[${scheduleColors[scheduleName]}] transition-colors hover:opacity-60`}
+                        className={`h-2 w-2 cursor-pointer rounded-full border border-current/30 sm:h-3 sm:w-3 lg:hidden ${scheduleColors[scheduleName]} text-[${scheduleColors[scheduleName]}]`}
                         title={scheduleName}
                       />
                       <Badge
@@ -241,12 +241,15 @@ function CalendarView({
           Day: ({ date, ...props }: DayProps) => {
             const { displayMonth, ...dayProps } = props;
             const isOutsideMonth = displayMonth.getMonth() !== date.getMonth();
+            const isToday = date.toDateString() === new Date().toDateString();
             return (
               <div
                 {...dayProps}
                 className={cn(
                   "border-border dark:outline-border group relative aspect-square rounded-sm border p-0 sm:border-2 dark:outline-1",
                   isOutsideMonth && "opacity-40",
+                  isToday &&
+                    "border-primary/50 bg-primary/5 dark:bg-primary/10 border-2 shadow-sm sm:border-3",
                 )}
               >
                 {renderDay(date)}
@@ -264,23 +267,18 @@ function getConsistentColors(
   existingColors: Record<string, string> = {},
 ): Record<string, string> {
   const colors = { ...existingColors };
-  const availableColors = [...colorPalette];
+  let colorIndex = 0;
 
-  const usedColors = Object.values(colors);
-  const unusedColors = availableColors.filter(
-    (color) => !usedColors.includes(color),
-  );
+  Object.entries(colors).forEach(([name, color]) => {
+    if (!colorPalette.includes(color)) {
+      delete colors[name];
+    }
+  });
 
   scheduleNames.forEach((name) => {
     if (!colors[name]) {
-      if (unusedColors.length > 0) {
-        const randomIndex = Math.floor(Math.random() * unusedColors.length);
-        colors[name] = unusedColors[randomIndex];
-        unusedColors.splice(randomIndex, 1);
-      } else {
-        const randomIndex = Math.floor(Math.random() * availableColors.length);
-        colors[name] = availableColors[randomIndex];
-      }
+      colors[name] = colorPalette[colorIndex % colorPalette.length];
+      colorIndex++;
     }
   });
 
@@ -366,105 +364,96 @@ export default function ClientScheduleView({
 
   return (
     <div className="container mx-auto px-2 py-4 sm:px-4 sm:py-6">
-      <div className="mb-4 flex flex-col gap-4 sm:mb-6 sm:flex-row sm:items-center sm:justify-between md:mx-20 lg:mx-40">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
-          <Suspense
-            fallback={
-              <div className="bg-muted h-10 w-32 animate-pulse rounded-md"></div>
-            }
-          >
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button
-                  variant="outline"
-                  className="text-foreground flex w-full items-center justify-center gap-2 sm:w-auto"
-                >
-                  <Filter className="h-4 w-4" />
-                  <span>Schedules</span>
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="bg-card w-56">
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="all-schedules"
-                      checked={visibleSchedules.length === scheduleNames.length}
-                      onCheckedChange={(checked) =>
-                        toggleAllSchedules(checked === true)
-                      }
-                    />
-                    <label
-                      htmlFor="all-schedules"
-                      className="text-foreground cursor-pointer text-sm leading-none font-medium"
-                    >
-                      All Schedules
-                    </label>
-                  </div>
-                  <div className="border-border border-t pt-3">
-                    {scheduleNames.map((name) => (
-                      <div
-                        key={name}
-                        className="flex items-center space-x-2 py-1"
-                      >
-                        <Checkbox
-                          id={`schedule-${name}`}
-                          checked={visibleSchedules.includes(name)}
-                          onCheckedChange={() => toggleSchedule(name)}
-                        />
-                        <div className="flex items-center gap-2">
-                          <div
-                            className={`h-3 w-3 rounded-full ${scheduleColorsRef.current[name]}`}
-                          />
-                          <label
-                            htmlFor={`schedule-${name}`}
-                            className="text-foreground max-w-[150px] cursor-pointer truncate text-sm leading-none font-medium"
-                          >
-                            {name}
-                          </label>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </PopoverContent>
-            </Popover>
-          </Suspense>
-        </div>
-      </div>
-
-      <Suspense
-        fallback={
-          <div className="flex h-10 items-center gap-2">
-            <div className="bg-muted h-6 w-24 animate-pulse rounded-full"></div>
-            <div className="bg-muted h-6 w-24 animate-pulse rounded-full"></div>
-          </div>
-        }
-      >
-        <div className="mb-4 flex flex-wrap gap-2 sm:gap-3">
-          {scheduleNames.map(
-            (name) =>
-              visibleSchedules.includes(name) && (
-                <div
-                  key={name}
-                  className="group bg-card flex cursor-default items-center gap-2 rounded-full border px-2 py-1 text-xs transition-all select-none hover:shadow-md sm:px-3 sm:py-1.5 sm:text-sm"
-                >
+      <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+        <div className="w-full overflow-visible sm:max-w-[calc(100%-150px)]">
+          <div className="flex flex-wrap gap-2 sm:gap-3">
+            {scheduleNames.map(
+              (name) =>
+                visibleSchedules.includes(name) && (
                   <div
-                    className={`h-2 w-2 rounded-full ${scheduleColorsRef.current[name]}`}
-                  />
-                  {name}
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="hover:bg-accent ml-1 h-3 w-3 p-3 opacity-50 transition-opacity group-hover:opacity-100 hover:text-red-700"
-                    onClick={() => toggleSchedule(name)}
+                    key={name}
+                    className="group bg-card flex cursor-default items-center gap-2 rounded-full border px-2 py-1 text-xs transition-all select-none sm:px-3 sm:py-1.5 sm:text-sm"
                   >
-                    <X className="h-3 w-3" />
-                  </Button>
-                </div>
-              ),
-          )}
+                    <div
+                      className={`h-2 w-2 rounded-full ${scheduleColorsRef.current[name]}`}
+                    />
+                    {name}
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="hover:bg-accent ml-1 h-3 w-3 p-3 opacity-50 transition-opacity group-hover:opacity-100 hover:text-red-700"
+                      onClick={() => toggleSchedule(name)}
+                    >
+                      <X className="h-3 w-3" />
+                    </Button>
+                  </div>
+                ),
+            )}
+          </div>
         </div>
-      </Suspense>
+
+        <Suspense
+          fallback={
+            <div className="bg-muted h-10 w-32 animate-pulse rounded-md"></div>
+          }
+        >
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className="text-foreground flex w-[120px] shrink-0 items-center justify-center gap-2"
+              >
+                <Filter className="h-4 w-4" />
+                <span>Schedules</span>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="bg-card w-56" align="end">
+              <div className="space-y-3">
+                <div className="flex items-center space-x-2">
+                  <Checkbox
+                    id="all-schedules"
+                    checked={visibleSchedules.length === scheduleNames.length}
+                    onCheckedChange={(checked) =>
+                      toggleAllSchedules(checked === true)
+                    }
+                  />
+                  <label
+                    htmlFor="all-schedules"
+                    className="text-foreground cursor-pointer text-sm leading-none font-medium"
+                  >
+                    All Schedules
+                  </label>
+                </div>
+                <div className="border-border border-t pt-3">
+                  {scheduleNames.map((name) => (
+                    <div
+                      key={name}
+                      className="flex items-center space-x-2 py-1"
+                    >
+                      <Checkbox
+                        id={`schedule-${name}`}
+                        checked={visibleSchedules.includes(name)}
+                        onCheckedChange={() => toggleSchedule(name)}
+                      />
+                      <div className="flex items-center gap-2">
+                        <div
+                          className={`h-3 w-3 rounded-full ${scheduleColorsRef.current[name]}`}
+                        />
+                        <label
+                          htmlFor={`schedule-${name}`}
+                          className="text-foreground max-w-[150px] cursor-pointer truncate text-sm leading-none font-medium"
+                        >
+                          {name}
+                        </label>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </PopoverContent>
+          </Popover>
+        </Suspense>
+      </div>
 
       <Suspense
         fallback={

@@ -3,14 +3,13 @@ import { schedules } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
 import type { ScheduleEntry } from "@/types";
-import ClientScheduleView from "./schedule-view";
 import { Card, CardContent } from "@/components/ui/card";
 import { Calendar } from "lucide-react";
 import DeleteScheduleButton from "@/components/delete-schedule";
 import type { ScheduleEntryWithName, ScheduleInfo } from "@/types";
+import ScheduleTabs from "./schedule-tabs";
 
 export default async function ScheduleData() {
-
   try {
     const session = await auth();
     if (!session || !session.user?.id) {
@@ -98,7 +97,7 @@ export default async function ScheduleData() {
     return (
       <section>
         <div className="mt-6">
-          <ClientScheduleView scheduleEntriesData={scheduleEntriesData} />
+          <ScheduleTabs scheduleEntriesData={scheduleEntriesData} />
         </div>
 
         <div className="mt-6 border-t-2 px-4">

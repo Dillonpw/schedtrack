@@ -202,11 +202,6 @@ export function EditScheduleEntryDialog({
                 />
               </>
             )}
-            {entry.repeatEvents && (
-              <div className="text-muted-foreground text-sm">
-                This is a recurring event. You can only modify the shift status.
-              </div>
-            )}
             <div className="flex justify-end gap-2">
               <Button
                 type="button"
