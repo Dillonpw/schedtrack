@@ -1,7 +1,6 @@
 import { Metadata, Viewport } from "next";
 import { auth } from "@/auth";
 import ScheduleData from "@/components/schedule-data";
-import AccountInfo from "@/components/account-info";
 import { SignIn } from "@/components/sign-in";
 
 export const metadata: Metadata = {

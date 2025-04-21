@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
 
 interface BlurBackgroundProps {
   primaryColor?: string;
@@ -16,12 +15,7 @@ export default function BlurBackground({
 }: BlurBackgroundProps) {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden">
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="relative h-full w-full"
-      >
+      <div className="relative h-full w-full">
         {/* Primary blob */}
         <div
           className={`animate-blob absolute -top-24 -left-20 h-72 w-72 rounded-full ${primaryColor} opacity-70 mix-blend-multiply blur-3xl filter`}
@@ -46,7 +40,7 @@ export default function BlurBackground({
         <div
           className={`animate-blob animation-delay-1000 absolute top-1/4 right-1/3 h-32 w-32 rounded-full ${secondaryColor} opacity-50 mix-blend-multiply blur-xl filter`}
         />
-      </motion.div>
+      </div>
     </div>
   );
 }
