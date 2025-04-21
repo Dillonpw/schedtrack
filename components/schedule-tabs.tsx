@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useTabStore } from "@/lib/tabs-store";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import ClientScheduleView from "@/components/schedule-view";
 import TodayView from "@/components/today-view";
@@ -11,22 +11,10 @@ export default function ScheduleTabs({
 }: {
   scheduleEntriesData: ScheduleEntryWithName[];
 }) {
-  const [activeTab, setActiveTab] = useState("schedule");
-
-  useEffect(() => {
-    const savedTab = localStorage.getItem("scheduleActiveTab");
-    if (savedTab === "schedule" || savedTab === "today") {
-      setActiveTab(savedTab);
-    }
-  }, []);
-
-  const handleTabChange = (value: string) => {
-    setActiveTab(value);
-    localStorage.setItem("scheduleActiveTab", value);
-  };
+  const { activeTab, setActiveTab } = useTabStore();
 
   return (
-    <Tabs value={activeTab} onValueChange={handleTabChange} className="w-full">
+    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
       <div className="mb-4 flex justify-center">
         <TabsList>
           <TabsTrigger value="schedule">Calendar</TabsTrigger>
