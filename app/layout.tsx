@@ -137,15 +137,9 @@ export const metadata: Metadata = {
     siteName: "Sched Track",
     images: [
       {
-        url: "/schedule-dt.webp",
+        url: "/twitter-img.png",
         width: 1200,
         height: 630,
-        alt: "Sched Track | Rotating Schedule Builder",
-      },
-      {
-        url: "/schedule-dt-small.webp",
-        width: 600,
-        height: 315,
         alt: "Sched Track | Rotating Schedule Builder",
       },
     ],
@@ -162,9 +156,9 @@ export const metadata: Metadata = {
       "Create schedules for any activity that doesn't follow a consistent weekly pattern. From shift work to alternating custody arrangements, club meetings to sports leagues - Sched Track handles all your variable scheduling needs.",
     images: [
       {
-        url: "https://www.schedtrack.com/schedule-dt.webp",
+        url: "https://www.schedtrack.com/twitter-img.png",
         width: 1200,
-        height: 630,
+        height: 628,
         alt: "Sched Track | Rotating Schedule Builder",
       },
     ],

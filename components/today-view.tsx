@@ -45,64 +45,71 @@ export default function TodayView({
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {Object.entries(entriesBySchedule).map(([scheduleName, entries]) => (
-          <Card key={scheduleName} className="overflow-hidden">
-            <CardHeader className="bg-muted/30 border-b pb-4">
-              <CardTitle className="flex items-center gap-2 text-xl">
-                <Calendar className="h-5 w-5" />
-                {scheduleName}
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-0">
-              <div className="divide-y">
-                {entries.map((entry) => {
-                  const description =
-                    entry.overrides?.description ?? entry.description;
-                  const note = entry.overrides?.note ?? entry.note;
+          <Card
+            key={scheduleName}
+            className="border-primary/20 relative overflow-hidden border shadow-lg"
+          >
+            <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+            <div className="relative">
+              <CardHeader className="bg-primary/5 border-b pb-4">
+                <CardTitle className="flex items-center gap-2 text-xl">
+                  <Calendar className="h-5 w-5" />
+                  {scheduleName}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <div className="divide-y">
+                  {entries.map((entry) => {
+                    const description =
+                      entry.overrides?.description ?? entry.description;
+                    const note = entry.overrides?.note ?? entry.note;
 
-                  return (
-                    <div key={entry.id} className="relative p-4">
-                      <div className="mb-3 flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <span className="font-medium">{entry.dayOfWeek}</span>
+                    return (
+                      <div key={entry.id} className="relative p-4">
+                        <div className="mb-3 flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <span className="font-medium">
+                              {entry.dayOfWeek}
+                            </span>
+                          </div>
+                          <div>
+                            <EditScheduleEntryDialog
+                              scheduleId={entry.scheduleId}
+                              entry={{
+                                id: entry.id,
+                                shift: (entry.overrides?.shift ||
+                                  entry.shift) as "On" | "Off",
+                                note: entry.overrides?.note ?? entry.note,
+                                description:
+                                  entry.overrides?.description ??
+                                  entry.description,
+                                repeatEvents: entry.repeatEvents,
+                              }}
+                            />
+                          </div>
                         </div>
-                        <div>
-                          <EditScheduleEntryDialog
-                            scheduleId={entry.scheduleId}
-                            entry={{
-                              id: entry.id,
-                              shift: (entry.overrides?.shift || entry.shift) as
-                                | "On"
-                                | "Off",
-                              note: entry.overrides?.note ?? entry.note,
-                              description:
-                                entry.overrides?.description ??
-                                entry.description,
-                              repeatEvents: entry.repeatEvents,
-                            }}
-                          />
-                        </div>
+
+                        {description && (
+                          <div className="mb-2 flex items-start gap-2">
+                            <FileText className="text-muted-foreground mt-1 h-4 w-4 shrink-0" />
+                            <p className="text-sm">{description}</p>
+                          </div>
+                        )}
+
+                        {note && (
+                          <div className="flex items-start gap-2">
+                            <StickyNote className="text-muted-foreground mt-1 h-4 w-4 shrink-0" />
+                            <p className="text-muted-foreground text-sm">
+                              {note}
+                            </p>
+                          </div>
+                        )}
                       </div>
-
-                      {description && (
-                        <div className="mb-2 flex items-start gap-2">
-                          <FileText className="text-muted-foreground mt-1 h-4 w-4 shrink-0" />
-                          <p className="text-sm">{description}</p>
-                        </div>
-                      )}
-
-                      {note && (
-                        <div className="flex items-start gap-2">
-                          <StickyNote className="text-muted-foreground mt-1 h-4 w-4 shrink-0" />
-                          <p className="text-muted-foreground text-sm">
-                            {note}
-                          </p>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </CardContent>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </div>
           </Card>
         ))}
       </div>
