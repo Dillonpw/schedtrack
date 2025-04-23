@@ -31,7 +31,7 @@ export default function HeroSection() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="bg-secondary/10 text-secondary mb-6 inline-flex justify-center rounded-full px-3 py-1 text-xs font-medium md:text-sm"
             >
-              The complete schedule builder
+              Finally, scheduling software that works like you do
             </motion.div>
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -39,9 +39,9 @@ export default function HeroSection() {
               transition={{ duration: 0.7, delay: 0.2 }}
               className="text-center text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl xl:text-left"
             >
-              <span className="block">Build Any Schedule</span>
+              <span className="block">Schedule Anything</span>
               <span className="from-primary to-secondary bg-gradient-to-r bg-clip-text pr-2 text-transparent">
-                Simple to Complex
+                Without The Headache
               </span>
             </motion.h1>
             <motion.p
@@ -50,9 +50,10 @@ export default function HeroSection() {
               transition={{ duration: 0.7, delay: 0.3 }}
               className="text-muted-foreground mt-4 max-w-[600px] text-center md:text-xl xl:text-left"
             >
-              Create any type of schedule with our powerful builder. From basic
-              weekly plans to complex rotating patterns that other apps can't
-              handle - we've got you covered.
+              Stop struggling with inflexible scheduling tools. Our platform
+              handles everything from simple weekly rotations to the most
+              complex shift patterns that other apps can't touch. Save hours of
+              planning time and eliminate scheduling errors for good.
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -62,7 +63,7 @@ export default function HeroSection() {
             >
               <Link href="/generate" className="w-full min-[400px]:w-auto">
                 <Button className="from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-primary-foreground group w-full bg-gradient-to-r min-[400px]:w-auto">
-                  Start Building Free
+                  Solve Your Scheduling Problems Now
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
@@ -76,11 +77,11 @@ export default function HeroSection() {
               {[
                 {
                   icon: <Calendar className="text-primary h-4 w-4" />,
-                  text: "Unlimited schedules",
+                  text: "Never worry about your schedule again",
                 },
                 {
                   icon: <Clock className="text-secondary h-4 w-4" />,
-                  text: "Optimized for shift work",
+                  text: "Handle complex rotations with ease",
                 },
                 {
                   icon: <Zap className="text-accent h-4 w-4" />,

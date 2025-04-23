@@ -5,22 +5,22 @@ import { motion } from "framer-motion";
 export default function Component() {
   const features = [
     {
-      title: "Complete Schedule Builder",
+      title: "Handle Any Schedule Complexity",
       description:
         "Build any type of schedule you need. From simple weekly plans to complex rotating patterns, our flexible system handles schedules that other apps simply can't support.",
     },
     {
-      title: "Advanced Rotation Engine",
+      title: "Specialized for Rotating Shifts",
       description:
-        "Unlike basic calendar apps, we specialize in complex patterns. Create 24/48 shifts, 4-on/3-off rotations, alternating weekends, or any custom schedule pattern you can imagine.",
+        "Unlike generic calendar tools, we're built for rotation patterns. Create fire department 24/48s, police 4-on/4-off, nursing 3-2-2-3, manufacturing continental shifts, or any pattern your organization requires.",
     },
     {
-      title: "Team Collaboration",
+      title: "Seamless Team Coordination",
       description:
         "Share schedules with your team, family, or anyone who needs access. Everyone stays updated with real-time changes, and you control who sees what.",
     },
     {
-      title: "Works Everywhere",
+      title: "Effortless Calendar Integration",
       description:
         "Access your schedules on any device with our responsive design. Whether you're at your desk or on the go, your schedules are always at your fingertips.",
     },
@@ -41,12 +41,12 @@ export default function Component() {
             className="space-y-2"
           >
             <h2 className="from-primary to-secondary bg-gradient-to-r bg-clip-text text-3xl font-bold tracking-tighter text-transparent sm:text-4xl md:text-5xl lg:text-6xl">
-              The Schedule Builder That Does It All
+              Scheduling That Works For You
             </h2>
             <p className="text-muted-foreground mx-auto max-w-[700px] text-lg">
-              Finally, a schedule builder that doesn't limit you. Create any
-              schedule pattern you can think of, from simple to complex - we
-              make it easy.
+              Stop forcing your schedule to fit limited tools. Our platform
+              adapts to your exact needs - no matter how complex your patterns
+              or unique your requirements.
             </p>
           </motion.div>
         </div>
