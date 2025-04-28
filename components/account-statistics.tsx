@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { db } from "@/db/index";
 import { schedules, users } from "@/db/schema";
-import { eq, asc } from "drizzle-orm";
+import { eq, asc, count } from "drizzle-orm";
 import { format } from "date-fns";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Calendar, Clock, FileText, User } from "lucide-react";
@@ -22,14 +22,21 @@ export default async function AccountStatistics() {
 
   const user = userData[0];
 
-  const userSchedules = await db
-    .select()
+  const scheduleCountResult = await db
+    .select({ value: count() })
+    .from(schedules)
+    .where(eq(schedules.userId, userId));
+
+  const totalSchedules = scheduleCountResult[0]?.value || 0;
+
+  const userSchedulesForStats = await db
+    .select({ schedule: schedules.schedule, createdAt: schedules.createdAt })
     .from(schedules)
     .where(eq(schedules.userId, userId))
-    .orderBy(asc(schedules.createdAt));
+    .orderBy(asc(schedules.createdAt))
+    .limit(totalSchedules > 0 ? 1 : 0);
 
-  const totalSchedules = userSchedules.length;
-  const totalEntries = userSchedules.reduce((total, schedule) => {
+  const totalEntries = userSchedulesForStats.reduce((total, schedule) => {
     const entries =
       typeof schedule.schedule === "string"
         ? JSON.parse(schedule.schedule)
@@ -37,10 +44,12 @@ export default async function AccountStatistics() {
     return total + (Array.isArray(entries) ? entries.length : 0);
   }, 0);
 
+  const earliestScheduleDate = userSchedulesForStats[0]?.createdAt;
+
   const accountCreatedDate = new Date(
     Math.min(
       user?.emailVerified?.getTime() || Infinity,
-      userSchedules[0]?.createdAt?.getTime() || Infinity,
+      earliestScheduleDate?.getTime() || Infinity,
       user?.lastScheduleUpdate?.getTime() || Infinity,
       Date.now(),
     ),

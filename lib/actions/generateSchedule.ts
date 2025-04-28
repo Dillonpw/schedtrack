@@ -4,7 +4,6 @@ import { db } from "@/db/index";
 import { schedules, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 import { auth } from "@/auth";
-import type { ShiftSegment } from "@/types";
 import { revalidatePath } from "next/cache";
 import { GenerateScheduleParams, ScheduleEntry } from "@/types";
 

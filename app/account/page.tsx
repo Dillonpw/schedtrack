@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import AccountInfo from "@/components/account-info";
 import AccountManagement from "@/components/account-management";
 import AccountStatistics from "@/components/account-statistics";
+import { Suspense } from "react";
 
 export default async function AccountPage() {
   if (!process.env.DATABASE_URL) {
@@ -18,7 +18,9 @@ export default async function AccountPage() {
     <main>
       <div className="container mx-auto p-8">
         <h1 className="mb-8 text-2xl font-bold">Account Management</h1>
-        <AccountStatistics />
+        <Suspense fallback={<div>Loading statistics...</div>}>
+          <AccountStatistics />
+        </Suspense>
         <AccountManagement />
       </div>
     </main>

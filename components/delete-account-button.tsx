@@ -15,27 +15,27 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { toast } from "sonner";
 
 export default function DeleteAccountButton() {
   const [isDeleting, setIsDeleting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const router = useRouter();
 
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
+      setErrorMessage(null);
       const response = await deleteAccount();
 
       if (response.error) {
-        toast.error(response.error);
+        setErrorMessage(response.error);
         return;
       }
 
-      toast.success("Account deleted successfully");
       router.push("/");
       router.refresh();
     } catch (error) {
-      toast.error("Failed to delete account");
+      setErrorMessage("Failed to delete account");
     } finally {
       setIsDeleting(false);
     }
@@ -56,6 +56,9 @@ export default function DeleteAccountButton() {
             account and remove all your data from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
+        {errorMessage && (
+          <div className="text-destructive mb-2 text-sm">{errorMessage}</div>
+        )}
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction

@@ -31,7 +31,6 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { updateScheduleEntry } from "@/lib/actions/edit-schedule";
 import { Pencil } from "lucide-react";
-import { toast } from "sonner";
 import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
@@ -73,6 +72,10 @@ export function EditScheduleEntryDialog({
   entry,
 }: EditScheduleEntryDialogProps) {
   const [open, setOpen] = useState(false);
+  const [statusMessage, setStatusMessage] = useState<{
+    text: string;
+    isError: boolean;
+  } | null>(null);
   const router = useRouter();
 
   const form = useForm<FormValues>({
@@ -87,6 +90,7 @@ export function EditScheduleEntryDialog({
 
   async function onSubmit(values: FormValues) {
     try {
+      setStatusMessage(null);
       const result = await updateScheduleEntry(scheduleId, entry.id, {
         id: entry.id,
         shift: values.shift,
@@ -96,17 +100,23 @@ export function EditScheduleEntryDialog({
       });
 
       if (result?.success) {
-        toast.success("Schedule entry updated successfully");
+        setStatusMessage({
+          text: "Schedule entry updated successfully",
+          isError: false,
+        });
         setOpen(false);
         router.refresh();
       } else {
         const errorMessage = result?.error || "Failed to update schedule entry";
         console.error("Update failed:", errorMessage);
-        toast.error(errorMessage);
+        setStatusMessage({ text: errorMessage, isError: true });
       }
     } catch (error) {
       console.error("Error in onSubmit:", error);
-      toast.error("An error occurred while updating the schedule entry");
+      setStatusMessage({
+        text: "An error occurred while updating the schedule entry",
+        isError: true,
+      });
     }
   }
 
@@ -129,6 +139,13 @@ export function EditScheduleEntryDialog({
             done.
           </DialogDescription>
         </DialogHeader>
+        {statusMessage && (
+          <div
+            className={`text-sm ${statusMessage.isError ? "text-destructive" : "text-green-600"} mb-2`}
+          >
+            {statusMessage.text}
+          </div>
+        )}
         <Form {...form}>
           <form
             onSubmit={(e) => {

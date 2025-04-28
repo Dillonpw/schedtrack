@@ -15,7 +15,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { toast } from "sonner";
 import {
   Card,
   CardContent,
@@ -26,15 +25,16 @@ import {
 
 export default function AccountManagement() {
   return (
-    <Card className="border-destructive/20 max-w-2xl">
-      <CardHeader>
+    <Card className="border-destructive/20 relative max-w-2xl">
+      <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 z-0 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+      <CardHeader className="relative z-10">
         <CardTitle className="text-destructive">Danger Zone</CardTitle>
         <CardDescription>
           Once you delete your account, there is no going back. Please be
           certain.
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="relative z-10">
         <DeleteAccountButton />
       </CardContent>
     </Card>
@@ -43,32 +43,39 @@ export default function AccountManagement() {
 
 export function DeleteAccountButton() {
   const [isDeleting, setIsDeleting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [open, setOpen] = useState(false);
   const router = useRouter();
 
   const handleDelete = async () => {
     try {
       setIsDeleting(true);
+      setErrorMessage(null);
       const response = await deleteAccount();
 
       if (response.error) {
-        toast.error(response.error);
+        setErrorMessage(response.error);
         return;
       }
 
-      toast.success("Account deleted successfully");
       router.push("/");
       router.refresh();
     } catch (error) {
-      toast.error("Failed to delete account");
+      setErrorMessage("Failed to delete account");
     } finally {
       setIsDeleting(false);
+      setOpen(false);
     }
   };
 
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive" disabled={isDeleting}>
+        <Button
+          variant="destructive"
+          disabled={isDeleting}
+          onClick={() => setOpen(true)}
+        >
           {isDeleting ? "Deleting..." : "Delete Account"}
         </Button>
       </AlertDialogTrigger>
@@ -80,6 +87,9 @@ export function DeleteAccountButton() {
             account and remove all your data from our servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
+        {errorMessage && (
+          <div className="text-destructive mb-2 text-sm">{errorMessage}</div>
+        )}
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
