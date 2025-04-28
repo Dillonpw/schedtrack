@@ -25,18 +25,20 @@ import {
 
 export default function AccountManagement() {
   return (
-    <Card className="border-destructive/20 relative max-w-2xl">
-      <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 z-0 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
-      <CardHeader className="relative z-10">
-        <CardTitle className="text-destructive">Danger Zone</CardTitle>
-        <CardDescription>
-          Once you delete your account, there is no going back. Please be
-          certain.
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="relative z-10">
-        <DeleteAccountButton />
-      </CardContent>
+    <Card className="border-destructive/30 relative border shadow-lg">
+      <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+      <div className="relative">
+        <CardHeader>
+          <CardTitle className="text-destructive">Danger Zone</CardTitle>
+          <CardDescription>
+            Once you delete your account, there is no going back. Please be
+            certain.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <DeleteAccountButton />
+        </CardContent>
+      </div>
     </Card>
   );
 }

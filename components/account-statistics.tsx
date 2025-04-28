@@ -61,69 +61,89 @@ export default async function AccountStatistics() {
 
   return (
     <div className="mb-8 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-      <Card className="md:col-span-2 lg:col-span-4">
-        <CardHeader className="flex flex-row items-center justify-center">
-          <CardTitle className="text-xl font-medium">{username}</CardTitle>
-        </CardHeader>
-      </Card>
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Account Created</CardTitle>
-          <User className="text-muted-foreground h-4 w-4" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">
-            {format(accountCreatedDate, "MMM d, yyyy")}
-          </div>
-          <p className="text-muted-foreground text-xs">
-            {format(accountCreatedDate, "h:mm a")}
-          </p>
-        </CardContent>
+      <Card className="border-primary/20 relative border shadow-lg md:col-span-2 lg:col-span-4">
+        <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+        <div className="relative">
+          <CardHeader className="flex flex-row items-center justify-center">
+            <CardTitle className="text-xl font-medium">{username}</CardTitle>
+          </CardHeader>
+        </div>
       </Card>
 
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Total Schedules</CardTitle>
-          <Calendar className="text-muted-foreground h-4 w-4" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">{totalSchedules}</div>
-          <p className="text-muted-foreground text-xs">
-            {totalSchedules === 1 ? "schedule" : "schedules"} created
-          </p>
-        </CardContent>
+      <Card className="border-primary/20 relative border shadow-lg">
+        <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+        <div className="relative">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              Account Created
+            </CardTitle>
+            <User className="text-muted-foreground h-4 w-4" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {format(accountCreatedDate, "MMM d, yyyy")}
+            </div>
+            <p className="text-muted-foreground text-xs">
+              {format(accountCreatedDate, "h:mm a")}
+            </p>
+          </CardContent>
+        </div>
       </Card>
 
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Total Entries</CardTitle>
-          <FileText className="text-muted-foreground h-4 w-4" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">{totalEntries}</div>
-          <p className="text-muted-foreground text-xs">
-            {totalEntries === 1 ? "entry" : "entries"} across all schedules
-          </p>
-        </CardContent>
+      <Card className="border-primary/20 relative border shadow-lg">
+        <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+        <div className="relative">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">
+              Total Schedules
+            </CardTitle>
+            <Calendar className="text-muted-foreground h-4 w-4" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{totalSchedules}</div>
+            <p className="text-muted-foreground text-xs">
+              {totalSchedules === 1 ? "schedule" : "schedules"} created
+            </p>
+          </CardContent>
+        </div>
       </Card>
 
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Last Update</CardTitle>
-          <Clock className="text-muted-foreground h-4 w-4" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">
-            {lastScheduleUpdate
-              ? format(lastScheduleUpdate, "MMM d, yyyy")
-              : "Never"}
-          </div>
-          <p className="text-muted-foreground text-xs">
-            {lastScheduleUpdate
-              ? format(lastScheduleUpdate, "h:mm a")
-              : "No schedules updated yet"}
-          </p>
-        </CardContent>
+      <Card className="border-primary/20 relative border shadow-lg">
+        <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+        <div className="relative">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Entries</CardTitle>
+            <FileText className="text-muted-foreground h-4 w-4" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{totalEntries}</div>
+            <p className="text-muted-foreground text-xs">
+              {totalEntries === 1 ? "entry" : "entries"} across all schedules
+            </p>
+          </CardContent>
+        </div>
+      </Card>
+
+      <Card className="border-primary/20 relative border shadow-lg">
+        <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+        <div className="relative">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Last Update</CardTitle>
+            <Clock className="text-muted-foreground h-4 w-4" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {lastScheduleUpdate
+                ? format(lastScheduleUpdate, "MMM d, yyyy")
+                : "Never"}
+            </div>
+            <p className="text-muted-foreground text-xs">
+              {lastScheduleUpdate
+                ? format(lastScheduleUpdate, "h:mm a")
+                : "No schedules updated yet"}
+            </p>
+          </CardContent>
+        </div>
       </Card>
     </div>
   );
