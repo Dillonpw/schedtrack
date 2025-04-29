@@ -166,89 +166,110 @@ export default async function AdminPage() {
       <h1 className="mx-6 mb-8 text-left text-xl font-bold">Dashboard</h1>
 
       <div className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Card>
-          <CardHeader>
-            <CardTitle>Total Users</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold">{stats.totalUsers}</p>
-          </CardContent>
+        <Card className="border-primary/20 relative border shadow-lg">
+          <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+          <div className="relative">
+            <CardHeader>
+              <CardTitle>Total Users</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-3xl font-bold">{stats.totalUsers}</p>
+            </CardContent>
+          </div>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Active Users (30d)</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold">{stats.activeUsers}</p>
-            <p className="text-sm text-gray-500">
-              {((stats.activeUsers / stats.totalUsers) * 100).toFixed(1)}% of
-              total users
-            </p>
-          </CardContent>
+        <Card className="border-primary/20 relative border shadow-lg">
+          <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+          <div className="relative">
+            <CardHeader>
+              <CardTitle>Active Users (30d)</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-3xl font-bold">{stats.activeUsers}</p>
+              <p className="text-sm text-gray-500">
+                {((stats.activeUsers / stats.totalUsers) * 100).toFixed(1)}% of
+                total users
+              </p>
+            </CardContent>
+          </div>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Avg Schedules/User</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold">{stats.avgSchedulesPerUser}</p>
-            <p className="text-sm text-gray-500">
-              Across {stats.totalSchedules} total schedules
-            </p>
-          </CardContent>
+        <Card className="border-primary/20 relative border shadow-lg">
+          <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+          <div className="relative">
+            <CardHeader>
+              <CardTitle>Avg Schedules/User</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-3xl font-bold">{stats.avgSchedulesPerUser}</p>
+              <p className="text-sm text-gray-500">
+                Across {stats.totalSchedules} total schedules
+              </p>
+            </CardContent>
+          </div>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Total Feedback</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-3xl font-bold">{stats.totalFeedbacks}</p>
-            <p className="text-sm text-gray-500">
-              {((stats.totalFeedbacks / stats.totalUsers) * 100).toFixed(1)}%
-              feedback rate
-            </p>
-          </CardContent>
+        <Card className="border-primary/20 relative border shadow-lg">
+          <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+          <div className="relative">
+            <CardHeader>
+              <CardTitle>Total Feedback</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-3xl font-bold">{stats.totalFeedbacks}</p>
+              <p className="text-sm text-gray-500">
+                {((stats.totalFeedbacks / stats.totalUsers) * 100).toFixed(1)}%
+                feedback rate
+              </p>
+            </CardContent>
+          </div>
         </Card>
       </div>
 
       <div className="mb-8 grid grid-cols-1 gap-4">
-        <Card>
-          <CardHeader>
-            <CardTitle>Schedules Created (Last 30 Days)</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <BarChartComponent
-              data={stats.schedulesByDay}
-              xKey="date"
-              yKey="count"
-              title=""
-            />
-          </CardContent>
+        <Card className="border-primary/20 relative border shadow-lg">
+          <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+          <div className="relative">
+            <CardHeader>
+              <CardTitle>Schedules Created (Last 30 Days)</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <BarChartComponent
+                data={stats.schedulesByDay}
+                xKey="date"
+                yKey="count"
+                title=""
+              />
+            </CardContent>
+          </div>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Device Usage</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <PieChartComponent data={stats.deviceUsage} title="" />
-          </CardContent>
+        <Card className="border-primary/20 relative border shadow-lg">
+          <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+          <div className="relative">
+            <CardHeader>
+              <CardTitle>Device Usage</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <PieChartComponent data={stats.deviceUsage} title="" />
+            </CardContent>
+          </div>
         </Card>
-        <Card>
-          <CardHeader>
-            <CardTitle>Feedback Received (Last 30 Days)</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <LineChartComponent
-              data={stats.feedbackByDay}
-              xKey="date"
-              yKey="count"
-              title=""
-            />
-          </CardContent>
+        <Card className="border-primary/20 relative border shadow-lg">
+          <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+          <div className="relative">
+            <CardHeader>
+              <CardTitle>Feedback Received (Last 30 Days)</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <LineChartComponent
+                data={stats.feedbackByDay}
+                xKey="date"
+                yKey="count"
+                title=""
+              />
+            </CardContent>
+          </div>
         </Card>
       </div>
 
@@ -259,84 +280,90 @@ export default async function AdminPage() {
         </TabsList>
 
         <TabsContent value="users">
-          <Card>
-            <CardHeader>
-              <CardTitle>Recent Users</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {stats.recentUsers.map((user) => (
-                  <div
-                    key={user.id}
-                    className="flex items-center justify-between rounded-lg border p-4"
-                  >
-                    <div>
-                      <p className="font-medium">{user.name}</p>
-                      <p className="text-sm text-gray-500">{user.email}</p>
+          <Card className="border-primary/20 relative border shadow-lg">
+            <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+            <div className="relative">
+              <CardHeader>
+                <CardTitle>Recent Users</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {stats.recentUsers.map((user) => (
+                    <div
+                      key={user.id}
+                      className="flex items-center justify-between rounded-lg border p-4"
+                    >
+                      <div>
+                        <p className="font-medium">{user.name}</p>
+                        <p className="text-sm text-gray-500">{user.email}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-sm text-gray-500">
+                          Last update:{" "}
+                          {user.lastScheduleUpdate?.toLocaleDateString() ||
+                            "Never"}
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          Device: {user.deviceType || "Unknown"}
+                        </p>
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <p className="text-sm text-gray-500">
-                        Last update:{" "}
-                        {user.lastScheduleUpdate?.toLocaleDateString() ||
-                          "Never"}
-                      </p>
-                      <p className="text-sm text-gray-500">
-                        Device: {user.deviceType || "Unknown"}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </CardContent>
+                  ))}
+                </div>
+              </CardContent>
+            </div>
           </Card>
         </TabsContent>
 
         <TabsContent value="feedback">
-          <Card>
-            <CardHeader>
-              <CardTitle>Recent Feedback</CardTitle>
-              <div className="flex gap-2">
-                <Badge variant="secondary">
-                  General: {stats.feedbackCounts.general}
-                </Badge>
-                <Badge variant="destructive">
-                  Bugs: {stats.feedbackCounts.bugs}
-                </Badge>
-                <Badge variant="default">
-                  Features: {stats.feedbackCounts.features}
-                </Badge>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                {stats.recentFeedbacks.map((feedback) => {
-                  const type =
-                    feedback.text.match(/\[(.*?)\]/)?.[1] || "FEEDBACK";
-                  const text = feedback.text.replace(/\[(.*?)\]/, "").trim();
-                  return (
-                    <div key={feedback.id} className="rounded-lg border p-4">
-                      <div className="mb-2 flex items-center justify-between">
-                        <Badge
-                          variant={
-                            type === "BUG"
-                              ? "destructive"
-                              : type === "FEATURE"
-                                ? "default"
-                                : "secondary"
-                          }
-                        >
-                          {type}
-                        </Badge>
-                        <p className="text-sm text-gray-500">
-                          {feedback.date.toLocaleDateString()}
-                        </p>
+          <Card className="border-primary/20 relative border shadow-lg">
+            <div className="from-primary/50 to-secondary/50 absolute -inset-0.5 rounded-lg bg-gradient-to-r opacity-20 blur"></div>
+            <div className="relative">
+              <CardHeader>
+                <CardTitle>Recent Feedback</CardTitle>
+                <div className="flex gap-2">
+                  <Badge variant="secondary">
+                    General: {stats.feedbackCounts.general}
+                  </Badge>
+                  <Badge variant="destructive">
+                    Bugs: {stats.feedbackCounts.bugs}
+                  </Badge>
+                  <Badge variant="default">
+                    Features: {stats.feedbackCounts.features}
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {stats.recentFeedbacks.map((feedback) => {
+                    const type =
+                      feedback.text.match(/\[(.*?)\]/)?.[1] || "FEEDBACK";
+                    const text = feedback.text.replace(/\[(.*?)\]/, "").trim();
+                    return (
+                      <div key={feedback.id} className="rounded-lg border p-4">
+                        <div className="mb-2 flex items-center justify-between">
+                          <Badge
+                            variant={
+                              type === "BUG"
+                                ? "destructive"
+                                : type === "FEATURE"
+                                  ? "default"
+                                  : "secondary"
+                            }
+                          >
+                            {type}
+                          </Badge>
+                          <p className="text-sm text-gray-500">
+                            {feedback.date.toLocaleDateString()}
+                          </p>
+                        </div>
+                        <p>{text}</p>
                       </div>
-                      <p>{text}</p>
-                    </div>
-                  );
-                })}
-              </div>
-            </CardContent>
+                    );
+                  })}
+                </div>
+              </CardContent>
+            </div>
           </Card>
         </TabsContent>
       </Tabs>

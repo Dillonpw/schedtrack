@@ -1,4 +1,4 @@
-"use server";
+"use client";
 
 import { auth } from "@/auth";
 import Link from "next/link";
@@ -22,12 +22,29 @@ import {
   Settings,
   User,
 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 
-const AccountInfo = async () => {
-  const session = await auth();
+const AccountInfo = () => {
+  const { data: session } = useSession();
   const email: string | null | undefined = session?.user?.email;
   const username = email?.split("@")[0];
-  const isAdmin = email === process.env.ADMIN_EMAIL;
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    // Check if user is admin on client side
+    // This is a simplification - in production, use a more secure approach
+    const adminCheck = async () => {
+      if (email) {
+        // You might want to add a server action to check this securely
+        setIsAdmin(process.env.NEXT_PUBLIC_ADMIN_EMAIL === email);
+      } else {
+        setIsAdmin(false);
+      }
+    };
+
+    adminCheck();
+  }, [email]);
 
   return (
     <div className="border-border w-full border-b-2">
